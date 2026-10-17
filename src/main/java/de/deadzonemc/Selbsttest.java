@@ -72,7 +72,7 @@ public final class Selbsttest {
     private static void karte(MinecraftServer server) {
         ServerLevel level = server.overworld();
         BlockPos spawn = level.getSharedSpawnPos();
-        int r = 40;
+        int r = 28;
         LOG.info("[Selbsttest] Draufsicht (Norden oben), Spawn = X");
         for (int z = spawn.getZ() - r; z <= spawn.getZ() + r; z++) {
             StringBuilder zeile = new StringBuilder();
@@ -189,8 +189,22 @@ public final class Selbsttest {
                 BlockPos spawn = level.getSharedSpawnPos();
                 int x = spawn.getX() + Integer.parseInt(teile[2]);
                 int z = spawn.getZ() + Integer.parseInt(teile[3]);
-                level.getChunk(x >> 4, z >> 4);
-                int y = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                int y = 0;
+                // trockenen Boden in der Nähe suchen
+                suche:
+                for (int versuch = 0; versuch < 40; versuch++) {
+                    int px = x + (versuch % 8) * 6 - 21;
+                    int pz = z + (versuch / 8) * 6 - 12;
+                    level.getChunk(px >> 4, pz >> 4);
+                    int py = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, px, pz);
+                    BlockState unten = level.getBlockState(new BlockPos(px, py - 1, pz));
+                    if (unten.getFluidState().isEmpty() && unten.isSolid() && level.getBlockState(new BlockPos(px, py, pz)).isAir()) {
+                        x = px;
+                        y = py;
+                        z = pz;
+                        break suche;
+                    }
+                }
                 befehl = "place feature deadzonemc:" + teile[1] + " " + x + " " + y + " " + z;
             }
             if (befehl.equals("#karte")) {

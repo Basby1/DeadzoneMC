@@ -83,8 +83,13 @@ def main():
     karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss"))]
     rest = [a for a in antworten if a not in karte]
     melden("notice", "Antworten des Testservers", "\n".join(rest[:200]))
-    if karte:
-        melden("notice", "Karte", "\n".join(karte))
+    # Jede Karte als eigene Meldung (GitHub kürzt lange Meldungen)
+    abschnitt = []
+    for a in karte + ["Ende"]:
+        if not a.startswith("|") and abschnitt:
+            melden("notice", abschnitt[0], "\n".join(abschnitt[1:]))
+            abschnitt = []
+        abschnitt.append(a)
     print("\n\n========== ZUSAMMENFASSUNG ==========")
     for a in antworten:
         print(a)
