@@ -59,6 +59,14 @@ public final class Selbsttest {
             "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
             "#monster",
             "kill @e[type=#deadzonemc:monster]",
+            "deadzone basis stufe sicher",
+            "setblock ~ ~10 ~40 deadzonemc:notstromgenerator",
+            "summon deadzonemc:wanderer ~3 ~11 ~43",
+            "summon deadzonemc:juggernaut ~-3 ~11 ~37",
+            "#warten", "#warten", "#warten",
+            "deadzone basis info",
+            "execute positioned ~ ~10 ~40 run #monsterzahl",
+            "deadzone basis stufe belagerung",
             "save-all"
     );
 
@@ -455,6 +463,13 @@ public final class Selbsttest {
             if (befehl.startsWith("#stadtkarte")) {
                 String[] t = befehl.split(" ");
                 stadtkarte(server, Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+                return;
+            }
+            if (befehl.endsWith("#monsterzahl")) {
+                BlockPos sp = server.overworld().getSharedSpawnPos().offset(0, 10, 40);
+                int n = server.overworld().getEntitiesOfClass(de.deadzonemc.monster.DeadzoneMonster.class,
+                        new net.minecraft.world.phys.AABB(sp).inflate(20)).size();
+                LOG.info("[Selbsttest] Monster im Basisbereich nach 4 s: {} (erwartet 0)", n);
                 return;
             }
             if (befehl.equals("#waffen")) {

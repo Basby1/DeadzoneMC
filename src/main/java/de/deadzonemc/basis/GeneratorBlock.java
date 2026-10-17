@@ -72,9 +72,16 @@ public class GeneratorBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState zustand, LivingEntity wer, ItemStack stack) {
+    protected void onPlace(BlockState zustand, Level level, BlockPos pos, BlockState alt, boolean bewegt) {
+        super.onPlace(zustand, level, pos, alt, bewegt);
         if (level instanceof ServerLevel sl) {
             Basen.holen(sl).setzen(pos, radius(zustand));
+        }
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState zustand, LivingEntity wer, ItemStack stack) {
+        if (level instanceof ServerLevel sl) {
             if (wer instanceof ServerPlayer p) {
                 p.setRespawnPosition(sl.dimension(), pos.above(), 0, true, false);
                 p.displayClientMessage(Component.translatable("basis.deadzonemc.gegruendet", radius(zustand))
