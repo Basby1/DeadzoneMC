@@ -39,6 +39,7 @@ public final class Selbsttest {
             "locate biome deadzonemc:vorstadt",
             "locate biome deadzonemc:toter_wald",
             "#wasser",
+            "#uebersicht",
             "#stadtkarte 0 0",
             "#stadtkarte 400 0",
             "#stadtkarte 0 400",
@@ -258,6 +259,32 @@ public final class Selbsttest {
         LOG.info("[Selbsttest] Anteile der Stadtkarte {} {}: {}", mx, mz, anteil);
     }
 
+    /** Grobe Weltübersicht 3240×3240 Blöcke (1 Zeichen = 40 Blöcke) aus dem Generator: ~ Wasser, . Land, ^ Berge. */
+    private static void uebersicht(MinecraftServer server) {
+        ServerLevel level = server.overworld();
+        var h = de.deadzonemc.welt.stadt.KachelStruktur.hoehen(level.getChunkSource().getGenerator(), level,
+                level.getChunkSource().randomState());
+        BlockPos spawn = level.getSharedSpawnPos();
+        int meer = level.getSeaLevel();
+        int r = 40;
+        LOG.info("[Selbsttest] Übersicht Nord (1 Zeichen = 40 Blöcke, X = Spawn)");
+        for (int iz = -r; iz <= r; iz++) {
+            if (iz == 1) {
+                LOG.info("[Selbsttest] Übersicht Süd");
+            }
+            StringBuilder zeile = new StringBuilder();
+            for (int ix = -r; ix <= r; ix++) {
+                if (ix == 0 && iz == 0) {
+                    zeile.append('X');
+                    continue;
+                }
+                int b = h.boden(spawn.getX() + ix * 40, spawn.getZ() + iz * 40);
+                zeile.append(b < meer - 1 ? '~' : b > 115 ? '^' : '.');
+            }
+            LOG.info("[Selbsttest] |{}|", zeile);
+        }
+    }
+
     private static char zeichen(BlockState b, boolean draufsicht) {
         if (b.isAir()) {
             return ' ';
@@ -372,6 +399,10 @@ public final class Selbsttest {
             if (befehl.startsWith("#stadtkarte")) {
                 String[] t = befehl.split(" ");
                 stadtkarte(server, Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+                return;
+            }
+            if (befehl.equals("#uebersicht")) {
+                uebersicht(server);
                 return;
             }
             if (befehl.equals("#karte")) {

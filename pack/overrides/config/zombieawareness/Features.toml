@@ -1,0 +1,16 @@
+[general]
+	awareness_Sound = true
+	awareness_Scent = true
+	awareness_Light = true
+	noisyZombies = true
+	noisyPistons = true
+	#Umherziehende Zombiegruppen wie in DayZ
+	wanderingHordes = true
+	frequencyOfWanderingHordesPerPlayer = 30
+	soundVolumeInvestigate = 0.5
+	soundVolumeAlertTarget = 0.5
+	soundAlerts = true
+	soundAlertsForAllAttackingMobs = false
+	soundInvestigates = true
+	soundUseAlternateAlertNoise = false
+	awareness_Sound_OverworldOnly = false

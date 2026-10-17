@@ -132,7 +132,7 @@ def main():
         if geladen:
             melden("notice", "Geladene Mods", "\n".join(geladen))
 
-    karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss", "Stadtkarte"))]
+    karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss", "Stadtkarte", "Übersicht"))]
     rest = [a for a in antworten if a not in karte]
     melden("notice", "Antworten des Testservers", "\n".join(rest[:200]))
     # Jede Karte als eigene Meldung (GitHub kürzt lange Meldungen)

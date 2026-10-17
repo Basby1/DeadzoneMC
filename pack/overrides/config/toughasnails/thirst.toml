@@ -1,0 +1,15 @@
+[general]
+	#Durst sinkt langsamer als im Original (8.0) – spürbar, aber nicht nervig
+	exhaustion_threshold = 12.0
+
+[drink_options]
+	hand_drinking_hydration = 0.1
+	hand_drinking_thirst = 1
+
+[toggles]
+	thirst_prevent_sprint = true
+	thirst_prevent_health_regen = true
+	enable_thirst = true
+	remove_source_blocks = false
+	#Notfalls aus Gewässern mit der Hand trinken (wenig, und das Wasser ist schmutzig)
+	enable_hand_drinking = true

@@ -1,0 +1,35 @@
+[general]
+	consumable_effect_duration = 1200
+	#Temperatur ändert sich langsamer und Schaden kommt seltener als im Original
+	temperature_change_delay = 800
+	player_temperature_change_delay = 200
+	temperature_modifier_order = ["player_modifiers", "item_modifier", "armor_modifier", "internal_modifier"]
+	extremity_damage_delay = 900
+	internal_temperature_change_delay = 20
+	armor_temperature_change_delay = 50
+	handheld_temperature_change_delay = 375
+	climate_clemency_respawning = true
+	climate_clemency_duration = 6000
+	extremity_rebound_temperature_change_delay = 250
+
+[altitude]
+	temperature_drop_altitude = 160
+	temperature_rise_altitude = -32
+	environmental_modifier_altitude = 50
+
+[immersion]
+	wet_ticks = 40
+	powdered_snow_temperature_change = -2
+	snow_temperature_change = -1
+	wet_temperature_change = -1
+	on_fire_temperature_change = 2
+
+[blocks]
+	near_heat_cool_proximity = 8
+
+[toggles]
+	enable_temperature = true
+
+[time]
+	night_hot_temperature_change = -2
+	night_temperature_change = -1

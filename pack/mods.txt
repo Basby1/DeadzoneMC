@@ -22,7 +22,6 @@ mc-mods/rotten-creatures                both
 mc-mods/improved-mobs                   both
 mc-mods/enhanced-celestials             both
 mc-mods/naturalist                      both
-mc-mods/cave-dweller-overhaul           both
 mc-mods/in-control                      both
 
 # --- Survival ---

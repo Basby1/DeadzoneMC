@@ -1,0 +1,62 @@
+[Misc]
+	zombiesBurn = false
+	skeletonsBurn = false
+	zombieVillagersCanBeCured = false
+	piglinsHoglinsConvert = false
+	aggressiveZombieHorses = true
+	zombieHorsesBurn = false
+	skeletonHorsesBurn = false
+	zombiesScareHorses = true
+	zombiePiglinsHostile = true
+	piglinsHuntZombies = true
+	piglinsCureThemself = true
+	illagersHuntZombies = true
+	zoglinsAttackUndead = false
+	zoglinsAttackMobs = true
+
+["Horde Event"]
+	enableHordeEvent = true
+	hordesCommandOnly = false
+	spawnAmount = 15
+	hordeSpawnMultiplier = 1.05
+	hordeSpawnDuration = 6000
+	hordeSpawnInterval = 600
+	hordeStartTime = 18000
+	#Wie bei 7 Days to Die: jede 7. Nacht kommt die Horde
+	hordeSpawnDays = 7
+	hordeSpawnVariation = 0
+	hordeSpawnMax = 160
+	dayLength = 24000
+	hordePathingInterval = 25
+	hordeEntitySpeed = 1.0
+	spawnFirstDay = false
+	canSleepDuringHorde = false
+	hordePreventsOtherPlayersSleeping = true
+	hordeMultiplayerScaling = 0.8
+	pauseEventServer = true
+	hordeEventByPlayerTime = true
+	hordeStartBuffer = 1200
+	hordeSpawnChecks = 25
+	hordeSpawnDistance = 75.0
+
+[Infection]
+	enableMobInfection = true
+	infectPlayers = true
+	infectSlowness = true
+	infectHunger = true
+	playerInfectionResistance = 0.25
+	#Mehr Zeit, um Medizin zu finden (Original 6000 = 5 Minuten pro Stufe)
+	ticksForEffectStage = 9000
+	infectionSpawnsZombiePlayers = true
+	infectionEntitiesAggroConversions = true
+	effectStageTickReduction = 0.95
+
+["Zombie Players"]
+	zombieGraves = false
+	drownedPlayers = true
+	huskPlayers = true
+	zombiePlayersFireImmune = false
+	zombiePlayersBurn = false
+	zombiePlayersOnlyHurtByPlayers = false
+	zombiePlayersStoreItems = true
+	zombiePlayersDespawnPeaceful = false

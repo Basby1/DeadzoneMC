@@ -1,0 +1,21 @@
+{
+  "extends": "default",
+  "description": "Deadzone MC: große, zerfallene Städte, mehr Ruinen und Trümmer",
+  "cities": {
+    "cityChance": 0.02,
+    "cityMinRadius": 80,
+    "cityMaxRadius": 220,
+    "cityThreshold": 0.15
+  },
+  "explosions": {
+    "explosionChance": 0.004,
+    "miniExplosionChance": 0.07
+  },
+  "lostcity": {
+    "ruinChance": 0.25,
+    "buildingChance": 0.45,
+    "chestWithoutLootChance": 0.35,
+    "randomLeafBlockChance": 0.2,
+    "rubbleLayer": true
+  }
+}
