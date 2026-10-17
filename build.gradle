@@ -60,6 +60,9 @@ neoForge {
         server {
             server()
             programArgument '--nogui'
+            if (project.hasProperty('selbsttest')) {
+                systemProperty 'deadzonemc.selbsttest', 'true'
+            }
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 

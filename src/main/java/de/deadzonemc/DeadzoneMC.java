@@ -22,5 +22,8 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(WetterSystem::dimensionGewechselt);
         NeoForge.EVENT_BUS.addListener(WetterSystem::befehleRegistrieren);
         NeoForge.EVENT_BUS.addListener(Spielstart::beimBetreten);
+        if (Selbsttest.AKTIV) {
+            NeoForge.EVENT_BUS.addListener(Selbsttest::tick);
+        }
     }
 }
