@@ -274,9 +274,22 @@ public final class Baukasten {
     /** Glasscheibe, die sich seitlich mit den Wänden verbindet. {@code quer} = Scheibe verläuft entlang lx. */
     public BlockState scheibe(Block glas, boolean entlangLx) {
         BlockState s = glas.defaultBlockState();
-        return entlangLx
-                ? s.setValue(CrossCollisionBlock.EAST, true).setValue(CrossCollisionBlock.WEST, true)
-                : s.setValue(CrossCollisionBlock.NORTH, true).setValue(CrossCollisionBlock.SOUTH, true);
+        if (s.hasProperty(CrossCollisionBlock.EAST)) {
+            return entlangLx
+                    ? s.setValue(CrossCollisionBlock.EAST, true).setValue(CrossCollisionBlock.WEST, true)
+                    : s.setValue(CrossCollisionBlock.NORTH, true).setValue(CrossCollisionBlock.SOUTH, true);
+        }
+        if (s.hasProperty(net.minecraft.world.level.block.WallBlock.EAST_WALL)) {
+            // Mauern haben andere Verbindungen als Zäune
+            var niedrig = net.minecraft.world.level.block.state.properties.WallSide.LOW;
+            s = s.setValue(net.minecraft.world.level.block.WallBlock.UP, false);
+            return entlangLx
+                    ? s.setValue(net.minecraft.world.level.block.WallBlock.EAST_WALL, niedrig)
+                    .setValue(net.minecraft.world.level.block.WallBlock.WEST_WALL, niedrig)
+                    : s.setValue(net.minecraft.world.level.block.WallBlock.NORTH_WALL, niedrig)
+                    .setValue(net.minecraft.world.level.block.WallBlock.SOUTH_WALL, niedrig);
+        }
+        return s;
     }
 
     /** Zaunstück, das sich zu beiden Seiten verbindet. */
