@@ -105,6 +105,12 @@ acceptable-game-versions = ["1.21"]
             inhalt = re.sub(r'^side = ".*"$', f'side = "{seite}"', inhalt, flags=re.M)
             with open(datei, "w") as f:
                 f.write(inhalt)
+            # Shader gehören in shaderpacks (packwiz legt sie je nach Version woanders ab)
+            if pfad.startswith("shaders/") and os.path.basename(os.path.dirname(datei)) != "shaderpacks":
+                ziel = os.path.join(PACK, "shaderpacks")
+                os.makedirs(ziel, exist_ok=True)
+                shutil.move(datei, os.path.join(ziel, os.path.basename(datei)))
+                ok.append(f"  (verschoben aus {os.path.relpath(datei, PACK)})")
         namen = [os.path.basename(d).replace(".pw.toml", "") for d in neu]
         ok.append(f"{pfad} -> {', '.join(namen)}")
 
