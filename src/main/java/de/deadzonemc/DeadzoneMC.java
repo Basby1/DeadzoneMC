@@ -33,6 +33,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::respawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::schaden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::tick);
+        NeoForge.EVENT_BUS.addListener(Tod::gestorben);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::betreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::respawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.welt.Ortsbefehle::registrieren);
