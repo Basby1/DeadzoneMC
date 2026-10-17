@@ -1188,27 +1188,27 @@
   "subtitle": "subtitles.deadzonemc.sauger.ambient",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/sniff1",
+    "name": "minecraft:mob/warden/sniff_1",
     "pitch": 1.3,
     "volume": 0.7
    },
    {
-    "name": "minecraft:mob/warden/sniff2",
+    "name": "minecraft:mob/warden/sniff_2",
     "pitch": 1.3,
     "volume": 0.7
    },
    {
-    "name": "minecraft:mob/warden/sniff3",
+    "name": "minecraft:mob/warden/sniff_3",
     "pitch": 1.3,
     "volume": 0.7
    },
    {
-    "name": "minecraft:mob/warden/sniff4",
+    "name": "minecraft:mob/warden/sniff_4",
     "pitch": 1.3,
     "volume": 0.7
    },
    {
-    "name": "minecraft:mob/warden/sniff5",
+    "name": "minecraft:mob/warden/sniff_5",
     "pitch": 1.3,
     "volume": 0.7
    }
@@ -1987,22 +1987,22 @@
   "subtitle": "subtitles.deadzonemc.strahlende.ambient",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/heartbeat1",
+    "name": "minecraft:mob/warden/heartbeat_1",
     "pitch": 0.8,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/heartbeat2",
+    "name": "minecraft:mob/warden/heartbeat_2",
     "pitch": 0.8,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/heartbeat3",
+    "name": "minecraft:mob/warden/heartbeat_3",
     "pitch": 0.8,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/heartbeat4",
+    "name": "minecraft:mob/warden/heartbeat_4",
     "pitch": 0.8,
     "volume": 1.0
    }
@@ -2072,31 +2072,31 @@
   "subtitle": "subtitles.deadzonemc.strahlende.brullen",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/roar1",
+    "name": "minecraft:mob/warden/roar_1",
     "pitch": 0.7,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar2",
+    "name": "minecraft:mob/warden/roar_2",
     "pitch": 0.7,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar3",
+    "name": "minecraft:mob/warden/roar_3",
     "pitch": 0.7,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar4",
+    "name": "minecraft:mob/warden/roar_4",
     "pitch": 0.7,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar5",
+    "name": "minecraft:mob/warden/roar_5",
     "pitch": 0.7,
     "volume": 1.0,
     "attenuation_distance": 64
@@ -2107,7 +2107,7 @@
   "subtitle": "subtitles.deadzonemc.strahlende.puls",
   "sounds": [
    {
-    "name": "minecraft:block/beacon/power_select",
+    "name": "minecraft:block/beacon/power1",
     "pitch": 0.6,
     "volume": 1.0
    }
@@ -2613,27 +2613,27 @@
   "subtitle": "subtitles.deadzonemc.schlund.ambient",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/ambient1",
+    "name": "minecraft:mob/warden/ambient_1",
     "pitch": 0.5,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/ambient2",
+    "name": "minecraft:mob/warden/ambient_2",
     "pitch": 0.5,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/ambient3",
+    "name": "minecraft:mob/warden/ambient_3",
     "pitch": 0.5,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/ambient4",
+    "name": "minecraft:mob/warden/ambient_4",
     "pitch": 0.5,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/ambient5",
+    "name": "minecraft:mob/warden/ambient_5",
     "pitch": 0.5,
     "volume": 1.0
    }
@@ -2643,22 +2643,22 @@
   "subtitle": "subtitles.deadzonemc.schlund.hurt",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/hurt1",
+    "name": "minecraft:mob/warden/hurt_1",
     "pitch": 0.6,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/hurt2",
+    "name": "minecraft:mob/warden/hurt_2",
     "pitch": 0.6,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/hurt3",
+    "name": "minecraft:mob/warden/hurt_3",
     "pitch": 0.6,
     "volume": 1.0
    },
    {
-    "name": "minecraft:mob/warden/hurt4",
+    "name": "minecraft:mob/warden/hurt_4",
     "pitch": 0.6,
     "volume": 1.0
    }
@@ -2668,7 +2668,12 @@
   "subtitle": "subtitles.deadzonemc.schlund.death",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/death",
+    "name": "minecraft:mob/warden/death_1",
+    "pitch": 0.5,
+    "volume": 1.0
+   },
+   {
+    "name": "minecraft:mob/warden/death_2",
     "pitch": 0.5,
     "volume": 1.0
    }
@@ -2678,31 +2683,31 @@
   "subtitle": "subtitles.deadzonemc.schlund.brullen",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/roar1",
+    "name": "minecraft:mob/warden/roar_1",
     "pitch": 0.5,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar2",
+    "name": "minecraft:mob/warden/roar_2",
     "pitch": 0.5,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar3",
+    "name": "minecraft:mob/warden/roar_3",
     "pitch": 0.5,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar4",
+    "name": "minecraft:mob/warden/roar_4",
     "pitch": 0.5,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar5",
+    "name": "minecraft:mob/warden/roar_5",
     "pitch": 0.5,
     "volume": 1.0,
     "attenuation_distance": 64
@@ -2948,31 +2953,31 @@
   "subtitle": "subtitles.deadzonemc.erfrorene.brullen",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/roar1",
+    "name": "minecraft:mob/warden/roar_1",
     "pitch": 1.3,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar2",
+    "name": "minecraft:mob/warden/roar_2",
     "pitch": 1.3,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar3",
+    "name": "minecraft:mob/warden/roar_3",
     "pitch": 1.3,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar4",
+    "name": "minecraft:mob/warden/roar_4",
     "pitch": 1.3,
     "volume": 1.0,
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/warden/roar5",
+    "name": "minecraft:mob/warden/roar_5",
     "pitch": 1.3,
     "volume": 1.0,
     "attenuation_distance": 64
@@ -3003,17 +3008,17 @@
     "volume": 1.0
    },
    {
-    "name": "minecraft:dig/glass1",
+    "name": "minecraft:random/glass1",
     "pitch": 0.7,
     "volume": 1.0
    },
    {
-    "name": "minecraft:dig/glass2",
+    "name": "minecraft:random/glass2",
     "pitch": 0.7,
     "volume": 1.0
    },
    {
-    "name": "minecraft:dig/glass3",
+    "name": "minecraft:random/glass3",
     "pitch": 0.7,
     "volume": 1.0
    }

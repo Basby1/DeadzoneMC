@@ -13,8 +13,12 @@ WURZEL = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file_
 ZIEL = os.path.join(WURZEL, "src", "main", "resources", "assets", "deadzonemc", "sounds.json")
 
 
-def reihe(pfad, anzahl, pitch=1.0, volume=1.0, start=1):
-    return [{"name": f"minecraft:{pfad}{i}", "pitch": pitch, "volume": volume} for i in range(start, start + anzahl)]
+def reihe(pfad, anzahl, pitch=1.0, volume=1.0, start=1, trenner=""):
+    return [{"name": f"minecraft:{pfad}{trenner}{i}", "pitch": pitch, "volume": volume} for i in range(start, start + anzahl)]
+
+
+def warden(was, anzahl, pitch=1.0, volume=1.0):
+    return reihe("mob/warden/" + was, anzahl, pitch, volume, trenner="_")
 
 
 def eins(pfad, pitch=1.0, volume=1.0):
@@ -79,7 +83,7 @@ SOUNDS = {
     "wuehler.hurt": reihe("mob/silverfish/hit", 3, 0.4),
     "wuehler.death": eins("mob/spider/death", 0.4),
     "wuehler.graben": eins("mob/warden/dig", 1.2),
-    "sauger.ambient": reihe("mob/warden/sniff", 5, 1.3, 0.7),
+    "sauger.ambient": warden("sniff", 5, 1.3, 0.7),
     "sauger.hurt": reihe("mob/endermen/hit", 4, 0.7),
     "sauger.death": eins("mob/endermen/death", 0.5),
     "sauger.saugen": eins("mob/wolf/panting", 0.4) + reihe("mob/slime/attack", 2, 0.5),
@@ -114,12 +118,12 @@ SOUNDS = {
     "nebelmutter.hurt": reihe("mob/vex/hurt", 2, 0.35),
     "nebelmutter.death": eins("mob/ghast/death", 0.5),
     "nebelmutter.brullen": reihe("mob/ghast/scream", 5, 0.4),
-    "strahlende.ambient": reihe("mob/warden/heartbeat", 4, 0.8),
+    "strahlende.ambient": warden("heartbeat", 4, 0.8),
     "strahlende.hurt": reihe("mob/irongolem/hit", 4, 0.6),
     "strahlende.death": eins("mob/irongolem/death", 0.5),
     "strahlende.step": reihe("mob/irongolem/walk", 4, 0.6),
-    "strahlende.brullen": reihe("mob/warden/roar", 5, 0.7),
-    "strahlende.puls": eins("block/beacon/power_select", 0.6),
+    "strahlende.brullen": warden("roar", 5, 0.7),
+    "strahlende.puls": eins("block/beacon/power1", 0.6),
     "brutkoenigin.ambient": reihe("mob/spider/say", 4, 0.4),
     "brutkoenigin.hurt": reihe("mob/silverfish/hit", 3, 0.35),
     "brutkoenigin.death": eins("mob/spider/death", 0.3),
@@ -141,10 +145,10 @@ SOUNDS = {
     "hirte.hurt": reihe("mob/evocation_illager/hurt", 2, 0.6),
     "hirte.death": reihe("mob/evocation_illager/death", 2, 0.6),
     "hirte.glocke": eins("block/bell/bell_use01", 0.8) + eins("block/bell/bell_use02", 0.8),
-    "schlund.ambient": reihe("mob/warden/ambient", 5, 0.5),
-    "schlund.hurt": reihe("mob/warden/hurt", 4, 0.6),
-    "schlund.death": eins("mob/warden/death", 0.5),
-    "schlund.brullen": reihe("mob/warden/roar", 5, 0.5),
+    "schlund.ambient": warden("ambient", 5, 0.5),
+    "schlund.hurt": warden("hurt", 4, 0.6),
+    "schlund.death": warden("death", 2, 0.5),
+    "schlund.brullen": warden("roar", 5, 0.5),
     "schlund.graben": eins("mob/warden/dig", 0.7),
     "schlund.auftauchen": eins("mob/warden/emerge", 0.8),
     "pilzvater.ambient": reihe("mob/ravager/idle", 4, 0.4),
@@ -156,8 +160,8 @@ SOUNDS = {
     "erfrorene.hurt": reihe("mob/stray/hurt", 4, 0.6),
     "erfrorene.death": reihe("mob/stray/death", 2, 0.5),
     "erfrorene.step": reihe("mob/stray/step", 4, 0.6),
-    "erfrorene.brullen": reihe("mob/warden/roar", 5, 1.3),
-    "erfrorene.atem": reihe("mob/blaze/breathe", 4, 1.6) + reihe("dig/glass", 3, 0.7),
+    "erfrorene.brullen": warden("roar", 5, 1.3),
+    "erfrorene.atem": reihe("mob/blaze/breathe", 4, 1.6) + reihe("random/glass", 3, 0.7),
 }
 
 
@@ -190,8 +194,11 @@ def pruefen():
         # ähnliche vorhandene Namen als Hilfe
         tipps = set()
         for f in fehlt:
-            ordner = f.split("minecraft:")[1].rsplit("/", 1)[0]
-            tipps.update(k.replace("minecraft/sounds/", "")[:-4] for k in index if k.startswith(f"minecraft/sounds/{ordner}/"))
+            pfad = f.split("minecraft:")[1].rstrip("0123456789_")
+            tipps.update(k.replace("minecraft/sounds/", "")[:-4] for k in index if k.startswith(f"minecraft/sounds/{pfad}"))
+            if not any(t.startswith(pfad) for t in tipps):
+                ordner = pfad.rsplit("/", 1)[0]
+                tipps.update(k.replace("minecraft/sounds/", "")[:-4] for k in index if k.startswith(f"minecraft/sounds/{ordner}/"))
         text = "\n".join(fehlt) + "\n-- vorhanden in diesen Ordnern:\n" + ", ".join(sorted(tipps))[:2500]
         print("::error title=Fehlende Klangdateien::" + text.replace("\n", "%0A"))
         return 1
