@@ -17,6 +17,6 @@ public final class Netz {
     }
 
     private static void wetterEmpfangen(WetterPayload nachricht, IPayloadContext context) {
-        context.enqueueWork(() -> ClientWetter.setzen(nachricht.art()));
+        context.enqueueWork(() -> ClientWetter.setzen(nachricht.art(), nachricht.nebel()));
     }
 }

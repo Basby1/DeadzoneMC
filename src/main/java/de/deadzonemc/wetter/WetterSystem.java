@@ -83,12 +83,12 @@ public final class WetterSystem {
 
     private static void senden(ServerPlayer spieler) {
         WetterDaten daten = WetterDaten.holen(spieler.server.overworld());
-        PacketDistributor.sendToPlayer(spieler, new WetterPayload(daten.art().ordinal()));
+        PacketDistributor.sendToPlayer(spieler, new WetterPayload(daten.art().ordinal(), daten.nebel()));
     }
 
     private static void umschlagen(ServerLevel oberwelt, WetterDaten daten, boolean ankuendigen) {
         regenAnpassen(oberwelt, daten);
-        PacketDistributor.sendToAllPlayers(new WetterPayload(daten.art().ordinal()));
+        PacketDistributor.sendToAllPlayers(new WetterPayload(daten.art().ordinal(), daten.nebel()));
         if (ankuendigen) {
             Component meldung = Component.translatable("wetter.deadzonemc." + daten.art().id() + ".meldung")
                     .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
@@ -147,6 +147,10 @@ public final class WetterSystem {
         String[] namen = Arrays.stream(WetterArt.values()).map(WetterArt::id).toArray(String[]::new);
         event.getDispatcher().register(Commands.literal("deadzone")
                 .requires(quelle -> quelle.hasPermission(2))
+                .then(Commands.literal("nebel")
+                        .executes(ctx -> nebelSchalten(ctx, null))
+                        .then(Commands.literal("an").executes(ctx -> nebelSchalten(ctx, true)))
+                        .then(Commands.literal("aus").executes(ctx -> nebelSchalten(ctx, false))))
                 .then(Commands.literal("wetter")
                         .executes(WetterSystem::wetterInfo)
                         .then(Commands.argument("art", StringArgumentType.word())
@@ -155,6 +159,19 @@ public final class WetterSystem {
                                 .then(Commands.argument("minuten", IntegerArgumentType.integer(1, 600))
                                         .executes(ctx -> wetterSetzen(ctx,
                                                 IntegerArgumentType.getInteger(ctx, "minuten") * 1200))))));
+    }
+
+    private static int nebelSchalten(CommandContext<CommandSourceStack> ctx, Boolean an) {
+        ServerLevel oberwelt = ctx.getSource().getServer().overworld();
+        WetterDaten daten = WetterDaten.holen(oberwelt);
+        if (an != null) {
+            daten.nebelSetzen(an);
+            PacketDistributor.sendToAllPlayers(new WetterPayload(daten.art().ordinal(), daten.nebel()));
+        }
+        boolean jetzt = daten.nebel();
+        ctx.getSource().sendSuccess(() -> Component.translatable(jetzt ? "befehl.deadzonemc.nebel.an"
+                : "befehl.deadzonemc.nebel.aus"), an != null);
+        return 1;
     }
 
     private static int wetterInfo(CommandContext<CommandSourceStack> ctx) {

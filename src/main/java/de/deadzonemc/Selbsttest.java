@@ -34,6 +34,8 @@ public final class Selbsttest {
             "deadzone wetter saurer_regen 2",
             "deadzone wetter aschesturm",
             "deadzone wetter klar",
+            "deadzone nebel aus",
+            "deadzone nebel an",
             "#wasser",
             "locate biome deadzonemc:vorstadt",
             "locate biome deadzonemc:toter_wald",

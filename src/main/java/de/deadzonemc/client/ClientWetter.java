@@ -40,8 +40,12 @@ public final class ClientWetter {
     private ClientWetter() {
     }
 
-    public static void setzen(int nummer) {
+    /** Ob unser Nebel gezeichnet wird (per /deadzone nebel abschaltbar). */
+    private static boolean nebelAn = true;
+
+    public static void setzen(int nummer, boolean nebel) {
         art = WetterArt.ausNummer(nummer);
+        nebelAn = nebel;
     }
 
     public static WetterArt art() {
@@ -102,7 +106,7 @@ public final class ClientWetter {
 
     public static void nebel(ViewportEvent.RenderFog event) {
         ClientLevel level = Minecraft.getInstance().level;
-        if (!aktiv(level) || !bereit || event.getType() != FogType.NONE) {
+        if (!nebelAn || !aktiv(level) || !bereit || event.getType() != FogType.NONE) {
             return;
         }
         float licht = tageslicht(level, (float) event.getPartialTick());
@@ -119,7 +123,7 @@ public final class ClientWetter {
     public static void nebelFarbe(ViewportEvent.ComputeFogColor event) {
         ClientLevel level = Minecraft.getInstance().level;
         Camera kamera = event.getCamera();
-        if (!aktiv(level) || !bereit || kamera.getFluidInCamera() != FogType.NONE) {
+        if (!nebelAn || !aktiv(level) || !bereit || kamera.getFluidInCamera() != FogType.NONE) {
             return;
         }
         float licht = tageslicht(level, (float) event.getPartialTick());

@@ -52,6 +52,8 @@
   "befehl.deadzonemc.wetter.info": "Aktuelles Wetter: %s (noch etwa %s Minuten)",
   "befehl.deadzonemc.wetter.gesetzt": "Wetter gesetzt: %s",
   "befehl.deadzonemc.wetter.unbekannt": "Unbekanntes Wetter: %s",
+  "befehl.deadzonemc.nebel.an": "Nebel ist an.",
+  "befehl.deadzonemc.nebel.aus": "Nebel ist aus (nur die Sicht – das Wetter wirkt weiter).",
   "death.attack.deadzonemc.saurer_regen": "%1$s wurde vom sauren Regen verätzt",
   "death.attack.deadzonemc.saurer_regen.player": "%1$s wurde vom sauren Regen verätzt, während %2$s zusah",
   "death.attack.deadzonemc.asche": "%1$s ist in der Asche erstickt",

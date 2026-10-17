@@ -14,6 +14,7 @@ public class WetterDaten extends SavedData {
 
     private WetterArt art = WetterArt.LEICHTER_NEBEL;
     private int rest = 12_000;
+    private boolean nebel = true;
 
     public static WetterDaten holen(ServerLevel oberwelt) {
         return oberwelt.getDataStorage().computeIfAbsent(FABRIK, "deadzonemc_wetter");
@@ -26,6 +27,7 @@ public class WetterDaten extends SavedData {
             daten.art = gespeichert;
         }
         daten.rest = Math.max(20, tag.getInt("rest"));
+        daten.nebel = !tag.contains("nebel") || tag.getBoolean("nebel");
         return daten;
     }
 
@@ -33,11 +35,22 @@ public class WetterDaten extends SavedData {
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
         tag.putString("art", art.id());
         tag.putInt("rest", rest);
+        tag.putBoolean("nebel", nebel);
         return tag;
     }
 
     public WetterArt art() {
         return art;
+    }
+
+    /** Ob der Nebel angezeigt wird (zum Testen abschaltbar). */
+    public boolean nebel() {
+        return nebel;
+    }
+
+    public void nebelSetzen(boolean an) {
+        nebel = an;
+        setDirty();
     }
 
     public int rest() {

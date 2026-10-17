@@ -78,6 +78,8 @@ TEXTE = {
     "befehl.deadzonemc.wetter.info": "Aktuelles Wetter: %s (noch etwa %s Minuten)",
     "befehl.deadzonemc.wetter.gesetzt": "Wetter gesetzt: %s",
     "befehl.deadzonemc.wetter.unbekannt": "Unbekanntes Wetter: %s",
+    "befehl.deadzonemc.nebel.an": "Nebel ist an.",
+    "befehl.deadzonemc.nebel.aus": "Nebel ist aus (nur die Sicht – das Wetter wirkt weiter).",
 
     # Tod
     "death.attack.deadzonemc.saurer_regen": "%1$s wurde vom sauren Regen verätzt",
