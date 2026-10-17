@@ -88,6 +88,13 @@ public final class ModRegistry {
                             .noOcclusion()));
     public static final DeferredItem<net.minecraft.world.item.BlockItem> STRAHLENFASS_ITEM = ITEMS.registerSimpleBlockItem(STRAHLENFASS);
 
+    /** Welchen Monstern der Spieler schon begegnet ist (Handbuch). Bleibt nach dem Tod erhalten. */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.List<String>>> ENTDECKT =
+            ANHAENGE.register("entdeckt", () -> AttachmentType.<java.util.List<String>>builder(() -> java.util.List.of())
+                    .serialize(Codec.STRING.listOf())
+                    .copyOnDeath()
+                    .build());
+
     /** Aufgenommene Strahlendosis eines Spielers (0 bis 1000). Nach dem Tod wieder 0. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> STRAHLENDOSIS =
             ANHAENGE.register("strahlendosis", () -> AttachmentType.builder(() -> 0.0F)

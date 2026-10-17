@@ -122,6 +122,9 @@ public class Lauerer extends DeadzoneMonster {
         triggerAnim("aktion", "special");
         level().playSound(null, getX(), getY(), getZ(), MonsterSounds.holen(art, "schreck"), SoundSource.HOSTILE, 2.5F, 1.0F);
         p.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 50, 0));
+        if (p instanceof net.minecraft.server.level.ServerPlayer sp) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp, new de.deadzonemc.netz.SchreckPayload(2));
+        }
         Vec3 richtung = p.position().subtract(position()).normalize();
         setDeltaMovement(richtung.x * 0.8, 0.35, richtung.z * 0.8);
         hasImpulse = true;

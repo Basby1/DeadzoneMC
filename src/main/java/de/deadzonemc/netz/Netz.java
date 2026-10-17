@@ -14,6 +14,10 @@ public final class Netz {
     public static void registrieren(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(WetterPayload.TYPE, WetterPayload.STREAM_CODEC, Netz::wetterEmpfangen);
+        registrar.playToClient(SchreckPayload.TYPE, SchreckPayload.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientSchreck.start(n.staerke())));
+        registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientDaten.entdecktSetzen(n.monster())));
     }
 
     private static void wetterEmpfangen(WetterPayload nachricht, IPayloadContext context) {

@@ -20,7 +20,26 @@ public final class NotizAnzeige {
 
     /** Das Handbuch: alle Seiten handbuch.deadzonemc.1, .2, ... */
     public static void handbuch() {
-        buchZeigen("handbuch.deadzonemc.");
+        List<Component> seiten = seitenLesen("handbuch.deadzonemc.");
+        // Monsterseiten: nur, was man schon gesehen hat
+        List<String> bekannt = ClientDaten.entdeckt();
+        seiten.add(Component.translatable("handbuch.deadzonemc.monster_titel", bekannt.size(), 10));
+        for (String art : bekannt) {
+            seiten.addAll(seitenLesen("monster.deadzonemc." + art + "."));
+        }
+        Minecraft.getInstance().setScreen(new BookViewScreen(new BookViewScreen.BookAccess(seiten)));
+    }
+
+    private static List<Component> seitenLesen(String praefix) {
+        List<Component> seiten = new ArrayList<>();
+        for (int i = 1; i <= 60; i++) {
+            String schluessel = praefix + i;
+            if (!I18n.exists(schluessel)) {
+                break;
+            }
+            seiten.add(Component.translatable(schluessel));
+        }
+        return seiten;
     }
 
     private static void buchZeigen(String praefix) {

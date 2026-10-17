@@ -18,6 +18,9 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebel);
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebelFarbe);
         modBus.addListener(DeadzoneClient::renderer);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::bild);
     }
 
     private static void renderer(EntityRenderersEvent.RegisterRenderers e) {
