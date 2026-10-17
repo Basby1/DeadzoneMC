@@ -21,7 +21,7 @@ FEHLER_MUSTER = [
 ]
 
 BEFEHLS_FEHLER = [
-    "Unknown or incomplete command", "Could not find", "Failed to place", "Unknown structure",
+    "Unknown or incomplete command", "Could not find", "Failed to place feature", "Unknown structure",
     "Unknown feature", "Unknown loot table", "Invalid position", "Incorrect argument",
     "Unbekanntes Wetter", "Fehler bei /", "not loaded",
 ]
@@ -70,7 +70,7 @@ def main():
         text = zeile.split("]: ", 1)[-1].strip()
         if "[Selbsttest]" in zeile:
             im_test = True
-            antworten.append(text)
+            antworten.append(zeile.split("[Selbsttest] ", 1)[-1].rstrip("\n"))
         elif im_test and "/INFO]" in zeile and ("MinecraftServer" in zeile or "Selbsttest" in zeile):
             antworten.append("   " + text[:240])
         if ("deadzonemc" in zeile or "de.deadzonemc" in zeile) and any(m.search(zeile) for m in FEHLER_MUSTER):
@@ -80,7 +80,11 @@ def main():
         if im_test and any(f in zeile for f in BEFEHLS_FEHLER):
             probleme.append("Befehl: " + text[:300])
 
-    melden("notice", "Antworten des Testservers", "\n".join(antworten[:200]))
+    karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss"))]
+    rest = [a for a in antworten if a not in karte]
+    melden("notice", "Antworten des Testservers", "\n".join(rest[:200]))
+    if karte:
+        melden("notice", "Karte", "\n".join(karte))
     print("\n\n========== ZUSAMMENFASSUNG ==========")
     for a in antworten:
         print(a)

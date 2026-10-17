@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
@@ -90,7 +89,7 @@ public class StrassePiece extends StructurePiece {
                 if (!bereich.isInside(x, bereich.minY(), z)) {
                     continue;
                 }
-                int oben = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
+                int oben = bodenHoehe(level, x, z);
                 BlockState boden = Bau.holen(level, x, oben, z);
                 if (!boden.getFluidState().isEmpty()) {
                     // Über Wasser: ein morscher Holzsteg
@@ -134,16 +133,34 @@ public class StrassePiece extends StructurePiece {
             if (!bereich.isInside(x, bereich.minY(), z)) {
                 continue;
             }
-            int oben = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z);
+            int oben = bodenHoehe(level, x, z) + 1;
             AutowrackFeature.bauen(level, RandomSource.create(saat + i), new BlockPos(x, oben, z), bereich);
         }
+    }
+
+    /**
+     * Oberster Boden-Block (fest oder Wasser) in der Nähe der Straßenhöhe. Bäume, Blätter und
+     * Pflanzen werden übersprungen. Absichtlich ohne Höhenkarte, damit es auch beim nachträglichen
+     * Platzieren funktioniert.
+     */
+    private int bodenHoehe(WorldGenLevel level, int x, int z) {
+        for (int yy = hoehe + 20; yy > hoehe - 24; yy--) {
+            BlockState b = Bau.holen(level, x, yy, z);
+            if (!b.getFluidState().isEmpty()) {
+                return yy;
+            }
+            if (Bau.fest(b) && !b.is(net.minecraft.tags.BlockTags.LOGS)) {
+                return yy;
+            }
+        }
+        return hoehe;
     }
 
     private void mast(WorldGenLevel level, BoundingBox bereich, int x, int z) {
         if (!bereich.isInside(x, bereich.minY(), z)) {
             return;
         }
-        int boden = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z);
+        int boden = bodenHoehe(level, x, z) + 1;
         if (!Bau.fest(Bau.holen(level, x, boden - 1, z))) {
             return;
         }
