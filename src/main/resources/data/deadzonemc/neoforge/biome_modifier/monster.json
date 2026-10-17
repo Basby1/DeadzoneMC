@@ -1,16 +1,66 @@
 {
-  "type": "neoforge:add_spawns",
-  "biomes": "#minecraft:is_overworld",
-  "spawners": [
-    {"type": "deadzonemc:wanderer", "weight": 90, "minCount": 2, "maxCount": 4},
-    {"type": "deadzonemc:schreier", "weight": 12, "minCount": 1, "maxCount": 1},
-    {"type": "deadzonemc:lauerer", "weight": 18, "minCount": 1, "maxCount": 1},
-    {"type": "deadzonemc:kriecher", "weight": 14, "minCount": 1, "maxCount": 2},
-    {"type": "deadzonemc:der_stille", "weight": 3, "minCount": 1, "maxCount": 1},
-    {"type": "deadzonemc:imitator", "weight": 4, "minCount": 1, "maxCount": 1},
-    {"type": "deadzonemc:nebelwesen", "weight": 10, "minCount": 1, "maxCount": 2},
-    {"type": "deadzonemc:schwarm", "weight": 8, "minCount": 6, "maxCount": 12},
-    {"type": "deadzonemc:brut", "weight": 8, "minCount": 1, "maxCount": 1},
-    {"type": "deadzonemc:juggernaut", "weight": 2, "minCount": 1, "maxCount": 1}
-  ]
+ "type": "neoforge:add_spawns",
+ "biomes": "#minecraft:is_overworld",
+ "spawners": [
+  {
+   "type": "deadzonemc:wanderer",
+   "weight": 220,
+   "minCount": 3,
+   "maxCount": 6
+  },
+  {
+   "type": "deadzonemc:schreier",
+   "weight": 30,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:lauerer",
+   "weight": 40,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:kriecher",
+   "weight": 35,
+   "minCount": 1,
+   "maxCount": 2
+  },
+  {
+   "type": "deadzonemc:der_stille",
+   "weight": 8,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:imitator",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:nebelwesen",
+   "weight": 25,
+   "minCount": 1,
+   "maxCount": 2
+  },
+  {
+   "type": "deadzonemc:schwarm",
+   "weight": 20,
+   "minCount": 6,
+   "maxCount": 12
+  },
+  {
+   "type": "deadzonemc:brut",
+   "weight": 20,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:juggernaut",
+   "weight": 5,
+   "minCount": 1,
+   "maxCount": 1
+  }
+ ]
 }

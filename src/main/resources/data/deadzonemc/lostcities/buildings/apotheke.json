@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:apotheke"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:apotheke_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

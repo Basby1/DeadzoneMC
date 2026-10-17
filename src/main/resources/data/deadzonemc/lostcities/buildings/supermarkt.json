@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:supermarkt"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:supermarkt_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

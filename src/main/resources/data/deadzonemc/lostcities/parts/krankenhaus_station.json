@@ -1,0 +1,172 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:white_terracotta"
+   },
+   {
+    "char": "4",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:hardmobs"
+   },
+   {
+    "char": "C",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_apotheke"
+   },
+   {
+    "char": "b",
+    "block": "minecraft:white_bed[facing=south,part=foot]"
+   },
+   {
+    "char": "f",
+    "block": "minecraft:white_concrete"
+   },
+   {
+    "char": "h",
+    "block": "minecraft:white_bed[facing=south,part=head]"
+   },
+   {
+    "char": "l",
+    "block": "minecraft:ladder[facing=north]"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "r",
+    "block": "minecraft:red_carpet"
+   },
+   {
+    "char": "v",
+    "block": "minecraft:white_stained_glass_pane"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:white_stained_glass_pane"
+   },
+   {
+    "char": "x",
+    "block": "minecraft:cobweb"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "fffffffffffffflf",
+   "ffffffffffffffff"
+  ],
+  [
+   "################",
+   "#              #",
+   "# hv hv  hv hv #",
+   "# b  b   b  b  #",
+   "#      4       #",
+   "#              #",
+   "#              #",
+   "#C     r      C#",
+   "#       r      #",
+   "#     r        #",
+   "#              #",
+   "#              #",
+   "# b  b   b  b  #",
+   "# hv hv  hv hv #",
+   "#             l#",
+   "################"
+  ],
+  [
+   "##ww#ww#ww#ww###",
+   "#              #",
+   "w  v  v   v  v w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#  v  v   v  v #",
+   "#             l#",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "##ww#ww#ww#ww###",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w         x    w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "#             l#",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "################",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#      o       #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#             l#",
+   "################"
+  ],
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "fffffffffffffflf",
+   "ffffffffffffffff"
+  ]
+ ]
+}

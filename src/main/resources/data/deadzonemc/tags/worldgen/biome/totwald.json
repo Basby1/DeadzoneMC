@@ -1,0 +1,24 @@
+{
+ "values": [
+  {
+   "id": "biomesoplenty:dead_forest",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:wasteland",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:bog",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:muskeg",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:wasteland_steppe",
+   "required": false
+  }
+ ]
+}

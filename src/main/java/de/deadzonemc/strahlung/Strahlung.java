@@ -43,6 +43,10 @@ public final class Strahlung {
     private static final ResourceKey<Biome> MOOR = biom("verseuchtes_moor");
     private static final ResourceKey<Biome> OEDLAND = biom("oedland");
     private static final ResourceKey<Biome> TOTES_MEER = biom("totes_meer");
+    private static final net.minecraft.tags.TagKey<Biome> VERSEUCHT = net.minecraft.tags.TagKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "verseucht"));
+    private static final net.minecraft.tags.TagKey<Biome> GIFTGAS = net.minecraft.tags.TagKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "giftgas"));
 
     /** Letzte gemessene Rate je Spieler (für das Knacken des Geigerzählers jeden Tick). */
     private static final Map<UUID, Double> RATE = new HashMap<>();
@@ -66,6 +70,8 @@ public final class Strahlung {
         var biom = level.getBiome(pos);
         if (biom.is(MOOR)) {
             r += 1.5;
+        } else if (biom.is(VERSEUCHT)) {
+            r += 0.4;
         } else if (biom.is(OEDLAND)) {
             r += 0.5;
         } else if (biom.is(TOTES_MEER) && p.isInWater()) {
@@ -81,7 +87,8 @@ public final class Strahlung {
     }
 
     private static boolean giftgas(ServerLevel level, Player p) {
-        return level.getBiome(p.blockPosition()).is(MOOR);
+        var biom = level.getBiome(p.blockPosition());
+        return biom.is(MOOR) || biom.is(GIFTGAS);
     }
 
     public static boolean haeltGeigerzaehler(Player p) {

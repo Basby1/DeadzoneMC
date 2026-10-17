@@ -1,0 +1,40 @@
+{
+ "values": [
+  {
+   "id": "minecraft:badlands",
+   "required": false
+  },
+  {
+   "id": "minecraft:eroded_badlands",
+   "required": false
+  },
+  {
+   "id": "minecraft:wooded_badlands",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:wasteland",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:wasteland_steppe",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:volcanic_plains",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:dead_forest",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:scrubland",
+   "required": false
+  },
+  {
+   "id": "biomesoplenty:dryland",
+   "required": false
+  }
+ ]
+}

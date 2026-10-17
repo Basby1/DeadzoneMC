@@ -4,6 +4,7 @@
 # --- Welt ---
 mc-mods/the-lost-cities                 both
 mc-mods/structory                       both
+mc-mods/biomes-o-plenty                 both
 mc-mods/lootr                           both
 
 # --- Waffen & Kampf ---

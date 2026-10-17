@@ -377,8 +377,8 @@ def main():
     for name, daten in GEBIETE.items():
         schreiben(f"{MOD}/worldgen/biome/{name}.json", daten)
     schreiben(f"{MOD}/worldgen/world_preset/deadzone.json", WELTTYP)
-    # Deadzone ersetzt den normalen Welttyp: jede neue Welt ist eine Deadzone.
-    schreiben("minecraft/worldgen/world_preset/normal.json", WELTTYP)
+    # Früher ersetzte Deadzone den normalen Welttyp. Jetzt: Lost Cities + Biomes O' Plenty,
+    # unsere Deko kommt per Biom-Modifikator dazu (werkzeuge/welt_modifikatoren.py).
     for name, daten in STRUKTUREN.items():
         schreiben(f"{MOD}/worldgen/structure/{name}.json", daten)
     for name, daten in STRUKTUR_SETS.items():

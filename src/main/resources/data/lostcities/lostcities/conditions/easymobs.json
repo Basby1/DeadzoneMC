@@ -1,0 +1,20 @@
+{
+ "values": [
+  {
+   "factor": 4,
+   "value": "deadzonemc:wanderer"
+  },
+  {
+   "factor": 2,
+   "value": "deadzonemc:kriecher"
+  },
+  {
+   "factor": 1,
+   "value": "deadzonemc:schwarm"
+  },
+  {
+   "factor": 2,
+   "value": "minecraft:zombie"
+  }
+ ]
+}

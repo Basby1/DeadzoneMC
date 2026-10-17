@@ -1,0 +1,173 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:light_gray_concrete"
+   },
+   {
+    "char": "4",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:hardmobs"
+   },
+   {
+    "char": "C",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_polizei"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_buero"
+   },
+   {
+    "char": "L",
+    "block": "minecraft:bookshelf"
+   },
+   {
+    "char": "S",
+    "block": "minecraft:spruce_stairs[facing=north]"
+   },
+   {
+    "char": "f",
+    "block": "minecraft:polished_andesite"
+   },
+   {
+    "char": "l",
+    "block": "minecraft:ladder[facing=north]"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "t",
+    "block": "minecraft:spruce_slab[type=top]"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "x",
+    "block": "minecraft:cobweb"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "fffffffffffffflf",
+   "ffffffffffffffff"
+  ],
+  [
+   "################",
+   "#K           C #",
+   "#             L#",
+   "# ttt  ttt    L#",
+   "#  S    S     L#",
+   "#             L#",
+   "#             L#",
+   "#              #",
+   "#              #",
+   "# ttt  ttt     #",
+   "#  S    S      #",
+   "#              #",
+   "#           4  #",
+   "#              #",
+   "#K            l#",
+   "################"
+  ],
+  [
+   "##ww#ww#ww#ww###",
+   "#              #",
+   "w             Lw",
+   "w             Lw",
+   "#             L#",
+   "w             Lw",
+   "w    x        Lw",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "#             l#",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "##ww#ww#ww#ww###",
+   "#              #",
+   "w             Lw",
+   "w             Lw",
+   "#             L#",
+   "w             Lw",
+   "w             Lw",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "#             l#",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "################",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#      o       #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#             l#",
+   "################"
+  ],
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "fffffffffffffflf",
+   "ffffffffffffffff"
+  ]
+ ]
+}

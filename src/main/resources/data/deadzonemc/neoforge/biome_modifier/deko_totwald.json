@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#deadzonemc:totwald",
+ "features": [
+  "deadzonemc:tote_baeume_selten"
+ ],
+ "step": "vegetal_decoration"
+}

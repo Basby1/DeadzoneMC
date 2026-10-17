@@ -1,0 +1,24 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:krankenhaus_eg",
+   "floor": 0
+  },
+  {
+   "part": "deadzonemc:krankenhaus_station",
+   "floor": 1
+  },
+  {
+   "part": "deadzonemc:krankenhaus_op"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:krankenhaus_dach"
+  }
+ ],
+ "minfloors": 3,
+ "maxfloors": 3
+}

@@ -1,0 +1,12 @@
+{
+ "values": [
+  {
+   "factor": 3,
+   "value": "deadzonemc:kiste/laden_regal"
+  },
+  {
+   "factor": 1,
+   "value": "deadzonemc:kiste/stadt_laden"
+  }
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:waffenladen"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:waffenladen_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}
