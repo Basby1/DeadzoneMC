@@ -14,6 +14,7 @@ public class DeadzoneMC {
 
     public DeadzoneMC(IEventBus modBus, ModContainer container) {
         ModRegistry.registrieren(modBus);
+        de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
         modBus.addListener(Netz::registrieren);
 
         NeoForge.EVENT_BUS.addListener(WetterSystem::serverGestartet);
@@ -22,6 +23,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(WetterSystem::dimensionGewechselt);
         NeoForge.EVENT_BUS.addListener(WetterSystem::befehleRegistrieren);
         NeoForge.EVENT_BUS.addListener(Spielstart::beimBetreten);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.welt.Ortsbefehle::registrieren);
         if (Selbsttest.AKTIV) {
             NeoForge.EVENT_BUS.addListener(Selbsttest::tick);

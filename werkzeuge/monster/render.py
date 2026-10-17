@@ -29,10 +29,18 @@ def welt_matrizen(modell, mit_pose=True):
         if kn.name in cache:
             return cache[kn.name]
         dreh = list(kn.drehung)
+        pos = np.zeros(3)
+        skal = np.ones(3)
         if mit_pose and kn.name in modell.pose:
-            dreh = [a + b for a, b in zip(dreh, modell.pose[kn.name])]
+            pz = modell.pose[kn.name]
+            if isinstance(pz, dict):
+                dreh = [a + b for a, b in zip(dreh, pz.get("rotation", (0, 0, 0)))]
+                pos = np.array(pz.get("position", (0, 0, 0)), dtype=float)
+                skal = np.array(pz.get("scale", (1, 1, 1)), dtype=float)
+            else:
+                dreh = [a + b for a, b in zip(dreh, pz)]
         p = np.array(kn.drehpunkt)
-        lokal = mat4(t=p) @ mat4(r=drehmatrix(dreh)) @ mat4(t=-p)
+        lokal = mat4(t=p + pos) @ mat4(r=drehmatrix(dreh) @ np.diag(skal)) @ mat4(t=-p)
         if kn.eltern:
             lokal = berechne(nach_name[kn.eltern]) @ lokal
         cache[kn.name] = lokal
@@ -57,7 +65,7 @@ def flaechen_3d(w):
 
 
 def rendern(modell, textur, glow, gier=-30, neigung=12, breite=520, hoehe=720, skala=None, mit_pose=True,
-            nebel_farbe=(38, 44, 44), boden=True, mitte_y=None):
+            nebel_farbe=(38, 44, 44), boden=True, mitte_y=None, mitte_x=None, mit_mitte=False):
     """Gibt ein PIL-Bild zurück. gier: Drehung um die Hochachse (Grad), neigung: Blick von oben."""
     ss = 2  # Supersampling
     B, H = breite * ss, hoehe * ss
@@ -93,7 +101,7 @@ def rendern(modell, textur, glow, gier=-30, neigung=12, breite=520, hoehe=720, s
         skala = min(B * 0.78 / max(1, xmax - xmin), H * 0.8 / max(1, ymax - ymin))
     else:
         skala *= ss
-    cx = (xmin + xmax) / 2
+    cx = (xmin + xmax) / 2 if mitte_x is None else mitte_x
     cy = (ymin + ymax) / 2 if mitte_y is None else mitte_y
 
     def bild_xy(p):
@@ -217,6 +225,8 @@ def rendern(modell, textur, glow, gier=-30, neigung=12, breite=520, hoehe=720, s
     vig = np.clip(1 - 0.45 * (vx ** 2 + vy ** 2), 0.35, 1)[..., None]
     arr *= vig
     bild = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+    if mit_mitte:
+        return bild.resize((breite, hoehe), Image.LANCZOS), skala / ss, (cx, cy)
     return bild.resize((breite, hoehe), Image.LANCZOS), skala / ss
 
 

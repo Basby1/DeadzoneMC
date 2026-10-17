@@ -118,6 +118,7 @@ public final class ModRegistry {
                         ausgabe.accept(STOFFRESTE.get());
                         ausgabe.accept(BATTERIE.get());
                         ausgabe.accept(ELEKTRONIK.get());
+                        de.deadzonemc.monster.MonsterTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         for (String id : NotizItem.ALLE) {
                             ausgabe.accept(NotizItem.erstellen(id));
                         }

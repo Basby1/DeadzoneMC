@@ -23,10 +23,20 @@ jobs:
       - name: Gradle einrichten
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Klangdateien prüfen
+        run: python3 werkzeuge/monster/sounds.py --pruefen
+
       - name: Mod bauen
         run: |
           chmod +x ./gradlew
-          ./gradlew build
+          set -o pipefail
+          ./gradlew build 2>&1 | tee build.log
+
+      - name: Kompilierfehler anzeigen
+        if: failure()
+        run: |
+          grep -E "error:|\.java:[0-9]+: |What went wrong|Could not (find|resolve)" -A2 build.log | head -80 > fehler.txt || true
+          python3 -c "import sys; t=open('fehler.txt').read()[:3800].replace('%','%25').replace(chr(10),'%0A'); print('::error title=Build-Fehler::'+t)"
 
       - name: Fertige Mod-Datei bereitstellen
         uses: actions/upload-artifact@v4
