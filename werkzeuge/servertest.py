@@ -47,6 +47,32 @@ def main():
                                stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                text=True, bufsize=1)
     zeilen = []
+    import threading
+    import time
+
+    def wachhund():
+        """Hängt der Server, Thread-Dump und letzte Zeilen melden und abbrechen."""
+        frist = time.time() + 25 * 60
+        while prozess.poll() is None:
+            if time.time() > frist:
+                try:
+                    jps = subprocess.run(["jps", "-l"], capture_output=True, text=True).stdout
+                    pids = [z.split()[0] for z in jps.splitlines() if z.strip() and "Jps" not in z
+                            and "GradleDaemon" not in z and "GradleWrapperMain" not in z]
+                    dumps = []
+                    for pid in pids:
+                        dump = subprocess.run(["jstack", pid], capture_output=True, text=True).stdout
+                        haupt = [b for b in dump.split("\n\n") if "Server thread" in b or "Worker-Main" in b]
+                        dumps.append("\n\n".join(haupt)[:3000])
+                    melden("error", "Server hängt – Thread-Dump", "\n".join(dumps)[:3500])
+                except Exception as e:  # noqa
+                    melden("error", "Server hängt", str(e))
+                melden("error", "Server hängt – letzte Zeilen", "".join(zeilen[-60:])[-3500:])
+                prozess.kill()
+                return
+            time.sleep(10)
+
+    threading.Thread(target=wachhund, daemon=True).start()
     try:
         for zeile in prozess.stdout:
             zeilen.append(zeile)

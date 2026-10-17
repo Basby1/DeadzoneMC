@@ -60,6 +60,7 @@ public final class Selbsttest {
     /** Mittelpunkt für Karte und Zählung (Spawn oder das gefundene Dorf). */
     private static BlockPos ziel = null;
 
+    private static final long START = System.currentTimeMillis();
     private static int tick = 0;
     private static int naechster = 0;
 
@@ -109,8 +110,8 @@ public final class Selbsttest {
         BlockPos spawn = level.getSharedSpawnPos();
         int nass = 0;
         int alle = 0;
-        for (int x = -4096; x <= 4096; x += 128) {
-            for (int z = -4096; z <= 4096; z += 128) {
+        for (int x = -4096; x <= 4096; x += 512) {
+            for (int z = -4096; z <= 4096; z += 512) {
                 alle++;
                 if (h.boden(spawn.getX() + x, spawn.getZ() + z) < level.getSeaLevel() - 1) {
                     nass++;
@@ -120,13 +121,13 @@ public final class Selbsttest {
         int dorf = 0;
         int doerfer = 0;
         for (var s : de.deadzonemc.welt.plan.Siedlungen.naechste(level.getSeed(),
-                de.deadzonemc.welt.plan.SiedlungsTyp.DORF, spawn.getX(), spawn.getZ(), 4)) {
+                de.deadzonemc.welt.plan.SiedlungsTyp.DORF, spawn.getX(), spawn.getZ(), 1)) {
             doerfer++;
             if (de.deadzonemc.welt.Ortsbefehle.gueltig(level, s)) {
                 dorf++;
             }
         }
-        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke): {} %, Dörfer gültig: {} von {}",
+        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke, grob): {} %, Dörfer in der Nähe gültig: {} von {}",
                 nass * 100 / alle, dorf, doerfer);
     }
 
@@ -294,7 +295,7 @@ public final class Selbsttest {
                 zaehlen(server);
                 return;
             }
-            LOG.info("[Selbsttest] /{}", befehl);
+            LOG.info("[Selbsttest] /{} (nach {} s)", befehl, (System.currentTimeMillis() - START) / 1000);
             try {
                 CommandSourceStack quelle = server.createCommandSourceStack();
                 server.getCommands().performPrefixedCommand(quelle, befehl);
