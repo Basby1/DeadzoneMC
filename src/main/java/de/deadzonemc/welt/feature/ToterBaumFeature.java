@@ -95,15 +95,13 @@ public class ToterBaumFeature extends Feature<NoneFeatureConfiguration> {
         // Stumpf
         setBlock(level, fuss, holz.defaultBlockState());
         BlockPos p = fuss.relative(richtung, 2);
-        int gesetzt = 0;
         for (int i = 0; i < laenge; i++) {
             BlockPos hier = p.relative(richtung, i);
             if (!Bau.ersetzbar(level.getBlockState(hier)) || !Bau.fest(level.getBlockState(hier.below()))) {
                 break;
             }
             setBlock(level, hier, liegend);
-            gesetzt++;
         }
-        return gesetzt > 0;
+        return true; // der Stumpf steht auf jeden Fall
     }
 }
