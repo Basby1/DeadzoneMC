@@ -62,8 +62,16 @@ jobs:
           TEST_ALLE_FEHLER: '1'
         run: python3 werkzeuge/servertest.py
 
-      - name: Configs anzeigen
+      - name: Configs Lost Cities
+        if: always()
+        run: python3 werkzeuge/configs_zeigen.py build/server 'config/lostcities/profiles/default.json' 'config/lostcities/profiles/wasteland.json'
+
+      - name: Configs Survival
+        if: always()
+        run: python3 werkzeuge/configs_zeigen.py build/server 'config/toughasnails/*' 'config/toughasnails*' 'config/sereneseasons/*'
+
+      - name: Configs Gegner
         if: always()
         run: |
-          python3 werkzeuge/configs_zeigen.py build/server 'config/toughasnails/*' 'config/hordes*' 'config/hordes/*' 'config/zombieawareness*' 'config/lostcities*' 'world/serverconfig/hordes*' 'world/serverconfig/lostcities*'
-          ls -R build/server/config build/server/world/serverconfig 2>/dev/null | head -150
+          python3 werkzeuge/configs_zeigen.py build/server 'config/improvedmobs/*' 'config/enhancedcelestials/*' 'config/improvedmobs*'
+          ls build/server/config | head -100

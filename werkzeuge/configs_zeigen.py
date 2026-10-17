@@ -33,14 +33,16 @@ def main():
                 zeilen = [z.rstrip() for z in f if z.strip() and not z.strip().startswith(("#", "//"))]
         except OSError:
             continue
-        text = f"== {rel}\n" + "\n".join(z.replace("\t", " ") for z in zeilen)
-        text = text[:3700]
-        if groesse + len(text) > 3700 and block:
-            melden(f"Configs {nr}", "\n".join(block))
-            nr += 1
-            block, groesse = [], 0
-        block.append(text)
-        groesse += len(text)
+        ganz = f"== {rel}\n" + "\n".join(z.replace("\t", " ").replace("    ", " ") for z in zeilen)
+        # lange Dateien auf mehrere Meldungen verteilen
+        for i in range(0, len(ganz), 3600):
+            text = ganz[i:i + 3600]
+            if groesse + len(text) > 3700 and block:
+                melden(f"Configs {nr}", "\n".join(block))
+                nr += 1
+                block, groesse = [], 0
+            block.append(text)
+            groesse += len(text)
     if block:
         melden(f"Configs {nr}", "\n".join(block))
 
