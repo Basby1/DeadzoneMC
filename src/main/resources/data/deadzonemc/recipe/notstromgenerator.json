@@ -1,0 +1,27 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "misc",
+ "pattern": [
+  "ISI",
+  "EBE",
+  "III"
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "S": {
+   "item": "deadzonemc:schrott"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  },
+  "B": {
+   "item": "deadzonemc:batterie"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:notstromgenerator",
+  "count": 1
+ }
+}

@@ -88,6 +88,17 @@ public final class ModRegistry {
                             .noOcclusion()));
     public static final DeferredItem<net.minecraft.world.item.BlockItem> STRAHLENFASS_ITEM = ITEMS.registerSimpleBlockItem(STRAHLENFASS);
 
+    public static final net.neoforged.neoforge.registries.DeferredBlock<de.deadzonemc.basis.GeneratorBlock> GENERATOR =
+            BLOECKE.register("notstromgenerator", () -> new de.deadzonemc.basis.GeneratorBlock(
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                            .strength(4.0F, 1200.0F)
+                            .sound(net.minecraft.world.level.block.SoundType.METAL)
+                            .lightLevel(z -> 4)
+                            .requiresCorrectToolForDrops()
+                            .noOcclusion()));
+    public static final DeferredItem<net.minecraft.world.item.BlockItem> GENERATOR_ITEM = ITEMS.registerSimpleBlockItem(GENERATOR,
+            new Item.Properties().stacksTo(1));
+
     /** Welchen Monstern der Spieler schon begegnet ist (Handbuch). Bleibt nach dem Tod erhalten. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.List<String>>> ENTDECKT =
             ANHAENGE.register("entdeckt", () -> AttachmentType.<java.util.List<String>>builder(() -> java.util.List.of())
@@ -186,6 +197,7 @@ public final class ModRegistry {
                         ausgabe.accept(FILTER_ITEM.get());
                         ausgabe.accept(GEIGERZAEHLER.get());
                         ausgabe.accept(STRAHLENFASS_ITEM.get());
+                        ausgabe.accept(GENERATOR_ITEM.get());
                         ausgabe.accept(SCHROTT.get());
                         ausgabe.accept(STOFFRESTE.get());
                         ausgabe.accept(BATTERIE.get());

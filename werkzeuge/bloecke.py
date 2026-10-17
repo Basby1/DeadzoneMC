@@ -66,6 +66,106 @@ FASS_OBEN = [
 ]
 
 
+GEN = {"o": "#1c1e18", "g": "#4f5a3b", "G": "#66734d", "d": "#38402a", "k": "#141414", "y": "#c9a43a",
+       "s": "#8c9094", "S": "#b8bcc0", "l": "#5cff6a", "r": "#c23a3a", "w": "#d8d4c4"}
+GEN_SEITE = [
+    "oooooooooooooooo",
+    "oGGGGGGGGGGGGGGo",
+    "ogggggggggggggdo",
+    "ogkkkkkkkkkkkgdo",
+    "ogkdkdkdkdkdkgdo",
+    "ogkkkkkkkkkkkgdo",
+    "ogkdkdkdkdkdkgdo",
+    "ogkkkkkkkkkkkgdo",
+    "ogggggggggggggdo",
+    "ogggggggggggggdo",
+    "oykykykykykykyko",
+    "okykykykykykykyo",
+    "oddddddddddddddo",
+    "osooooooooooooso",
+    "oSs..........sSo",
+    "oooo........oooo",
+]
+GEN_VORNE = [
+    "oooooooooooooooo",
+    "oGGGGGGGGGGGGGGo",
+    "ogggggggggggggdo",
+    "ogoooooggggggddo",
+    "ogowwwoggllgggdo",
+    "ogowkwoggllgggdo",
+    "ogowwrogggggggdo",
+    "ogoooooggrrgggdo",
+    "oggggggggrrgggdo",
+    "ogsssssssssssgdo",
+    "oykykykykykykyko",
+    "okykykykykykykyo",
+    "oddddddddddddddo",
+    "osooooooooooooso",
+    "oSs..........sSo",
+    "oooo........oooo",
+]
+GEN_OBEN = [
+    "oooooooooooooooo",
+    "oGGGGGGGGGGGGGGo",
+    "oGggggggggggggdo",
+    "oGgsssggggggggdo",
+    "oGgsSsggggggggdo",
+    "oGgsssggggggggdo",
+    "oGggggggggggggdo",
+    "oGggggggggggggdo",
+    "oGgggggggggkkgdo",
+    "oGgggggggggkkgdo",
+    "oGggggggggggggdo",
+    "oGggggggggggggdo",
+    "oGggggggggggggdo",
+    "oGddddddddddddo.",
+    "oGdddddddddddddo",
+    "oooooooooooooooo",
+]
+
+
+def generator(A, D):
+    for name, raster in (("seite", GEN_SEITE), ("vorne", GEN_VORNE), ("oben", GEN_OBEN)):
+        raster = [z if len(z) == 16 else z.ljust(16, "o")[:16] for z in raster]
+        bild(GEN, raster).save(os.path.join(A, "textures", "block", f"notstromgenerator_{name}.png"))
+    t = {"particle": "deadzonemc:block/notstromgenerator_seite", "seite": "deadzonemc:block/notstromgenerator_seite",
+         "vorne": "deadzonemc:block/notstromgenerator_vorne", "oben": "deadzonemc:block/notstromgenerator_oben",
+         "rohr": "minecraft:block/iron_block"}
+    modell = {"parent": "minecraft:block/block", "textures": t, "elements": [
+        {"from": [1, 0, 1], "to": [15, 12, 15], "faces": {
+            "north": {"uv": [1, 4, 15, 16], "texture": "#vorne"},
+            "south": {"uv": [1, 4, 15, 16], "texture": "#seite"},
+            "east": {"uv": [1, 4, 15, 16], "texture": "#seite"},
+            "west": {"uv": [1, 4, 15, 16], "texture": "#seite"},
+            "up": {"uv": [1, 1, 15, 15], "texture": "#oben"},
+            "down": {"uv": [1, 1, 15, 15], "texture": "#seite", "cullface": "down"}}},
+        {"from": [10, 12, 10], "to": [13, 16, 13], "faces": {
+            f: {"uv": [0, 0, 3, 4], "texture": "#rohr"} for f in ("north", "south", "east", "west", "up")}},
+        {"from": [3, 12, 3], "to": [7, 13, 7], "faces": {
+            f: {"uv": [0, 0, 4, 1], "texture": "#rohr"} for f in ("north", "south", "east", "west", "up")}},
+    ]}
+    with open(os.path.join(A, "models", "block", "notstromgenerator.json"), "w") as f:
+        json.dump(modell, f, indent=1)
+    varianten = {}
+    for richtung, y in (("north", 0), ("east", 90), ("south", 180), ("west", 270)):
+        for stufe in (1, 2, 3):
+            v = {"model": "deadzonemc:block/notstromgenerator"}
+            if y:
+                v["y"] = y
+            varianten[f"facing={richtung},stufe={stufe}"] = v
+    with open(os.path.join(A, "blockstates", "notstromgenerator.json"), "w") as f:
+        json.dump({"variants": varianten}, f, indent=1)
+    with open(os.path.join(A, "models", "item", "notstromgenerator.json"), "w") as f:
+        json.dump({"parent": "deadzonemc:block/notstromgenerator"}, f, indent=1)
+    with open(os.path.join(D, "loot_table", "blocks", "notstromgenerator.json"), "w") as f:
+        json.dump({"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [
+            {"type": "minecraft:item", "name": "deadzonemc:notstromgenerator"}]}]}, f, indent=1)
+    tags = os.path.join(D, "..", "minecraft", "tags", "block", "mineable")
+    os.makedirs(tags, exist_ok=True)
+    with open(os.path.join(tags, "pickaxe.json"), "w") as f:
+        json.dump({"replace": False, "values": ["deadzonemc:notstromgenerator", "deadzonemc:strahlenfass"]}, f, indent=1)
+
+
 def gasmaske_ruestung():
     """64×32-Rüstungstextur: nur der Kopf (Box-UV 8×8×8 bei 0,0) bekommt Maske und Riemen."""
     b = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
@@ -152,6 +252,14 @@ def main():
     for name, r in rezepte.items():
         with open(os.path.join(D, "recipe", f"{name}.json"), "w") as f:
             json.dump(r, f, indent=1)
+    generator(A, D)
+    rezept = {"type": "minecraft:crafting_shaped", "category": "misc",
+              "pattern": ["ISI", "EBE", "III"],
+              "key": {"I": {"item": "minecraft:iron_ingot"}, "S": {"item": "deadzonemc:schrott"},
+                      "E": {"item": "deadzonemc:elektronik"}, "B": {"item": "deadzonemc:batterie"}},
+              "result": {"id": "deadzonemc:notstromgenerator", "count": 1}}
+    with open(os.path.join(D, "recipe", "notstromgenerator.json"), "w") as f:
+        json.dump(rezept, f, indent=1)
     print("Blöcke, Rüstung, Rezepte geschrieben")
 
 

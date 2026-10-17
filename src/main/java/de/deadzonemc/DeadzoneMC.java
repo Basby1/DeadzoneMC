@@ -26,6 +26,9 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.strahlung.Strahlung::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.basis.Basisschutz::spawnPruefen);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.basis.Basisschutz::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.basis.Basisbefehle::registrieren);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::betreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::respawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.welt.Ortsbefehle::registrieren);

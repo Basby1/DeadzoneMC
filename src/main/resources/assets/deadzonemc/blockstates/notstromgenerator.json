@@ -1,0 +1,49 @@
+{
+ "variants": {
+  "facing=north,stufe=1": {
+   "model": "deadzonemc:block/notstromgenerator"
+  },
+  "facing=north,stufe=2": {
+   "model": "deadzonemc:block/notstromgenerator"
+  },
+  "facing=north,stufe=3": {
+   "model": "deadzonemc:block/notstromgenerator"
+  },
+  "facing=east,stufe=1": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 90
+  },
+  "facing=east,stufe=2": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 90
+  },
+  "facing=east,stufe=3": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 90
+  },
+  "facing=south,stufe=1": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 180
+  },
+  "facing=south,stufe=2": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 180
+  },
+  "facing=south,stufe=3": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 180
+  },
+  "facing=west,stufe=1": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 270
+  },
+  "facing=west,stufe=2": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 270
+  },
+  "facing=west,stufe=3": {
+   "model": "deadzonemc:block/notstromgenerator",
+   "y": 270
+  }
+ }
+}

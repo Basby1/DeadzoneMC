@@ -1,0 +1,199 @@
+{
+ "parent": "minecraft:block/block",
+ "textures": {
+  "particle": "deadzonemc:block/notstromgenerator_seite",
+  "seite": "deadzonemc:block/notstromgenerator_seite",
+  "vorne": "deadzonemc:block/notstromgenerator_vorne",
+  "oben": "deadzonemc:block/notstromgenerator_oben",
+  "rohr": "minecraft:block/iron_block"
+ },
+ "elements": [
+  {
+   "from": [
+    1,
+    0,
+    1
+   ],
+   "to": [
+    15,
+    12,
+    15
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      1,
+      4,
+      15,
+      16
+     ],
+     "texture": "#vorne"
+    },
+    "south": {
+     "uv": [
+      1,
+      4,
+      15,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "east": {
+     "uv": [
+      1,
+      4,
+      15,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "west": {
+     "uv": [
+      1,
+      4,
+      15,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "up": {
+     "uv": [
+      1,
+      1,
+      15,
+      15
+     ],
+     "texture": "#oben"
+    },
+    "down": {
+     "uv": [
+      1,
+      1,
+      15,
+      15
+     ],
+     "texture": "#seite",
+     "cullface": "down"
+    }
+   }
+  },
+  {
+   "from": [
+    10,
+    12,
+    10
+   ],
+   "to": [
+    13,
+    16,
+    13
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ],
+     "texture": "#rohr"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ],
+     "texture": "#rohr"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ],
+     "texture": "#rohr"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ],
+     "texture": "#rohr"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ],
+     "texture": "#rohr"
+    }
+   }
+  },
+  {
+   "from": [
+    3,
+    12,
+    3
+   ],
+   "to": [
+    7,
+    13,
+    7
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      4,
+      1
+     ],
+     "texture": "#rohr"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      4,
+      1
+     ],
+     "texture": "#rohr"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      4,
+      1
+     ],
+     "texture": "#rohr"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      4,
+      1
+     ],
+     "texture": "#rohr"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      4,
+      1
+     ],
+     "texture": "#rohr"
+    }
+   }
+  }
+ ]
+}

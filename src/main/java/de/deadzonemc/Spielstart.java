@@ -39,6 +39,7 @@ public final class Spielstart {
         }
         spieler.getInventory().add(NotizItem.erstellen("start"));
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.HANDBUCH.get()));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.GENERATOR_ITEM.get()));
         // Eine leere Karte der Umgebung: Sie füllt sich, während man unterwegs ist.
         net.minecraft.world.item.ItemStack karte = net.minecraft.world.item.MapItem.create(oberwelt,
                 spieler.getBlockX(), spieler.getBlockZ(), (byte) 2, true, false);
