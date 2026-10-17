@@ -119,8 +119,8 @@ acceptable-game-versions = ["1.21"]
     if os.path.isdir(ueber):
         shutil.copytree(ueber, PACK, dirs_exist_ok=True)
     voreinstellungen()
-    subprocess.run(["packwiz", "refresh"], cwd=PACK, check=True)
-    subprocess.run(["packwiz", "curseforge", "export", "-o", AUSGABE], cwd=PACK, check=True)
+    subprocess.run(["packwiz", "refresh"], cwd=PACK, check=True, capture_output=True, text=True)
+    subprocess.run(["packwiz", "curseforge", "export", "-o", AUSGABE], cwd=PACK, check=True, capture_output=True, text=True)
 
     # Unsere eigene Mod liegt nicht auf CurseForge – sie kommt als Override in den Ordner mods
     jars = [j for j in glob.glob(os.path.join(WURZEL, "build", "libs", "deadzonemc-*.jar"))
@@ -225,4 +225,12 @@ def server():
 
 
 if __name__ == "__main__":
-    {"bauen": bauen, "server": server}[sys.argv[1]]()
+    try:
+        {"bauen": bauen, "server": server}[sys.argv[1]]()
+    except subprocess.CalledProcessError as e:
+        melden("error", f"Fehler bei {sys.argv[1]}", f"{e.cmd}: {(e.stderr or e.stdout or '')}"[-3000:])
+        raise
+    except Exception:
+        import traceback
+        melden("error", f"Fehler bei {sys.argv[1]}", traceback.format_exc()[-3000:])
+        raise
