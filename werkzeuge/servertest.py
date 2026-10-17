@@ -79,6 +79,7 @@ def main():
     start_befehle = len(zeilen)
     for befehl in BEFEHLE:
         print(f"\n### Befehl: /{befehl}", flush=True)
+        zeilen.append(f"### Befehl: /{befehl}\n")
         prozess.stdin.write(befehl + "\n")
         prozess.stdin.flush()
         time.sleep(4 if befehl.startswith(("place", "locate")) else 1.5)
@@ -106,13 +107,34 @@ def main():
     if "Crash report" in log or "---- Minecraft Crash Report ----" in log:
         probleme.append("Absturzbericht gefunden")
 
+    # Antworten des Servers auf die Befehle sammeln (für die Anzeige bei GitHub)
+    antworten = []
+    for zeile in befehls_log.splitlines():
+        if zeile.startswith("### Befehl"):
+            antworten.append(zeile)
+        elif "/INFO]" in zeile and ("Server thread" in zeile or "minecraft/" in zeile):
+            text = zeile.split("]: ", 1)[-1].strip()
+            if text and not text.startswith(("Saving", "ThreadedAnvilChunkStorage", "Stopping")):
+                antworten.append("   " + text[:220])
+    melden("notice", "Antworten des Testservers", "\n".join(antworten[:150]))
+
     print("\n\n========== ZUSAMMENFASSUNG ==========")
     if probleme:
-        for p in dict.fromkeys(probleme):
+        eindeutig = list(dict.fromkeys(probleme))
+        for p in eindeutig:
             print("PROBLEM:", p)
+        melden("error", "Probleme im Testserver", "\n".join(p[:400] for p in eindeutig[:60]))
         return 1
     print("Alles in Ordnung: Welt erzeugt, Befehle ausgeführt, keine Fehler unserer Mod im Log.")
     return 0
+
+
+def melden(art, titel, text):
+    """Hängt eine Meldung an den GitHub-Lauf (als Annotation), damit man sie ohne Log-Download lesen kann."""
+    if not os.environ.get("GITHUB_ACTIONS"):
+        return
+    text = text.replace("%", "%25").replace("\r", "").replace("\n", "%0A")
+    print(f"::{art} title={titel}::{text}", flush=True)
 
 
 if __name__ == "__main__":
