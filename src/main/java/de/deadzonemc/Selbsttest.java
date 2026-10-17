@@ -46,6 +46,7 @@ public final class Selbsttest {
             "#zaehlen",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "#waffen",
+            "#versteck",
             "summon deadzonemc:wanderer ~-15 ~2 ~5",
             "summon deadzonemc:schreier ~-12 ~2 ~5",
             "summon deadzonemc:lauerer ~-9 ~2 ~5",
@@ -470,6 +471,39 @@ public final class Selbsttest {
                 int n = server.overworld().getEntitiesOfClass(de.deadzonemc.monster.DeadzoneMonster.class,
                         new net.minecraft.world.phys.AABB(sp).inflate(20)).size();
                 LOG.info("[Selbsttest] Monster im Basisbereich nach 4 s: {} (erwartet 0)", n);
+                var basen = de.deadzonemc.basis.Basen.holen(server.overworld());
+                StringBuilder d = new StringBuilder();
+                basen.alle().forEach((pos, r) -> d.append(BlockPos.of(pos).toShortString()).append(" r=").append(r).append("; "));
+                for (var m : server.overworld().getEntitiesOfClass(net.minecraft.world.entity.monster.Monster.class,
+                        new net.minecraft.world.phys.AABB(sp).inflate(40))) {
+                    d.append(m.getType().toShortString()).append(" bei ").append(m.blockPosition().toShortString())
+                            .append(m.isPersistenceRequired() ? " fest" : "").append(m.isAlive() ? "" : " tot").append(", ");
+                }
+                d.append(" Zeit ").append(server.overworld().getGameTime());
+                LOG.info("[Selbsttest] Basis-Diagnose: {}", d);
+                return;
+            }
+            if (befehl.equals("#versteck")) {
+                ServerLevel ow = server.overworld();
+                BlockPos sp = ow.getSharedSpawnPos();
+                StringBuilder d = new StringBuilder();
+                int i = 0;
+                for (BlockPos v : de.deadzonemc.welt.Verstecke.umkreis(ow.getSeed(), sp.getX(), sp.getZ(), 1)) {
+                    if (i++ >= 3) {
+                        break;
+                    }
+                    ow.getChunk(v.getX() >> 4, v.getZ() >> 4);
+                    String fund = "nichts";
+                    for (int y = ow.getMaxBuildHeight() - 1; y > ow.getMinBuildHeight(); y--) {
+                        var b = ow.getBlockState(new BlockPos(v.getX(), y, v.getZ()));
+                        if (b.is(net.minecraft.world.level.block.Blocks.CHEST) || b.is(net.minecraft.world.level.block.Blocks.BARREL)) {
+                            fund = BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath() + " bei y=" + y;
+                            break;
+                        }
+                    }
+                    d.append(v.getX()).append("/").append(v.getZ()).append(": ").append(fund).append("; ");
+                }
+                LOG.info("[Selbsttest] Verstecke: {}", d);
                 return;
             }
             if (befehl.equals("#waffen")) {

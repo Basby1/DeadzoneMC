@@ -80,6 +80,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "deadzonemc:schatzkarte",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
           "name": "deadzonemc:konservendose",
           "weight": 2
         },

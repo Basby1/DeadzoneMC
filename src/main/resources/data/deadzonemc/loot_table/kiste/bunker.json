@@ -119,6 +119,11 @@
           ]
         },
         {
+          "type": "minecraft:item",
+          "name": "deadzonemc:schatzkarte",
+          "weight": 2
+        },
+        {
           "type": "minecraft:empty",
           "weight": 8
         },

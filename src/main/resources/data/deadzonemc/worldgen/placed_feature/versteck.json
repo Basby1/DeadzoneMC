@@ -1,0 +1,8 @@
+{
+  "feature": "deadzonemc:versteck",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

@@ -75,6 +75,7 @@
       "minecraft:spring_lava"
     ],
     [
+      "deadzonemc:versteck",
       "minecraft:seagrass_cold",
       "minecraft:seagrass_simple",
       "minecraft:kelp_cold"

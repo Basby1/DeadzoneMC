@@ -113,6 +113,13 @@ public final class ModRegistry {
                     .copyOnDeath()
                     .build());
 
+    /** Welche Verstecke dem Spieler schon auf einer Karte gezeigt wurden. */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.List<Long>>> VERSTECKE =
+            ANHAENGE.register("verstecke", () -> AttachmentType.<java.util.List<Long>>builder(() -> java.util.List.of())
+                    .serialize(Codec.LONG.listOf())
+                    .copyOnDeath()
+                    .build());
+
     /** Aufgenommene Strahlendosis eines Spielers (0 bis 1000). Nach dem Tod wieder 0. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> STRAHLENDOSIS =
             ANHAENGE.register("strahlendosis", () -> AttachmentType.builder(() -> 0.0F)
@@ -154,6 +161,8 @@ public final class ModRegistry {
             () -> new de.deadzonemc.item.MedizinItem(de.deadzonemc.item.MedizinItem.Art.ANTIBIOTIKA, new Item.Properties().stacksTo(8)));
     public static final DeferredItem<de.deadzonemc.item.MedizinItem> SCHMERZMITTEL = ITEMS.register("schmerzmittel",
             () -> new de.deadzonemc.item.MedizinItem(de.deadzonemc.item.MedizinItem.Art.SCHMERZMITTEL, new Item.Properties().stacksTo(16)));
+    public static final DeferredItem<de.deadzonemc.item.SchatzkarteItem> SCHATZKARTE = ITEMS.register("schatzkarte",
+            () -> new de.deadzonemc.item.SchatzkarteItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> SCHROTT = ITEMS.registerSimpleItem("schrott");
     public static final DeferredItem<Item> STOFFRESTE = ITEMS.registerSimpleItem("stoffreste");
     public static final DeferredItem<Item> BATTERIE = ITEMS.registerSimpleItem("batterie", new Item.Properties().stacksTo(16));
@@ -171,6 +180,8 @@ public final class ModRegistry {
             FEATURES.register("autowrack", AutowrackFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STRAHLENFAESSER =
             FEATURES.register("strahlenfaesser", de.deadzonemc.strahlung.StrahlenfassFeature::new);
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> VERSTECK =
+            FEATURES.register("versteck", de.deadzonemc.welt.feature.VersteckFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> SCHUTT =
             FEATURES.register("schutt", SchuttFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STROMMAST =
@@ -205,6 +216,7 @@ public final class ModRegistry {
                         ausgabe.accept(GEIGERZAEHLER.get());
                         ausgabe.accept(STRAHLENFASS_ITEM.get());
                         ausgabe.accept(GENERATOR_ITEM.get());
+                        ausgabe.accept(SCHATZKARTE.get());
                         ausgabe.accept(SCHROTT.get());
                         ausgabe.accept(STOFFRESTE.get());
                         ausgabe.accept(BATTERIE.get());
