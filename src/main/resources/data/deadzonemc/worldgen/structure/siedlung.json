@@ -1,0 +1,10 @@
+{
+  "type": "deadzonemc:siedlung",
+  "biomes": "#deadzonemc:hat_siedlung",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "min_haeuser": 4,
+  "max_haeuser": 9,
+  "strasse": true
+}

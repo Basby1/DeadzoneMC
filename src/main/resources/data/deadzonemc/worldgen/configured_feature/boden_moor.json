@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:disk",
+  "config": {
+    "half_height": 1,
+    "radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 2,
+      "max_inclusive": 6
+    },
+    "state_provider": {
+      "fallback": {
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "data": {
+              "Name": "minecraft:mud"
+            },
+            "weight": 6
+          },
+          {
+            "data": {
+              "Name": "minecraft:muddy_mangrove_roots"
+            },
+            "weight": 1
+          },
+          {
+            "data": {
+              "Name": "minecraft:podzol"
+            },
+            "weight": 2
+          }
+        ]
+      },
+      "rules": []
+    },
+    "target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": [
+        "minecraft:grass_block",
+        "minecraft:dirt"
+      ]
+    }
+  }
+}

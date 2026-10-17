@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 731904221,
+    "separation": 5,
+    "spacing": 14
+  },
+  "structures": [
+    {
+      "structure": "deadzonemc:siedlung",
+      "weight": 1
+    }
+  ]
+}

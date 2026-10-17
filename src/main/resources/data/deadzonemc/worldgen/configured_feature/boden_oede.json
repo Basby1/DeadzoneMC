@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:disk",
+  "config": {
+    "half_height": 1,
+    "radius": {
+      "type": "minecraft:uniform",
+      "min_inclusive": 3,
+      "max_inclusive": 7
+    },
+    "state_provider": {
+      "fallback": {
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "data": {
+              "Name": "minecraft:coarse_dirt"
+            },
+            "weight": 6
+          },
+          {
+            "data": {
+              "Name": "minecraft:gravel"
+            },
+            "weight": 3
+          },
+          {
+            "data": {
+              "Name": "minecraft:red_sand"
+            },
+            "weight": 1
+          },
+          {
+            "data": {
+              "Name": "minecraft:terracotta"
+            },
+            "weight": 1
+          }
+        ]
+      },
+      "rules": []
+    },
+    "target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": [
+        "minecraft:grass_block",
+        "minecraft:dirt"
+      ]
+    }
+  }
+}

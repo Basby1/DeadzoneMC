@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 448210773,
+    "separation": 2,
+    "spacing": 7
+  },
+  "structures": [
+    {
+      "structure": "deadzonemc:einzelhaus",
+      "weight": 1
+    }
+  ]
+}
