@@ -45,6 +45,19 @@ public final class Selbsttest {
             "#stadtkarte 0 400",
             "#zaehlen",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
+            "summon deadzonemc:wanderer ~-15 ~2 ~5",
+            "summon deadzonemc:schreier ~-12 ~2 ~5",
+            "summon deadzonemc:lauerer ~-9 ~2 ~5",
+            "summon deadzonemc:kriecher ~-6 ~2 ~5",
+            "summon deadzonemc:der_stille ~-3 ~2 ~5",
+            "summon deadzonemc:imitator ~0 ~2 ~5",
+            "summon deadzonemc:nebelwesen ~3 ~2 ~5",
+            "summon deadzonemc:schwarm ~6 ~2 ~5",
+            "summon deadzonemc:brut ~9 ~2 ~5",
+            "summon deadzonemc:juggernaut ~12 ~2 ~5",
+            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
+            "#monster",
+            "kill @e[type=#deadzonemc:monster]",
             "save-all"
     );
 
@@ -399,6 +412,17 @@ public final class Selbsttest {
             if (befehl.startsWith("#stadtkarte")) {
                 String[] t = befehl.split(" ");
                 stadtkarte(server, Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+                return;
+            }
+            if (befehl.equals("#monster")) {
+                StringBuilder b = new StringBuilder();
+                for (var e : server.overworld().getAllEntities()) {
+                    if (e instanceof de.deadzonemc.monster.DeadzoneMonster m) {
+                        b.append(net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(m.getType()).getPath())
+                                .append(m.isAlive() ? " lebt" : " tot").append(String.format(" (%.0f HP), ", m.getHealth()));
+                    }
+                }
+                LOG.info("[Selbsttest] Monster nach 9 s: {}", b);
                 return;
             }
             if (befehl.equals("#uebersicht")) {
