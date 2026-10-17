@@ -61,3 +61,9 @@ jobs:
           TEST_FRIST_MIN: '25'
           TEST_ALLE_FEHLER: '1'
         run: python3 werkzeuge/servertest.py
+
+      - name: Configs anzeigen
+        if: always()
+        run: |
+          python3 werkzeuge/configs_zeigen.py build/server 'config/toughasnails/*' 'config/hordes*' 'config/hordes/*' 'config/zombieawareness*' 'config/lostcities*' 'world/serverconfig/hordes*' 'world/serverconfig/lostcities*'
+          ls -R build/server/config build/server/world/serverconfig 2>/dev/null | head -150
