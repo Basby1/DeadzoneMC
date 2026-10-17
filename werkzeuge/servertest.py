@@ -23,7 +23,7 @@ FEHLER_MUSTER = [
 BEFEHLS_FEHLER = [
     "Unknown or incomplete command", "Could not find", "Failed to place", "Unknown structure",
     "Unknown feature", "Unknown loot table", "Invalid position", "Incorrect argument",
-    "Unbekanntes Wetter", "Fehler bei /",
+    "Unbekanntes Wetter", "Fehler bei /", "not loaded",
 ]
 
 
@@ -71,7 +71,7 @@ def main():
         if "[Selbsttest]" in zeile:
             im_test = True
             antworten.append(text)
-        elif im_test and "/INFO]" in zeile and "MinecraftServer" in zeile:
+        elif im_test and "/INFO]" in zeile and ("MinecraftServer" in zeile or "Selbsttest" in zeile):
             antworten.append("   " + text[:240])
         if ("deadzonemc" in zeile or "de.deadzonemc" in zeile) and any(m.search(zeile) for m in FEHLER_MUSTER):
             probleme.append(text[:400])

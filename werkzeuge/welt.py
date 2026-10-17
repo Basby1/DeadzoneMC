@@ -290,13 +290,15 @@ def lage(biom, *, t=GANZ, h=GANZ, c=GANZ, e=GANZ):
 
 
 LAND = [-0.19, 1.2]
+# Die Vorstadt ist das häufigste Gebiet (dort liegen die Siedlungen). Ödland nur, wo es heiß und
+# trocken ist; Toter Wald und Moor, wo es feucht ist – das Moor nur in flachen Niederungen.
 LAGEN = [
     lage("totes_meer", c=[-1.2, -0.19]),
-    lage("vorstadt", t=[-1.0, 0.2], h=[-1.0, 0.05], c=LAND),
-    lage("toter_wald", t=[-1.0, 0.2], h=[0.05, 1.0], c=LAND),
-    lage("oedland", t=[0.2, 1.0], h=[-1.0, 0.05], c=LAND),
-    lage("verseuchtes_moor", t=[0.2, 1.0], h=[0.05, 1.0], c=LAND, e=[0.2, 1.0]),
-    lage("toter_wald", t=[0.2, 1.0], h=[0.05, 1.0], c=LAND, e=[-1.0, 0.2]),
+    lage("vorstadt", t=[-1.0, 0.45], h=[-1.0, 0.1], c=LAND),
+    lage("vorstadt", t=[0.45, 1.0], h=[-0.1, 0.1], c=LAND),
+    lage("oedland", t=[0.45, 1.0], h=[-1.0, -0.1], c=LAND),
+    lage("toter_wald", h=[0.1, 1.0], c=LAND, e=[-1.0, 0.35]),
+    lage("verseuchtes_moor", h=[0.1, 1.0], c=LAND, e=[0.35, 1.0]),
 ]
 
 WELTTYP = {
@@ -352,7 +354,7 @@ STRUKTUREN = {
 
 STRUKTUR_SETS = {
     "siedlungen": {
-        "placement": {"type": "minecraft:random_spread", "salt": 731904221, "separation": 5, "spacing": 14},
+        "placement": {"type": "minecraft:random_spread", "salt": 731904221, "separation": 4, "spacing": 10},
         "structures": [{"structure": f"{MOD}:siedlung", "weight": 1}],
     },
     "einzelhaeuser": {
@@ -362,7 +364,7 @@ STRUKTUR_SETS = {
 }
 
 BIOM_TAGS = {
-    f"{MOD}:hat_siedlung": [f"{MOD}:vorstadt"],
+    f"{MOD}:hat_siedlung": [f"{MOD}:vorstadt", f"{MOD}:oedland"],
     f"{MOD}:hat_einzelhaus": [f"{MOD}:vorstadt", f"{MOD}:toter_wald", f"{MOD}:oedland"],
     # Minecraft-Tags ergänzen, damit Minen, Schiffswracks usw. auch bei uns entstehen
     "minecraft:is_overworld": [f"{MOD}:{n}" for n in GEBIETE],

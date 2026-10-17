@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "deadzonemc:vorstadt"
+    "deadzonemc:vorstadt",
+    "deadzonemc:oedland"
   ]
 }

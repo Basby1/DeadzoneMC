@@ -2,11 +2,21 @@ package de.deadzonemc;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Automatischer Selbsttest für den Testserver bei GitHub. Nur aktiv, wenn der Server mit
@@ -32,20 +42,22 @@ public final class Selbsttest {
             "locate biome deadzonemc:totes_meer",
             "locate structure deadzonemc:siedlung",
             "locate structure deadzonemc:einzelhaus",
-            "place structure deadzonemc:siedlung 0 ~ 0",
-            "place structure deadzonemc:einzelhaus 200 ~ 200",
-            "place structure deadzonemc:siedlung -300 ~ 300",
-            "place structure deadzonemc:siedlung 500 ~ -500",
-            "place feature deadzonemc:toter_baum 40 ~ 40",
-            "place feature deadzonemc:autowrack 50 ~ 40",
-            "place feature deadzonemc:schutt 60 ~ 40",
-            "place feature deadzonemc:strommast 70 ~ 40",
-            "loot spawn 0 200 0 loot deadzonemc:kiste/haus_kueche",
-            "loot spawn 0 200 0 loot deadzonemc:kiste/haus_wohnraum",
-            "loot spawn 0 200 0 loot deadzonemc:kiste/haus_schlafzimmer",
-            "loot spawn 0 200 0 loot deadzonemc:kiste/haus_keller",
-            "loot spawn 0 200 0 loot deadzonemc:kiste/autowrack",
-            "give @a deadzonemc:verband",
+            "#zaehlen",
+            "gamerule spawnChunkRadius 10",
+            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
+            "place structure deadzonemc:siedlung ~ ~ ~",
+            "place structure deadzonemc:einzelhaus ~70 ~ ~70",
+            "place structure deadzonemc:einzelhaus ~-70 ~ ~70",
+            "place feature deadzonemc:toter_baum ~20 ~ ~-60",
+            "place feature deadzonemc:autowrack ~30 ~ ~-60",
+            "place feature deadzonemc:schutt ~40 ~ ~-60",
+            "place feature deadzonemc:strommast ~50 ~ ~-60",
+            "#zaehlen",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_kueche",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_wohnraum",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_schlafzimmer",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_keller",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/autowrack",
             "save-all"
     );
 
@@ -53,6 +65,43 @@ public final class Selbsttest {
     private static int naechster = 0;
 
     private Selbsttest() {
+    }
+
+    /** Zählt rund um den Spawn, was die Weltgenerierung gebaut hat. */
+    private static void zaehlen(MinecraftServer server) {
+        ServerLevel level = server.overworld();
+        BlockPos spawn = level.getSharedSpawnPos();
+        Map<String, Integer> zaehler = new TreeMap<>();
+        int radius = 6;
+        for (int cx = (spawn.getX() >> 4) - radius; cx <= (spawn.getX() >> 4) + radius; cx++) {
+            for (int cz = (spawn.getZ() >> 4) - radius; cz <= (spawn.getZ() >> 4) + radius; cz++) {
+                LevelChunk chunk = level.getChunk(cx, cz);
+                for (BlockEntity be : chunk.getBlockEntities().values()) {
+                    zaehler.merge("Behälter " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()).getPath(), 1, Integer::sum);
+                }
+                for (int i = 0; i < chunk.getSections().length; i++) {
+                    LevelChunkSection teil = chunk.getSections()[i];
+                    if (teil.hasOnlyAir()) {
+                        continue;
+                    }
+                    for (int x = 0; x < 16; x++) {
+                        for (int y = 0; y < 16; y++) {
+                            for (int z = 0; z < 16; z++) {
+                                BlockState b = teil.getBlockState(x, y, z);
+                                if (b.is(Blocks.SPRUCE_DOOR) || b.is(Blocks.LADDER) || b.is(Blocks.COBWEB)
+                                        || b.is(Blocks.COBBLESTONE_WALL) || b.is(Blocks.SKELETON_SKULL)
+                                        || b.is(Blocks.GLASS_PANE) || b.is(Blocks.DARK_OAK_LOG)
+                                        || b.is(Blocks.STRIPPED_SPRUCE_LOG) || b.is(Blocks.BLACK_CONCRETE)
+                                        || b.is(Blocks.GRAY_CONCRETE) || b.getBlock() instanceof net.minecraft.world.level.block.BedBlock) {
+                                    zaehler.merge(BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath(), 1, Integer::sum);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        LOG.info("[Selbsttest] Zählung um den Spawn {} (13x13 Chunks): {}", spawn.toShortString(), zaehler);
     }
 
     public static void tick(ServerTickEvent.Post event) {
@@ -63,6 +112,13 @@ public final class Selbsttest {
         }
         if (naechster < BEFEHLE.size()) {
             String befehl = BEFEHLE.get(naechster++);
+            if (befehl.equals("#warten")) {
+                return;
+            }
+            if (befehl.equals("#zaehlen")) {
+                zaehlen(server);
+                return;
+            }
             LOG.info("[Selbsttest] /{}", befehl);
             try {
                 CommandSourceStack quelle = server.createCommandSourceStack();
