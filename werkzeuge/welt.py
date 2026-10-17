@@ -357,7 +357,7 @@ STRUKTUR_SETS = {
 BIOM_TAGS = {
     f"{MOD}:hat_siedlung": [f"{MOD}:{n}" for n in GEBIETE],
     # Minecraft-Tags ergänzen, damit Minen, Schiffswracks usw. auch bei uns entstehen
-    "minecraft:is_overworld": [f"{MOD}:{n}" for n in GEBIETE],
+
     "minecraft:has_structure/mineshaft": [f"{MOD}:vorstadt", f"{MOD}:toter_wald", f"{MOD}:oedland",
                                           f"{MOD}:verseuchtes_moor"],
     "minecraft:is_ocean": [f"{MOD}:totes_meer"],
@@ -376,7 +376,7 @@ def main():
         schreiben(f"{MOD}/worldgen/placed_feature/{name}.json", {"feature": f"{MOD}:{feature}", "placement": platz})
     for name, daten in GEBIETE.items():
         schreiben(f"{MOD}/worldgen/biome/{name}.json", daten)
-    schreiben(f"{MOD}/worldgen/world_preset/deadzone.json", WELTTYP)
+    # (Eigener Welttyp entfällt: die Welt kommt jetzt von Lost Cities + Biomes O' Plenty)
     # Früher ersetzte Deadzone den normalen Welttyp. Jetzt: Lost Cities + Biomes O' Plenty,
     # unsere Deko kommt per Biom-Modifikator dazu (werkzeuge/welt_modifikatoren.py).
     for name, daten in STRUKTUREN.items():
