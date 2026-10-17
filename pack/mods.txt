@@ -95,7 +95,6 @@ mc-mods/lithium                         both
 mc-mods/clumps                          both
 mc-mods/fastfurnace                     both
 mc-mods/fastworkbench                   both
-mc-mods/let-me-despawn                  both
 mc-mods/ai-improvements                 both
 mc-mods/dynamic-fps                     client
 mc-mods/moreculling                     client
