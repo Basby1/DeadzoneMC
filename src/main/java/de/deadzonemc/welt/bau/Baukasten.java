@@ -3,6 +3,8 @@ package de.deadzonemc.welt.bau;
 import de.deadzonemc.welt.Bau;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.item.DyeColor;
@@ -294,8 +296,12 @@ public final class Baukasten {
                 text = text.setMessage(i, Component.literal(zeilen[i]));
             }
             text = text.setColor(farbe);
-            schild.setText(text, true);
-            schild.setWaxed(true);
+            // Während der Weltgenerierung gehört das Schild noch zu keiner Welt: setText() würde abstürzen.
+            // Deshalb wie bei Minecrafts eigenen Bauwerken über gespeicherte Daten setzen.
+            CompoundTag daten = new CompoundTag();
+            SignText.DIRECT_CODEC.encodeStart(NbtOps.INSTANCE, text).result().ifPresent(t -> daten.put("front_text", t));
+            daten.putBoolean("is_waxed", true);
+            schild.loadWithComponents(daten, level.registryAccess());
         }
     }
 }
