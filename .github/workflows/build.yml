@@ -1,0 +1,47 @@
+name: Mod bauen
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+
+      - name: Java 21 einrichten
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Gradle einrichten
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Mod bauen
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
+
+      - name: Fertige Mod-Datei bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: deadzonemc-mod
+          path: build/libs/deadzonemc-*.jar
+
+      - name: Als Download bereitstellen (Releases)
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: neueste-version
+          name: Deadzone MC – neueste Version
+          body: |
+            Die `.jar`-Datei herunterladen und in den Ordner `mods` deines
+            CurseForge-Profils (Minecraft 1.21.1, NeoForge) legen.
+          files: build/libs/deadzonemc-*.jar
+          make_latest: true
