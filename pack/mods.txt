@@ -5,8 +5,6 @@
 mc-mods/the-lost-cities                 both
 mc-mods/structory                       both
 mc-mods/lootr                           both
-mc-mods/yungs-better-mineshafts-forge   both
-mc-mods/yungs-better-dungeons           both
 
 # --- Waffen & Kampf ---
 mc-mods/tacz-1-21-1                     both
