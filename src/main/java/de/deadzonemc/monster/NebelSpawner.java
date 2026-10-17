@@ -20,7 +20,7 @@ public final class NebelSpawner {
 
     public static void tick(ServerTickEvent.Post event) {
         ServerLevel welt = event.getServer().overworld();
-        if (welt.getGameTime() % 300 != 0 || !DeadzoneMonster.dichterNebel(welt)
+        if (event.getServer().getTickCount() % 300 != 0 || !DeadzoneMonster.dichterNebel(welt)
                 || !welt.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_DOMOBSPAWNING)) {
             return;
         }

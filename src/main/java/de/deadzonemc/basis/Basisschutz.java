@@ -68,10 +68,11 @@ public final class Basisschutz {
     }
 
     public static void tick(ServerTickEvent.Post event) {
+        int takt = event.getServer().getTickCount();
+        if (takt % 20 != 3) {
+            return;
+        }
         for (ServerLevel level : event.getServer().getAllLevels()) {
-            if (level.getGameTime() % 20 != 3) {
-                continue;
-            }
             Basen basen = Basen.holen(level);
             if (basen.alle().isEmpty()) {
                 continue;
@@ -89,11 +90,11 @@ public final class Basisschutz {
                         new AABB(zentrum).inflate(r + 32, 64, r + 32), DeadzoneMonster::echterSpieler);
                 if (!erlaubt) {
                     vertreiben(level, zentrum, r);
-                } else if (stufe == Sicherheit.BELAGERUNG && !anwesend.isEmpty() && level.getGameTime() % 600 == 3) {
+                } else if (stufe == Sicherheit.BELAGERUNG && !anwesend.isEmpty() && takt % 600 == 3) {
                     welle(level, zentrum, r, anwesend);
                 }
                 // Vorwarnung bei Einbruch der Dämmerung
-                if (stufe == Sicherheit.BELAGERUNG && zeit == 12003 && level.getGameTime() % 20 == 3) {
+                if (stufe == Sicherheit.BELAGERUNG && zeit >= 12000 && zeit < 12020) {
                     long morgen = level.getDayTime() / 24000L;
                     if (morgen % 7 == 6 || DeadzoneMonster.dichterNebel(level)) {
                         for (ServerPlayer p : anwesend) {
