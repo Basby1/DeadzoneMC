@@ -3,8 +3,9 @@
 Eine postapokalyptische Welt voller Nebel. Plündern, überleben, die Basis ausbauen – und herausfinden,
 was in Station Null geschehen ist.
 
-**Stand: Etappe 1 von 9** – Welt, Nebel und Wetter, verlassene Häuser mit Beute, erste Story-Notizen.
-Monster, Waffen, Überlebenssystem, Basis und Klassen folgen in den nächsten Etappen.
+**Stand: Etappe 1, Schritt 1** – Welt, Nebel und Wetter, Dörfer mit Straßennetz und zwölf Gebäudearten,
+Beute je Behälter, Startkarte, Handbuch und Story-Notizen. Als Nächstes: Kleinstädte, dann Großstädte,
+dann Monster, Waffen, Überlebenssystem, Basis und Klassen.
 
 ---
 
@@ -51,17 +52,36 @@ jede neue Welt ist automatisch eine Deadzone. Bestehende Welten bleiben, wie sie
 
 Nachts wird der Nebel fast schwarz, in Höhlen ebenfalls. Licht ist überlebenswichtig.
 
-### Häuser und Beute
-- Häuser mit ein oder zwei Stockwerken, manchmal mit **Keller** – dort ist es stockdunkel, aber die Beute ist besser.
-- Kisten und Fässer in Küche, Wohnraum und Schlafzimmer, Fässer in Autowracks.
-- **Notizen** erzählen Stück für Stück, was passiert ist (Rechtsklick zum Lesen).
+### Dörfer
+Dörfer liegen an einer Hauptstraße, oft mit Querstraße. Gehwege, Mittellinie, Zebrastreifen, kaputte
+Laternen, gelbe Ortsschilder mit dem Ortsnamen, parkende Autos, manchmal ein Unfall oder ein Stau an der
+Ausfallstraße.
+
+| Gebäude | Besonderheit |
+| --- | --- |
+| Einfamilienhaus | Küche, Bad, Wohn-, Schlaf- und Kinderzimmer, Treppe, oft Keller und Garage, Garten |
+| Bungalow | Offener Wohnbereich, Terrasse, Carport |
+| Bauernhof | Fachwerkhaus, Scheune mit Heuboden, Feld mit Vogelscheuche, Traktor, Brunnen |
+| Kirche | Glockenturm, Bankreihen, Altar, Friedhof mit offenen Gräbern |
+| Dorfladen | Regale, Kühlregal, Kasse, Lager |
+| Gasthof | Theke, Küche, Fremdenzimmer, Biergarten |
+| Feuerwehr | Löschfahrzeug, Spinde mit Ausrüstung, Schlauchturm |
+| Werkstatt | Hebebühne mit Auto, Werkzeugkisten |
+| Tankstelle | Zapfsäulen, Shop, Preisschild – meist vor dem Ort |
+| Bushaltestelle, Kleingarten, Brandruine | Kleine Grundstücke dazwischen |
+
+### Beute
+Jeder Behälter hat eigene Beute: Kühlschrank (Essen), Küchenschrank (Vorräte), Spiegelschrank (Verbände),
+Kleiderschrank (Stoff, Kleidung), Werkzeugkiste (Werkzeug, Schrott), Briefkasten (Post, Notizen), Keller
+(oft die beste Beute). **Notizen** erzählen die Geschichte (Rechtsklick zum Lesen).
 
 ### Neue Items
-Konservendose, Verband (heilt 3 Herzen), Schrott, Stoffreste, Batterie, Elektronikteile, Notizen.
+Handbuch, Konservendose, Verband (heilt 3 Herzen), Schrott, Stoffreste, Batterie, Elektronikteile, Notizen.
 Rezept: 3 Stoffreste ergeben 1 Verband.
 
 ### Spielstart
 Alle starten im selben Gebiet, aber zufällig verteilt (höchstens rund 400 Blöcke voneinander entfernt).
+Jeder bekommt eine **leere Karte**, die sich beim Erkunden füllt, und das **Handbuch für Überlebende**.
 
 ---
 
@@ -72,8 +92,9 @@ Alle starten im selben Gebiet, aber zufällig verteilt (höchstens rund 400 Blö
 | `/deadzone wetter` | Zeigt das aktuelle Wetter |
 | `/deadzone wetter dichter_nebel` | Wetter setzen: `klar`, `leichter_nebel`, `dichter_nebel`, `saurer_regen`, `aschesturm` |
 | `/deadzone wetter saurer_regen 5` | Wetter für 5 Minuten |
-| `/locate structure deadzonemc:siedlung` | Nächste Siedlung finden |
-| `/locate structure deadzonemc:einzelhaus` | Nächstes einzelnes Haus |
+| `/deadzone nebel aus` | Nebel ausschalten (für alle; `an` schaltet ihn wieder ein) |
+| `/deadzone orte` | Nächste Orte mit Name, Entfernung und Richtung |
+| `/deadzone hin` | Direkt ins nächste Dorf |
 | `/locate biome deadzonemc:toter_wald` | Nächstes Gebiet finden |
 | `/time set night` | Nacht – um den schwarzen Nebel zu sehen |
 
