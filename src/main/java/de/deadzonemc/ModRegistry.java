@@ -106,6 +106,13 @@ public final class ModRegistry {
                     .copyOnDeath()
                     .build());
 
+    /** Gewählte Klasse des Spielers (leer = noch keine). */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<String>> KLASSE =
+            ANHAENGE.register("klasse", () -> AttachmentType.builder(() -> "")
+                    .serialize(Codec.STRING)
+                    .copyOnDeath()
+                    .build());
+
     /** Aufgenommene Strahlendosis eines Spielers (0 bis 1000). Nach dem Tod wieder 0. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> STRAHLENDOSIS =
             ANHAENGE.register("strahlendosis", () -> AttachmentType.builder(() -> 0.0F)

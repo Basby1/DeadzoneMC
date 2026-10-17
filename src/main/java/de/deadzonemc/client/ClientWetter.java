@@ -110,7 +110,7 @@ public final class ClientWetter {
             return;
         }
         float licht = tageslicht(level, (float) event.getPartialTick());
-        float weite = sicht * (0.75F + 0.25F * licht);
+        float weite = sicht * (0.75F + 0.25F * licht) * ("spaeher".equals(ClientKlasse.klasse()) ? 1.5F : 1.0F);
         weite = Mth.lerp(hoehle, weite, 26F);
         float anfang = Mth.lerp(hoehle, nah, 0F);
 

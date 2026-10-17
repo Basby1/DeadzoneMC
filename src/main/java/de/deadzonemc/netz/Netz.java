@@ -16,6 +16,10 @@ public final class Netz {
         registrar.playToClient(WetterPayload.TYPE, WetterPayload.STREAM_CODEC, Netz::wetterEmpfangen);
         registrar.playToClient(SchreckPayload.TYPE, SchreckPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientSchreck.start(n.staerke())));
+        registrar.playBidirectional(de.deadzonemc.klasse.KlassePayload.TYPE, de.deadzonemc.klasse.KlassePayload.STREAM_CODEC,
+                new net.neoforged.neoforge.network.handling.DirectionalPayloadHandler<>(
+                        (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientKlasse.empfangen(n)),
+                        de.deadzonemc.klasse.Klassen::empfangen));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientDaten.entdecktSetzen(n.monster())));
     }

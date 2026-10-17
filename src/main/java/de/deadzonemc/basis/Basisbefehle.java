@@ -17,6 +17,10 @@ public final class Basisbefehle {
 
     public static void registrieren(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("deadzone")
+                .then(Commands.literal("klasse").executes(ctx -> {
+                    de.deadzonemc.klasse.Klassen.oeffnen(ctx.getSource().getPlayerOrException());
+                    return 1;
+                }))
                 .then(Commands.literal("basis")
                         .then(Commands.literal("info").executes(ctx -> {
                             ServerLevel level = ctx.getSource().getLevel();

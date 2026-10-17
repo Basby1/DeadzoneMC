@@ -46,7 +46,7 @@ public class VerbandItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (!level.isClientSide) {
-            entity.heal(6.0F);
+            entity.heal(6.0F * (entity instanceof Player p ? de.deadzonemc.klasse.Klassen.heilfaktor(p) : 1.0F));
             level.playSound(null, entity.blockPosition(), SoundEvents.WOOL_PLACE, SoundSource.PLAYERS, 1.0F, 0.8F);
         }
         stack.consume(1, entity);
