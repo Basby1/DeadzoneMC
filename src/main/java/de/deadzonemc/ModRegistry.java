@@ -74,6 +74,10 @@ public final class ModRegistry {
                     .nutrition(6).saturationModifier(0.6F).build()));
     public static final DeferredItem<VerbandItem> VERBAND = ITEMS.register("verband",
             () -> new VerbandItem(new Item.Properties().stacksTo(16)));
+    public static final DeferredItem<de.deadzonemc.item.MedizinItem> ANTIBIOTIKA = ITEMS.register("antibiotika",
+            () -> new de.deadzonemc.item.MedizinItem(de.deadzonemc.item.MedizinItem.Art.ANTIBIOTIKA, new Item.Properties().stacksTo(8)));
+    public static final DeferredItem<de.deadzonemc.item.MedizinItem> SCHMERZMITTEL = ITEMS.register("schmerzmittel",
+            () -> new de.deadzonemc.item.MedizinItem(de.deadzonemc.item.MedizinItem.Art.SCHMERZMITTEL, new Item.Properties().stacksTo(16)));
     public static final DeferredItem<Item> SCHROTT = ITEMS.registerSimpleItem("schrott");
     public static final DeferredItem<Item> STOFFRESTE = ITEMS.registerSimpleItem("stoffreste");
     public static final DeferredItem<Item> BATTERIE = ITEMS.registerSimpleItem("batterie", new Item.Properties().stacksTo(16));
@@ -114,6 +118,8 @@ public final class ModRegistry {
                         ausgabe.accept(HANDBUCH.get());
                         ausgabe.accept(KONSERVENDOSE.get());
                         ausgabe.accept(VERBAND.get());
+                        ausgabe.accept(ANTIBIOTIKA.get());
+                        ausgabe.accept(SCHMERZMITTEL.get());
                         ausgabe.accept(SCHROTT.get());
                         ausgabe.accept(STOFFRESTE.get());
                         ausgabe.accept(BATTERIE.get());
