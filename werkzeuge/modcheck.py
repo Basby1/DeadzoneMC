@@ -14,42 +14,17 @@ KOPF = {"User-Agent": "Basby1/DeadzoneMC modcheck (github.com/Basby1/DeadzoneMC)
 
 # (Name/Slug, Art) – Art: mod, shader, resourcepack
 KANDIDATEN = [
-    # Welt
-    ("the-lost-cities", "mod"), ("structory", "mod"), ("lootr", "mod"), ("distanthorizons", "mod"),
-    ("terralith", "mod"), ("tectonic", "mod"), ("towns-and-towers", "mod"), ("yungs-better-dungeons", "mod"),
-    ("yungs-better-mineshafts", "mod"), ("deeper-and-darker", "mod"),
-    # Waffen & Kampf
-    ("tacz-1.21.1", "mod"), ("vics-point-blank", "mod"), ("better-combat", "mod"), ("playeranimator", "mod"),
-    ("shoulder-surfing-reloaded", "mod"), ("epic-fight", "mod"), ("spartan-weaponry", "mod"),
-    # Gegner & Tiere
-    ("the-hordes", "mod"), ("cave-dweller", "mod"), ("born-in-chaos", "mod"), ("mutant-monsters", "mod"),
-    ("spore", "mod"), ("improved-mobs", "mod"), ("naturalist", "mod"), ("alexs-mobs", "mod"),
-    ("zombie-awareness", "mod"), ("the-graveyard", "mod"), ("rotten-creatures", "mod"), ("from-the-fog", "mod"),
-    ("man-from-the-fog-reimagined", "mod"), ("enhanced-celestials", "mod"), ("in-control", "mod"),
-    ("creeper-overhaul", "mod"), ("friends-and-foes", "mod"), ("ecologics", "mod"), ("wan-ancient-beasts", "mod"),
-    # Survival
-    ("tough-as-nails", "mod"), ("glitchcore", "mod"), ("sophisticated-backpacks", "mod"), ("hardcore-revival", "mod"),
-    ("corpse", "mod"), ("appleskin", "mod"), ("serene-seasons", "mod"), ("farmers-delight", "mod"),
-    ("first-aid", "mod"), ("legendary-survival-overhaul", "mod"), ("cold-sweat", "mod"), ("comforts", "mod"),
-    ("carry-on", "mod"), ("spice-of-life-onion", "mod"),
-    # Fahrzeuge
-    ("immersive-aircraft", "mod"), ("astikorcarts-redux", "mod"), ("small-ships", "mod"),
-    # Atmosphäre, Klang, Animation
-    ("sound-physics-remastered", "mod"), ("ambientsounds", "mod"), ("tense-ambience", "mod"),
-    ("presence-footsteps", "mod"), ("particle-rain", "mod"), ("visuality", "mod"), ("physicsmod", "mod"),
-    ("lambdynamiclights", "mod"), ("sodium-dynamic-lights", "mod"), ("not-enough-animations", "mod"),
-    ("first-person-model", "mod"), ("entity-model-features", "mod"), ("entitytexturefeatures", "mod"),
-    ("fresh-animations", "resourcepack"), ("falling-leaves", "mod"), ("true-darkness", "mod"),
-    ("dynamic-surroundings", "mod"), ("subtle-effects", "mod"), ("wakes", "mod"),
-    # Grafik
-    ("sodium", "mod"), ("iris", "mod"), ("complementary-reimagined", "shader"), ("complementary-unbound", "shader"),
-    ("bsl-shaders", "shader"), ("photon-shader", "shader"),
-    # Basis
-    ("supplementaries", "mod"), ("macaws-doors", "mod"), ("create", "mod"), ("handcrafted", "mod"),
-    # Karte, Hilfen, Leistung
-    ("map-atlases", "mod"), ("jei", "mod"), ("emi", "mod"), ("jade", "mod"), ("modernfix", "mod"),
-    ("ferrite-core", "mod"), ("lithium", "mod"), ("immediatelyfast", "mod"), ("spark", "mod"),
-    ("entityculling", "mod"), ("open-parties-and-claims", "mod"),
+    ("parcool", "mod"), ("pufferfish-skills", "mod"), ("handcrafted", "mod"), ("macaws-furniture", "mod"),
+    ("macaws-roofs", "mod"), ("macaws-windows", "mod"), ("macaws-lights-and-lamps", "mod"), ("macaws-paths-and-pavings", "mod"),
+    ("macaws-bridges", "mod"), ("macaws-fences-and-walls", "mod"), ("macaws-trapdoors", "mod"), ("macaws-stairs", "mod"),
+    ("another-furniture", "mod"), ("decorative-blocks", "mod"), ("chipped", "mod"), ("rechiseled", "mod"),
+    ("every-compat", "mod"), ("create", "mod"), ("biomes-o-plenty", "mod"), ("terrablender", "mod"),
+    ("critters-and-companions", "mod"), ("untamedwilds", "mod"), ("friends-and-foes-forge", "mod"), ("ecologics", "mod"),
+    ("wildlife", "mod"), ("fauna", "mod"), ("crabbers-delight", "mod"), ("environmental", "mod"), ("autumnity", "mod"),
+    ("farmers-delight", "mod"), ("storage-drawers", "mod"), ("sophisticated-storage", "mod"), ("waystones", "mod"),
+    ("xaeros-minimap", "mod"), ("dynamic-trees", "mod"), ("fast-leaf-decay", "mod"), ("better-clouds", "mod"),
+    ("skill-tree", "mod"), ("project-mmo", "mod"), ("leveling-up", "mod"), ("level-up-reforged", "mod"),
+    ("ftb-quests", "mod"), ("easy-npc", "mod"), ("custom-npcs-unofficial", "mod"), ("villagers-plus", "mod"),
 ]
 
 LADER = {"mod": ["neoforge"], "shader": ["iris"], "resourcepack": ["minecraft"]}
