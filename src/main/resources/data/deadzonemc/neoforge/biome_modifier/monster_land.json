@@ -1,0 +1,18 @@
+{
+ "type": "neoforge:add_spawns",
+ "biomes": "#deadzonemc:land",
+ "spawners": [
+  {
+   "type": "deadzonemc:seuchenhund",
+   "weight": 25,
+   "minCount": 3,
+   "maxCount": 5
+  },
+  {
+   "type": "deadzonemc:sauger",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  }
+ ]
+}

@@ -59,6 +59,19 @@ public final class Strahlung {
         return p.getData(DOSIS);
     }
 
+    /** Zusätzliche Strahlung von außen (Seuchenträger, Der Strahlende). Talente und Maske schützen. */
+    public static void bestrahlen(Player p, float menge) {
+        if (p.isCreative() || p.isSpectator()) {
+            return;
+        }
+        net.minecraft.world.item.ItemStack maske = p.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD);
+        if (maske.is(ModRegistry.GASMASKE.get()) && maske.getOrDefault(ModRegistry.FILTER.get(), 0) > 0) {
+            menge *= 0.3F;
+        }
+        menge *= de.deadzonemc.klasse.Talente.strahlenfaktor(p);
+        p.setData(DOSIS, Math.min(MAX, p.getData(DOSIS) + menge));
+    }
+
     public static void senken(Player p, float menge) {
         p.setData(DOSIS, Math.max(0, p.getData(DOSIS) - menge));
     }

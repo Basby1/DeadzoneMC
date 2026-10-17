@@ -23,17 +23,27 @@ import java.util.List;
 
 /**
  * Schutz der Basen je nach Sicherheitsstufe: kein Spawnen im Bereich, Monster werden vertrieben, und auf
- * „Belagerung“ kommen in Blutnächten (jede 7. Nacht) und in Nebelnächten Angriffswellen.
+ * „Belagerung“ kommen in zufälligen Überfallsnächten und in Nebelnächten Angriffswellen.
  */
 public final class Basisschutz {
 
     private Basisschutz() {
     }
 
-    /** Ob in dieser Nacht die Basen angegriffen werden (Stufe Belagerung). */
+    /**
+     * Ob in dieser Nacht die Basen angegriffen werden (Stufe Belagerung). Kein fester Rhythmus mehr:
+     * Jede Nacht wird mit etwa 22 % Wahrscheinlichkeit zur Überfallsnacht (fest pro Nacht und Welt),
+     * dazu jede Nebelnacht.
+     */
     public static boolean belagerungsnacht(ServerLevel level) {
-        long tag = level.getDayTime() / 24000L;
-        return level.isNight() && (tag % 7 == 6 || DeadzoneMonster.dichterNebel(level));
+        return level.isNight() && (ueberfallTag(level, level.getDayTime() / 24000L) || DeadzoneMonster.dichterNebel(level));
+    }
+
+    /** Ob die Nacht dieses Tages eine Überfallsnacht ist (zufällig, aber fest pro Welt und Tag). */
+    public static boolean ueberfallTag(ServerLevel level, long tag) {
+        long h = level.getSeed() * 0x9E3779B97F4A7C15L + tag * 0xC2B2AE3D27D4EB4FL;
+        h ^= (h >>> 29);
+        return tag > 0 && Math.floorMod(h, 100L) < 22;
     }
 
     private static boolean angriffErlaubt(ServerLevel level, Sicherheit stufe) {
@@ -96,7 +106,7 @@ public final class Basisschutz {
                 // Vorwarnung bei Einbruch der Dämmerung
                 if (stufe == Sicherheit.BELAGERUNG && zeit >= 12000 && zeit < 12020) {
                     long morgen = level.getDayTime() / 24000L;
-                    if (morgen % 7 == 6 || DeadzoneMonster.dichterNebel(level)) {
+                    if (ueberfallTag(level, morgen) || DeadzoneMonster.dichterNebel(level)) {
                         for (ServerPlayer p : anwesend) {
                             p.displayClientMessage(Component.translatable("basis.deadzonemc.warnung").withStyle(ChatFormatting.DARK_RED), false);
                             p.playNotifySound(SoundEvents.RAID_HORN.value(), SoundSource.HOSTILE, 0.8F, 0.7F);

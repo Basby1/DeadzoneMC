@@ -15,14 +15,14 @@
 	zoglinsAttackMobs = true
 
 ["Horde Event"]
-	enableHordeEvent = true
-	hordesCommandOnly = false
+	#Keine feste Horde alle 7 Tage: Deadzone schickt zufällige Überfälle und wandernde Herden
+	enableHordeEvent = false
+	hordesCommandOnly = true
 	spawnAmount = 15
 	hordeSpawnMultiplier = 1.05
 	hordeSpawnDuration = 6000
 	hordeSpawnInterval = 600
 	hordeStartTime = 18000
-	#Wie bei 7 Days to Die: jede 7. Nacht kommt die Horde
 	hordeSpawnDays = 7
 	hordeSpawnVariation = 0
 	hordeSpawnMax = 160

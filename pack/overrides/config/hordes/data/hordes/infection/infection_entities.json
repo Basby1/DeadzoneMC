@@ -54,5 +54,33 @@
  {
   "entity": "deadzonemc:schwarm",
   "chance": 0.2
+ },
+ {
+  "entity": "deadzonemc:gefallener_soldat",
+  "chance": 0.6
+ },
+ {
+  "entity": "deadzonemc:sauger",
+  "chance": 0.5
+ },
+ {
+  "entity": "deadzonemc:seuchenhund",
+  "chance": 0.45
+ },
+ {
+  "entity": "deadzonemc:scheintoter",
+  "chance": 0.6
+ },
+ {
+  "entity": "deadzonemc:ertrunkener",
+  "chance": 0.5
+ },
+ {
+  "entity": "deadzonemc:verschmolzener",
+  "chance": 0.8
+ },
+ {
+  "entity": "deadzonemc:wuehler",
+  "chance": 0.4
  }
 ]

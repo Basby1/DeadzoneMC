@@ -42,6 +42,26 @@ public class DeadzoneClient {
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.WACHE.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "wache", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.BEWOHNER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "bewohner", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.AUFTRAGGEBER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "auftraggeber", false));
+        e.registerEntityRenderer(MonsterTypen.GEFALLENER_SOLDAT.get(), c -> new MonsterRenderer<>(c, "gefallener_soldat", false, false, 0.5F));
+        e.registerEntityRenderer(MonsterTypen.GLUTLEIB.get(), c -> new MonsterRenderer<>(c, "glutleib", true, false, 0.6F));
+        e.registerEntityRenderer(MonsterTypen.SEUCHENHUND.get(), c -> new MonsterRenderer<>(c, "seuchenhund", true, false, 0.4F));
+        e.registerEntityRenderer(MonsterTypen.WUEHLER.get(), c -> new MonsterRenderer<>(c, "wuehler", false, false, 0.5F));
+        e.registerEntityRenderer(MonsterTypen.SAUGER.get(), c -> new MonsterRenderer<>(c, "sauger", true, false, 0.5F));
+        e.registerEntityRenderer(MonsterTypen.SEUCHENTRAEGER.get(), c -> new MonsterRenderer<>(c, "seuchentraeger", true, false, 0.6F));
+        e.registerEntityRenderer(MonsterTypen.ERTRUNKENER.get(), c -> new MonsterRenderer<>(c, "ertrunkener", false, false, 0.6F));
+        e.registerEntityRenderer(MonsterTypen.SPAEHERDROHNE.get(), c -> new MonsterRenderer<>(c, "spaeherdrohne", true, true, 0.4F));
+        e.registerEntityRenderer(MonsterTypen.LICHTMOTTE.get(), c -> new MonsterRenderer<>(c, "lichtmotte", true, false, 0.3F));
+        e.registerEntityRenderer(MonsterTypen.SCHEINTOTER.get(), c -> new MonsterRenderer<>(c, "scheintoter", false, false, 0.6F));
+        e.registerEntityRenderer(MonsterTypen.VERSCHMOLZENER.get(), c -> new MonsterRenderer<>(c, "verschmolzener", true, false, 1.6F));
+        e.registerEntityRenderer(MonsterTypen.NEBELMUTTER.get(), c -> new MonsterRenderer<>(c, "nebelmutter", true, true, 0.8F));
+        e.registerEntityRenderer(MonsterTypen.STRAHLENDE.get(), c -> new MonsterRenderer<>(c, "strahlende", true, false, 1.3F));
+        e.registerEntityRenderer(MonsterTypen.BRUTKOENIGIN.get(), c -> new MonsterRenderer<>(c, "brutkoenigin", true, false, 1.6F));
+        e.registerEntityRenderer(MonsterTypen.SCHLAECHTER.get(), c -> new MonsterRenderer<>(c, "schlaechter", true, false, 1.0F));
+        e.registerEntityRenderer(MonsterTypen.KOMMANDANT.get(), c -> new MonsterRenderer<>(c, "kommandant", true, false, 0.9F));
+        e.registerEntityRenderer(MonsterTypen.HIRTE.get(), c -> new MonsterRenderer<>(c, "hirte", true, false, 0.6F));
+        e.registerEntityRenderer(MonsterTypen.SCHLUND.get(), c -> new MonsterRenderer<>(c, "schlund", false, false, 1.6F));
+        e.registerEntityRenderer(MonsterTypen.PILZVATER.get(), c -> new MonsterRenderer<>(c, "pilzvater", true, false, 1.3F));
+        e.registerEntityRenderer(MonsterTypen.ERFRORENE.get(), c -> new MonsterRenderer<>(c, "erfrorene", true, true, 1.1F));
         e.registerEntityRenderer(MonsterTypen.JUGGERNAUT.get(), c -> new MonsterRenderer<>(c, "juggernaut", true, false, 1.2F));
     }
 }

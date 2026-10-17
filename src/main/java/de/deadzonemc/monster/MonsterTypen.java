@@ -47,13 +47,48 @@ public final class MonsterTypen {
     public static final DeferredHolder<EntityType<?>, EntityType<Brut>> BRUT = typ("brut", Brut::new, 1.0F, 1.5F, 0xa7a27a, 0x9cff4a);
     public static final DeferredHolder<EntityType<?>, EntityType<Juggernaut>> JUGGERNAUT = typ("juggernaut", Juggernaut::new, 1.6F, 2.9F, 0x585d62, 0xff8a2a);
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+
+    // ---- zweite Welle ----
+    public static final DeferredHolder<EntityType<?>, EntityType<GefallenerSoldat>> GEFALLENER_SOLDAT = typ("gefallener_soldat", GefallenerSoldat::new, 0.6F, 1.95F, 0x4f5a3b, 0x7f8a78);
+    public static final DeferredHolder<EntityType<?>, EntityType<Glutleib>> GLUTLEIB = typ("glutleib", Glutleib::new, 1.0F, 2.0F, 0x2a2220, 0xff8a2a, true);
+    public static final DeferredHolder<EntityType<?>, EntityType<Seuchenhund>> SEUCHENHUND = typ("seuchenhund", Seuchenhund::new, 0.7F, 0.9F, 0x5a4a3c, 0x8a3a30);
+    public static final DeferredHolder<EntityType<?>, EntityType<Wuehler>> WUEHLER = typ("wuehler", Wuehler::new, 0.9F, 1.3F, 0xc79a8a, 0x5a4636);
+    public static final DeferredHolder<EntityType<?>, EntityType<Sauger>> SAUGER = typ("sauger", Sauger::new, 0.8F, 1.7F, 0x8a5a4a, 0xffd84a);
+    public static final DeferredHolder<EntityType<?>, EntityType<Seuchentraeger>> SEUCHENTRAEGER = typ("seuchentraeger", Seuchentraeger::new, 0.9F, 2.0F, 0xc9b43a, 0x9cff4a);
+    public static final DeferredHolder<EntityType<?>, EntityType<Ertrunkener>> ERTRUNKENER = typ("ertrunkener", Ertrunkener::new, 0.9F, 2.0F, 0x7a8a8e, 0x2e4a2a);
+    public static final DeferredHolder<EntityType<?>, EntityType<Spaeherdrohne>> SPAEHERDROHNE = typ("spaeherdrohne", Spaeherdrohne::new, 0.9F, 0.6F, 0x4a5238, 0xff2a1a);
+    public static final DeferredHolder<EntityType<?>, EntityType<Lichtmotte>> LICHTMOTTE = typ("lichtmotte", Lichtmotte::new, 1.2F, 0.8F, 0xa8987a, 0xd8ffd0);
+    public static final DeferredHolder<EntityType<?>, EntityType<Scheintoter>> SCHEINTOTER = typ("scheintoter", Scheintoter::new, 0.6F, 1.9F, 0x9a9a88, 0x6a1414);
+
+    // ---- Bosse ----
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Verschmolzener>> VERSCHMOLZENER = typ("verschmolzener", de.deadzonemc.monster.boss.Verschmolzener::new, 2.4F, 4.0F, 0x8e9883, 0xff3a2a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Nebelmutter>> NEBELMUTTER = typ("nebelmutter", de.deadzonemc.monster.boss.Nebelmutter::new, 1.2F, 6.8F, 0xd8dcd6, 0xd8fbff);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Strahlende>> STRAHLENDE = typ("strahlende", de.deadzonemc.monster.boss.Strahlende::new, 2.0F, 3.8F, 0x7a8460, 0x9cff4a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Brutkoenigin>> BRUTKOENIGIN = typ("brutkoenigin", de.deadzonemc.monster.boss.Brutkoenigin::new, 2.6F, 2.2F, 0x3a2a26, 0xd8c8a0);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Schlaechter>> SCHLAECHTER = typ("schlaechter", de.deadzonemc.monster.boss.Schlaechter::new, 1.4F, 2.9F, 0xb89a88, 0x5a0a0a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Kommandant>> KOMMANDANT = typ("kommandant", de.deadzonemc.monster.boss.Kommandant::new, 1.2F, 2.7F, 0x4a5238, 0xff8a2a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Hirte>> HIRTE = typ("hirte", de.deadzonemc.monster.boss.Hirte::new, 0.8F, 3.3F, 0x3a3428, 0xb08a3a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Schlund>> SCHLUND = typ("schlund", de.deadzonemc.monster.boss.Schlund::new, 2.0F, 5.0F, 0xb08a78, 0x6a5440);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Pilzvater>> PILZVATER = typ("pilzvater", de.deadzonemc.monster.boss.Pilzvater::new, 1.8F, 3.6F, 0x7a7064, 0x8a9aa8);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Erfrorene>> ERFRORENE = typ("erfrorene", de.deadzonemc.monster.boss.Erfrorene::new, 1.4F, 3.8F, 0xa8bccb, 0xc8ecff, true);
+
     private static <T extends DeadzoneMonster> DeferredHolder<EntityType<?>, EntityType<T>> typ(
             String name, EntityType.EntityFactory<T> fabrik, float breite, float hoehe, int farbe1, int farbe2) {
-        DeferredHolder<EntityType<?>, EntityType<T>> h = TYPEN.register(name, () -> EntityType.Builder.of(fabrik, MobCategory.MONSTER)
-                .sized(breite, hoehe)
-                .clientTrackingRange(10)
-                .build(DeadzoneMC.MODID + ":" + name));
+        return typ(name, fabrik, breite, hoehe, farbe1, farbe2, false);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static <T extends DeadzoneMonster> DeferredHolder<EntityType<?>, EntityType<T>> typ(
+            String name, EntityType.EntityFactory<T> fabrik, float breite, float hoehe, int farbe1, int farbe2, boolean feuerfest) {
+        DeferredHolder<EntityType<?>, EntityType<T>> h = TYPEN.register(name, () -> {
+            EntityType.Builder<T> b = EntityType.Builder.of(fabrik, MobCategory.MONSTER)
+                    .sized(breite, hoehe)
+                    .clientTrackingRange(hoehe > 3 ? 16 : 10);
+            if (feuerfest) {
+                b = b.fireImmune();
+            }
+            return b.build(DeadzoneMC.MODID + ":" + name);
+        });
         ALLE.put(name, (DeferredHolder) h);
         Supplier<EntityType<T>> s = h;
         EIER.add(ModRegistry.ITEMS.register(name + "_spawn_egg",
@@ -79,6 +114,26 @@ public final class MonsterTypen {
         e.put(SCHWARM.get(), Schwarm.attribute().build());
         e.put(BRUT.get(), Brut.attribute().build());
         e.put(JUGGERNAUT.get(), Juggernaut.attribute().build());
+        e.put(GEFALLENER_SOLDAT.get(), GefallenerSoldat.attribute().build());
+        e.put(GLUTLEIB.get(), Glutleib.attribute().build());
+        e.put(SEUCHENHUND.get(), Seuchenhund.attribute().build());
+        e.put(WUEHLER.get(), Wuehler.attribute().build());
+        e.put(SAUGER.get(), Sauger.attribute().build());
+        e.put(SEUCHENTRAEGER.get(), Seuchentraeger.attribute().build());
+        e.put(ERTRUNKENER.get(), Ertrunkener.attribute().build());
+        e.put(SPAEHERDROHNE.get(), Spaeherdrohne.attribute().build());
+        e.put(LICHTMOTTE.get(), Lichtmotte.attribute().build());
+        e.put(SCHEINTOTER.get(), Scheintoter.attribute().build());
+        e.put(VERSCHMOLZENER.get(), de.deadzonemc.monster.boss.Verschmolzener.attribute().build());
+        e.put(NEBELMUTTER.get(), de.deadzonemc.monster.boss.Nebelmutter.attribute().build());
+        e.put(STRAHLENDE.get(), de.deadzonemc.monster.boss.Strahlende.attribute().build());
+        e.put(BRUTKOENIGIN.get(), de.deadzonemc.monster.boss.Brutkoenigin.attribute().build());
+        e.put(SCHLAECHTER.get(), de.deadzonemc.monster.boss.Schlaechter.attribute().build());
+        e.put(KOMMANDANT.get(), de.deadzonemc.monster.boss.Kommandant.attribute().build());
+        e.put(HIRTE.get(), de.deadzonemc.monster.boss.Hirte.attribute().build());
+        e.put(SCHLUND.get(), de.deadzonemc.monster.boss.Schlund.attribute().build());
+        e.put(PILZVATER.get(), de.deadzonemc.monster.boss.Pilzvater.attribute().build());
+        e.put(ERFRORENE.get(), de.deadzonemc.monster.boss.Erfrorene.attribute().build());
     }
 
     private static <T extends Monster> void normal(RegisterSpawnPlacementsEvent e, EntityType<T> typ) {
@@ -95,6 +150,30 @@ public final class MonsterTypen {
         normal(e, SCHWARM.get());
         normal(e, BRUT.get());
         normal(e, JUGGERNAUT.get());
+        normal(e, GEFALLENER_SOLDAT.get());
+        normal(e, GLUTLEIB.get());
+        normal(e, SEUCHENHUND.get());
+        normal(e, SAUGER.get());
+        normal(e, SEUCHENTRAEGER.get());
+        normal(e, SCHEINTOTER.get());
+        e.register(WUEHLER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (typ, level, grund, pos, zufall) -> Monster.checkMonsterSpawnRules(typ, level, grund, pos, zufall)
+                        && (grund == net.minecraft.world.entity.MobSpawnType.SPAWNER
+                        || (pos.getY() < 50 && !level.canSeeSky(pos) && Wuehler.natuerlich(level.getBlockState(pos.below())))),
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        e.register(ERTRUNKENER.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.OCEAN_FLOOR,
+                (typ, level, grund, pos, zufall) -> level.getDifficulty() != net.minecraft.world.Difficulty.PEACEFUL
+                        && level.getFluidState(pos).is(net.minecraft.tags.FluidTags.WATER)
+                        && (grund == net.minecraft.world.entity.MobSpawnType.SPAWNER || Monster.isDarkEnoughToSpawn(level, pos, zufall)),
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        e.register(SPAEHERDROHNE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (typ, level, grund, pos, zufall) -> Monster.checkAnyLightMonsterSpawnRules(typ, level, grund, pos, zufall)
+                        && zufall.nextInt(3) == 0,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        e.register(LICHTMOTTE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (typ, level, grund, pos, zufall) -> Monster.checkMonsterSpawnRules(typ, level, grund, pos, zufall)
+                        && level.getLevel().isNight(),
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
         e.register(DER_STILLE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (typ, level, grund, pos, zufall) -> Monster.checkMonsterSpawnRules(typ, level, grund, pos, zufall)
                         && (level.getLevel().isNight() || DeadzoneMonster.dichterNebel(level.getLevel()))

@@ -23,17 +23,37 @@ public final class MonsterSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, DeadzoneMC.MODID);
 
     /** Alle Geräusche: Monsterart -> Arten von Geräuschen. Muss zu werkzeuge/monster/sounds.py passen. */
-    public static final Map<String, List<String>> LISTE = Map.of(
-            "wanderer", List.of("ambient", "hurt", "death", "step"),
-            "schreier", List.of("ambient", "hurt", "death", "schrei"),
-            "lauerer", List.of("hurt", "death", "atmen", "schreck"),
-            "kriecher", List.of("ambient", "hurt", "death", "step"),
-            "der_stille", List.of("hurt", "death", "naehe"),
-            "imitator", List.of("hurt", "death"),
-            "nebelwesen", List.of("ambient", "hurt", "death"),
-            "schwarm", List.of("ambient", "hurt", "death", "step"),
-            "brut", List.of("ambient", "hurt", "death", "platzen"),
-            "juggernaut", List.of("ambient", "hurt", "death", "step", "brullen", "panzer")
+    public static final Map<String, List<String>> LISTE = Map.ofEntries(
+            Map.entry("wanderer", List.of("ambient", "hurt", "death", "step")),
+            Map.entry("schreier", List.of("ambient", "hurt", "death", "schrei")),
+            Map.entry("lauerer", List.of("hurt", "death", "atmen", "schreck")),
+            Map.entry("kriecher", List.of("ambient", "hurt", "death", "step")),
+            Map.entry("der_stille", List.of("hurt", "death", "naehe")),
+            Map.entry("imitator", List.of("hurt", "death")),
+            Map.entry("nebelwesen", List.of("ambient", "hurt", "death")),
+            Map.entry("schwarm", List.of("ambient", "hurt", "death", "step")),
+            Map.entry("brut", List.of("ambient", "hurt", "death", "platzen")),
+            Map.entry("juggernaut", List.of("ambient", "hurt", "death", "step", "brullen", "panzer")),
+            Map.entry("gefallener_soldat", List.of("ambient", "hurt", "death", "step")),
+            Map.entry("glutleib", List.of("ambient", "hurt", "death", "step", "glut")),
+            Map.entry("seuchenhund", List.of("ambient", "hurt", "death", "step", "heulen")),
+            Map.entry("wuehler", List.of("ambient", "hurt", "death", "graben")),
+            Map.entry("sauger", List.of("ambient", "hurt", "death", "saugen")),
+            Map.entry("seuchentraeger", List.of("ambient", "hurt", "death", "spruehen")),
+            Map.entry("ertrunkener", List.of("ambient", "hurt", "death", "step")),
+            Map.entry("spaeherdrohne", List.of("ambient", "hurt", "death", "alarm")),
+            Map.entry("lichtmotte", List.of("ambient", "hurt", "death", "flattern")),
+            Map.entry("scheintoter", List.of("atmen", "hurt", "death", "packen")),
+            Map.entry("verschmolzener", List.of("ambient", "hurt", "death", "step", "brullen", "fusion")),
+            Map.entry("nebelmutter", List.of("ambient", "hurt", "death", "brullen")),
+            Map.entry("strahlende", List.of("ambient", "hurt", "death", "step", "brullen", "puls")),
+            Map.entry("brutkoenigin", List.of("ambient", "hurt", "death", "step", "brullen", "legen")),
+            Map.entry("schlaechter", List.of("ambient", "hurt", "death", "step", "brullen", "kette")),
+            Map.entry("kommandant", List.of("ambient", "hurt", "death", "step", "brullen")),
+            Map.entry("hirte", List.of("ambient", "hurt", "death", "glocke")),
+            Map.entry("schlund", List.of("ambient", "hurt", "death", "brullen", "graben", "auftauchen")),
+            Map.entry("pilzvater", List.of("ambient", "hurt", "death", "step", "sporen")),
+            Map.entry("erfrorene", List.of("ambient", "hurt", "death", "step", "brullen", "atem"))
     );
 
     private static final Map<String, DeferredHolder<SoundEvent, SoundEvent>> ALLE = new HashMap<>();

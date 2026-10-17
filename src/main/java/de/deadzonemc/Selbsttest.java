@@ -57,6 +57,29 @@ public final class Selbsttest {
             "summon deadzonemc:schwarm ~6 ~2 ~5",
             "summon deadzonemc:brut ~9 ~2 ~5",
             "summon deadzonemc:juggernaut ~12 ~2 ~5",
+            "summon deadzonemc:wache ~-10 ~2 ~-8",
+            "summon deadzonemc:bewohner ~-14 ~2 ~-8",
+            "summon deadzonemc:auftraggeber ~-18 ~2 ~-8",
+            "summon deadzonemc:gefallener_soldat ~-18 ~2 ~14",
+            "summon deadzonemc:glutleib ~-14 ~2 ~14",
+            "summon deadzonemc:seuchenhund ~-10 ~2 ~14",
+            "summon deadzonemc:wuehler ~-6 ~2 ~14",
+            "summon deadzonemc:sauger ~-2 ~2 ~14",
+            "summon deadzonemc:seuchentraeger ~2 ~2 ~14",
+            "summon deadzonemc:ertrunkener ~6 ~2 ~14",
+            "summon deadzonemc:spaeherdrohne ~10 ~2 ~14",
+            "summon deadzonemc:lichtmotte ~14 ~2 ~14",
+            "summon deadzonemc:scheintoter ~18 ~2 ~14",
+            "summon deadzonemc:verschmolzener ~-18 ~2 ~22",
+            "summon deadzonemc:nebelmutter ~-14 ~2 ~22",
+            "summon deadzonemc:strahlende ~-10 ~2 ~22",
+            "summon deadzonemc:brutkoenigin ~-6 ~2 ~22",
+            "summon deadzonemc:schlaechter ~-2 ~2 ~22",
+            "summon deadzonemc:kommandant ~2 ~2 ~22",
+            "summon deadzonemc:hirte ~6 ~2 ~22",
+            "summon deadzonemc:schlund ~10 ~2 ~22",
+            "summon deadzonemc:pilzvater ~14 ~2 ~22",
+            "summon deadzonemc:erfrorene ~18 ~2 ~22",
             "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
             "summon deadzonemc:soldat ~-6 ~2 ~-8",
             "summon deadzonemc:kultist ~-2 ~2 ~-8",
@@ -69,6 +92,12 @@ public final class Selbsttest {
             "kill @e[type=deadzonemc:kultist]",
             "kill @e[type=deadzonemc:ueberlebender]",
             "kill @e[type=deadzonemc:haendler]",
+            "kill @e[type=deadzonemc:wache]",
+            "kill @e[type=deadzonemc:bewohner]",
+            "kill @e[type=deadzonemc:auftraggeber]",
+            "#herde",
+            "#warten", "#warten",
+            "kill @e[type=#deadzonemc:monster]",
             "deadzone basis stufe sicher",
             "setblock ~ ~10 ~40 deadzonemc:notstromgenerator",
             "summon deadzonemc:wanderer ~3 ~11 ~43",
@@ -457,6 +486,17 @@ public final class Selbsttest {
             }
             if (befehl.equals("#dorf")) {
                 dorfSuchen(server);
+                return;
+            }
+            if (befehl.equals("#herde")) {
+                ServerLevel ow = server.overworld();
+                StringBuilder d = new StringBuilder();
+                for (int i = 0; i < 3; i++) {
+                    var h = de.deadzonemc.monster.Herden.herdeSpawnen(ow, net.minecraft.world.phys.Vec3.atCenterOf(ow.getSharedSpawnPos()),
+                            null, i == 2);
+                    d.append(h == null ? "keine" : de.deadzonemc.monster.Herden.beschreiben(ow, h)).append(" | ");
+                }
+                LOG.info("[Selbsttest] Herden: {} (aktiv {})", d, de.deadzonemc.monster.Herden.anzahl());
                 return;
             }
             if (befehl.equals("#zuflucht")) {

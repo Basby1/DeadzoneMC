@@ -58,7 +58,7 @@ public class Soldat extends Mensch {
         goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 12.0F));
         goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         targetSelector.addGoal(1, new HurtByTargetGoal(this, Soldat.class).setAlertOthers());
-        targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, true));
+        targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, 10, true, false, e -> !(e instanceof de.deadzonemc.monster.boss.Kommandant)));
         targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Kultist.class, true));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false,
                 e -> e instanceof Player p && !p.isCreative() && feindlich(p)));
