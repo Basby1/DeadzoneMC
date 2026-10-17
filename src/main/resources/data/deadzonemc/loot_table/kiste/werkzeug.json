@@ -4,14 +4,124 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 2,
+        "min": 1,
         "max": 4
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "deadzonemc:stoffreste",
+          "name": "deadzonemc:schrott",
           "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shears",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.2,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint_and_steel",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.3,
+                "max": 0.8
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stone_axe",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.2,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stone_pickaxe",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.2,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_shovel",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.3,
+                "max": 0.8
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string",
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -25,87 +135,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:white_wool",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:verband",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_helmet",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.2,
-                "max": 0.7
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_chestplate",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.2,
-                "max": 0.7
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_boots",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.2,
-                "max": 0.7
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:konservendose",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:book",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:candle",
+          "name": "deadzonemc:elektronik",
           "weight": 2
         },
         {
@@ -115,68 +145,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 10
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:notiz",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "deadzonemc:notiz": "tagebuch_1"
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:notiz",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "deadzonemc:notiz": "tagebuch_2"
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:notiz",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "deadzonemc:notiz": "kinderzettel"
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:notiz",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "deadzonemc:notiz": "abschied"
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:empty",
-          "weight": 7
+          "weight": 6
         }
       ]
     }

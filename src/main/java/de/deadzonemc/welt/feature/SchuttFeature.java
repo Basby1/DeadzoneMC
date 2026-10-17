@@ -33,6 +33,9 @@ public class SchuttFeature extends Feature<NoneFeatureConfiguration> {
         WorldGenLevel level = context.level();
         RandomSource zufall = context.random();
         BlockPos mitte = context.origin();
+        if (de.deadzonemc.welt.plan.PlanSpeicher.belegt(level.getSeed(), mitte.getX(), mitte.getZ(), 6)) {
+            return false; // in Ortschaften wächst keine Deko
+        }
         if (!Bau.fest(level.getBlockState(mitte.below()))) {
             return false;
         }

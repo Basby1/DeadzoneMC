@@ -38,6 +38,13 @@ public final class Spielstart {
                     spieler.getRandom().nextFloat() * 360F, 0F);
         }
         spieler.getInventory().add(NotizItem.erstellen("start"));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.HANDBUCH.get()));
+        // Eine leere Karte der Umgebung: Sie füllt sich, während man unterwegs ist.
+        net.minecraft.world.item.ItemStack karte = net.minecraft.world.item.MapItem.create(oberwelt,
+                spieler.getBlockX(), spieler.getBlockZ(), (byte) 2, true, false);
+        karte.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME,
+                Component.translatable("item.deadzonemc.startkarte").withStyle(style -> style.withItalic(false)));
+        spieler.getInventory().add(karte);
         spieler.displayClientMessage(Component.translatable("start.deadzonemc.ankunft")
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
     }

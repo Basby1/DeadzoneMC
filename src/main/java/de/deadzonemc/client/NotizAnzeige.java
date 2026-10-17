@@ -15,9 +15,18 @@ public final class NotizAnzeige {
     }
 
     public static void oeffnen(String id) {
+        buchZeigen("notiz.deadzonemc." + id + ".");
+    }
+
+    /** Das Handbuch: alle Seiten handbuch.deadzonemc.1, .2, ... */
+    public static void handbuch() {
+        buchZeigen("handbuch.deadzonemc.");
+    }
+
+    private static void buchZeigen(String praefix) {
         List<Component> seiten = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            String schluessel = "notiz.deadzonemc." + id + "." + i;
+        for (int i = 1; i <= 60; i++) {
+            String schluessel = praefix + i;
             if (!I18n.exists(schluessel)) {
                 break;
             }

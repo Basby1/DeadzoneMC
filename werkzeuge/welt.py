@@ -115,8 +115,7 @@ PLACED = {
     "tote_baeume_dicht": ("toter_baum", an_der_oberflaeche(anzahl=zwischen(3, 7))),
     "tote_baeume_moor": ("toter_baum", an_der_oberflaeche(anzahl=zwischen(1, 3))),
     "tote_baeume_selten": ("toter_baum", an_der_oberflaeche(seltenheit=3)),
-    "autowrack_strasse": ("autowrack", an_der_oberflaeche(seltenheit=6)),
-    "autowrack_selten": ("autowrack", an_der_oberflaeche(seltenheit=14)),
+    "autowrack_selten": ("autowrack", an_der_oberflaeche(seltenheit=24)),
     "schutt": ("schutt", an_der_oberflaeche(seltenheit=3)),
     "schutt_selten": ("schutt", an_der_oberflaeche(seltenheit=8)),
     "strommast": ("strommast", an_der_oberflaeche(seltenheit=10)),
@@ -157,7 +156,7 @@ DEKO_REIHENFOLGE = [
     "minecraft:glow_lichen",
     f"{MOD}:schutt", f"{MOD}:schutt_selten",
     f"{MOD}:strommast",
-    f"{MOD}:autowrack_strasse", f"{MOD}:autowrack_selten",
+    f"{MOD}:autowrack_selten",
     f"{MOD}:tote_baeume_dicht", f"{MOD}:tote_baeume_moor", f"{MOD}:tote_baeume_selten",
     "minecraft:patch_grass_plain", "minecraft:patch_grass_forest", "minecraft:patch_grass_badlands",
     "minecraft:patch_dead_bush", "minecraft:patch_dead_bush_2", "minecraft:patch_dead_bush_badlands",
@@ -232,7 +231,7 @@ GEBIETE = {
         temperatur=0.6, niederschlag=0.5, gras="#7d7c58", laub="#6b6a4c",
         wasser="#5b6b6e", wasser_nebel="#1f2628", himmel="#7b7f86",
         deko_liste=deko(f"{MOD}:boden_tot", "minecraft:glow_lichen", f"{MOD}:schutt_selten",
-                        f"{MOD}:strommast", f"{MOD}:autowrack_strasse", f"{MOD}:tote_baeume_selten",
+                        f"{MOD}:strommast", f"{MOD}:tote_baeume_selten",
                         "minecraft:patch_grass_plain", "minecraft:patch_dead_bush"),
         monster=MONSTER_GRUND,
         tiere=[spawn("minecraft:rabbit", 6, 1, 2), spawn("minecraft:chicken", 4, 1, 2)],
@@ -330,42 +329,26 @@ WELTTYP = {
 # ---------------------------------------------------------------------------------------------
 
 STRUKTUREN = {
-    "siedlung": {
-        "type": f"{MOD}:siedlung",
+    # Siedlungen werden in 64x64-Kacheln gebaut; jede Kachel schaut im Ortsplan nach, was zu ihr gehört.
+    "siedlungskachel": {
+        "type": f"{MOD}:siedlungskachel",
         "biomes": f"#{MOD}:hat_siedlung",
         "step": "surface_structures",
         "spawn_overrides": {},
-        "terrain_adaptation": "none",
-        "min_haeuser": 4,
-        "max_haeuser": 9,
-        "strasse": True,
-    },
-    "einzelhaus": {
-        "type": f"{MOD}:siedlung",
-        "biomes": f"#{MOD}:hat_einzelhaus",
-        "step": "surface_structures",
-        "spawn_overrides": {},
-        "terrain_adaptation": "none",
-        "min_haeuser": 1,
-        "max_haeuser": 1,
-        "strasse": False,
+        "terrain_adaptation": "beard_thin",
     },
 }
 
 STRUKTUR_SETS = {
-    "siedlungen": {
-        "placement": {"type": "minecraft:random_spread", "salt": 731904221, "separation": 4, "spacing": 10},
-        "structures": [{"structure": f"{MOD}:siedlung", "weight": 1}],
-    },
-    "einzelhaeuser": {
-        "placement": {"type": "minecraft:random_spread", "salt": 448210773, "separation": 2, "spacing": 7},
-        "structures": [{"structure": f"{MOD}:einzelhaus", "weight": 1}],
+    # spacing 4 / separation 3: genau eine Kachel pro 4x4 Chunks, immer in der Ecke
+    "siedlungskacheln": {
+        "placement": {"type": "minecraft:random_spread", "salt": 731904221, "separation": 3, "spacing": 4},
+        "structures": [{"structure": f"{MOD}:siedlungskachel", "weight": 1}],
     },
 }
 
 BIOM_TAGS = {
-    f"{MOD}:hat_siedlung": [f"{MOD}:vorstadt", f"{MOD}:oedland"],
-    f"{MOD}:hat_einzelhaus": [f"{MOD}:vorstadt", f"{MOD}:toter_wald", f"{MOD}:oedland"],
+    f"{MOD}:hat_siedlung": [f"{MOD}:{n}" for n in GEBIETE],
     # Minecraft-Tags ergänzen, damit Minen, Schiffswracks usw. auch bei uns entstehen
     "minecraft:is_overworld": [f"{MOD}:{n}" for n in GEBIETE],
     "minecraft:has_structure/mineshaft": [f"{MOD}:vorstadt", f"{MOD}:toter_wald", f"{MOD}:oedland",

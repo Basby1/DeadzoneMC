@@ -30,6 +30,9 @@ public class ToterBaumFeature extends Feature<NoneFeatureConfiguration> {
         WorldGenLevel level = context.level();
         RandomSource zufall = context.random();
         BlockPos fuss = context.origin();
+        if (de.deadzonemc.welt.plan.PlanSpeicher.belegt(level.getSeed(), fuss.getX(), fuss.getZ(), 6)) {
+            return false; // in Ortschaften wächst keine Deko
+        }
         if (!Bau.fest(level.getBlockState(fuss.below())) || !Bau.ersetzbar(level.getBlockState(fuss))) {
             return false;
         }

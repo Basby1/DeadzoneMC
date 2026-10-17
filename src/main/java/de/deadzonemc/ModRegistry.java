@@ -1,11 +1,13 @@
 package de.deadzonemc;
 
 import com.mojang.serialization.Codec;
+import de.deadzonemc.item.HandbuchItem;
 import de.deadzonemc.item.NotizItem;
 import de.deadzonemc.item.VerbandItem;
-import de.deadzonemc.welt.HausPiece;
-import de.deadzonemc.welt.SiedlungStruktur;
-import de.deadzonemc.welt.StrassePiece;
+import de.deadzonemc.welt.stadt.GebaeudePiece;
+import de.deadzonemc.welt.stadt.KachelStruktur;
+import de.deadzonemc.welt.stadt.ObjektPiece;
+import de.deadzonemc.welt.stadt.StrassenPiece;
 import de.deadzonemc.welt.feature.AutowrackFeature;
 import de.deadzonemc.welt.feature.SchuttFeature;
 import de.deadzonemc.welt.feature.StrommastFeature;
@@ -78,6 +80,8 @@ public final class ModRegistry {
     public static final DeferredItem<Item> ELEKTRONIK = ITEMS.registerSimpleItem("elektronik");
     public static final DeferredItem<NotizItem> NOTIZ_ITEM = ITEMS.register("notiz",
             () -> new NotizItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<HandbuchItem> HANDBUCH = ITEMS.register("handbuch",
+            () -> new HandbuchItem(new Item.Properties().stacksTo(1)));
 
     // ---- Weltgenerierung -------------------------------------------------------------------
 
@@ -90,13 +94,15 @@ public final class ModRegistry {
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STROMMAST =
             FEATURES.register("strommast", StrommastFeature::new);
 
-    public static final DeferredHolder<StructureType<?>, StructureType<SiedlungStruktur>> SIEDLUNG =
-            STRUKTUR_TYPEN.register("siedlung", () -> () -> SiedlungStruktur.CODEC);
+    public static final DeferredHolder<StructureType<?>, StructureType<KachelStruktur>> KACHEL =
+            STRUKTUR_TYPEN.register("siedlungskachel", () -> () -> KachelStruktur.CODEC);
 
-    public static final DeferredHolder<StructurePieceType, StructurePieceType> HAUS_TEIL =
-            STRUKTUR_TEILE.register("haus", () -> (StructurePieceType.ContextlessType) HausPiece::new);
     public static final DeferredHolder<StructurePieceType, StructurePieceType> STRASSEN_TEIL =
-            STRUKTUR_TEILE.register("strasse", () -> (StructurePieceType.ContextlessType) StrassePiece::new);
+            STRUKTUR_TEILE.register("strassenstueck", () -> (StructurePieceType.ContextlessType) StrassenPiece::new);
+    public static final DeferredHolder<StructurePieceType, StructurePieceType> GEBAEUDE_TEIL =
+            STRUKTUR_TEILE.register("gebaeude", () -> (StructurePieceType.ContextlessType) GebaeudePiece::new);
+    public static final DeferredHolder<StructurePieceType, StructurePieceType> OBJEKT_TEIL =
+            STRUKTUR_TEILE.register("objekt", () -> (StructurePieceType.ContextlessType) ObjektPiece::new);
 
     // ---- Kreativ-Tab -----------------------------------------------------------------------
 
@@ -105,6 +111,7 @@ public final class ModRegistry {
                     .title(Component.translatable("itemGroup.deadzonemc"))
                     .icon(() -> new ItemStack(KONSERVENDOSE.get()))
                     .displayItems((params, ausgabe) -> {
+                        ausgabe.accept(HANDBUCH.get());
                         ausgabe.accept(KONSERVENDOSE.get());
                         ausgabe.accept(VERBAND.get());
                         ausgabe.accept(SCHROTT.get());

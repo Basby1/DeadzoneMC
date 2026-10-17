@@ -34,33 +34,29 @@ public final class Selbsttest {
             "deadzone wetter saurer_regen 2",
             "deadzone wetter aschesturm",
             "deadzone wetter klar",
-            "deadzone wetter",
+            "#wasser",
             "locate biome deadzonemc:vorstadt",
             "locate biome deadzonemc:toter_wald",
             "locate biome deadzonemc:oedland",
             "locate biome deadzonemc:verseuchtes_moor",
             "locate biome deadzonemc:totes_meer",
-            "locate structure deadzonemc:siedlung",
-            "locate structure deadzonemc:einzelhaus",
+            "deadzone orte",
+            "#dorf",
             "#zaehlen",
-            "gamerule spawnChunkRadius 10",
-            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
-            "place structure deadzonemc:siedlung ~ ~ ~",
-            "place structure deadzonemc:einzelhaus ~70 ~ ~70",
-            "place structure deadzonemc:einzelhaus ~-70 ~ ~70",
+            "#karte",
             "#feature toter_baum 20 -60",
             "#feature autowrack 30 -60",
             "#feature schutt 40 -60",
             "#feature strommast 50 -60",
-            "#zaehlen",
-            "#karte",
-            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_kueche",
-            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_wohnraum",
-            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_schlafzimmer",
-            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/haus_keller",
-            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/autowrack",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/keller",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/feuerwehr",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/briefkasten",
             "save-all"
     );
+
+    /** Mittelpunkt für Karte und Zählung (Spawn oder das gefundene Dorf). */
+    private static BlockPos ziel = null;
 
     private static int tick = 0;
     private static int naechster = 0;
@@ -68,13 +64,81 @@ public final class Selbsttest {
     private Selbsttest() {
     }
 
+    private static BlockPos mitte(MinecraftServer server) {
+        return ziel != null ? ziel : server.overworld().getSharedSpawnPos();
+    }
+
+    /** Sucht das nächste Dorf, erzeugt es vollständig und merkt es sich als Mittelpunkt. */
+    private static void dorfSuchen(MinecraftServer server) {
+        ServerLevel level = server.overworld();
+        BlockPos spawn = level.getSharedSpawnPos();
+        de.deadzonemc.welt.plan.Siedlung dorf = de.deadzonemc.welt.Ortsbefehle.naechste(level,
+                de.deadzonemc.welt.plan.SiedlungsTyp.DORF, spawn.getX(), spawn.getZ());
+        if (dorf == null) {
+            LOG.error("[Selbsttest] Fehler bei /#dorf: kein gültiges Dorf in der Nähe");
+            return;
+        }
+        var h = de.deadzonemc.welt.stadt.KachelStruktur.hoehen(level.getChunkSource().getGenerator(), level,
+                level.getChunkSource().randomState());
+        var plan = de.deadzonemc.welt.plan.PlanSpeicher.fertig(level.getSeed(), dorf, h, level.getSeaLevel());
+        var haupt = plan.strassen.get(0);
+        int y = haupt.hoeheBei(haupt.entlangX ? dorf.x() : dorf.z());
+        ziel = new BlockPos(dorf.x(), y, dorf.z());
+        Map<String, Integer> arten = new TreeMap<>();
+        plan.grundstuecke.forEach(g -> arten.merge(g.typ, 1, Integer::sum));
+        LOG.info("[Selbsttest] Dorf {} bei {} (Radius {}, {} Blocke vom Spawn): {} Strassen, {} Grundstuecke {}, {} Objekte",
+                dorf.name(), ziel.toShortString(), dorf.radius(), (int) dorf.abstand(spawn.getX(), spawn.getZ()),
+                plan.strassen.size(), plan.grundstuecke.size(), arten, plan.objekte.size());
+        long start = System.currentTimeMillis();
+        int r = (dorf.radius() >> 4) + 3;
+        for (int cx = (dorf.x() >> 4) - r; cx <= (dorf.x() >> 4) + r; cx++) {
+            for (int cz = (dorf.z() >> 4) - r; cz <= (dorf.z() >> 4) + r; cz++) {
+                level.getChunk(cx, cz);
+            }
+        }
+        LOG.info("[Selbsttest] Dorf erzeugt in {} s", (System.currentTimeMillis() - start) / 1000);
+    }
+
+    /** Anteil der Fläche unter dem Meeresspiegel in einem großen Gebiet um den Spawn. */
+    private static void wasserMessen(MinecraftServer server) {
+        ServerLevel level = server.overworld();
+        var h = de.deadzonemc.welt.stadt.KachelStruktur.hoehen(level.getChunkSource().getGenerator(), level,
+                level.getChunkSource().randomState());
+        BlockPos spawn = level.getSharedSpawnPos();
+        int nass = 0;
+        int alle = 0;
+        for (int x = -4096; x <= 4096; x += 128) {
+            for (int z = -4096; z <= 4096; z += 128) {
+                alle++;
+                if (h.boden(spawn.getX() + x, spawn.getZ() + z) < level.getSeaLevel() - 1) {
+                    nass++;
+                }
+            }
+        }
+        int dorf = 0;
+        int doerfer = 0;
+        for (var s : de.deadzonemc.welt.plan.Siedlungen.naechste(level.getSeed(),
+                de.deadzonemc.welt.plan.SiedlungsTyp.DORF, spawn.getX(), spawn.getZ(), 4)) {
+            doerfer++;
+            if (de.deadzonemc.welt.Ortsbefehle.gueltig(level, s)) {
+                dorf++;
+            }
+        }
+        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke): {} %, Dörfer gültig: {} von {}",
+                nass * 100 / alle, dorf, doerfer);
+    }
+
     /** Draufsicht und Grundriss rund um den Spawn als Text – zum Nachsehen, ob die Häuser stimmen. */
     private static void karte(MinecraftServer server) {
         ServerLevel level = server.overworld();
-        BlockPos spawn = level.getSharedSpawnPos();
-        int r = 28;
-        LOG.info("[Selbsttest] Draufsicht (Norden oben), Spawn = X");
+        BlockPos spawn = mitte(server);
+        int r = 40;
         for (int z = spawn.getZ() - r; z <= spawn.getZ() + r; z++) {
+            if (z == spawn.getZ() - r) {
+                LOG.info("[Selbsttest] Draufsicht Nordhälfte (Norden oben), Mitte = X");
+            } else if (z == spawn.getZ() + 1) {
+                LOG.info("[Selbsttest] Draufsicht Südhälfte");
+            }
             StringBuilder zeile = new StringBuilder();
             for (int x = spawn.getX() - r; x <= spawn.getX() + r; x++) {
                 if (x == spawn.getX() && z == spawn.getZ()) {
@@ -93,9 +157,13 @@ public final class Selbsttest {
             }
             LOG.info("[Selbsttest] |{}|", zeile);
         }
-        for (int dy = 1; dy <= 2; dy++) {
-            LOG.info("[Selbsttest] Grundriss auf Höhe Spawn+{}", dy);
+        for (int dy = 2; dy <= 2; dy++) {
             for (int z = spawn.getZ() - r; z <= spawn.getZ() + r; z++) {
+                if (z == spawn.getZ() - r) {
+                    LOG.info("[Selbsttest] Grundriss Nordhälfte auf Höhe Mitte+{}", dy);
+                } else if (z == spawn.getZ() + 1) {
+                    LOG.info("[Selbsttest] Grundriss Südhälfte");
+                }
                 StringBuilder zeile = new StringBuilder();
                 for (int x = spawn.getX() - r; x <= spawn.getX() + r; x++) {
                     zeile.append(zeichen(level.getBlockState(new BlockPos(x, spawn.getY() + dy, z)), false));
@@ -138,7 +206,7 @@ public final class Selbsttest {
     /** Zählt rund um den Spawn, was die Weltgenerierung gebaut hat. */
     private static void zaehlen(MinecraftServer server) {
         ServerLevel level = server.overworld();
-        BlockPos spawn = level.getSharedSpawnPos();
+        BlockPos spawn = mitte(server);
         Map<String, Integer> zaehler = new TreeMap<>();
         int radius = 6;
         for (int cx = (spawn.getX() >> 4) - radius; cx <= (spawn.getX() >> 4) + radius; cx++) {
@@ -169,7 +237,7 @@ public final class Selbsttest {
                 }
             }
         }
-        LOG.info("[Selbsttest] Zählung um den Spawn {} (13x13 Chunks): {}", spawn.toShortString(), zaehler);
+        LOG.info("[Selbsttest] Zählung um {} (13x13 Chunks): {}", spawn.toShortString(), zaehler);
     }
 
     public static void tick(ServerTickEvent.Post event) {
@@ -198,7 +266,8 @@ public final class Selbsttest {
                     level.getChunk(px >> 4, pz >> 4);
                     int py = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, px, pz);
                     BlockState unten = level.getBlockState(new BlockPos(px, py - 1, pz));
-                    if (unten.getFluidState().isEmpty() && unten.isSolid() && level.getBlockState(new BlockPos(px, py, pz)).isAir()) {
+                    if (unten.getFluidState().isEmpty() && unten.isSolid() && level.getBlockState(new BlockPos(px, py, pz)).isAir()
+                            && !de.deadzonemc.welt.plan.PlanSpeicher.belegt(level.getSeed(), px, pz, 8)) {
                         x = px;
                         y = py;
                         z = pz;
@@ -206,6 +275,14 @@ public final class Selbsttest {
                     }
                 }
                 befehl = "place feature deadzonemc:" + teile[1] + " " + x + " " + y + " " + z;
+            }
+            if (befehl.equals("#dorf")) {
+                dorfSuchen(server);
+                return;
+            }
+            if (befehl.equals("#wasser")) {
+                wasserMessen(server);
+                return;
             }
             if (befehl.equals("#karte")) {
                 karte(server);

@@ -147,6 +147,24 @@ BILDER = {
         "................",
         "................",
     ]),
+    "handbuch": ({"o": "#2a1f16", "b": "#6b3a26", "h": "#8a4e33", "p": "#e6dcc0", "r": "#a32a2a", "g": "#c9a43a"}, [
+        "................",
+        "................",
+        "...oooooooooo...",
+        "..obhhhhhhhhbo..",
+        "..obhhhhhhhhbop.",
+        "..obhhhrrhhhbop.",
+        "..obhhrrrrhhbop.",
+        "..obhhhrrhhhbop.",
+        "..obhhhhhhhhbop.",
+        "..obhggggggbbop.",
+        "..obhhhhhhhhbop.",
+        "..obhhhhhhhhbop.",
+        "..obbbbbbbbbbop.",
+        "...ooooooooooop.",
+        "....pppppppppp..",
+        "................",
+    ]),
 }
 
 

@@ -4,59 +4,14 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 3,
-        "max": 6
+        "min": 2,
+        "max": 5
       },
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "deadzonemc:schrott",
+          "name": "deadzonemc:konservendose",
           "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:elektronik",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:batterie",
-          "weight": 5,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
-          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -70,18 +25,38 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_nugget",
-          "weight": 6,
+          "name": "deadzonemc:schrott",
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 3
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:batterie",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:elektronik",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -101,6 +76,56 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:torch",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glass_bottle",
           "weight": 3,
           "functions": [
             {
@@ -115,68 +140,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:arrow",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 2,
-                "max": 8
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bow",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.3,
-                "max": 0.8
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:crossbow",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.4,
-                "max": 0.9
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_axe",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.3,
-                "max": 0.8
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:stone_axe",
-          "weight": 2,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_damage",
@@ -190,48 +155,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:shears",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bucket",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:lead",
           "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:konservendose",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "deadzonemc:verband",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
         },
         {
           "type": "minecraft:empty",
@@ -283,7 +208,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 7
+          "weight": 9
         }
       ]
     }

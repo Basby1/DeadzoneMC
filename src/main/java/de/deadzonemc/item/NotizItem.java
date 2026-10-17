@@ -23,7 +23,7 @@ public class NotizItem extends Item {
     /** Alle Notizen, die es bisher gibt (Reihenfolge wie im Kreativ-Tab). */
     public static final String[] ALLE = {
             "start", "evakuierung", "einkaufszettel", "abschied", "tagebuch_1", "tagebuch_2",
-            "halden_flyer", "kinderzettel", "funkspruch"
+            "halden_flyer", "kinderzettel", "funkspruch", "brief", "pfarrer", "feuerwehr_einsatz"
     };
 
     public NotizItem(Properties properties) {

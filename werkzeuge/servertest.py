@@ -21,7 +21,7 @@ FEHLER_MUSTER = [
 ]
 
 BEFEHLS_FEHLER = [
-    "Unknown or incomplete command", "Could not find", "Failed to place feature", "Unknown structure",
+    "Unknown or incomplete command", "Could not find", "Unknown structure",
     "Unknown feature", "Unknown loot table", "Invalid position", "Incorrect argument",
     "Unbekanntes Wetter", "Fehler bei /", "not loaded",
 ]

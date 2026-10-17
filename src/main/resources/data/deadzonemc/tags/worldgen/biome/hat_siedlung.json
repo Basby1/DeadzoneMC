@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "deadzonemc:vorstadt",
-    "deadzonemc:oedland"
+    "deadzonemc:toter_wald",
+    "deadzonemc:oedland",
+    "deadzonemc:verseuchtes_moor",
+    "deadzonemc:totes_meer"
   ]
 }

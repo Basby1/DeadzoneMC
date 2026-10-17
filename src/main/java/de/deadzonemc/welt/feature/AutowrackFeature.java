@@ -49,7 +49,11 @@ public class AutowrackFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        return bauen(context.level(), context.random(), context.origin(), null);
+        BlockPos p = context.origin();
+        if (de.deadzonemc.welt.plan.PlanSpeicher.belegt(context.level().getSeed(), p.getX(), p.getZ(), 8)) {
+            return false;
+        }
+        return bauen(context.level(), context.random(), p, null);
     }
 
     /**
