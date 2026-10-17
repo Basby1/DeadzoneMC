@@ -52,7 +52,7 @@ def main():
 
     def wachhund():
         """Hängt der Server, Thread-Dump und letzte Zeilen melden und abbrechen."""
-        frist = time.time() + 25 * 60
+        frist = time.time() + 9 * 60
         while prozess.poll() is None:
             if time.time() > frist:
                 try:
