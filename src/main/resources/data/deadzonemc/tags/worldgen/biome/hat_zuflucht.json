@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#minecraft:is_forest", "#minecraft:is_taiga", "#minecraft:is_savanna", "#minecraft:is_badlands",
+    {"id": "#c:is_plains", "required": false}, {"id": "#c:is_desert", "required": false},
+    {"id": "#c:is_snowy_plains", "required": false}, {"id": "#c:is_swamp", "required": false},
+    {"id": "#c:is_dry", "required": false}, {"id": "#c:is_sparse_vegetation", "required": false},
+    "minecraft:plains", "minecraft:sunflower_plains", "minecraft:meadow", "minecraft:snowy_plains",
+    "minecraft:desert", "minecraft:swamp"
+  ]
+}

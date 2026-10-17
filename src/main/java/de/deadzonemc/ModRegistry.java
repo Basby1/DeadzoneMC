@@ -127,6 +127,13 @@ public final class ModRegistry {
                     .copyOnDeath()
                     .build());
 
+    /** Aufträge eines Spielers (aktive Aufträge mit Fortschritt). Bleiben nach dem Tod erhalten. */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<net.minecraft.nbt.CompoundTag>> AUFTRAEGE =
+            ANHAENGE.register("auftraege", () -> AttachmentType.builder(() -> new net.minecraft.nbt.CompoundTag())
+                    .serialize(net.minecraft.nbt.CompoundTag.CODEC)
+                    .copyOnDeath()
+                    .build());
+
     /** Aufgenommene Strahlendosis eines Spielers (0 bis 1000). Nach dem Tod wieder 0. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> STRAHLENDOSIS =
             ANHAENGE.register("strahlendosis", () -> AttachmentType.builder(() -> 0.0F)
@@ -174,6 +181,8 @@ public final class ModRegistry {
     public static final DeferredItem<Item> STOFFRESTE = ITEMS.registerSimpleItem("stoffreste");
     public static final DeferredItem<Item> BATTERIE = ITEMS.registerSimpleItem("batterie", new Item.Properties().stacksTo(16));
     public static final DeferredItem<Item> ELEKTRONIK = ITEMS.registerSimpleItem("elektronik");
+    /** Währung der Zufluchten (wie in den Metro-Tunneln: echte Militärmunition ist das einzige, was zählt). */
+    public static final DeferredItem<Item> MILITAERPATRONE = ITEMS.registerSimpleItem("militaerpatrone");
     public static final DeferredItem<NotizItem> NOTIZ_ITEM = ITEMS.register("notiz",
             () -> new NotizItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<HandbuchItem> HANDBUCH = ITEMS.register("handbuch",
@@ -196,6 +205,11 @@ public final class ModRegistry {
 
     public static final DeferredHolder<StructureType<?>, StructureType<KachelStruktur>> KACHEL =
             STRUKTUR_TYPEN.register("siedlungskachel", () -> () -> KachelStruktur.CODEC);
+
+    public static final DeferredHolder<StructureType<?>, StructureType<de.deadzonemc.zuflucht.ZufluchtStruktur>> ZUFLUCHT =
+            STRUKTUR_TYPEN.register("zuflucht", () -> () -> de.deadzonemc.zuflucht.ZufluchtStruktur.CODEC);
+    public static final DeferredHolder<StructurePieceType, StructurePieceType> ZUFLUCHT_TEIL =
+            STRUKTUR_TEILE.register("zuflucht", () -> (StructurePieceType.ContextlessType) de.deadzonemc.zuflucht.ZufluchtPiece::new);
 
     public static final DeferredHolder<StructurePieceType, StructurePieceType> STRASSEN_TEIL =
             STRUKTUR_TEILE.register("strassenstueck", () -> (StructurePieceType.ContextlessType) StrassenPiece::new);
@@ -228,6 +242,7 @@ public final class ModRegistry {
                         ausgabe.accept(STOFFRESTE.get());
                         ausgabe.accept(BATTERIE.get());
                         ausgabe.accept(ELEKTRONIK.get());
+                        ausgabe.accept(MILITAERPATRONE.get());
                         de.deadzonemc.monster.MonsterTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         de.deadzonemc.mensch.MenschTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         for (String id : NotizItem.ALLE) {

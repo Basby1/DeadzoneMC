@@ -31,6 +31,40 @@ public abstract class Mensch extends PathfinderMob implements GeoEntity {
         super(typ, level);
     }
 
+    // ---- Heimat (Bewohner einer Zuflucht bleiben in der Nähe) ---------------------------------
+
+    private net.minecraft.core.BlockPos heimat;
+    private int heimatRadius;
+
+    /** Bindet den Menschen an einen Ort: er entfernt sich höchstens {@code radius} Blöcke und verschwindet nie. */
+    public void heimatSetzen(net.minecraft.core.BlockPos pos, int radius) {
+        heimat = pos;
+        heimatRadius = radius;
+        restrictTo(pos, radius);
+        setPersistenceRequired();
+    }
+
+    public net.minecraft.core.BlockPos heimat() {
+        return heimat;
+    }
+
+    @Override
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        if (heimat != null) {
+            tag.putLong("Heimat", heimat.asLong());
+            tag.putInt("HeimatRadius", heimatRadius);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains("Heimat")) {
+            heimatSetzen(net.minecraft.core.BlockPos.of(tag.getLong("Heimat")), tag.getInt("HeimatRadius"));
+        }
+    }
+
     /** Zu welcher Fraktion er gehört (oder null). */
     public abstract Fraktion fraktion();
 
@@ -93,6 +127,9 @@ public abstract class Mensch extends PathfinderMob implements GeoEntity {
 
     @Override
     public boolean removeWhenFarAway(double abstand) {
+        if (heimat != null) {
+            return false;
+        }
         return !hasCustomName() || abstand > 128 * 128;
     }
 }

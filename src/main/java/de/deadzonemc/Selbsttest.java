@@ -43,6 +43,7 @@ public final class Selbsttest {
             "#stadtkarte 0 400",
             "#zaehlen",
             "#stadthorde",
+            "#zuflucht",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "#waffen",
             "#versteck",
@@ -456,6 +457,37 @@ public final class Selbsttest {
             }
             if (befehl.equals("#dorf")) {
                 dorfSuchen(server);
+                return;
+            }
+            if (befehl.equals("#zuflucht")) {
+                ServerLevel ow = server.overworld();
+                var tag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "zuflucht"));
+                BlockPos z = ow.findNearestMapStructure(tag, ow.getSharedSpawnPos(), 100, false);
+                if (z == null) {
+                    LOG.info("[Selbsttest] Zuflucht: keine gefunden");
+                    return;
+                }
+                for (int dx = -3; dx <= 3; dx++) {
+                    for (int dz = -3; dz <= 3; dz++) {
+                        ow.getChunk((z.getX() >> 4) + dx, (z.getZ() >> 4) + dz);
+                    }
+                }
+                var bb = new net.minecraft.world.phys.AABB(z).inflate(40, 60, 40);
+                java.util.Map<String, Integer> zahl = new java.util.TreeMap<>();
+                StringBuilder handel = new StringBuilder();
+                for (var e : ow.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, bb)) {
+                    zahl.merge(e.getType().toShortString(), 1, Integer::sum);
+                    if (e instanceof de.deadzonemc.mensch.Haendler h) {
+                        handel.append(h.sortiment()).append("=").append(h.getOffers().size()).append(" ");
+                    }
+                }
+                var start = de.deadzonemc.zuflucht.ZufluchtSchutz.bei(ow, z);
+                int y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, z.getX(), z.getZ());
+                LOG.info("[Selbsttest] Zuflucht bei {} / {} (Boden {}): Wesen {}, Händler {}, Schutz {}", z.getX(), z.getZ(), y,
+                        zahl, handel, start != null ? de.deadzonemc.zuflucht.ZufluchtBau.name(
+                                ((de.deadzonemc.zuflucht.ZufluchtPiece) start.getPieces().get(0)).saat()) : "fehlt");
+                stadtkarte(server, z.getX() - ow.getSharedSpawnPos().getX(), z.getZ() - ow.getSharedSpawnPos().getZ());
                 return;
             }
             if (befehl.equals("#stadthorde")) {

@@ -39,7 +39,7 @@ public class Haendler extends WanderingTrader implements GeoEntity {
         setDespawnDelay(36000);
     }
 
-    private static ItemStack tacz(String item, String schluessel, String wert, int menge) {
+    public static ItemStack tacz(String item, String schluessel, String wert, int menge) {
         Item i = BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("tacz", item));
         if (i == Items.AIR) {
             return ItemStack.EMPTY;
@@ -59,8 +59,62 @@ public class Haendler extends WanderingTrader implements GeoEntity {
         return new MerchantOffer(new ItemCost(preis, anzahl), Optional.of(new ItemCost(preis2, anzahl2)), ware, vorrat, 2, 0.05F);
     }
 
+    /** Festes Sortiment eines Händlers in einer Zuflucht (leer = Karawanenhändler mit wechselndem Angebot). */
+    private String sortiment = "";
+    private net.minecraft.core.BlockPos heimat;
+
+    /** Macht ihn zum sesshaften Händler einer Zuflucht: festes Sortiment, verschwindet nie, bleibt am Stand. */
+    public void zufluchtSetzen(String sortiment, net.minecraft.core.BlockPos stand) {
+        this.sortiment = sortiment;
+        this.heimat = stand;
+        setDespawnDelay(0);
+        restrictTo(stand, 4);
+        setPersistenceRequired();
+        getOffers().clear();
+        updateTrades();
+    }
+
+    public String sortiment() {
+        return sortiment;
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        goalSelector.addGoal(3, new net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal(this, 0.6));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putString("Sortiment", sortiment);
+        if (heimat != null) {
+            tag.putLong("Stand", heimat.asLong());
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        sortiment = tag.getString("Sortiment");
+        if (tag.contains("Stand")) {
+            heimat = net.minecraft.core.BlockPos.of(tag.getLong("Stand"));
+            restrictTo(heimat, 4);
+            setDespawnDelay(0);
+        }
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double abstand) {
+        return heimat == null && super.removeWhenFarAway(abstand);
+    }
+
     @Override
     protected void updateTrades() {
+        if (!sortiment.isEmpty()) {
+            de.deadzonemc.zuflucht.Sortimente.fuellen(sortiment, getOffers());
+            return;
+        }
         List<MerchantOffer> alle = new ArrayList<>();
         alle.add(angebot(ModRegistry.SCHROTT.get(), 4, new ItemStack(ModRegistry.ELEKTRONIK.get()), 8));
         alle.add(angebot(ModRegistry.ELEKTRONIK.get(), 3, new ItemStack(ModRegistry.FILTER_ITEM.get()), 4));
@@ -89,7 +143,7 @@ public class Haendler extends WanderingTrader implements GeoEntity {
         super.rewardTradeXp(angebot);
         Player p = getTradingPlayer();
         if (p != null && !level().isClientSide) {
-            Ansehen.aendern(p, Fraktion.KARAWANE, 2);
+            Ansehen.aendern(p, sortiment.isEmpty() ? Fraktion.KARAWANE : Fraktion.ZUFLUCHT, 1);
         }
     }
 
@@ -97,7 +151,7 @@ public class Haendler extends WanderingTrader implements GeoEntity {
     public void die(net.minecraft.world.damagesource.DamageSource quelle) {
         super.die(quelle);
         if (!level().isClientSide && quelle.getEntity() instanceof Player p) {
-            Ansehen.aendern(p, Fraktion.KARAWANE, -50);
+            Ansehen.aendern(p, sortiment.isEmpty() ? Fraktion.KARAWANE : Fraktion.ZUFLUCHT, -50);
         }
     }
 

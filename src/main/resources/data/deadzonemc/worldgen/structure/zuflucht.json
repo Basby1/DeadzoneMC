@@ -1,0 +1,7 @@
+{
+  "type": "deadzonemc:zuflucht",
+  "biomes": "#deadzonemc:hat_zuflucht",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

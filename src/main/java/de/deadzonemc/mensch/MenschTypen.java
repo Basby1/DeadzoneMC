@@ -40,7 +40,20 @@ public final class MenschTypen {
             () -> EntityType.Builder.of(Haendler::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
                     .build(DeadzoneMC.MODID + ":haendler"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<Wache>> WACHE = TYPEN.register("wache",
+            () -> EntityType.Builder.of(Wache::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
+                    .build(DeadzoneMC.MODID + ":wache"));
+    public static final DeferredHolder<EntityType<?>, EntityType<Bewohner>> BEWOHNER = TYPEN.register("bewohner",
+            () -> EntityType.Builder.of(Bewohner::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
+                    .build(DeadzoneMC.MODID + ":bewohner"));
+    public static final DeferredHolder<EntityType<?>, EntityType<Auftraggeber>> AUFTRAGGEBER = TYPEN.register("auftraggeber",
+            () -> EntityType.Builder.of(Auftraggeber::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
+                    .build(DeadzoneMC.MODID + ":auftraggeber"));
+
     static {
+        ei("wache", WACHE, 0x5a6a72, 0xd8c020);
+        ei("bewohner", BEWOHNER, 0x8a7a5a, 0x4a6a3a);
+        ei("auftraggeber", AUFTRAGGEBER, 0x3a3a4a, 0xd8b030);
         ei("soldat", SOLDAT, 0x4f5a3b, 0x1e1f1d);
         ei("kultist", KULTIST, 0x5c5853, 0x9fd8ff);
         ei("ueberlebender", UEBERLEBENDER, 0x5a6a72, 0x7a2a2a);
@@ -62,6 +75,9 @@ public final class MenschTypen {
         e.put(SOLDAT.get(), Soldat.attribute().build());
         e.put(KULTIST.get(), Kultist.attribute().build());
         e.put(UEBERLEBENDER.get(), Ueberlebender.attribute().build());
+        e.put(WACHE.get(), Wache.attribute().build());
+        e.put(BEWOHNER.get(), Bewohner.attribute().build());
+        e.put(AUFTRAGGEBER.get(), Auftraggeber.attribute().build());
         e.put(HAENDLER.get(), Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5).build());
     }
 }

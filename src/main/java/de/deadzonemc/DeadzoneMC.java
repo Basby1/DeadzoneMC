@@ -40,6 +40,11 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::ziel);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::tick);
         NeoForge.EVENT_BUS.addListener(Tod::gestorben);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.quest.Auftraege::getoetet);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.quest.Auftraege::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.quest.Auftraege::befehle);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.zuflucht.ZufluchtSchutz::spawnPruefen);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.zuflucht.ZufluchtSchutz::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.mensch.FraktionsSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::betreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::respawn);

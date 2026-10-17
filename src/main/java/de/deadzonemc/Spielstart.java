@@ -48,6 +48,24 @@ public final class Spielstart {
         spieler.getInventory().add(karte);
         spieler.displayClientMessage(Component.translatable("start.deadzonemc.ankunft")
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+        zufluchtVerraten(spieler, oberwelt);
+    }
+
+    /** Ein Funkspruch verrät, wo die nächste Zuflucht liegt (grobe Richtung und Entfernung). */
+    public static void zufluchtVerraten(ServerPlayer spieler, ServerLevel oberwelt) {
+        var tag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "zuflucht"));
+        BlockPos z = oberwelt.findNearestMapStructure(tag, spieler.blockPosition(), 48, false);
+        if (z == null) {
+            return;
+        }
+        double dx = z.getX() - spieler.getX();
+        double dz = z.getZ() - spieler.getZ();
+        int abstand = (int) (Math.sqrt(dx * dx + dz * dz) / 50) * 50;
+        String[] namen = {"Süden", "Südwesten", "Westen", "Nordwesten", "Norden", "Nordosten", "Osten", "Südosten"};
+        int i = (int) Math.floorMod(Math.round(Math.toDegrees(Math.atan2(-dx, dz)) / 45.0), 8L);
+        spieler.sendSystemMessage(Component.literal("Funkgerät, Rauschen: „… Zuflucht … etwa " + Math.max(50, abstand)
+                + " Meter Richtung " + namen[i] + " … sicher … Handel … kommt zu uns …“").withStyle(ChatFormatting.DARK_AQUA));
     }
 
     private static BlockPos startplatzSuchen(ServerLevel level, RandomSource zufall) {
