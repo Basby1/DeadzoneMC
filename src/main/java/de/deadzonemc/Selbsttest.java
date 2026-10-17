@@ -45,6 +45,7 @@ public final class Selbsttest {
             "#stadtkarte 0 400",
             "#zaehlen",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
+            "#waffen",
             "summon deadzonemc:wanderer ~-15 ~2 ~5",
             "summon deadzonemc:schreier ~-12 ~2 ~5",
             "summon deadzonemc:lauerer ~-9 ~2 ~5",
@@ -299,6 +300,41 @@ public final class Selbsttest {
         }
     }
 
+    /** Würfelt Waffenbeute aus und prüft über TaCZ selbst, ob die Waffen erkannt werden. */
+    private static void waffenPruefen(MinecraftServer server) {
+        ServerLevel level = server.overworld();
+        StringBuilder b = new StringBuilder();
+        for (String tabelle : new String[]{"waffen/polizei", "waffen/waffenkammer", "waffen/bunker"}) {
+            var schluessel = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("deadzonemc", tabelle));
+            var t = server.reloadableRegistries().getLootTable(schluessel);
+            var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN, net.minecraft.world.phys.Vec3.ZERO)
+                    .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
+            b.append(tabelle).append(": ");
+            for (int i = 0; i < 4; i++) {
+                for (net.minecraft.world.item.ItemStack s : t.getRandomItems(params)) {
+                    b.append(BuiltInRegistries.ITEM.getKey(s.getItem()).getPath()).append(" x").append(s.getCount());
+                    try {
+                        Class<?> igun = Class.forName("com.tacz.guns.api.item.IGun");
+                        if (igun.isInstance(s.getItem())) {
+                            b.append(" Waffe=").append(igun.getMethod("getGunId", net.minecraft.world.item.ItemStack.class).invoke(s.getItem(), s));
+                        }
+                        Class<?> iammo = Class.forName("com.tacz.guns.api.item.IAmmo");
+                        if (iammo.isInstance(s.getItem())) {
+                            b.append(" Munition=").append(iammo.getMethod("getAmmoId", net.minecraft.world.item.ItemStack.class).invoke(s.getItem(), s));
+                        }
+                    } catch (Exception e) {
+                        b.append(" (").append(e.getClass().getSimpleName()).append(")");
+                    }
+                    b.append(", ");
+                }
+            }
+            b.append(" | ");
+        }
+        LOG.info("[Selbsttest] Waffen-Beute: {}", b);
+    }
+
     private static char zeichen(BlockState b, boolean draufsicht) {
         if (b.isAir()) {
             return ' ';
@@ -419,6 +455,10 @@ public final class Selbsttest {
             if (befehl.startsWith("#stadtkarte")) {
                 String[] t = befehl.split(" ");
                 stadtkarte(server, Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+                return;
+            }
+            if (befehl.equals("#waffen")) {
+                waffenPruefen(server);
                 return;
             }
             if (befehl.equals("#monster")) {

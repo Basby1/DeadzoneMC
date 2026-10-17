@@ -50,6 +50,36 @@ def notizen(chance_prozent, ids):
     return {"rolls": 1, "entries": [notiz(i) for i in ids] + [leer(rest)]}
 
 
+# ---- Waffen (TaCZ) ----------------------------------------------------------------------------
+# Munition je Waffe und Magazingröße (aus dem TaCZ-Standardpaket ausgelesen, werkzeuge/tacz_munition.py)
+WAFFEN = {
+    "glock_17": ("9mm", 17), "m9a4": ("9mm", 17), "cz75": ("9mm", 16), "p320": ("45acp", 12),
+    "m1911": ("45acp", 7), "hk_mk23": ("45acp", 12), "rhino357": ("357mag", 6), "deagle": ("50ae", 7),
+    "hk_mp5a5": ("9mm", 30), "uzi": ("9mm", 20), "ump45": ("45acp", 25),
+    "m870": ("12g", 5), "spas_12": ("12g", 5), "m1014": ("12g", 6), "db_short": ("12g", 2), "db_long": ("12g", 2),
+    "kar98": ("792x57", 4), "m700": ("30_06", 5), "sks_tactical": ("762x39", 10),
+    "g36k": ("556x45", 30), "hk416d": ("556x45", 30), "m4a1": ("556x45", 30), "hk_g3": ("308", 20),
+    "ak47": ("762x39", 30), "mk14": ("308", 10), "m249": ("556x45", 75),
+}
+
+
+def waffe(name, gewicht, voll=False):
+    """Eine Schusswaffe, meist mit fast leerem Magazin."""
+    munition, magazin = WAFFEN[name]
+    schuss = magazin if voll else max(0, magazin // 4)
+    return {"type": "minecraft:item", "name": "tacz:modern_kinetic_gun", "weight": gewicht,
+            "functions": [{"function": "minecraft:set_custom_data",
+                           "tag": f'{{GunId:"tacz:{name}",GunFireMode:"SEMI",GunCurrentAmmoCount:{schuss}}}'},
+                          {"function": "minecraft:set_count", "count": 1}]}
+
+
+def munition(art, gewicht, minimum, maximum):
+    return {"type": "minecraft:item", "name": "tacz:ammo", "weight": gewicht,
+            "functions": [{"function": "minecraft:set_custom_data", "tag": f'{{AmmoId:"tacz:{art}"}}'},
+                          {"function": "minecraft:set_count",
+                           "count": {"type": "minecraft:uniform", "min": minimum, "max": maximum}}]}
+
+
 ESSEN_KLEIN = [
     item(m("konservendose"), 10, 1, 2),
     item("minecraft:bread", 3),
@@ -275,6 +305,85 @@ TABELLEN = {
         item(m("konservendose"), 2),
         leer(8),
     ]), notizen(20, ["tagebuch_2", "kinderzettel"])],
+    # ---- Städte (Lost Cities): welche Tabelle eine Kiste bekommt, steht in
+    #      data/lostcities/lostcities/conditions/chestloot.json
+    "stadt_wohnung": [pool(1, 4, ESSEN_KLEIN + [
+        item("minecraft:paper", 4, 1, 3),
+        item("minecraft:book", 2),
+        item("minecraft:candle", 3, 1, 2),
+        item(m("stoffreste"), 5, 1, 2),
+        item(m("batterie"), 3),
+        item(m("verband"), 3),
+        item(m("schmerzmittel"), 1),
+        item("minecraft:glass_bottle", 3, 1, 2),
+        item("minecraft:leather_chestplate", 1, schaden=(0.2, 0.7)),
+        item("minecraft:iron_nugget", 2, 1, 4),
+        waffe("glock_17", 1), munition("9mm", 1, 3, 10),
+        leer(14),
+    ]), notizen(15, ["tagebuch_1", "tagebuch_2", "abschied", "evakuierung", "einkaufszettel", "kinderzettel", "brief"])],
+    "stadt_laden": [pool(2, 5, ESSEN_KLEIN + [
+        item(m("konservendose"), 8, 1, 3),
+        item(m("batterie"), 4, 1, 3),
+        item(m("elektronik"), 3),
+        item("minecraft:glass_bottle", 4, 1, 3),
+        item("minecraft:honey_bottle", 1),
+        item("minecraft:sweet_berries", 2, 1, 4),
+        item(m("wodka"), 2),
+        item(m("verband"), 2),
+        leer(10),
+    ]), notizen(8, ["halden_flyer", "einkaufszettel"])],
+    "buero": [pool(1, 4, [
+        item("minecraft:paper", 10, 2, 6),
+        item("minecraft:book", 4),
+        item("minecraft:writable_book", 1),
+        item(m("batterie"), 4, 1, 2),
+        item(m("elektronik"), 5, 1, 2),
+        item("minecraft:clock", 1),
+        item("minecraft:compass", 1),
+        item("minecraft:map", 1),
+        item(m("konservendose"), 2),
+        leer(10),
+    ]), notizen(25, ["halden_flyer", "funkspruch", "evakuierung"])],
+    "polizei": [pool(2, 4, [
+        waffe("glock_17", 6), waffe("p320", 4), waffe("hk_mk23", 2), waffe("m870", 3), waffe("hk_mp5a5", 1),
+        munition("9mm", 10, 6, 24), munition("45acp", 6, 4, 16), munition("12g", 6, 3, 10),
+        item(m("verband"), 6, 1, 2),
+        item("minecraft:chainmail_chestplate", 2, schaden=(0.1, 0.5)),
+        item("minecraft:chainmail_helmet", 2, schaden=(0.1, 0.5)),
+        item("minecraft:shield", 2, schaden=(0.2, 0.6)),
+        item(m("batterie"), 4, 1, 2),
+        leer(8),
+    ]), notizen(20, ["funkspruch", "evakuierung"])],
+    "waffenkammer": [pool(2, 4, [
+        waffe("m1911", 4), waffe("rhino357", 2), waffe("deagle", 1), waffe("m870", 3), waffe("spas_12", 1),
+        waffe("db_short", 3), waffe("db_long", 3), waffe("kar98", 2), waffe("m700", 2), waffe("sks_tactical", 2),
+        munition("45acp", 6, 6, 20), munition("357mag", 3, 4, 12), munition("50ae", 2, 3, 8),
+        munition("12g", 8, 4, 16), munition("792x57", 3, 4, 10), munition("30_06", 3, 3, 10), munition("762x39", 3, 5, 20),
+        leer(6),
+    ])],
+    "apotheke": [pool(2, 4, [
+        item(m("verband"), 12, 1, 3),
+        item(m("schmerzmittel"), 8, 1, 2),
+        item(m("antibiotika"), 4),
+        item(m("anti_rad"), 3),
+        item("minecraft:glass_bottle", 6, 1, 3),
+        item("minecraft:honey_bottle", 2),
+        item("minecraft:golden_carrot", 1),
+        leer(8),
+    ])],
+    "bunker": [pool(2, 5, [
+        item(m("gasmaske"), 2, schaden=(0.1, 0.5)),
+        item(m("filter"), 5, 1, 2),
+        item(m("geigerzaehler"), 1),
+        item(m("anti_rad"), 4, 1, 2),
+        item(m("konservendose"), 8, 1, 3),
+        item(m("verband"), 5, 1, 2),
+        item(m("batterie"), 4, 1, 3),
+        item("minecraft:iron_helmet", 1, schaden=(0.2, 0.6)),
+        waffe("g36k", 1), waffe("hk416d", 1), waffe("hk_g3", 1), waffe("ak47", 1),
+        munition("556x45", 5, 10, 30), munition("308", 3, 6, 20), munition("762x39", 3, 10, 30),
+        leer(8),
+    ]), notizen(30, ["funkspruch", "feuerwehr_einsatz"])],
     "autowrack": [pool(1, 3, [
         item(m("schrott"), 10, 1, 3),
         item(m("batterie"), 4),
@@ -294,7 +403,22 @@ def main():
     if os.path.isdir(ZIEL):
         shutil.rmtree(ZIEL)
     os.makedirs(ZIEL, exist_ok=True)
+    waffen_ziel = os.path.join(os.path.dirname(ZIEL), "waffen")
+    if os.path.isdir(waffen_ziel):
+        shutil.rmtree(waffen_ziel)
     for name, pools in TABELLEN.items():
+        # Waffen und Munition (TaCZ) kommen in eine eigene Tabelle, die nur geladen wird, wenn TaCZ da ist
+        for pl in pools:
+            tacz = [e for e in pl["entries"] if e.get("name", "").startswith("tacz:")]
+            if not tacz:
+                continue
+            pl["entries"] = [e for e in pl["entries"] if e not in tacz]
+            pl["entries"].append({"type": "minecraft:loot_table", "value": f"{MOD}:waffen/{name}",
+                                  "weight": sum(e["weight"] for e in tacz)})
+            os.makedirs(waffen_ziel, exist_ok=True)
+            with open(os.path.join(waffen_ziel, f"{name}.json"), "w", encoding="utf-8") as f:
+                json.dump({"neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "tacz"}],
+                           "type": "minecraft:chest", "pools": [{"rolls": 1, "entries": tacz}]}, f, indent=2)
         with open(os.path.join(ZIEL, f"{name}.json"), "w", encoding="utf-8") as f:
             json.dump({"type": "minecraft:chest", "pools": pools}, f, indent=2, ensure_ascii=False)
             f.write("\n")

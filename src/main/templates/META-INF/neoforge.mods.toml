@@ -31,3 +31,11 @@ und herausfinden, was in Station Null geschehen ist.
     versionRange="[4.7,)"
     ordering="NONE"
     side="BOTH"
+
+# Nach Lost Cities laden, damit unsere Beuteregeln für die Städte gelten
+[[dependencies.${mod_id}]]
+    modId="lostcities"
+    type="optional"
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"
