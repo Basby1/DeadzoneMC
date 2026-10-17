@@ -1,0 +1,34 @@
+name: Testserver
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  testserver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+
+      - name: Java 21 einrichten
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Gradle einrichten
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Testwelt erzeugen und alles ausprobieren
+        run: |
+          chmod +x ./gradlew
+          python3 werkzeuge/servertest.py
+
+      - name: Server-Log aufbewahren
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-log
+          path: run/logs/
