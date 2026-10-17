@@ -15,7 +15,18 @@ public final class PlanSpeicher {
     private static final Map<String, Ortsplan> GEOMETRIE = lru();
     private static final Map<String, Ortsplan> FERTIG = lru();
 
+    private static final int[][] AUSWEICHEN = {
+            {70, 0}, {-70, 0}, {0, 70}, {0, -70}, {60, 60}, {-60, 60}, {60, -60}, {-60, -60}
+    };
+
     private PlanSpeicher() {
+    }
+
+    /** Der fertige Plan, falls er schon berechnet wurde (sonst null). */
+    public static Ortsplan schonFertig(long weltSaat, Siedlung s) {
+        synchronized (FERTIG) {
+            return FERTIG.get(schluessel(weltSaat, s));
+        }
     }
 
     private static Map<String, Ortsplan> lru() {
@@ -57,6 +68,13 @@ public final class PlanSpeicher {
             }
         }
         Ortsplan neu = Dorfplaner.einpassen(s, h, meer);
+        // Liegt der Platz im Wasser, sucht sich das Dorf einen trockeneren Platz in der Nähe.
+        for (int[] v : AUSWEICHEN) {
+            if (neu.gueltig) {
+                break;
+            }
+            neu = Dorfplaner.einpassen(s.verschoben(v[0], v[1]), h, meer);
+        }
         synchronized (FERTIG) {
             Ortsplan vorhanden = FERTIG.get(k);
             if (vorhanden != null) {
@@ -70,7 +88,12 @@ public final class PlanSpeicher {
     /** Ob hier eine gebaute Siedlung etwas hingestellt hat oder hinstellen wird. */
     public static boolean belegt(long weltSaat, int x, int z, int rand) {
         for (Siedlung s : Siedlungen.beiPunkt(weltSaat, x, z, rand)) {
-            if (s.typ().wirdGebaut() && geometrie(weltSaat, s).belegt(x, z, rand)) {
+            if (!s.typ().wirdGebaut()) {
+                continue;
+            }
+            Ortsplan fertig = schonFertig(weltSaat, s);
+            Ortsplan plan = fertig != null ? fertig : geometrie(weltSaat, s);
+            if ((fertig == null || fertig.gueltig) && plan.belegt(x, z, rand)) {
                 return true;
             }
         }

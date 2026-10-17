@@ -298,7 +298,7 @@ public final class Dorfplaner {
                 nass++;
             }
         }
-        if (nass * 10 > gesamt * 3) {
+        if (nass * 10 > gesamt * 4) {
             plan.gueltig = false;
             return plan;
         }

@@ -46,15 +46,24 @@ public final class Ortsbefehle {
         return plan.gueltig;
     }
 
-    /** Die nächste gültige Siedlung eines Typs, oder null. */
+    /** Die nächste gültige Siedlung eines Typs (an ihrem tatsächlichen Platz), oder null. */
     public static Siedlung naechste(ServerLevel level, SiedlungsTyp typ, int x, int z) {
         List<Siedlung> liste = Siedlungen.naechste(level.getSeed(), typ, x, z, 3);
         for (Siedlung s : liste) {
             if (gueltig(level, s)) {
-                return s;
+                return tatsaechlich(level, s);
             }
         }
         return null;
+    }
+
+    /** Wo die Siedlung wirklich steht (sie kann vom Wasser weg verschoben worden sein). */
+    public static Siedlung tatsaechlich(ServerLevel level, Siedlung s) {
+        if (!s.typ().wirdGebaut()) {
+            return s;
+        }
+        Ortsplan plan = PlanSpeicher.schonFertig(level.getSeed(), s);
+        return plan != null ? plan.siedlung : s;
     }
 
     public static String richtung(int vonX, int vonZ, int nachX, int nachZ) {
@@ -80,7 +89,8 @@ public final class Ortsbefehle {
                 continue;
             }
             gezeigt++;
-            q.sendSuccess(() -> zeile(s, x, z, ""), false);
+            Siedlung echt = tatsaechlich(level, s);
+            q.sendSuccess(() -> zeile(echt, x, z, ""), false);
         }
         for (SiedlungsTyp typ : new SiedlungsTyp[]{SiedlungsTyp.KLEINSTADT, SiedlungsTyp.GROSSSTADT}) {
             List<Siedlung> liste = Siedlungen.naechste(level.getSeed(), typ, x, z, 2);

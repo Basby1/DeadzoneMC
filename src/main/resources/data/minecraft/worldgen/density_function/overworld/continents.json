@@ -2,7 +2,7 @@
   "type": "minecraft:flat_cache",
   "argument": {
     "type": "minecraft:add",
-    "argument1": 0.2,
+    "argument1": 0.32,
     "argument2": {
       "type": "minecraft:shifted_noise",
       "noise": "minecraft:continentalness",

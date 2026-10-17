@@ -111,10 +111,13 @@ public final class Selbsttest {
         BlockPos spawn = level.getSharedSpawnPos();
         int nass = 0;
         int alle = 0;
-        for (int x = -4096; x <= 4096; x += 512) {
-            for (int z = -4096; z <= 4096; z += 512) {
+        long hoehe = 0;
+        for (int x = -4096; x <= 4096; x += 256) {
+            for (int z = -4096; z <= 4096; z += 256) {
                 alle++;
-                if (h.boden(spawn.getX() + x, spawn.getZ() + z) < level.getSeaLevel() - 1) {
+                int b = h.boden(spawn.getX() + x, spawn.getZ() + z);
+                hoehe += b;
+                if (b < level.getSeaLevel() - 1) {
                     nass++;
                 }
             }
@@ -128,8 +131,8 @@ public final class Selbsttest {
                 dorf++;
             }
         }
-        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke, grob): {} %, Dörfer in der Nähe gültig: {} von {}",
-                nass * 100 / alle, dorf, doerfer);
+        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke, grob): {} %, mittlere Höhe {}, Dörfer in der Nähe gültig: {} von {}",
+                nass * 100 / alle, hoehe / alle, dorf, doerfer);
     }
 
     /** Draufsicht und Grundriss rund um den Spawn als Text – zum Nachsehen, ob die Häuser stimmen. */

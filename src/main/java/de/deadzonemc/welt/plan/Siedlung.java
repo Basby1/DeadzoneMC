@@ -12,7 +12,7 @@ public record Siedlung(SiedlungsTyp typ, int zelleX, int zelleZ, int x, int z, i
     }
 
     public boolean beruehrt(int px, int pz, int extra) {
-        int r = reichweite() + extra;
+        int r = reichweite() + extra + 72; // + mögliche Verschiebung auf einen trockenen Platz
         return Math.abs(px - x) <= r && Math.abs(pz - z) <= r;
     }
 
@@ -20,6 +20,11 @@ public record Siedlung(SiedlungsTyp typ, int zelleX, int zelleZ, int x, int z, i
         double dx = px - x;
         double dz = pz - z;
         return Math.sqrt(dx * dx + dz * dz);
+    }
+
+    /** Dieselbe Siedlung, ein Stück verschoben (wenn der ursprüngliche Platz unter Wasser liegt). */
+    public Siedlung verschoben(int dx, int dz) {
+        return new Siedlung(typ, zelleX, zelleZ, x + dx, z + dz, radius, saat, name);
     }
 
     public String schluessel() {
