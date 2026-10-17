@@ -75,7 +75,7 @@ jobs:
           mkdir -p /tmp/tzk && cd /tmp/tzk && unzip -q -o "$OLDPWD/$tz" 'com/*' 2>/dev/null; cd "$OLDPWD"
           grep -rhoa -E "Gun(Id|FireMode|CurrentAmmoCount)|Ammo(Id)?Count|AmmoId|tacz:[a-z_]+" /tmp/tzk 2>/dev/null | sort | uniq -c | sort -rn | head -60 > /tmp/tz.txt || true
           mkdir -p /tmp/tzg && unzip -q -o "$tz" 'assets/tacz/custom/tacz_default_gun/data/tacz/data/guns/*' -d /tmp/tzg || true
-          python3 -c "import json,glob,os; print(' '.join(os.path.basename(f)[:-10]+'='+json.load(open(f)).get('ammo','?').replace('tacz:','') for f in sorted(glob.glob('/tmp/tzg/**/*_data.json',recursive=True))))" > /tmp/tz.txt || true
+          python3 "$GITHUB_WORKSPACE/werkzeuge/tacz_munition.py" /tmp/tzg > /tmp/tz.txt || true
           unzip -l "$tz" | grep -E "data/tacz/(loot|tags|recipe)|index/ammo|ammo/" | awk '{print $4}' | head -30 >> /tmp/tz.txt || true
           python3 -c "import sys; [print('::notice title='+t+'::'+open(f).read()[:3800].replace(chr(10),'%0A')) for t,f in (('Lost Cities Beute','/tmp/lc.txt'),('TaCZ Inhalt','/tmp/tz.txt'))]"
           ls ../config | head -80 | tr '\n' ' '
