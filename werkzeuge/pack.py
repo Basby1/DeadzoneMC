@@ -112,6 +112,7 @@ acceptable-game-versions = ["1.21"]
     ueber = os.path.join(WURZEL, "pack", "overrides")
     if os.path.isdir(ueber):
         shutil.copytree(ueber, PACK, dirs_exist_ok=True)
+    voreinstellungen()
     subprocess.run(["packwiz", "refresh"], cwd=PACK, check=True)
     subprocess.run(["packwiz", "curseforge", "export", "-o", AUSGABE], cwd=PACK, check=True)
 
@@ -122,11 +123,40 @@ acceptable-game-versions = ["1.21"]
         for j in jars:
             z.write(j, "overrides/mods/" + os.path.basename(j))
 
+    with zipfile.ZipFile(AUSGABE) as z:
+        manifest = json.loads(z.read("manifest.json"))
+        ueberschreibungen = [n for n in z.namelist() if n.startswith("overrides/")]
+    melden("notice", "Inhalt der Pack-Datei",
+           f"{len(manifest['files'])} CurseForge-Dateien, Loader {manifest['minecraft']['modLoaders']}\n"
+           + "\n".join(ueberschreibungen)[:3000])
     melden("notice", f"Pack gebaut (NeoForge {neo}, {len(metadateien())} Dateien)", "\n".join(ok)[:3800])
     if fehler:
         melden("warning", f"Nicht hinzugefügt ({len(fehler)})", "\n".join(fehler)[:3800])
     print("\n".join(ok))
     print("FEHLER:\n" + "\n".join(fehler))
+
+
+def dateiname(ordner):
+    namen = []
+    for d in sorted(glob.glob(os.path.join(PACK, ordner, "*.pw.toml"))):
+        with open(d, "rb") as f:
+            namen.append(tomllib.load(f)["filename"])
+    return namen
+
+
+def voreinstellungen():
+    """Shader und Animations-Ressourcenpaket gleich einschalten, Sprache Deutsch (nur beim ersten Start)."""
+    shader = dateiname("shaderpacks")
+    pakete = dateiname("resourcepacks")
+    os.makedirs(os.path.join(PACK, "config"), exist_ok=True)
+    if shader:
+        with open(os.path.join(PACK, "config", "iris.properties"), "w") as f:
+            f.write(f"shaderPack={shader[0]}\nenableShaders=true\n")
+    with open(os.path.join(PACK, "options.txt"), "w") as f:
+        liste_ = ",".join(['"vanilla"'] + [f'"file/{p}"' for p in pakete])
+        f.write(f"lang:de_de\nresourcePacks:[{liste_}]\nrenderDistance:12\nsimulationDistance:8\n"
+                "gamma:0.0\nsoundCategory_ambient:1.0\n")
+    melden("notice", "Voreinstellungen", f"Shader: {shader}\nRessourcenpakete: {pakete}")
 
 
 def cf_url(datei_id, name, gepolstert):
