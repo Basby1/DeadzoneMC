@@ -340,6 +340,12 @@ public final class Selbsttest {
                 LevelChunk chunk = level.getChunk(cx, cz);
                 for (BlockEntity be : chunk.getBlockEntities().values()) {
                     zaehler.merge("Behälter " + BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()).getPath(), 1, Integer::sum);
+                    var tag = be.saveWithoutMetadata(level.registryAccess());
+                    for (String schluessel : new String[]{"LootTable", "lootTable", "table"}) {
+                        if (tag.contains(schluessel)) {
+                            zaehler.merge("Beute " + tag.getString(schluessel).replace("minecraft:", "").replace("deadzonemc:", ""), 1, Integer::sum);
+                        }
+                    }
                 }
                 for (int i = 0; i < chunk.getSections().length; i++) {
                     LevelChunkSection teil = chunk.getSections()[i];
