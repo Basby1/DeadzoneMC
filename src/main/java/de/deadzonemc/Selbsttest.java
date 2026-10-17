@@ -29,6 +29,7 @@ public final class Selbsttest {
     public static final boolean AKTIV = Boolean.getBoolean("deadzonemc.selbsttest");
 
     private static final List<String> BEFEHLE = List.of(
+            "gamerule spawnChunkRadius 8",
             "deadzone wetter",
             "deadzone wetter dichter_nebel",
             "deadzone wetter saurer_regen 2",

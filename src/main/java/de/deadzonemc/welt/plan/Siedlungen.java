@@ -47,7 +47,7 @@ public final class Siedlungen {
             for (int dx = -1; dx <= 1; dx++) {
                 for (int dz = -1; dz <= 1; dz++) {
                     Siedlung g = roh(weltSaat, groesser, gx + dx, gz + dz);
-                    if (g != null && g.abstand(s.x(), s.z()) < g.reichweite() + s.reichweite() + PUFFER) {
+                    if (g != null && g.abstand(s.x(), s.z()) < g.radius() + s.radius() + PUFFER) {
                         return null;
                     }
                 }

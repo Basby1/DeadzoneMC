@@ -161,7 +161,7 @@ public final class Dorfplaner {
     /** Grundstück an einer Straßenseite (seite = +1: größere Quer-Koordinate). */
     private static Grundstueck grundstueck(Strasse st, int index, int seite, int laengsStart, int breite, int tiefe,
                                            String typ, long saat, int nummer) {
-        int hb = st.halbeBreite(laengsStart + breite / 2);
+        int hb = st.maxHalbeBreite();
         int q1 = seite > 0 ? st.quer + hb + 1 : st.quer - hb - tiefe;
         int q2 = seite > 0 ? st.quer + hb + tiefe : st.quer - hb - 1;
         int l1 = laengsStart;
@@ -182,7 +182,7 @@ public final class Dorfplaner {
 
     private static boolean frei(Ortsplan plan, int[] f) {
         for (Strasse s : plan.strassen) {
-            if (Strasse.ueberlappt(f, s.flaeche(), 1)) {
+            if (Strasse.ueberlappt(f, s.flaeche(), 0)) {
                 return false;
             }
         }

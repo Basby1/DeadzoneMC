@@ -6,7 +6,7 @@ package de.deadzonemc.welt.plan;
  */
 public enum SiedlungsTyp {
     //            Zelle  Radius min/max  Chance  Rand (Abstand zur Zellgrenze zusätzlich zum Radius)
-    DORF(          640,      50,   78,   0.75,  100),
+    DORF(          576,      50,   78,   0.85,  100),
     KLEINSTADT(   1408,     150,  200,   0.85,  160),
     GROSSSTADT(   3200,     400,  600,   0.80,  200);
 
