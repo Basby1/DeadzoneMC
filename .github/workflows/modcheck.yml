@@ -1,0 +1,12 @@
+name: Modcheck
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'werkzeuge/modcheck.py'
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 werkzeuge/modcheck.py
