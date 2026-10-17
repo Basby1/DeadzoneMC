@@ -126,6 +126,9 @@ public final class Strahlung {
         if (geschuetzt) {
             r *= 0.2;
         }
+        if (r > 0) {
+            r *= de.deadzonemc.klasse.Talente.strahlenfaktor(p);
+        }
         RATE.put(p.getUUID(), r);
         if (gas && !geschuetzt) {
             p.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));

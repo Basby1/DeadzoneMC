@@ -31,7 +31,7 @@ public class StrahlenfassFeature extends Feature<NoneFeatureConfiguration> {
         for (int i = 0; i < anzahl + 6; i++) {
             int x = start.getX() + z.nextInt(7) - 3;
             int zz = start.getZ() + z.nextInt(7) - 3;
-            int y = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, zz);
+            int y = level.getHeight(level instanceof net.minecraft.server.level.WorldGenRegion ? Heightmap.Types.WORLD_SURFACE_WG : Heightmap.Types.WORLD_SURFACE, x, zz);
             BlockPos pos = new BlockPos(x, y, zz);
             BlockPos unten = pos.below();
             if (!level.getBlockState(unten).isSolid() || !level.getFluidState(unten).isEmpty() || !level.isEmptyBlock(pos)) {

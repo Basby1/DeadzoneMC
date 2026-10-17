@@ -40,7 +40,7 @@ public class VersteckFeature extends Feature<NoneFeatureConfiguration> {
         }
         int x = ziel.getX();
         int z = ziel.getZ();
-        int y = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x, z);
+        int y = level.getHeight(level instanceof net.minecraft.server.level.WorldGenRegion ? Heightmap.Types.OCEAN_FLOOR_WG : Heightmap.Types.OCEAN_FLOOR, x, z);
         BlockState boden = level.getBlockState(new BlockPos(x, y - 1, z));
         long saat = level.getSeed() ^ ziel.asLong();
         BlockState kiste = Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING,

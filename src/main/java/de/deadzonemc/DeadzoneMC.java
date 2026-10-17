@@ -17,6 +17,7 @@ public class DeadzoneMC {
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
         de.deadzonemc.mensch.MenschTypen.registrieren(modBus);
         modBus.addListener(Netz::registrieren);
+        modBus.addListener(de.deadzonemc.welt.Staedte::imc);
 
         NeoForge.EVENT_BUS.addListener(WetterSystem::serverGestartet);
         NeoForge.EVENT_BUS.addListener(WetterSystem::serverTick);
@@ -25,6 +26,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(WetterSystem::befehleRegistrieren);
         NeoForge.EVENT_BUS.addListener(Spielstart::beimBetreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.StadtHorden::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.strahlung.Strahlung::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.basis.Basisschutz::spawnPruefen);
@@ -33,6 +35,9 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::betreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::respawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::schaden);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::schaden);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::effekt);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::ziel);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::tick);
         NeoForge.EVENT_BUS.addListener(Tod::gestorben);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.mensch.FraktionsSpawner::tick);

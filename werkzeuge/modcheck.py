@@ -14,17 +14,11 @@ KOPF = {"User-Agent": "Basby1/DeadzoneMC modcheck (github.com/Basby1/DeadzoneMC)
 
 # (Name/Slug, Art) – Art: mod, shader, resourcepack
 KANDIDATEN = [
-    ("parcool", "mod"), ("pufferfish-skills", "mod"), ("handcrafted", "mod"), ("macaws-furniture", "mod"),
-    ("macaws-roofs", "mod"), ("macaws-windows", "mod"), ("macaws-lights-and-lamps", "mod"), ("macaws-paths-and-pavings", "mod"),
-    ("macaws-bridges", "mod"), ("macaws-fences-and-walls", "mod"), ("macaws-trapdoors", "mod"), ("macaws-stairs", "mod"),
-    ("another-furniture", "mod"), ("decorative-blocks", "mod"), ("chipped", "mod"), ("rechiseled", "mod"),
-    ("every-compat", "mod"), ("create", "mod"), ("biomes-o-plenty", "mod"), ("terrablender", "mod"),
-    ("critters-and-companions", "mod"), ("untamedwilds", "mod"), ("friends-and-foes-forge", "mod"), ("ecologics", "mod"),
-    ("wildlife", "mod"), ("fauna", "mod"), ("crabbers-delight", "mod"), ("environmental", "mod"), ("autumnity", "mod"),
-    ("farmers-delight", "mod"), ("storage-drawers", "mod"), ("sophisticated-storage", "mod"), ("waystones", "mod"),
-    ("xaeros-minimap", "mod"), ("dynamic-trees", "mod"), ("fast-leaf-decay", "mod"), ("better-clouds", "mod"),
-    ("skill-tree", "mod"), ("project-mmo", "mod"), ("leveling-up", "mod"), ("level-up-reforged", "mod"),
-    ("ftb-quests", "mod"), ("easy-npc", "mod"), ("custom-npcs-unofficial", "mod"), ("villagers-plus", "mod"),
+    ("lithium", "mod"), ("noisium", "mod"), ("dynamic-fps", "mod"), ("alltheleaks", "mod"), ("clumps", "mod"),
+    ("fastfurnace", "mod"), ("fastworkbench", "mod"), ("let-me-despawn", "mod"), ("moreculling", "mod"),
+    ("badoptimizations", "mod"), ("sodium-extra", "mod"), ("ksyxis", "mod"), ("ai-improvements", "mod"),
+    ("async-locator", "mod"), ("c2me", "mod"), ("radium", "mod"), ("fast-paths", "mod"), ("memoryleakfix", "mod"),
+    ("puffish-skills", "mod"), ("pufferfish-skills", "mod"), ("skills", "mod"), ("parcool", "mod"),
 ]
 
 LADER = {"mod": ["neoforge"], "shader": ["iris"], "resourcepack": ["minecraft"]}

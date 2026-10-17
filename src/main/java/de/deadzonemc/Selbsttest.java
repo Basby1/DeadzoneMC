@@ -42,6 +42,7 @@ public final class Selbsttest {
             "#stadtkarte 400 0",
             "#stadtkarte 0 400",
             "#zaehlen",
+            "#stadthorde",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "#waffen",
             "#versteck",
@@ -455,6 +456,43 @@ public final class Selbsttest {
             }
             if (befehl.equals("#dorf")) {
                 dorfSuchen(server);
+                return;
+            }
+            if (befehl.equals("#stadthorde")) {
+                ServerLevel ow = server.overworld();
+                BlockPos sp = ow.getSharedSpawnPos();
+                int stadt = 0;
+                int gesamt = 0;
+                BlockPos fund = null;
+                for (int cx = -15; cx <= 15; cx++) {
+                    for (int cz = -15; cz <= 15; cz++) {
+                        gesamt++;
+                        int x = (sp.getX() >> 4) + cx;
+                        int z = (sp.getZ() >> 4) + cz;
+                        if (de.deadzonemc.welt.Staedte.istStadt(ow, x, z)) {
+                            stadt++;
+                            if (fund == null || Math.abs(cx) + Math.abs(cz) < Math.abs((fund.getX() >> 4) - (sp.getX() >> 4)) + Math.abs((fund.getZ() >> 4) - (sp.getZ() >> 4))) {
+                                fund = new BlockPos(x * 16 + 8, 0, z * 16 + 8);
+                            }
+                        }
+                    }
+                }
+                StringBuilder d = new StringBuilder("Stadt-Chunks um den Spawn: " + stadt + " von " + gesamt);
+                if (fund != null) {
+                    Integer h = de.deadzonemc.welt.Staedte.strassenhoehe(ow, fund.getX() >> 4, fund.getZ() >> 4);
+                    d.append(", Straßenhöhe bei ").append(fund.getX()).append("/").append(fund.getZ()).append(": ").append(h);
+                    for (int dx = -4; dx <= 4; dx++) {
+                        for (int dz = -4; dz <= 4; dz++) {
+                            ow.getChunk((fund.getX() >> 4) + dx, (fund.getZ() >> 4) + dz);
+                        }
+                    }
+                    int n = de.deadzonemc.monster.StadtHorden.gruppeSpawnen(ow, fund.getX(), h == null ? 70 : h, fund.getZ(), null, 6);
+                    d.append(", Gruppe gespawnt: ").append(n).append(" → ");
+                    for (var m : ow.getEntitiesOfClass(de.deadzonemc.monster.DeadzoneMonster.class, new net.minecraft.world.phys.AABB(fund).inflate(64, 400, 64))) {
+                        d.append(m.getType().toShortString()).append("@").append(m.blockPosition().toShortString()).append(" ");
+                    }
+                }
+                LOG.info("[Selbsttest] Stadthorde: {}", d);
                 return;
             }
             if (befehl.equals("#wasser")) {

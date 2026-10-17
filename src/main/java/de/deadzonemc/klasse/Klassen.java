@@ -171,7 +171,7 @@ public final class Klassen {
 
     /** Wie stark Heilung bei diesem Spieler wirkt (Sanitäter: 1,5-fach). */
     public static float heilfaktor(Player p) {
-        return klasse(p) == Klasse.SANITAETER ? 1.5F : 1.0F;
+        return (klasse(p) == Klasse.SANITAETER ? 1.5F : 1.0F) * Talente.heilfaktor(p);
     }
 
     // ---- Aktive Fähigkeiten ------------------------------------------------------------------
