@@ -38,6 +38,7 @@ public final class Selbsttest {
             "deadzone nebel an",
             "locate biome deadzonemc:vorstadt",
             "locate biome deadzonemc:toter_wald",
+            "#wasser",
             "#stadtkarte 0 0",
             "#stadtkarte 400 0",
             "#stadtkarte 0 400",
@@ -132,11 +133,14 @@ public final class Selbsttest {
         int nass = 0;
         int alle = 0;
         long hoehe = 0;
+        double kont = 0;
         for (int x = -4096; x <= 4096; x += 256) {
             for (int z = -4096; z <= 4096; z += 256) {
                 alle++;
                 int b = h.boden(spawn.getX() + x, spawn.getZ() + z);
                 hoehe += b;
+                kont += level.getChunkSource().randomState().router().continents().compute(
+                        new net.minecraft.world.level.levelgen.DensityFunction.SinglePointContext(spawn.getX() + x, 64, spawn.getZ() + z));
                 if (b < level.getSeaLevel() - 1) {
                     nass++;
                 }
@@ -151,8 +155,8 @@ public final class Selbsttest {
                 dorf++;
             }
         }
-        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke, grob): {} %, mittlere Höhe {}, Dörfer in der Nähe gültig: {} von {}",
-                nass * 100 / alle, hoehe / alle, dorf, doerfer);
+        LOG.info("[Selbsttest] Wasseranteil (8000x8000 Blöcke, grob): {} %, mittlere Höhe {}, mittlere Kontinentalität {}, Dörfer in der Nähe gültig: {} von {}",
+                nass * 100 / alle, hoehe / alle, String.format(java.util.Locale.ROOT, "%.3f", kont / alle), dorf, doerfer);
     }
 
     /** Draufsicht und Grundriss rund um den Spawn als Text – zum Nachsehen, ob die Häuser stimmen. */

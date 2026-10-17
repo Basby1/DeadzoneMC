@@ -5,7 +5,7 @@
 mc-mods/the-lost-cities                 both
 mc-mods/structory                       both
 mc-mods/lootr                           both
-mc-mods/yungs-better-mineshafts         both
+mc-mods/yungs-better-mineshafts-forge   both
 mc-mods/yungs-better-dungeons           both
 
 # --- Waffen & Kampf ---
@@ -22,7 +22,7 @@ mc-mods/rotten-creatures                both
 mc-mods/improved-mobs                   both
 mc-mods/enhanced-celestials             both
 mc-mods/naturalist                      both
-mc-mods/cave-dweller-fabric-neoforge-port both
+mc-mods/cave-dweller-overhaul           both
 mc-mods/in-control                      both
 
 # --- Survival ---
@@ -38,7 +38,7 @@ mc-mods/carry-on                        both
 
 # --- Fahrzeuge ---
 mc-mods/immersive-aircraft              both
-mc-mods/astikorcarts-redux              both
+mc-mods/astikor-carts-redux             both
 
 # --- Basis ---
 mc-mods/supplementaries                 both
@@ -52,7 +52,6 @@ mc-mods/subtle-effects                  client
 mc-mods/lambdynamiclights               client
 mc-mods/not-enough-animations           client
 mc-mods/entity-model-features           client
-mc-mods/entity-texture-features-fabric  client
 texture-packs/fresh-animations          client
 
 # --- Grafik (nur Client) ---
