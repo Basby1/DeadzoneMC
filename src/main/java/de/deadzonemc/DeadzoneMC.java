@@ -15,6 +15,7 @@ public class DeadzoneMC {
     public DeadzoneMC(IEventBus modBus, ModContainer container) {
         ModRegistry.registrieren(modBus);
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
+        de.deadzonemc.mensch.MenschTypen.registrieren(modBus);
         modBus.addListener(Netz::registrieren);
 
         NeoForge.EVENT_BUS.addListener(WetterSystem::serverGestartet);
@@ -34,6 +35,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::schaden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::tick);
         NeoForge.EVENT_BUS.addListener(Tod::gestorben);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.mensch.FraktionsSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::betreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Entdeckung::respawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.welt.Ortsbefehle::registrieren);

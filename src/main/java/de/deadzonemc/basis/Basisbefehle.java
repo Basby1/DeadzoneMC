@@ -17,6 +17,15 @@ public final class Basisbefehle {
 
     public static void registrieren(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("deadzone")
+                .then(Commands.literal("ansehen").executes(ctx -> {
+                    var p = ctx.getSource().getPlayerOrException();
+                    for (var f : de.deadzonemc.mensch.Fraktion.values()) {
+                        int wert = de.deadzonemc.mensch.Ansehen.holen(p, f);
+                        ctx.getSource().sendSuccess(() -> Component.translatable("fraktion.deadzonemc.anzeige",
+                                Component.translatable("fraktion.deadzonemc." + f.id()), wert), false);
+                    }
+                    return 1;
+                }))
                 .then(Commands.literal("klasse").executes(ctx -> {
                     de.deadzonemc.klasse.Klassen.oeffnen(ctx.getSource().getPlayerOrException());
                     return 1;

@@ -321,7 +321,29 @@ def juggernaut():
     return [idle, gang, lauf, schlag, brull]
 
 
-ALLE = {"wanderer": wanderer, "schreier": schreier, "lauerer": lauerer, "kriecher": kriecher,
+def mensch():
+    """Gemeinsame Animationen aller Menschen (Soldat, Kultist, Händler, Überlebender)."""
+    idle = Anim("idle", 4.0)
+    atmen(idle, "oberkoerper", 1.2)
+    idle.welle("kopf", "y", 12, frequenz=1)
+    idle.welle("arm_rechts", "z", 2)
+    idle.welle("arm_links", "z", 2, phase=0.5)
+    gang = Anim("walk", 1.0)
+    gehen(gang, ["bein_rechts", "bein_links"], ["arm_rechts", "arm_links"], 30, 22, wippen=("koerper", 0.5))
+    lauf = Anim("run", 0.6)
+    gehen(lauf, ["bein_rechts", "bein_links"], ["arm_rechts", "arm_links"], 50, 40, wippen=("koerper", 1.0))
+    lauf.welle("oberkoerper", "x", 2, mitte=-8, frequenz=2)
+    angriff = Anim("attack", 0.5, schleife=False)
+    angriff.tasten("arm_rechts", "rotation", {0: (0, 0, 0), 0.12: (110, 0, 0), 0.3: (30, 0, 0), 0.5: (0, 0, 0)})
+    angriff.tasten("oberkoerper", "rotation", {0: (0, 0, 0), 0.12: (0, -15, 0), 0.5: (0, 0, 0)})
+    schuss = Anim("special", 0.35, schleife=False)  # Rückstoß beim Schießen
+    for arm in ("arm_rechts", "arm_links"):
+        schuss.tasten(arm, "rotation", {0: (0, 0, 0), 0.05: (12, 0, 0), 0.35: (0, 0, 0)})
+    schuss.tasten("oberkoerper", "rotation", {0: (0, 0, 0), 0.05: (4, 0, 0), 0.35: (0, 0, 0)})
+    return [idle, gang, lauf, angriff, schuss]
+
+
+ALLE = {"mensch": mensch, "wanderer": wanderer, "schreier": schreier, "lauerer": lauerer, "kriecher": kriecher,
         "der_stille": der_stille, "imitator": imitator, "nebelwesen": nebelwesen, "schwarm": schwarm,
         "brut": brut, "juggernaut": juggernaut}
 

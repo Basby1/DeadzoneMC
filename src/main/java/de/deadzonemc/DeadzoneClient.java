@@ -35,6 +35,10 @@ public class DeadzoneClient {
         e.registerEntityRenderer(MonsterTypen.NEBELWESEN.get(), c -> new MonsterRenderer<>(c, "nebelwesen", true, true, 0.0F));
         e.registerEntityRenderer(MonsterTypen.SCHWARM.get(), c -> new MonsterRenderer<>(c, "schwarm", true, false, 0.3F));
         e.registerEntityRenderer(MonsterTypen.BRUT.get(), c -> new MonsterRenderer<>(c, "brut", true, false, 0.8F));
+        e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.SOLDAT.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "soldat", true));
+        e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.KULTIST.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "kultist", true));
+        e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.UEBERLEBENDER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "ueberlebender", false));
+        e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.HAENDLER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "haendler", false));
         e.registerEntityRenderer(MonsterTypen.JUGGERNAUT.get(), c -> new MonsterRenderer<>(c, "juggernaut", true, false, 1.2F));
     }
 }

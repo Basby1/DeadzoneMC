@@ -451,6 +451,115 @@ ALLE = {"wanderer": wanderer, "schreier": schreier, "lauerer": lauerer, "krieche
         "brut": brut, "juggernaut": juggernaut}
 
 
+# ---------------------------------------------------------------------------
+# Menschen: Fraktionen, Händler, Überlebende (gemeinsames Gerüst, eigene Kleidung)
+def _mensch(name, hautf, gesicht_zeilen, palette, jacke, hose, schuhe, extras=None, glow="", tb=128, th=64,
+            arm_pose=((-8, 0, 0), (-8, 0, 0))):
+    m = Modell(name, tb, th)
+    h = haut(hautf, flecken_f=None, blut=0, dunkel_unten=0.1)
+    koerper = m.k("koerper", drehpunkt=(0, 12, 0))
+    for seite in (1, -1):
+        b = m.k("bein_" + ("rechts" if seite > 0 else "links"), "koerper", drehpunkt=(seite * 2, 12, 0))
+        b.w((0 if seite > 0 else -4, 0, -2), (4, 12, 4), hose)
+        b.w((0 if seite > 0 else -4, 0, -2), (4, 3, 4), schuhe, aufblasen=0.25)
+    ober = m.k("oberkoerper", "koerper", drehpunkt=(0, 12, 0))
+    ober.w((-4, 12, -2), (8, 12, 4), jacke)
+    kopf = m.k("kopf", "oberkoerper", drehpunkt=(0, 24, 0))
+    kopf.w((-4, 24, -4), (8, 8, 8), h, deko=gesicht(gesicht_zeilen, palette, glow=glow))
+    for i, seite in enumerate((1, -1)):
+        n = "rechts" if seite > 0 else "links"
+        a = m.k("arm_" + n, "oberkoerper", drehpunkt=(seite * 5, 22, 0), drehung=arm_pose[i])
+        x0 = 4 if seite > 0 else -7
+        a.w((x0, 12, -1.5), (3, 12, 3), jacke)
+        a.w((x0, 12, -1.5), (3, 2, 3), h)
+    if extras:
+        extras(m, {"koerper": koerper, "ober": ober, "kopf": kopf})
+    return m
+
+
+def kapuze_offen(m, rect, flaeche, w):
+    """Vorn bleibt nur der Rand der Kapuze, damit das Gesicht zu sehen ist."""
+    if flaeche == "vorne":
+        u, v, b, h = rect
+        m.bild[v + 1:v + h, u + 1:u + b - 1, 3] = 0
+
+
+def soldat():
+    """Die Wacht: Reste des Militärs. Helm, Gasmaske, Weste, Gewehr."""
+    p = {"g": farbe("2c2e2b"), "l": farbe("b8c8b0"), "L": farbe("e8f0e0"), "z": farbe("1d1e1c"), "r": farbe("626660"),
+         "s": farbe("3a3d38")}
+    tarn = kombi(stoff("4f5a3b", loecher=0, blut=0, falten=4, schmutz="2d3022"),
+                 lambda m, r, f, w: m.flecken(r, farbe("3a4128"), skala=2, schwelle=0.6, staerke=0.8))
+    gesicht_ = ["ssssssss", "ssssssss", "gLlggLlg", "gllgglLg", "gggggggg", "ggrzzrgg", "gggzzggg", ".gggggg."]
+
+    def extras(m, k):
+        helm = metall("4a5238", "5a4a2a", nieten=False)
+        k["kopf"].w((-4, 29, -4), (8, 3, 8), helm, aufblasen=0.6)
+        k["kopf"].w((-1.5, 24.5, -5.5), (3, 3, 1.5), metall("3a3d3b", "5a3a22"))
+        k["ober"].w((-4, 14, -2), (8, 9, 4), stoff("3a3f2c", loecher=0, blut=0, falten=2), aufblasen=0.5)  # Weste
+        k["ober"].w((-3.5, 14, 2.4), (7, 8, 2.5), stoff("4a4630", loecher=0, blut=0, falten=3))
+        gewehr = m.k("gewehr", "arm_rechts", drehpunkt=(5, 13, 0), drehung=(-80, 0, 0))
+        gewehr.w((4.5, 12.5, -10), (1, 2, 12), einfarbig("1e1f1d", 6))
+        gewehr.w((4.5, 10.5, -4), (1, 2, 1.5), einfarbig("2a2b28", 6))
+    m = _mensch("soldat", "b39a85", gesicht_, p, tarn, stoff("4a5038", loecher=0, blut=0, falten=4),
+                einfarbig("1c1a17", 6), extras, glow="lL", arm_pose=((-40, -10, 0), (-50, 30, 0)))
+    return m, "Soldat der Wacht", "Fraktion · Reste des Militärs, streng und misstrauisch", "1,9 Blöcke"
+
+
+def kultist():
+    """Die Aschekinder: Sekte, die den Nebel verehrt. Kutte, Asche im Gesicht, Laterne."""
+    p = {"a": farbe("6e6a64"), "w": farbe("e8ecee"), "k": farbe("1a1818"), "m": farbe("3a3030"), "s": farbe("4a4644")}
+    kutte = stoff("5c5853", loecher=0, blut=0, falten=2, schmutz="3a3835")
+    gesicht_ = ["........", "........", "aakaakaa", "awkaawka", "aaaaaaaa", "asaaaasa", "aammmmaa", "aaaaaaaa"]
+
+    def extras(m, k):
+        k["kopf"].w((-4, 24, -4), (8, 8, 8), stoff("4a4743", loecher=0, blut=0, falten=2), aufblasen=0.5, deko=kapuze_offen)
+        k["ober"].w((-4.5, 3, -2.5), (9, 10, 5), stoff("5c5853", loecher=1, blut=0, falten=2, fransen=True))
+        laterne = m.k("laterne", "arm_links", drehpunkt=(-5.5, 12, 0))
+        laterne.w((-6.5, 6, -1), (2, 3, 2), kombi(metall("2a2a2a", "3a2a1a", nieten=False)))
+        laterne.w((-6, 6.5, -0.5), (1, 2, 1), leuchtend("9fd8ff", 20))
+    m = _mensch("kultist", "9a948c", gesicht_, p, kutte, kutte, einfarbig("2a2724", 5), extras, glow="w",
+                arm_pose=((-5, 0, 4), (-30, 0, -6)))
+    return m, "Aschekind", "Fraktion · Sekte, die den Nebel verehrt", "1,9 Blöcke"
+
+
+def haendler():
+    """Die Karawane: Händler mit riesigem Rucksack, Hut und Schal."""
+    p = {"h": farbe("4a3020"), "e": farbe("1a1410"), "w": farbe("e8e0d0"), "b": farbe("6a4a30"), "m": farbe("5a2a20"),
+         "s": farbe("4f5a4a"), "S": farbe("3e483a")}
+    mantel = stoff("6b5137", loecher=0, blut=0, falten=3, schmutz="3a2a1a")
+    gesicht_ = ["hhhhhhhh", "hh....hh", ".we..ew.", "...bb...", ".b....b.", "bbmmmmbb", "sSsSsSsS", "SsSsSsSs"]
+
+    def extras(m, k):
+        k["kopf"].w((-6, 31, -6), (12, 1, 12), stoff("3e2e20", loecher=0, blut=0, falten=4))  # Hutkrempe
+        k["kopf"].w((-4, 32, -4), (8, 2, 8), stoff("3e2e20", loecher=0, blut=0, falten=4))
+        ruck = m.k("rucksack", "oberkoerper", drehpunkt=(0, 20, 2))
+        ruck.w((-5, 10, 2), (10, 16, 6), stoff("7a6040", loecher=0, blut=0, falten=3))
+        ruck.w((-6, 26, 3), (12, 3, 5), stoff("5a4a30", loecher=0, blut=0, falten=2))  # Schlafsack
+        ruck.w((5, 12, 4), (2, 3, 2), metall("6a6e70", "5a3a22", nieten=False))  # Topf
+        ruck.w((-7, 14, 3), (2, 6, 2), einfarbig("3a3a30", 6))  # Feldflasche
+    m = _mensch("haendler", "c4a084", gesicht_, p, mantel, stoff("4a4030", loecher=0, blut=0, falten=4),
+                einfarbig("2a2018", 6), extras, arm_pose=((-6, 0, 3), (-6, 0, -3)))
+    return m, "Händler der Karawane", "Neutral · tauscht Beute gegen Beute, Angebot wechselt", "1,9 Blöcke"
+
+
+def ueberlebender():
+    """Einzelne Überlebende: Kapuzenpulli, Halstuch, Jeans. Man weiß nie, was sie vorhaben."""
+    p = {"h": farbe("3a2a1e"), "e": farbe("1a1410"), "w": farbe("e8e0d0"), "b": farbe("7a2a2a"), "B": farbe("9a3a3a")}
+    pulli = stoff("5a6a72", loecher=1, blut=1, falten=3, haut_f="b8987a")
+    gesicht_ = ["hhhhhhhh", "hh....hh", ".we..ew.", "........", "BbBbBbBb", "bBbBbBbB", "BbBbBbBb", "........"]
+
+    def extras(m, k):
+        k["kopf"].w((-4, 24, -4), (8, 8, 8), stoff("4a5a62", loecher=0, blut=0, falten=2), aufblasen=0.45, deko=kapuze_offen)  # Kapuze
+        k["ober"].w((-3.5, 13, 2), (7, 8, 3), stoff("3a4a3a", loecher=0, blut=0, falten=3))
+    m = _mensch("ueberlebender", "b8987a", gesicht_, p, pulli, stoff("3b4759", loecher=1, blut=1, falten=4, haut_f="b8987a"),
+                einfarbig("2a2522", 6), extras, arm_pose=((-10, 0, 3), (-14, 0, -3)))
+    return m, "Überlebender", "Unberechenbar · hilfsbereit, Dieb oder infiziert", "1,9 Blöcke"
+
+
+ALLE.update({"soldat": soldat, "kultist": kultist, "haendler": haendler, "ueberlebender": ueberlebender})
+
+
 def bauen(name):
     modell, titel, unter, groesse = ALLE[name]()
     modell.uv_packen()

@@ -120,6 +120,13 @@ public final class ModRegistry {
                     .copyOnDeath()
                     .build());
 
+    /** Ansehen bei den Fraktionen. */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.Map<String, Integer>>> ANSEHEN =
+            ANHAENGE.register("ansehen", () -> AttachmentType.<java.util.Map<String, Integer>>builder(() -> java.util.Map.of())
+                    .serialize(Codec.unboundedMap(Codec.STRING, Codec.INT))
+                    .copyOnDeath()
+                    .build());
+
     /** Aufgenommene Strahlendosis eines Spielers (0 bis 1000). Nach dem Tod wieder 0. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> STRAHLENDOSIS =
             ANHAENGE.register("strahlendosis", () -> AttachmentType.builder(() -> 0.0F)
@@ -222,6 +229,7 @@ public final class ModRegistry {
                         ausgabe.accept(BATTERIE.get());
                         ausgabe.accept(ELEKTRONIK.get());
                         de.deadzonemc.monster.MonsterTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
+                        de.deadzonemc.mensch.MenschTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         for (String id : NotizItem.ALLE) {
                             ausgabe.accept(NotizItem.erstellen(id));
                         }
