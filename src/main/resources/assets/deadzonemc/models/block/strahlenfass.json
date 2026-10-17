@@ -1,0 +1,79 @@
+{
+ "parent": "minecraft:block/block",
+ "textures": {
+  "particle": "deadzonemc:block/strahlenfass_seite",
+  "seite": "deadzonemc:block/strahlenfass_seite",
+  "oben": "deadzonemc:block/strahlenfass_oben"
+ },
+ "elements": [
+  {
+   "from": [
+    2,
+    0,
+    2
+   ],
+   "to": [
+    14,
+    15,
+    14
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      2,
+      1,
+      14,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "south": {
+     "uv": [
+      2,
+      1,
+      14,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "east": {
+     "uv": [
+      2,
+      1,
+      14,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "west": {
+     "uv": [
+      2,
+      1,
+      14,
+      16
+     ],
+     "texture": "#seite"
+    },
+    "up": {
+     "uv": [
+      2,
+      2,
+      14,
+      14
+     ],
+     "texture": "#oben"
+    },
+    "down": {
+     "uv": [
+      2,
+      2,
+      14,
+      14
+     ],
+     "texture": "#oben",
+     "cullface": "down"
+    }
+   }
+  }
+ ]
+}

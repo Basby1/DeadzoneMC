@@ -25,7 +25,7 @@ import java.util.List;
 /** Medizin zum Einnehmen: Antibiotika heilen die Infektion, Schmerzmittel lassen langsam heilen. */
 public class MedizinItem extends Item {
 
-    public enum Art { ANTIBIOTIKA, SCHMERZMITTEL }
+    public enum Art { ANTIBIOTIKA, SCHMERZMITTEL, ANTI_RAD, WODKA }
 
     private final Art art;
 
@@ -41,7 +41,7 @@ public class MedizinItem extends Item {
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.EAT;
+        return art == Art.WODKA ? UseAnim.DRINK : UseAnim.EAT;
     }
 
     @Override
@@ -64,6 +64,17 @@ public class MedizinItem extends Item {
                         }
                     }
                     weg.forEach(entity::removeEffect);
+                }
+                case ANTI_RAD -> {
+                    if (entity instanceof net.minecraft.world.entity.player.Player p) {
+                        de.deadzonemc.strahlung.Strahlung.senken(p, 300);
+                    }
+                }
+                case WODKA -> {
+                    if (entity instanceof net.minecraft.world.entity.player.Player p) {
+                        de.deadzonemc.strahlung.Strahlung.senken(p, 60);
+                    }
+                    entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 240, 0));
                 }
                 case SCHMERZMITTEL -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 0));

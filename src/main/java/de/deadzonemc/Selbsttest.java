@@ -84,6 +84,7 @@ public final class Selbsttest {
             "#feature autowrack 30 -60",
             "#feature schutt 40 -60",
             "#feature strommast 50 -60",
+            "#feature strahlenfaesser 60 -60",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/keller",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/feuerwehr",

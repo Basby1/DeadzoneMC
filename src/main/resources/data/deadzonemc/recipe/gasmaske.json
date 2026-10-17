@@ -1,0 +1,27 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "LLL",
+  "GSG",
+  " F "
+ ],
+ "key": {
+  "L": {
+   "item": "minecraft:leather"
+  },
+  "G": {
+   "item": "minecraft:glass_pane"
+  },
+  "S": {
+   "item": "deadzonemc:stoffreste"
+  },
+  "F": {
+   "item": "deadzonemc:filter"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:gasmaske",
+  "count": 1
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  " S ",
+  "SKS",
+  " P "
+ ],
+ "key": {
+  "S": {
+   "item": "deadzonemc:stoffreste"
+  },
+  "K": {
+   "item": "minecraft:charcoal"
+  },
+  "P": {
+   "item": "minecraft:paper"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:filter",
+  "count": 1
+ }
+}
