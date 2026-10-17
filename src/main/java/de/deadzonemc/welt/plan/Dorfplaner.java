@@ -279,7 +279,7 @@ public final class Dorfplaner {
 
     public static Ortsplan einpassen(Siedlung s, Hoehen h, int meer) {
         Ortsplan plan = geometrie(s);
-        if (h.boden(s.x(), s.z()) < meer) {
+        if (h.boden(s.x(), s.z()) < meer - 1) {
             plan.gueltig = false;
             return plan;
         }

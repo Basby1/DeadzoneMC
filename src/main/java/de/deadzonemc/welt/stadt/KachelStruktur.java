@@ -44,7 +44,8 @@ public class KachelStruktur extends Structure {
     /** Liefert eine Höhenquelle aus dem Generator (Oberkante Gelände, vor dem Einebnen). */
     public static Hoehen hoehen(ChunkGenerator generator, net.minecraft.world.level.LevelHeightAccessor hoehe,
                                 net.minecraft.world.level.levelgen.RandomState zufall) {
-        return (x, z) -> generator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, hoehe, zufall) - 1;
+        // Meeresboden statt Wasseroberfläche: so erkennt man Wasser daran, dass der Boden unter dem Meeresspiegel liegt.
+        return (x, z) -> generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, hoehe, zufall) - 1;
     }
 
     @Override
