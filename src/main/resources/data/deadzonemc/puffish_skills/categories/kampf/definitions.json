@@ -1,0 +1,369 @@
+{
+ "schlagkraft1": {
+  "title": "Schlagkraft I",
+  "description": "+0,5 Nahkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:wooden_axe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.attack_damage",
+     "value": 0.5,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "schlagkraft2": {
+  "title": "Schlagkraft II",
+  "description": "+0,5 Nahkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:stone_axe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.attack_damage",
+     "value": 0.5,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "schlagkraft3": {
+  "title": "Schlagkraft III",
+  "description": "+1 Nahkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:iron_axe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.attack_damage",
+     "value": 1.0,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "zaeh1": {
+  "title": "Zäh I",
+  "description": "+2 maximale Gesundheit (1 Herz)",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:leather_chestplate"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "zaeh2": {
+  "title": "Zäh II",
+  "description": "+2 maximale Gesundheit",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:chainmail_chestplate"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "zaeh3": {
+  "title": "Zäh III",
+  "description": "+4 maximale Gesundheit",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:iron_chestplate"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 4,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "ruestung1": {
+  "title": "Rüstungskunde I",
+  "description": "+1 Rüstung",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:iron_helmet"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.armor",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "ruestung2": {
+  "title": "Rüstungskunde II",
+  "description": "+1 Rüstung, +1 Rüstungshärte",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:diamond_helmet"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.armor",
+     "value": 1,
+     "operation": "addition"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.armor_toughness",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "hiebe1": {
+  "title": "Schnelle Hiebe I",
+  "description": "+5 % Angriffstempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:feather"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.attack_speed",
+     "value": 0.05,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "hiebe2": {
+  "title": "Schnelle Hiebe II",
+  "description": "+5 % Angriffstempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:arrow"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.attack_speed",
+     "value": 0.05,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "standfest": {
+  "title": "Standfest",
+  "description": "+20 % Rückstoßwiderstand – Horden schubsen dich nicht so leicht",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:shield"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.knockback_resistance",
+     "value": 0.2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "berserker": {
+  "title": "Berserker",
+  "description": "+10 % Nahkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:netherite_axe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "challenge"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.attack_damage",
+     "value": 0.1,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 3
+ },
+ "bollwerk": {
+  "title": "Bollwerk",
+  "description": "+15 % Rückstoßwiderstand, +2 Gesundheit",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:anvil"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "challenge"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.knockback_resistance",
+     "value": 0.15,
+     "operation": "addition"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 3
+ }
+}

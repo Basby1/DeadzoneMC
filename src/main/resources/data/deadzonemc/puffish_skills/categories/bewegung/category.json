@@ -1,0 +1,18 @@
+{
+ "title": "Bewegung",
+ "description": "Parkour und Flucht. Erfahrung durch Sprinten, Klettern, Springen, Schwimmen.",
+ "icon": {
+  "type": "item",
+  "data": {
+   "item": "minecraft:leather_boots"
+  }
+ },
+ "background": {
+  "texture": "minecraft:textures/block/bricks.png",
+  "width": 16,
+  "height": 16,
+  "position": "tile"
+ },
+ "unlocked_by_default": true,
+ "starting_points": 1
+}

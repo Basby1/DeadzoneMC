@@ -1,0 +1,53 @@
+{
+ "treffsicher1": {
+  "x": 0,
+  "y": 0,
+  "definition": "treffsicher1",
+  "root": true
+ },
+ "treffsicher2": {
+  "x": 0,
+  "y": -68,
+  "definition": "treffsicher2"
+ },
+ "treffsicher3": {
+  "x": 0,
+  "y": -136,
+  "definition": "treffsicher3"
+ },
+ "pluenderer1": {
+  "x": -68,
+  "y": -34,
+  "definition": "pluenderer1"
+ },
+ "pluenderer2": {
+  "x": -136,
+  "y": -68,
+  "definition": "pluenderer2"
+ },
+ "pluenderer3": {
+  "x": -136,
+  "y": -136,
+  "definition": "pluenderer3"
+ },
+ "gefechtsbereit": {
+  "x": 68,
+  "y": -34,
+  "definition": "gefechtsbereit"
+ },
+ "kaltbluetig": {
+  "x": 68,
+  "y": -102,
+  "definition": "kaltbluetig"
+ },
+ "adlerauge": {
+  "x": -68,
+  "y": -102,
+  "definition": "adlerauge"
+ },
+ "scharfschuetze": {
+  "x": 0,
+  "y": -204,
+  "definition": "scharfschuetze"
+ }
+}

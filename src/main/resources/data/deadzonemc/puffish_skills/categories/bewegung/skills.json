@@ -1,0 +1,78 @@
+{
+ "grundlagen": {
+  "x": 0,
+  "y": 0,
+  "definition": "grundlagen",
+  "root": true
+ },
+ "klettern": {
+  "x": -68,
+  "y": -34,
+  "definition": "klettern"
+ },
+ "abrollen": {
+  "x": 68,
+  "y": -34,
+  "definition": "abrollen"
+ },
+ "ueberspringen": {
+  "x": 0,
+  "y": -68,
+  "definition": "ueberspringen"
+ },
+ "rutschen": {
+  "x": 68,
+  "y": -102,
+  "definition": "rutschen"
+ },
+ "herablassen": {
+  "x": -136,
+  "y": -68,
+  "definition": "herablassen"
+ },
+ "wandsprung": {
+  "x": -68,
+  "y": -102,
+  "definition": "wandsprung"
+ },
+ "wandlauf": {
+  "x": -68,
+  "y": -170,
+  "definition": "wandlauf"
+ },
+ "weitsprung": {
+  "x": 0,
+  "y": -136,
+  "definition": "weitsprung"
+ },
+ "ausweichen": {
+  "x": 136,
+  "y": -68,
+  "definition": "ausweichen"
+ },
+ "sprinter1": {
+  "x": 136,
+  "y": -136,
+  "definition": "sprinter1"
+ },
+ "sprinter2": {
+  "x": 136,
+  "y": -204,
+  "definition": "sprinter2"
+ },
+ "schwimmer": {
+  "x": -136,
+  "y": -136,
+  "definition": "schwimmer"
+ },
+ "schleicher": {
+  "x": -136,
+  "y": -204,
+  "definition": "schleicher"
+ },
+ "freerunner": {
+  "x": 0,
+  "y": -238,
+  "definition": "freerunner"
+ }
+}

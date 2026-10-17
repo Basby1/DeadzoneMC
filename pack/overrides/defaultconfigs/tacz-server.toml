@@ -1,0 +1,6 @@
+# Deadzone MC: Schusswaffen deutlich schwächer am Körper – Kopfschüsse bleiben tödlich.
+[base_multiplier]
+	DamageBaseMultiplier = 0.45
+	ArmorIgnoreBaseMultiplier = 0.7
+	HeadShotBaseMultiplier = 1.0
+	WeightSpeedMultiplier = 0.015

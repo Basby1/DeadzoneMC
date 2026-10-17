@@ -1,0 +1,59 @@
+{
+ "normal": {
+  "bidirectional": [
+   [
+    "anpacken",
+    "anpacken2"
+   ],
+   [
+    "anpacken2",
+    "anpacken3"
+   ],
+   [
+    "anpacken",
+    "werkzeug1"
+   ],
+   [
+    "werkzeug1",
+    "werkzeug2"
+   ],
+   [
+    "anpacken",
+    "reichweite1"
+   ],
+   [
+    "reichweite1",
+    "reichweite2"
+   ],
+   [
+    "reichweite1",
+    "taucher"
+   ],
+   [
+    "anpacken2",
+    "taucher"
+   ],
+   [
+    "werkzeug1",
+    "lasttier"
+   ],
+   [
+    "anpacken2",
+    "lasttier"
+   ],
+   [
+    "anpacken3",
+    "meister"
+   ],
+   [
+    "werkzeug2",
+    "meister"
+   ],
+   [
+    "reichweite2",
+    "meister"
+   ]
+  ],
+  "unidirectional": []
+ }
+}

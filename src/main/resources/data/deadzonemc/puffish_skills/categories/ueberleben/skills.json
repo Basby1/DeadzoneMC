@@ -1,0 +1,58 @@
+{
+ "abgehaertet": {
+  "x": 0,
+  "y": 0,
+  "definition": "abgehaertet",
+  "root": true
+ },
+ "magen": {
+  "x": -68,
+  "y": -34,
+  "definition": "magen"
+ },
+ "feldarzt1": {
+  "x": 68,
+  "y": -34,
+  "definition": "feldarzt1"
+ },
+ "feldarzt2": {
+  "x": 136,
+  "y": -68,
+  "definition": "feldarzt2"
+ },
+ "strahlenfest1": {
+  "x": -68,
+  "y": -102,
+  "definition": "strahlenfest1"
+ },
+ "strahlenfest2": {
+  "x": -136,
+  "y": -136,
+  "definition": "strahlenfest2"
+ },
+ "lunge": {
+  "x": -136,
+  "y": -68,
+  "definition": "lunge"
+ },
+ "zaehigkeit": {
+  "x": 0,
+  "y": -68,
+  "definition": "zaehigkeit"
+ },
+ "feuerfest": {
+  "x": 68,
+  "y": -102,
+  "definition": "feuerfest"
+ },
+ "zaehigkeit2": {
+  "x": 0,
+  "y": -136,
+  "definition": "zaehigkeit2"
+ },
+ "letzter_mann": {
+  "x": 0,
+  "y": -204,
+  "definition": "letzter_mann"
+ }
+}

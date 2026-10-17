@@ -1,0 +1,18 @@
+{
+ "title": "Kampf",
+ "description": "Nahkampf gegen die Infizierten. Erfahrung durch Nahkampf-Kills.",
+ "icon": {
+  "type": "item",
+  "data": {
+   "item": "minecraft:iron_axe"
+  }
+ },
+ "background": {
+  "texture": "minecraft:textures/block/stripped_dark_oak_log.png",
+  "width": 16,
+  "height": 16,
+  "position": "tile"
+ },
+ "unlocked_by_default": true,
+ "starting_points": 1
+}

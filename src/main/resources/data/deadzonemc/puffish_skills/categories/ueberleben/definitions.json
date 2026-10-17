@@ -1,0 +1,297 @@
+{
+ "abgehaertet": {
+  "title": "Abgehärtet",
+  "description": "+2 maximale Gesundheit",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:rotten_flesh"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "magen": {
+  "title": "Eiserner Magen",
+  "description": "Verdorbenes Essen macht keinen Hunger mehr",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:spider_eye"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.magen"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "feldarzt1": {
+  "title": "Feldarzt I",
+  "description": "Verbände und Medizin heilen 25 % mehr",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:paper"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.feldarzt1"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "feldarzt2": {
+  "title": "Feldarzt II",
+  "description": "Verbände und Medizin heilen 50 % mehr",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:golden_apple"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.feldarzt2"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "strahlenfest1": {
+  "title": "Strahlenfest I",
+  "description": "25 % weniger Strahlung",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:glowstone_dust"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.strahlenfest1"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "strahlenfest2": {
+  "title": "Strahlenfest II",
+  "description": "50 % weniger Strahlung",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:glowstone"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.strahlenfest2"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "lunge": {
+  "title": "Starke Lunge",
+  "description": "+2 Luft unter Wasser",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:pufferfish"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.oxygen_bonus",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "zaehigkeit": {
+  "title": "Zähigkeit",
+  "description": "+2 maximale Gesundheit",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:cooked_beef"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "feuerfest": {
+  "title": "Feuerfest",
+  "description": "Du brennst 30 % kürzer",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:magma_cream"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.burning_time",
+     "value": -0.3,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "zaehigkeit2": {
+  "title": "Unverwüstlich",
+  "description": "+4 maximale Gesundheit",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:enchanted_golden_apple"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 4,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "letzter_mann": {
+  "title": "Der letzte Mann",
+  "description": "+2 Gesundheit, +1 Rüstung",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:totem_of_undying"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "challenge"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.max_health",
+     "value": 2,
+     "operation": "addition"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.armor",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 3
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "experience_per_level": {
+  "type": "expression",
+  "data": {
+   "expression": "30 + level * 12 + level * level * 1.2"
+  }
+ },
+ "level_limit": 24,
+ "sources": [
+  {
+   "type": "puffish_skills:increase_stat",
+   "data": {
+    "variables": {
+     "a": {
+      "operations": [
+       {
+        "type": "get_increase_amount"
+       }
+      ]
+     },
+     "sprint": {
+      "operations": [
+       {
+        "type": "get_stat"
+       },
+       {
+        "type": "test",
+        "data": {
+         "stat": "minecraft.custom:minecraft.sprint_one_cm"
+        }
+       }
+      ]
+     },
+     "klettern": {
+      "operations": [
+       {
+        "type": "get_stat"
+       },
+       {
+        "type": "test",
+        "data": {
+         "stat": "minecraft.custom:minecraft.climb_one_cm"
+        }
+       }
+      ]
+     },
+     "springen": {
+      "operations": [
+       {
+        "type": "get_stat"
+       },
+       {
+        "type": "test",
+        "data": {
+         "stat": "minecraft.custom:minecraft.jump"
+        }
+       }
+      ]
+     },
+     "schwimmen": {
+      "operations": [
+       {
+        "type": "get_stat"
+       },
+       {
+        "type": "test",
+        "data": {
+         "stat": "minecraft.custom:minecraft.swim_one_cm"
+        }
+       }
+      ]
+     }
+    },
+    "experience": "a * (sprint * 0.0012 + klettern * 0.006 + schwimmen * 0.001 + springen * 0.12)"
+   }
+  }
+ ]
+}

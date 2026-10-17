@@ -38,9 +38,35 @@ mc-mods/carry-on                        both
 mc-mods/immersive-aircraft              both
 mc-mods/astikor-carts-redux             both
 
+# --- Skills & Parkour ---
+mc-mods/puffish-skills                  both
+mc-mods/parcool                         both
+
 # --- Basis ---
 mc-mods/supplementaries                 both
 mc-mods/open-parties-and-claims         both
+
+# --- Bauen & Einrichten ---
+mc-mods/handcrafted                     both
+mc-mods/macaws-furniture                both
+mc-mods/macaws-roofs                    both
+mc-mods/macaws-windows                  both
+mc-mods/macaws-lights-and-lamps         both
+mc-mods/macaws-paths-and-pavings        both
+mc-mods/macaws-fences-and-walls         both
+mc-mods/macaws-trapdoors                both
+mc-mods/macaws-doors                    both
+mc-mods/macaws-bridges                  both
+mc-mods/macaws-stairs                   both
+mc-mods/another-furniture               both
+mc-mods/chipped                         both
+mc-mods/every-compat                    both
+mc-mods/storage-drawers                 both
+mc-mods/sophisticated-storage           both
+
+# --- Tiere & Natur ---
+mc-mods/ecologics                       both
+mc-mods/critters-and-companions         both
 
 # --- Atmosphäre, Klang, Animation (nur Client) ---
 mc-mods/sound-physics-remastered        client
@@ -65,3 +91,12 @@ mc-mods/ferritecore                     both
 mc-mods/immediatelyfast                 client
 mc-mods/entityculling                   client
 mc-mods/spark                           both
+mc-mods/lithium                         both
+mc-mods/clumps                          both
+mc-mods/fastfurnace                     both
+mc-mods/fastworkbench                   both
+mc-mods/let-me-despawn                  both
+mc-mods/ai-improvements                 both
+mc-mods/dynamic-fps                     client
+mc-mods/moreculling                     client
+mc-mods/badoptimizations                client

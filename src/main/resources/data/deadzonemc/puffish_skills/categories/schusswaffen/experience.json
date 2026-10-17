@@ -1,0 +1,90 @@
+{
+ "experience_per_level": {
+  "type": "expression",
+  "data": {
+   "expression": "30 + level * 12 + level * level * 1.2"
+  }
+ },
+ "level_limit": 20,
+ "sources": [
+  {
+   "type": "puffish_skills:kill_entity",
+   "data": {
+    "variables": {
+     "hp": {
+      "operations": [
+       {
+        "type": "get_killed_living_entity"
+       },
+       {
+        "type": "get_max_health"
+       }
+      ]
+     },
+     "xp": {
+      "operations": [
+       {
+        "type": "get_dropped_experience"
+       }
+      ]
+     },
+     "fern": {
+      "operations": [
+       {
+        "type": "get_damage_source"
+       },
+       {
+        "type": "is_projectile"
+       }
+      ]
+     },
+     "waffe": {
+      "operations": [
+       {
+        "type": "get_weapon_item_stack"
+       },
+       {
+        "type": "test",
+        "data": {
+         "item": "tacz:modern_kinetic_gun"
+        }
+       }
+      ],
+      "fallback": 0,
+      "required": false
+     }
+    },
+    "experience": "min(hp, 80) * (0.15 + 0.07 * min(xp, 5)) * max(fern, waffe)",
+    "anti_farming_per_chunk": {
+     "limit_per_chunk": 15,
+     "reset_after_seconds": 300
+    }
+   }
+  },
+  {
+   "type": "puffish_skills:deal_damage",
+   "data": {
+    "variables": {
+     "d": {
+      "operations": [
+       {
+        "type": "get_dealt_damage"
+       }
+      ]
+     },
+     "fern": {
+      "operations": [
+       {
+        "type": "get_damage_source"
+       },
+       {
+        "type": "is_projectile"
+       }
+      ]
+     }
+    },
+    "experience": "min(d, 10) * 0.15 * fern"
+   }
+  }
+ ]
+}

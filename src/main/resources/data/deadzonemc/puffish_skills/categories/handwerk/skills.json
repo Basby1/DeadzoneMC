@@ -1,0 +1,53 @@
+{
+ "anpacken": {
+  "x": 0,
+  "y": 0,
+  "definition": "anpacken",
+  "root": true
+ },
+ "anpacken2": {
+  "x": 0,
+  "y": -68,
+  "definition": "anpacken2"
+ },
+ "anpacken3": {
+  "x": 0,
+  "y": -136,
+  "definition": "anpacken3"
+ },
+ "werkzeug1": {
+  "x": 68,
+  "y": -34,
+  "definition": "werkzeug1"
+ },
+ "werkzeug2": {
+  "x": 136,
+  "y": -68,
+  "definition": "werkzeug2"
+ },
+ "reichweite1": {
+  "x": -68,
+  "y": -34,
+  "definition": "reichweite1"
+ },
+ "reichweite2": {
+  "x": -136,
+  "y": -68,
+  "definition": "reichweite2"
+ },
+ "taucher": {
+  "x": -68,
+  "y": -102,
+  "definition": "taucher"
+ },
+ "lasttier": {
+  "x": 68,
+  "y": -102,
+  "definition": "lasttier"
+ },
+ "meister": {
+  "x": 0,
+  "y": -204,
+  "definition": "meister"
+ }
+}

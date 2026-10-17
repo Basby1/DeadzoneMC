@@ -1,0 +1,59 @@
+{
+ "normal": {
+  "bidirectional": [
+   [
+    "treffsicher1",
+    "treffsicher2"
+   ],
+   [
+    "treffsicher2",
+    "treffsicher3"
+   ],
+   [
+    "treffsicher1",
+    "pluenderer1"
+   ],
+   [
+    "pluenderer1",
+    "pluenderer2"
+   ],
+   [
+    "pluenderer2",
+    "pluenderer3"
+   ],
+   [
+    "treffsicher1",
+    "gefechtsbereit"
+   ],
+   [
+    "gefechtsbereit",
+    "kaltbluetig"
+   ],
+   [
+    "treffsicher2",
+    "kaltbluetig"
+   ],
+   [
+    "pluenderer1",
+    "adlerauge"
+   ],
+   [
+    "treffsicher2",
+    "adlerauge"
+   ],
+   [
+    "treffsicher3",
+    "scharfschuetze"
+   ],
+   [
+    "kaltbluetig",
+    "scharfschuetze"
+   ],
+   [
+    "pluenderer3",
+    "scharfschuetze"
+   ]
+  ],
+  "unidirectional": []
+ }
+}

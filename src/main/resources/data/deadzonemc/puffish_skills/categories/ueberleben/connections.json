@@ -1,0 +1,67 @@
+{
+ "normal": {
+  "bidirectional": [
+   [
+    "abgehaertet",
+    "magen"
+   ],
+   [
+    "abgehaertet",
+    "feldarzt1"
+   ],
+   [
+    "feldarzt1",
+    "feldarzt2"
+   ],
+   [
+    "magen",
+    "strahlenfest1"
+   ],
+   [
+    "strahlenfest1",
+    "strahlenfest2"
+   ],
+   [
+    "magen",
+    "lunge"
+   ],
+   [
+    "abgehaertet",
+    "zaehigkeit"
+   ],
+   [
+    "feldarzt1",
+    "feuerfest"
+   ],
+   [
+    "zaehigkeit",
+    "feuerfest"
+   ],
+   [
+    "zaehigkeit",
+    "zaehigkeit2"
+   ],
+   [
+    "strahlenfest1",
+    "zaehigkeit2"
+   ],
+   [
+    "feuerfest",
+    "zaehigkeit2"
+   ],
+   [
+    "zaehigkeit2",
+    "letzter_mann"
+   ],
+   [
+    "strahlenfest2",
+    "letzter_mann"
+   ],
+   [
+    "feldarzt2",
+    "letzter_mann"
+   ]
+  ],
+  "unidirectional": []
+ }
+}

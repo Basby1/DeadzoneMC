@@ -1,0 +1,70 @@
+# Deadzone MC: Parkour wird im Skillbaum „Bewegung“ freigeschaltet (Taste K).
+[game]
+	enable_skill_tree = true
+	enable_skill_tree_ui = false
+
+[action.parcool.wall_jump]
+	learn_cost = 30000
+
+[action.parcool.wall_run]
+	learn_cost = 30000
+
+[action.parcool.fast_run]
+	learn_cost = 30000
+
+[action.parcool.vault]
+	learn_cost = 30000
+
+[action.parcool.horizontal_wall_run]
+	learn_cost = 30000
+
+[action.parcool.fast_swim]
+	learn_cost = 30000
+
+[action.parcool.long_jump]
+	learn_cost = 30000
+
+[action.parcool.dive]
+	learn_cost = 30000
+
+[action.parcool.skydive]
+	learn_cost = 30000
+
+[action.parcool.trick_jump]
+	learn_cost = 30000
+
+[action.parcool.hide_in_block]
+	learn_cost = 30000
+
+[action.parcool.crawl]
+	learn_cost = 30000
+
+[action.parcool.slide]
+	learn_cost = 30000
+
+[action.parcool.hang_on]
+	learn_cost = 30000
+
+[action.parcool.climb_up]
+	learn_cost = 30000
+
+[action.parcool.castaway]
+	learn_cost = 30000
+
+[action.parcool.hang_down]
+	learn_cost = 30000
+
+[action.parcool.pole_climb]
+	learn_cost = 30000
+
+[action.parcool.slide_down]
+	learn_cost = 30000
+
+[action.parcool.dodge]
+	learn_cost = 30000
+
+[action.parcool.breakfall]
+	learn_cost = 30000
+
+[action.parcool.charge_jump]
+	learn_cost = 30000

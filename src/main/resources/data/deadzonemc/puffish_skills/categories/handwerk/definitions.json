@@ -1,0 +1,280 @@
+{
+ "anpacken": {
+  "title": "Anpacken",
+  "description": "+10 % Abbautempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:wooden_pickaxe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_break_speed",
+     "value": 0.1,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "anpacken2": {
+  "title": "Kräftig zupacken",
+  "description": "+10 % Abbautempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:iron_pickaxe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_break_speed",
+     "value": 0.1,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "anpacken3": {
+  "title": "Abrissbirne",
+  "description": "+15 % Abbautempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:diamond_pickaxe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_break_speed",
+     "value": 0.15,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "werkzeug1": {
+  "title": "Werkzeugkunde I",
+  "description": "+1 Abbau-Effizienz (wie Effizienz-Verzauberung)",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:stone_shovel"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.mining_efficiency",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "werkzeug2": {
+  "title": "Werkzeugkunde II",
+  "description": "+2 Abbau-Effizienz",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:golden_shovel"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.mining_efficiency",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "reichweite1": {
+  "title": "Lange Arme",
+  "description": "+0,5 Block-Reichweite",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:stick"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_interaction_range",
+     "value": 0.5,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "reichweite2": {
+  "title": "Baumeister",
+  "description": "+1 Block-Reichweite",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:scaffolding"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_interaction_range",
+     "value": 1.0,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "taucher": {
+  "title": "Unterwasserarbeit",
+  "description": "Unter Wasser 50 % schneller abbauen",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:prismarine_shard"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.submerged_mining_speed",
+     "value": 0.5,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "lasttier": {
+  "title": "Lasttier",
+  "description": "+3 % Lauftempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:chest_minecart"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.movement_speed",
+     "value": 0.03,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "meister": {
+  "title": "Meister der Ruinen",
+  "description": "+20 % Abbautempo, +0,5 Reichweite",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:netherite_pickaxe"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "challenge"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_break_speed",
+     "value": 0.2,
+     "operation": "multiply_base"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.block_interaction_range",
+     "value": 0.5,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 3
+ }
+}

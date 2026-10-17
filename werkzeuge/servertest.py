@@ -132,6 +132,18 @@ def main():
         if geladen:
             melden("notice", "Geladene Mods", "\n".join(geladen))
 
+    # Meldungen von Pufferfish's Skills (lädt unseren Skillbaum; Probleme stehen in Folgezeilen)
+    skills = []
+    for i, zeile in enumerate(zeilen):
+        if "puffish" in zeile.lower() or "pufferfish" in zeile.lower() or "Data pack `deadzonemc`" in zeile:
+            skills.append(zeile.strip()[:300])
+            for folge in zeilen[i + 1:i + 25]:
+                if folge.startswith("["):
+                    break
+                skills.append(folge.rstrip()[:300])
+    if skills:
+        melden("notice", "Skills-Mod", "\n".join(list(dict.fromkeys(skills))[:60])[:3800])
+
     karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss", "Stadtkarte", "Übersicht"))]
     rest = [a for a in antworten if a not in karte]
     melden("notice", "Antworten des Testservers", "\n".join(rest[:200]))

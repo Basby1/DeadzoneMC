@@ -1,0 +1,68 @@
+{
+ "experience_per_level": {
+  "type": "expression",
+  "data": {
+   "expression": "30 + level * 12 + level * level * 1.2"
+  }
+ },
+ "level_limit": 20,
+ "sources": [
+  {
+   "type": "puffish_skills:craft_item",
+   "data": {
+    "variables": {
+     "c": {
+      "operations": [
+       {
+        "type": "get_crafted_item_stack"
+       },
+       {
+        "type": "get_count"
+       }
+      ]
+     }
+    },
+    "experience": "min(c, 8) * 0.4"
+   }
+  },
+  {
+   "type": "puffish_skills:smelt_item",
+   "data": {
+    "variables": {
+     "c": {
+      "operations": [
+       {
+        "type": "get_smelted_item_stack"
+       },
+       {
+        "type": "get_count"
+       }
+      ]
+     }
+    },
+    "experience": "c * 0.3"
+   }
+  },
+  {
+   "type": "puffish_skills:mine_block",
+   "data": {
+    "variables": {
+     "h": {
+      "operations": [
+       {
+        "type": "get_mined_block_state"
+       },
+       {
+        "type": "get_block"
+       },
+       {
+        "type": "get_hardness"
+       }
+      ]
+     }
+    },
+    "experience": "min(max(h, 0), 5) * 0.35"
+   }
+  }
+ ]
+}

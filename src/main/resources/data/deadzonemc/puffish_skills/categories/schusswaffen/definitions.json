@@ -1,0 +1,272 @@
+{
+ "treffsicher1": {
+  "title": "Treffsicher I",
+  "description": "+8 % Schaden mit Schusswaffen und Bögen",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:arrow"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.schuetze1"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "treffsicher2": {
+  "title": "Treffsicher II",
+  "description": "+8 % Fernkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:spectral_arrow"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.schuetze2"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "treffsicher3": {
+  "title": "Treffsicher III",
+  "description": "+8 % Fernkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:tipped_arrow"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.schuetze3"
+    }
+   }
+  ],
+  "cost": 3
+ },
+ "pluenderer1": {
+  "title": "Plünderer I",
+  "description": "+1 Glück: bessere Funde in Kisten",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:chest"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.luck",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "pluenderer2": {
+  "title": "Plünderer II",
+  "description": "+1 Glück",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:barrel"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.luck",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "pluenderer3": {
+  "title": "Plünderer III",
+  "description": "+1 Glück",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:ender_chest"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.luck",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "gefechtsbereit": {
+  "title": "Gefechtsbereit",
+  "description": "+3 % Lauftempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:leather_boots"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.movement_speed",
+     "value": 0.03,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "kaltbluetig": {
+  "title": "Kaltblütig",
+  "description": "Unter 30 % Gesundheit: +15 % Fernkampfschaden",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:blue_ice"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.kaltbluetig"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "adlerauge": {
+  "title": "Adlerauge",
+  "description": "+1 Reichweite beim Interagieren mit Wesen (Wiederbeleben, Handel)",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:spyglass"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:player.entity_interaction_range",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "scharfschuetze": {
+  "title": "Scharfschütze",
+  "description": "+1 Glück, +3 % Lauftempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:target"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "challenge"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.luck",
+     "value": 1,
+     "operation": "addition"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.movement_speed",
+     "value": 0.03,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 3
+ }
+}

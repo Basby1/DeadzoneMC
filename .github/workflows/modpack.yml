@@ -62,23 +62,18 @@ jobs:
           TEST_ALLE_FEHLER: '1'
         run: python3 werkzeuge/servertest.py
 
-      - name: Infos aus Mods (Beutetabellen, Waffen)
+      - name: Infos aus Mods (Waffenwerte)
         if: always()
         run: |
           cd build/server/mods
-          lc=$(ls | grep -i lost | head -1); tz=$(ls | grep -i tacz | head -1)
-          unzip -l "$lc" | grep -E "loot_table|lootTables|loot" | awk '{print $4}' | head -60 > /tmp/lc.txt || true
-          unzip -p "$lc" data/lostcities/lostcities/conditions/chestloot.json > /tmp/lc.txt || true
-          : > /tmp/lc.txt
-          unzip -l "$lc" | grep -E "lostcities/lostcities/(buildings|multibuildings)/" | awk '{print $4}' | sed 's|data/lostcities/lostcities/||;s|\.json||' | tr '\n' ' ' >> /tmp/lc.txt || true
-          unzip -p "$lc" data/lostcities/lostcities/buildings/building1.json | head -c 1500 >> /tmp/lc.txt || true
-          mkdir -p /tmp/tzk && cd /tmp/tzk && unzip -q -o "$OLDPWD/$tz" 'com/*' 2>/dev/null; cd "$OLDPWD"
-          grep -rhoa -E "Gun(Id|FireMode|CurrentAmmoCount)|Ammo(Id)?Count|AmmoId|tacz:[a-z_]+" /tmp/tzk 2>/dev/null | sort | uniq -c | sort -rn | head -60 > /tmp/tz.txt || true
+          tz=$(ls | grep -i tacz | head -1)
           mkdir -p /tmp/tzg && unzip -q -o "$tz" 'assets/tacz/custom/tacz_default_gun/data/tacz/data/guns/*' -d /tmp/tzg || true
           python3 "$GITHUB_WORKSPACE/werkzeuge/tacz_munition.py" /tmp/tzg > /tmp/tz.txt || true
-          unzip -l "$tz" | grep -E "data/tacz/(loot|tags|recipe)|index/ammo|ammo/" | awk '{print $4}' | head -30 >> /tmp/tz.txt || true
-          python3 -c "import sys; [print('::notice title='+t+'::'+open(f).read()[:3800].replace(chr(10),'%0A')) for t,f in (('Lost Cities Beute','/tmp/lc.txt'),('TaCZ Inhalt','/tmp/tz.txt'))]"
-          ls ../config | head -80 | tr '\n' ' '
+          python3 -c "print('::notice title=TaCZ Waffenwerte::'+open('/tmp/tz.txt').read()[:3800].replace(chr(10),'%0A'))"
+
+      - name: Configs Waffen und Skills
+        if: always()
+        run: python3 werkzeuge/configs_zeigen.py build/server 'config/tacz*' 'world/serverconfig/tacz*' 'world/serverconfig/parcool*' 'config/puffish_skills/*'
 
       - name: Configs Lost Cities
         if: always()

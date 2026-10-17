@@ -1,0 +1,68 @@
+{
+ "schlagkraft1": {
+  "x": 0,
+  "y": 0,
+  "definition": "schlagkraft1",
+  "root": true
+ },
+ "schlagkraft2": {
+  "x": 0,
+  "y": -68,
+  "definition": "schlagkraft2"
+ },
+ "schlagkraft3": {
+  "x": 0,
+  "y": -136,
+  "definition": "schlagkraft3"
+ },
+ "zaeh1": {
+  "x": -68,
+  "y": -34,
+  "definition": "zaeh1"
+ },
+ "zaeh2": {
+  "x": -136,
+  "y": -68,
+  "definition": "zaeh2"
+ },
+ "zaeh3": {
+  "x": -136,
+  "y": -136,
+  "definition": "zaeh3"
+ },
+ "ruestung1": {
+  "x": -68,
+  "y": -102,
+  "definition": "ruestung1"
+ },
+ "ruestung2": {
+  "x": -68,
+  "y": -170,
+  "definition": "ruestung2"
+ },
+ "hiebe1": {
+  "x": 68,
+  "y": -34,
+  "definition": "hiebe1"
+ },
+ "hiebe2": {
+  "x": 136,
+  "y": -68,
+  "definition": "hiebe2"
+ },
+ "standfest": {
+  "x": 68,
+  "y": -102,
+  "definition": "standfest"
+ },
+ "berserker": {
+  "x": 136,
+  "y": -136,
+  "definition": "berserker"
+ },
+ "bollwerk": {
+  "x": 0,
+  "y": -204,
+  "definition": "bollwerk"
+ }
+}

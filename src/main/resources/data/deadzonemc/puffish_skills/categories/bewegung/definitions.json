@@ -1,0 +1,501 @@
+{
+ "grundlagen": {
+  "title": "Grundlagen",
+  "description": "Schnell rennen, kriechen, an Kanten festhalten",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:leather_boots"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:fast_run",
+     "lock_command": "parcool action lock @s parcool:fast_run"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:crawl",
+     "lock_command": "parcool action lock @s parcool:crawl"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:hang_on",
+     "lock_command": "parcool action lock @s parcool:hang_on"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "klettern": {
+  "title": "Klettern",
+  "description": "Kanten hochziehen, an Stangen klettern",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:ladder"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:climb_up",
+     "lock_command": "parcool action lock @s parcool:climb_up"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:pole_climb",
+     "lock_command": "parcool action lock @s parcool:pole_climb"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "abrollen": {
+  "title": "Abrollen",
+  "description": "Stürze abrollen (Taste beim Aufkommen), +1 sichere Fallhöhe",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:hay_block"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:breakfall",
+     "lock_command": "parcool action lock @s parcool:breakfall"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.safe_fall_distance",
+     "value": 1,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "ueberspringen": {
+  "title": "Überspringen",
+  "description": "Über Hindernisse flanken",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:oak_fence"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:vault",
+     "lock_command": "parcool action lock @s parcool:vault"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "rutschen": {
+  "title": "Rutschen",
+  "description": "Aus dem Sprint in eine Rutsche",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:ice"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:slide",
+     "lock_command": "parcool action lock @s parcool:slide"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "herablassen": {
+  "title": "Herablassen",
+  "description": "An Kanten hängen, an Wänden herabrutschen",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:vine"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:hang_down",
+     "lock_command": "parcool action lock @s parcool:hang_down"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:slide_down",
+     "lock_command": "parcool action lock @s parcool:slide_down"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "wandsprung": {
+  "title": "Wandsprung",
+  "description": "Von Wänden abspringen",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:stone_bricks"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:wall_jump",
+     "lock_command": "parcool action lock @s parcool:wall_jump"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "wandlauf": {
+  "title": "Wandlauf",
+  "description": "Senkrecht und seitlich an Wänden entlanglaufen",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:cracked_stone_bricks"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:wall_run",
+     "lock_command": "parcool action lock @s parcool:wall_run"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:horizontal_wall_run",
+     "lock_command": "parcool action lock @s parcool:horizontal_wall_run"
+    }
+   }
+  ],
+  "cost": 3
+ },
+ "weitsprung": {
+  "title": "Weitsprung",
+  "description": "Weit- und Kraftsprung",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:rabbit_foot"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:long_jump",
+     "lock_command": "parcool action lock @s parcool:long_jump"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:charge_jump",
+     "lock_command": "parcool action lock @s parcool:charge_jump"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "ausweichen": {
+  "title": "Ausweichen",
+  "description": "Ausweichrolle zur Seite",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:phantom_membrane"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:dodge",
+     "lock_command": "parcool action lock @s parcool:dodge"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "sprinter1": {
+  "title": "Sprinter I",
+  "description": "+4 % Lauftempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:sugar"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.movement_speed",
+     "value": 0.04,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "sprinter2": {
+  "title": "Sprinter II",
+  "description": "+4 % Lauftempo",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:sugar"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.movement_speed",
+     "value": 0.04,
+     "operation": "multiply_base"
+    }
+   }
+  ],
+  "cost": 2
+ },
+ "schwimmer": {
+  "title": "Schwimmer",
+  "description": "Schneller schwimmen, Hechtsprung, Fallschirmsprung",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:heart_of_the_sea"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:fast_swim",
+     "lock_command": "parcool action lock @s parcool:fast_swim"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:dive",
+     "lock_command": "parcool action lock @s parcool:dive"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:skydive",
+     "lock_command": "parcool action lock @s parcool:skydive"
+    }
+   }
+  ],
+  "cost": 1
+ },
+ "schleicher": {
+  "title": "Schleicher",
+  "description": "Geduckt bemerken dich Monster erst aus nächster Nähe; in Blöcken (Heu, Laub) verstecken",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:black_wool"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "task"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:hide_in_block",
+     "lock_command": "parcool action lock @s parcool:hide_in_block"
+    }
+   },
+   {
+    "type": "puffish_skills:tag",
+    "data": {
+     "tag": "dz.leise"
+    }
+   }
+  ],
+  "cost": 3
+ },
+ "freerunner": {
+  "title": "Freerunner",
+  "description": "Tricksprünge, Abstoßen, +2 sichere Fallhöhe",
+  "icon": {
+   "type": "item",
+   "data": {
+    "item": "minecraft:elytra"
+   }
+  },
+  "frame": {
+   "type": "advancement",
+   "data": {
+    "frame": "challenge"
+   }
+  },
+  "rewards": [
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:trick_jump",
+     "lock_command": "parcool action lock @s parcool:trick_jump"
+    }
+   },
+   {
+    "type": "puffish_skills:command",
+    "data": {
+     "command": "",
+     "unlock_command": "parcool action unlock @s parcool:castaway",
+     "lock_command": "parcool action lock @s parcool:castaway"
+    }
+   },
+   {
+    "type": "puffish_skills:attribute",
+    "data": {
+     "attribute": "minecraft:generic.safe_fall_distance",
+     "value": 2,
+     "operation": "addition"
+    }
+   }
+  ],
+  "cost": 3
+ }
+}
