@@ -36,23 +36,34 @@ def melden(art, titel, text):
 
 
 def main():
-    os.makedirs("run", exist_ok=True)
-    with open("run/eula.txt", "w") as f:
+    # Standard: Entwicklungsserver über Gradle. Für den Modpack-Test (werkzeuge/pack.py) wird ein echter
+    # NeoForge-Server in einem anderen Ordner gestartet.
+    ordner = os.environ.get("TEST_ORDNER", "run")
+    befehl = os.environ.get("TEST_BEFEHL")
+    frist_min = int(os.environ.get("TEST_FRIST_MIN", "9"))
+    alle_fehler = bool(os.environ.get("TEST_ALLE_FEHLER"))
+    os.makedirs(ordner, exist_ok=True)
+    with open(os.path.join(ordner, "eula.txt"), "w") as f:
         f.write("eula=true\n")
-    with open("run/server.properties", "w") as f:
+    with open(os.path.join(ordner, "server.properties"), "w") as f:
         f.write("level-seed=20261017\nonline-mode=false\nspawn-protection=0\nmax-tick-time=-1\n")
 
-    gradlew = "./gradlew" if os.name != "nt" else "gradlew.bat"
-    prozess = subprocess.Popen([gradlew, "runServer", "-Pselbsttest", "--console=plain"],
-                               stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                               text=True, bufsize=1)
+    if befehl:
+        prozess = subprocess.Popen(befehl, shell=True, cwd=ordner,
+                                   stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                   text=True, bufsize=1)
+    else:
+        gradlew = "./gradlew" if os.name != "nt" else "gradlew.bat"
+        prozess = subprocess.Popen([gradlew, "runServer", "-Pselbsttest", "--console=plain"],
+                                   stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                   text=True, bufsize=1)
     zeilen = []
     import threading
     import time
 
     def wachhund():
         """Hängt der Server, Thread-Dump und letzte Zeilen melden und abbrechen."""
-        frist = time.time() + 9 * 60
+        frist = time.time() + frist_min * 60
         while prozess.poll() is None:
             if time.time() > frist:
                 melden("error", "Server hängt – letzte Zeilen", "".join(zeilen[-60:])[-3500:])
@@ -85,6 +96,10 @@ def main():
     probleme = []
     if "Done (" not in log:
         probleme.append("Server ist nicht hochgefahren")
+        # Grund suchen: Absturzbericht oder letzte Zeilen
+        grund = [z for z in zeilen if "Description:" in z or "Caused by" in z or "Mod " in z and ("requires" in z or "missing" in z or "incompatible" in z.lower())]
+        melden("error", "Start fehlgeschlagen – Gründe", "".join(list(dict.fromkeys(grund))[:40])[-3800:])
+        melden("error", "Start fehlgeschlagen – letzte Zeilen", "".join(zeilen[-50:])[-3800:])
     if "[Selbsttest] fertig" not in log:
         probleme.append("Selbsttest ist nicht bis zum Ende gelaufen")
     if "---- Minecraft Crash Report ----" in log or "Crash report saved" in log:
@@ -101,12 +116,23 @@ def main():
             antworten.append("   " + text[:240])
         if ("deadzonemc" in zeile or "de.deadzonemc" in zeile) and any(m.search(zeile) for m in FEHLER_MUSTER):
             probleme.append(text[:400])
-        elif "/ERROR]" in zeile and ("deadzonemc" in zeile or "worldgen" in zeile.lower() or im_test):
+        elif "/ERROR]" in zeile and ("deadzonemc" in zeile or (not alle_fehler and ("worldgen" in zeile.lower() or im_test))):
             probleme.append(text[:400])
         if im_test and any(f in zeile for f in BEFEHLS_FEHLER):
             probleme.append("Befehl: " + text[:300])
 
-    karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss"))]
+    if alle_fehler:
+        # Fehler und Warnungen mit Ausnahmen aller Mods sammeln (nur zur Info, kein Fehlschlag)
+        fremd = []
+        for i, zeile in enumerate(zeilen):
+            if "/ERROR]" in zeile or ("/WARN]" in zeile and i + 1 < len(zeilen) and "Exception" in zeilen[i + 1]):
+                fremd.append(zeile.strip()[:300])
+        melden("warning", f"Fehler/Warnungen anderer Mods ({len(fremd)})", "\n".join(list(dict.fromkeys(fremd))[:40])[:3800])
+        geladen = [z.strip()[:200] for z in zeilen if "Loading" in z and "mods:" in z][:3]
+        if geladen:
+            melden("notice", "Geladene Mods", "\n".join(geladen))
+
+    karte = [a for a in antworten if a.startswith(("|", "Draufsicht", "Grundriss", "Stadtkarte"))]
     rest = [a for a in antworten if a not in karte]
     melden("notice", "Antworten des Testservers", "\n".join(rest[:200]))
     # Jede Karte als eigene Meldung (GitHub kürzt lange Meldungen)

@@ -1,0 +1,63 @@
+name: Modpack
+
+on:
+  push:
+    paths:
+      - 'pack/**'
+      - 'werkzeuge/pack.py'
+      - 'werkzeuge/servertest.py'
+      - 'src/**'
+      - '.github/workflows/modpack.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  modpack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - name: packwiz installieren
+        run: go install github.com/packwiz/packwiz@latest && echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
+      - name: Unsere Mod bauen
+        run: chmod +x ./gradlew && ./gradlew build
+
+      - name: Modpack bauen
+        run: python3 werkzeuge/pack.py bauen
+
+      - name: Pack als Download bereitstellen
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: modpack
+          name: Deadzone MC – Modpack (CurseForge)
+          body: |
+            In der CurseForge-App: Minecraft → „Benutzerdefiniertes Profil erstellen“ → „Importieren“
+            und die Datei `deadzone-mc-modpack.zip` auswählen.
+          files: build/deadzone-mc-modpack.zip
+
+      - name: Testserver mit dem ganzen Pack einrichten
+        run: python3 werkzeuge/pack.py server
+
+      - name: Testwelt erzeugen
+        env:
+          TEST_ORDNER: build/server
+          TEST_BEFEHL: ./run.sh nogui
+          TEST_FRIST_MIN: '25'
+          TEST_ALLE_FEHLER: '1'
+        run: python3 werkzeuge/servertest.py

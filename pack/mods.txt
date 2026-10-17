@@ -1,0 +1,70 @@
+# Deadzone MC – Modliste (CurseForge). Format: Projektpfad  Seite(both|client|server)
+# Abhängigkeiten (Bibliotheken) zieht packwiz automatisch mit.
+
+# --- Welt ---
+mc-mods/the-lost-cities                 both
+mc-mods/structory                       both
+mc-mods/lootr                           both
+mc-mods/yungs-better-mineshafts         both
+mc-mods/yungs-better-dungeons           both
+
+# --- Waffen & Kampf ---
+mc-mods/tacz-1-21-1                     both
+mc-mods/better-combat-by-daedelus       both
+mc-mods/shoulder-surfing-reloaded       client
+
+# --- Gegner & Tiere ---
+mc-mods/the-hordes                      both
+mc-mods/zombie-awareness                both
+mc-mods/born-in-chaos                   both
+mc-mods/mutant-monsters                 both
+mc-mods/rotten-creatures                both
+mc-mods/improved-mobs                   both
+mc-mods/enhanced-celestials             both
+mc-mods/naturalist                      both
+mc-mods/cave-dweller-fabric-neoforge-port both
+mc-mods/in-control                      both
+
+# --- Survival ---
+mc-mods/tough-as-nails                  both
+mc-mods/sophisticated-backpacks         both
+mc-mods/hardcore-revival                both
+mc-mods/corpse                          both
+mc-mods/appleskin                       both
+mc-mods/serene-seasons                  both
+mc-mods/farmers-delight                 both
+mc-mods/comforts                        both
+mc-mods/carry-on                        both
+
+# --- Fahrzeuge ---
+mc-mods/immersive-aircraft              both
+mc-mods/astikorcarts-redux              both
+
+# --- Basis ---
+mc-mods/supplementaries                 both
+mc-mods/open-parties-and-claims         both
+
+# --- Atmosphäre, Klang, Animation (nur Client) ---
+mc-mods/sound-physics-remastered        client
+mc-mods/ambientsounds                   client
+mc-mods/particle-rain                   client
+mc-mods/subtle-effects                  client
+mc-mods/lambdynamiclights               client
+mc-mods/not-enough-animations           client
+mc-mods/entity-model-features           client
+mc-mods/entity-texture-features-fabric  client
+texture-packs/fresh-animations          client
+
+# --- Grafik (nur Client) ---
+mc-mods/sodium                          client
+mc-mods/irisshaders                     client
+shaders/complementary-reimagined        client
+
+# --- Hilfen & Leistung ---
+mc-mods/jei                             both
+mc-mods/jade                            both
+mc-mods/modernfix                       both
+mc-mods/ferritecore                     both
+mc-mods/immediatelyfast                 client
+mc-mods/entityculling                   client
+mc-mods/spark                           both

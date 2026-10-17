@@ -26,9 +26,27 @@ import java.util.TreeMap;
 public final class Selbsttest {
 
     private static final Logger LOG = LogUtils.getLogger();
-    public static final boolean AKTIV = Boolean.getBoolean("deadzonemc.selbsttest");
+    private static final String MODUS = System.getProperty("deadzonemc.selbsttest", "false");
+    public static final boolean AKTIV = !MODUS.equals("false");
+    /** Test des ganzen Modpacks (Lost Cities usw.) statt nur unserer Mod. */
+    private static final boolean PACK = MODUS.equals("pack");
 
-    private static final List<String> BEFEHLE = List.of(
+    private static final List<String> PACK_BEFEHLE = List.of(
+            "gamerule spawnChunkRadius 8",
+            "deadzone wetter dichter_nebel",
+            "deadzone nebel aus",
+            "deadzone nebel an",
+            "locate biome deadzonemc:vorstadt",
+            "locate biome deadzonemc:toter_wald",
+            "#stadtkarte 0 0",
+            "#stadtkarte 400 0",
+            "#stadtkarte 0 400",
+            "#zaehlen",
+            "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
+            "save-all"
+    );
+
+    private static final List<String> MOD_BEFEHLE = List.of(
             "gamerule spawnChunkRadius 8",
             "deadzone wetter",
             "deadzone wetter dichter_nebel",
@@ -57,6 +75,8 @@ public final class Selbsttest {
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/briefkasten",
             "save-all"
     );
+
+    private static final List<String> BEFEHLE = PACK ? PACK_BEFEHLE : MOD_BEFEHLE;
 
     /** Mittelpunkt für Karte und Zählung (Spawn oder das gefundene Dorf). */
     private static BlockPos ziel = null;
@@ -180,6 +200,60 @@ public final class Selbsttest {
         }
     }
 
+    /**
+     * Höhenkarte über 240×240 Blöcke (1 Zeichen = 3 Blöcke) – zeigt, ob und wo Städte stehen.
+     * ~ Wasser, . Gelände, = Straße/Platz, 1–9 Gebäudehöhe in 8er-Schritten über Gelände, # über 72.
+     */
+    private static void stadtkarte(MinecraftServer server, int ox, int oz) {
+        ServerLevel level = server.overworld();
+        BlockPos spawn = level.getSharedSpawnPos();
+        int mx = spawn.getX() + ox;
+        int mz = spawn.getZ() + oz;
+        int meer = level.getSeaLevel();
+        long start = System.currentTimeMillis();
+        int r = 40;
+        Map<Character, Integer> anteil = new TreeMap<>();
+        java.util.List<String> zeilen = new java.util.ArrayList<>();
+        for (int iz = -r; iz <= r; iz++) {
+            StringBuilder zeile = new StringBuilder();
+            for (int ix = -r; ix <= r; ix++) {
+                int x = mx + ix * 3;
+                int z = mz + iz * 3;
+                level.getChunk(x >> 4, z >> 4);
+                int y = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                BlockState b = level.getBlockState(new BlockPos(x, y - 1, z));
+                char c;
+                if (!b.getFluidState().isEmpty()) {
+                    c = '~';
+                } else {
+                    String n = BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath();
+                    int ueber = y - Math.max(meer, 64) - 4;
+                    boolean natur = n.contains("grass") || n.equals("dirt") || n.equals("sand") || n.equals("stone")
+                            || n.endsWith("_log") || n.equals("podzol") || n.equals("gravel") || n.equals("mud")
+                            || n.equals("coarse_dirt") || n.equals("snow") || n.equals("snow_block");
+                    if (natur || ueber < 4) {
+                        c = natur ? '.' : '=';
+                    } else if (ueber >= 72) {
+                        c = '#';
+                    } else {
+                        c = (char) ('1' + ueber / 8);
+                    }
+                }
+                anteil.merge(c, 1, Integer::sum);
+                zeile.append(c);
+            }
+            zeilen.add(zeile.toString());
+        }
+        LOG.info("[Selbsttest] Stadtkarte Nord um {} {} (1 Zeichen = 3 Blöcke, {} s)", mx, mz, (System.currentTimeMillis() - start) / 1000);
+        for (int i = 0; i < zeilen.size(); i++) {
+            if (i == r + 1) {
+                LOG.info("[Selbsttest] Stadtkarte Süd um {} {}", mx, mz);
+            }
+            LOG.info("[Selbsttest] |{}|", zeilen.get(i));
+        }
+        LOG.info("[Selbsttest] Anteile der Stadtkarte {} {}: {}", mx, mz, anteil);
+    }
+
     private static char zeichen(BlockState b, boolean draufsicht) {
         if (b.isAir()) {
             return ' ';
@@ -289,6 +363,11 @@ public final class Selbsttest {
             }
             if (befehl.equals("#wasser")) {
                 wasserMessen(server);
+                return;
+            }
+            if (befehl.startsWith("#stadtkarte")) {
+                String[] t = befehl.split(" ");
+                stadtkarte(server, Integer.parseInt(t[1]), Integer.parseInt(t[2]));
                 return;
             }
             if (befehl.equals("#karte")) {

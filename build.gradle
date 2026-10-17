@@ -62,6 +62,7 @@ neoForge {
             programArgument '--nogui'
             if (project.hasProperty('selbsttest')) {
                 systemProperty 'deadzonemc.selbsttest', 'true'
+                systemProperty 'deadzonemc.doerfer', 'true'
             }
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
