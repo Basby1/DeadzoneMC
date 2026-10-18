@@ -35,7 +35,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Viel mehr Infizierte, Hinterhalte bei Beute, Türen aufbrechen, pechschwarze Nächte
 - [x] Horror-Geräuschkulisse (Schreie, Schüsse, Sirenen, Heulen, Klopfen, Schritte, Flüstern im Nebel, Metall, Funk) – selbst synthetisiert
 - [~] Gefährliche Orte (Metro, Bunker, Station Null) deutlich härter, Warnschilder, beste Beute (Station Null hat Warnschilder, Metro dauernd Nachschub an Monstern, Untertage +1 Beutestufe)
-- [~] POIs: abgestürzte Hubschrauber (Rauchsäule, Militärbeute) [x], Passagierflugzeuge [x], gestrandete Frachter [x], Konvois [x], alte Panzerwracks (überwuchert/ausgebrannt) [x]
+- [~] POIs: abgestürzte Hubschrauber (Rauchsäule, Militärbeute) [x], Passagierflugzeuge [x], gestrandete Frachter [x], Konvois [x], alte Panzerwracks (überwuchert/ausgebrannt) [x], überrannte Evakuierungslager [x]
 - [x] Zufluchten logisch: am Stadtrand an der Straße (Tor zur Stadt) oder auf dem Land, nie im Stadtkern
 
 ## Etappe C – Ausrüstung & Crafting
@@ -68,7 +68,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Animationen und Ausrichtung aller Mobs prüfen (Arme/Waffen gespiegelt, Prüfskript)
 - [x] (19.10.) Bosskämpfe episch: rote Vorwarnungen, Sprung gegen Türme, Phasenwechsel mit Druckwelle/Zeitlupe,
       Phase 3 mit blinkender Leiste, Auftritt mit Dunkelheit, Finale mit Blitz/Fanfare/„BEZWUNGEN“/Beutefontäne,
-      eigene Kampfatmosphäre je Boss; Gefechtsmusik bei großen Kämpfen
+      eigene Kampfatmosphäre je Boss; Gefechtsmusik bei großen Kämpfen; drei Boss-Themen (Frost, Fleisch, Marsch)
 - [x] (19.10.) Texturen geprüft: Glas/Auren/Schilde werden durchscheinend gezeichnet; Spawn-Eier ohne Modell repariert
 - [x] (19.10.) Lärmanzeige im HUD, Lebensbilanz beim Tod, Hinweis vor der ersten Nacht
 
