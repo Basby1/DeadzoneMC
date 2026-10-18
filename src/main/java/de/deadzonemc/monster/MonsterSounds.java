@@ -54,7 +54,8 @@ public final class MonsterSounds {
             Map.entry("schlund", List.of("ambient", "hurt", "death", "brullen", "graben", "auftauchen")),
             Map.entry("pilzvater", List.of("ambient", "hurt", "death", "step", "sporen")),
             Map.entry("erfrorene", List.of("ambient", "hurt", "death", "step", "brullen", "atem")),
-            Map.entry("das_herz", List.of("ambient", "hurt", "death", "brullen", "herzschlag"))
+            Map.entry("das_herz", List.of("ambient", "hurt", "death", "brullen", "herzschlag")),
+            Map.entry("der_ursprung", List.of("ambient", "hurt", "death", "brullen", "puls"))
     );
 
     private static final Map<String, DeferredHolder<SoundEvent, SoundEvent>> ALLE = new HashMap<>();

@@ -2625,6 +2625,67 @@
    }
   ]
  },
+ "monster.der_ursprung.ambient": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_3"
+   }
+  ]
+ },
+ "monster.der_ursprung.hurt": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/hurt_2"
+   }
+  ]
+ },
+ "monster.der_ursprung.death": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/death_1"
+   }
+  ]
+ },
+ "monster.der_ursprung.brullen": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.brullen",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/brullen_1",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/brullen_3",
+    "attenuation_distance": 64
+   }
+  ]
+ },
+ "monster.der_ursprung.puls": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.puls",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/puls_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/puls_2"
+   }
+  ]
+ },
  "monster.das_herz.ambient": {
   "subtitle": "subtitles.deadzonemc.das_herz.ambient",
   "sounds": [

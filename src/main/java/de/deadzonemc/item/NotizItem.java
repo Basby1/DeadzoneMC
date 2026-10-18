@@ -25,7 +25,7 @@ public class NotizItem extends Item {
             "start", "evakuierung", "einkaufszettel", "abschied", "tagebuch_1", "tagebuch_2",
             "halden_flyer", "kinderzettel", "funkspruch", "brief", "pfarrer", "feuerwehr_einsatz",
             "station_null_1", "station_null_2", "station_null_3", "station_null_4",
-            "funkprotokoll_1", "funkprotokoll_2", "funkprotokoll_3", "funkprotokoll_4", "vahl_logbuch"
+            "funkprotokoll_1", "funkprotokoll_2", "funkprotokoll_3", "funkprotokoll_4", "vahl_logbuch", "orbit_log_1", "orbit_log_2"
     };
 
     public NotizItem(Properties properties) {

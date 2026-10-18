@@ -99,8 +99,10 @@ public final class Geschichte {
             new Schritt("kernsplitter", 4, (p, f) -> anzahl(p, KERNSPLITTER.get()) >= 3, (s, f, p) -> kein(f)),
             new Schritt("herz", 4, (p, f) -> f.hat("tot:das_herz"), (s, f, p) -> ortWaehlen(s, f, p, 1)),
             // Akt V – Orbitalstation
-            new Schritt("orbit", 5, (p, f) -> p.level().dimension() == Level.END, (s, f, p) -> kein(f)),
-            new Schritt("ursprung", 5, (p, f) -> f.hat("tot:der_ursprung"), NICHTS),
+            new Schritt("orbit", 5, (p, f) -> p.level().dimension() == Level.END, (s, f, p) -> station(f)),
+            new Schritt("lebenserhaltung", 5, (p, f) -> f.hat("lebenserhaltung"), (s, f, p) -> station(f)),
+            new Schritt("energieknoten", 5, (p, f) -> f.hat("knoten_alle"), (s, f, p) -> station(f)),
+            new Schritt("ursprung", 5, (p, f) -> f.hat("tot:der_ursprung"), (s, f, p) -> station(f)),
             // Danach: die Welt läuft weiter
             new Schritt("epilog", 6, (p, f) -> false, (s, f, p) -> kein(f))
     );
@@ -260,6 +262,11 @@ public final class Geschichte {
 
     private static void senden(MinecraftServer server, Fortschritt f) {
         PacketDistributor.sendToAllPlayers(paket(f));
+    }
+
+    private static void station(Fortschritt f) {
+        f.ziel = de.deadzonemc.orbit.Orbitalstation.MITTE;
+        f.zielWelt = 2;
     }
 
     private static void kein(Fortschritt f) {

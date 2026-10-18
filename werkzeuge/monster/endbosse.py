@@ -198,3 +198,60 @@ def herz_animationen():
 
 if __name__ == "__main__" and "--anim" in sys.argv:
     herz_animationen()
+
+
+def ursprung_animationen():
+    """Animationen für den Ursprung (schreibt der_ursprung.animation.json)."""
+    import json
+    import os
+    import animationen as AN
+    idle = AN.Anim("idle", 3.2)
+    AN.atmen(idle, "leib", 2.5)
+    idle.tasten("kristallkern", "scale", {0: (1, 1, 1), 0.4: (1.15, 1.15, 1.15), 1.0: (1, 1, 1), 3.2: (1, 1, 1)})
+    idle.welle("kopf", "z", 4)
+    idle.welle("reaktorring", "y", 30, frequenz=1)
+    for i in range(8):
+        for g in range(4):
+            idle.welle(f"tentakel_{i}_{g}", "x", 6 + g * 4, phase=i / 8 + g * 0.1)
+            idle.welle(f"tentakel_{i}_{g}", "z", 4 + g * 3, phase=i / 8 + g * 0.1 + 0.25)
+    for s in ("rechts", "links"):
+        idle.welle(f"arm_{s}", "x", 5, phase=0.3 if s == "rechts" else 0.8)
+    gang = AN.Anim("walk", 3.2)
+    AN.atmen(gang, "leib", 4)
+    gang.welle("leib", "y", 1.5, art="position")
+    gang.welle("reaktorring", "y", 60, frequenz=1)
+    for i in range(8):
+        for g in range(4):
+            gang.welle(f"tentakel_{i}_{g}", "x", 12 + g * 5, phase=i / 8 + g * 0.12, frequenz=2)
+    schlag = AN.Anim("attack", 1.6, schleife=False)
+    for s in ("rechts", "links"):
+        schlag.tasten(f"arm_{s}", "rotation", {0: (0, 0, 0), 0.7: (120, 0, 0), 0.95: (-30, 0, 0), 1.6: (0, 0, 0)})
+        schlag.tasten(f"unterarm_{s}", "rotation", {0: (0, 0, 0), 0.7: (-40, 0, 0), 0.95: (30, 0, 0), 1.6: (0, 0, 0)})
+    schlag.tasten("leib", "rotation", {0: (0, 0, 0), 0.7: (-8, 0, 0), 0.95: (14, 0, 0), 1.6: (0, 0, 0)})
+    puls = AN.Anim("special", 2.4, schleife=False)
+    puls.tasten("kristallkern", "scale", {0: (1, 1, 1), 0.8: (1.8, 1.8, 1.8), 1.6: (1.8, 1.8, 1.8), 2.4: (1, 1, 1)})
+    for s, v in (("rechts", 1), ("links", -1)):
+        puls.tasten(f"arm_{s}", "rotation", {0: (0, 0, 0), 0.8: (20, 0, v * 50), 1.6: (20, 0, v * 50), 2.4: (0, 0, 0)})
+        puls.tasten(f"kiefer_{s}", "rotation", {0: (0, 0, 0), 0.8: (0, v * -35, 0), 1.6: (0, v * -35, 0), 2.4: (0, 0, 0)})
+    for i in range(8):
+        puls.tasten(f"tentakel_{i}_0", "rotation", {0: (0, 0, 0), 0.8: (-35, 0, 0), 1.6: (-35, 0, 0), 2.4: (0, 0, 0)})
+    # Epischer Auftritt: steigt aus dem Reaktorring, entfaltet Arme und Tentakel, öffnet das Auge
+    auftritt = AN.Anim("spawn", 8.0, schleife=None)
+    auftritt.tasten("leib", "position", {0: (0, -90, 0), 3.5: (0, -30, 0), 6.0: (0, 4, 0), 8.0: (0, 0, 0)})
+    auftritt.tasten("leib", "rotation", {0: (30, 0, 0), 4.0: (20, 0, 0), 6.0: (-12, 0, 0), 8.0: (0, 0, 0)})
+    for s, v in (("rechts", 1), ("links", -1)):
+        auftritt.tasten(f"arm_{s}", "rotation", {0: (-60, 0, v * -60), 5.0: (-60, 0, v * -60), 6.5: (60, 0, v * 70),
+                                                  8.0: (0, 0, 0)})
+        auftritt.tasten(f"lid_{s}", "position", {0: (0, 0, 0), 6.5: (0, 0, 0), 7.2: (0, v * 3, 0), 8.0: (0, 0, 0)})
+    for i in range(8):
+        auftritt.tasten(f"tentakel_{i}_0", "rotation", {0: (-80, 0, 0), 5.5: (-80, 0, 0), 7.0: (20, 0, 0), 8.0: (0, 0, 0)})
+    auftritt.tasten("kristallkern", "scale", {0: (0.3, 0.3, 0.3), 6.0: (0.3, 0.3, 0.3), 7.0: (2, 2, 2), 8.0: (1, 1, 1)})
+    anims = [idle, gang, schlag, puls, auftritt] + AN.kampf_anims("der_ursprung")
+    daten = {"format_version": "1.8.0", "animations": {f"animation.der_ursprung.{a.name}": a.json() for a in anims}}
+    with open(os.path.join(AN.ZIEL, "der_ursprung.animation.json"), "w") as f:
+        json.dump(daten, f)
+    print("Animation der_ursprung geschrieben")
+
+
+if __name__ == "__main__" and "--anim" in sys.argv:
+    ursprung_animationen()
