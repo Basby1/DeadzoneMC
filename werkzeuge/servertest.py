@@ -51,22 +51,38 @@ def main():
     if befehl:
         prozess = subprocess.Popen(befehl, shell=True, cwd=ordner,
                                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                   text=True, bufsize=1)
+                                   text=True, bufsize=1, start_new_session=True)
     else:
         gradlew = "./gradlew" if os.name != "nt" else "gradlew.bat"
         prozess = subprocess.Popen([gradlew, "runServer", "-Pselbsttest", "--console=plain"],
                                    stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                   text=True, bufsize=1)
+                                   text=True, bufsize=1, start_new_session=True)
     zeilen = []
     import threading
     import time
 
+    def alles_beenden():
+        import signal
+        try:
+            os.killpg(os.getpgid(prozess.pid), signal.SIGKILL)
+        except Exception:  # noqa
+            prozess.kill()
+        subprocess.run("pkill -9 -f 'neoforge' || true", shell=True)
+
     def wachhund():
         """Hängt der Server, Thread-Dump und letzte Zeilen melden und abbrechen."""
         frist = time.time() + frist_min * 60
+        fertig_seit = None
         while prozess.poll() is None:
-            if time.time() > frist:
-                melden("error", "Server hängt – letzte Zeilen", "".join(zeilen[-60:])[-3500:])
+            # Hängt nur das Herunterfahren nach dem Selbsttest: nach 3 Minuten hart beenden
+            if fertig_seit is None and any("[Selbsttest] fertig" in z for z in zeilen[-400:]):
+                fertig_seit = time.time()
+            haengt_beim_beenden = fertig_seit is not None and time.time() - fertig_seit > 180
+            if time.time() > frist or haengt_beim_beenden:
+                sinnvoll = [z for z in zeilen if not z.startswith("\t") and "spark" not in z.lower()
+                            and "RejectedExecution" not in z]
+                titel = "Server hängt beim Herunterfahren" if haengt_beim_beenden else "Server hängt"
+                melden("error", titel + " – letzte Zeilen", "".join(sinnvoll[-45:])[-3500:])
                 try:
                     jps = subprocess.run(["jps", "-l"], capture_output=True, text=True).stdout
                     pids = [z.split()[0] for z in jps.splitlines() if z.strip() and "Jps" not in z
@@ -74,12 +90,15 @@ def main():
                     dumps = []
                     for pid in pids:
                         dump = subprocess.run(["jstack", pid], capture_output=True, text=True, timeout=40).stdout
-                        haupt = [b for b in dump.split("\n\n") if "Server thread" in b or "Worker-Main" in b]
-                        dumps.append("\n\n".join(haupt)[:3000])
-                    melden("error", "Server hängt – Thread-Dump", "\n".join(dumps)[:3500])
+                        haupt = [b for b in dump.split("\n\n") if "Server thread" in b or "deadzonemc" in b]
+                        dumps.append("\n\n".join(haupt)[:6000])
+                    text = "\n".join(dumps)
+                    melden("error", "Server hängt – Thread-Dump 1", text[:3500])
+                    if len(text) > 3500:
+                        melden("error", "Server hängt – Thread-Dump 2", text[3500:7000])
                 except Exception as e:  # noqa
                     melden("error", "Server hängt", str(e))
-                prozess.kill()
+                alles_beenden()
                 return
             time.sleep(10)
 
