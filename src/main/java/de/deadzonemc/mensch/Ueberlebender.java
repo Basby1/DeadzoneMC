@@ -113,6 +113,11 @@ public class Ueberlebender extends Mensch {
         getLookControl().setLookAt(p);
         switch (gesinnung) {
             case FREUNDLICH -> {
+                ItemStack hand_ = p.getItemInHand(hand);
+                if (hand_.is(ModRegistry.MILITAERPATRONE.get()) && level() instanceof ServerLevel sl) {
+                    anheuern(sl, p, hand_);
+                    return InteractionResult.SUCCESS;
+                }
                 if (geholfen) {
                     sagen(p, "freundlich_danach" + random.nextInt(2));
                 } else {
@@ -188,6 +193,31 @@ public class Ueberlebender extends Mensch {
                 }
             }
         }
+    }
+
+    /** Für 15 Militärpatronen schließt sich ein freundlicher Überlebender an (höchstens zwei Begleiter). */
+    private void anheuern(ServerLevel sl, Player p, ItemStack patronen) {
+        if (patronen.getCount() < 15) {
+            sagen(p, "anheuern_zu_wenig");
+            return;
+        }
+        if (Begleiter.anzahl(sl, p) >= 2) {
+            sagen(p, "anheuern_voll");
+            return;
+        }
+        Begleiter b = MenschTypen.BEGLEITER.get().create(sl);
+        if (b == null) {
+            return;
+        }
+        patronen.shrink(15);
+        b.moveTo(getX(), getY(), getZ(), getYRot(), getXRot());
+        b.setCustomName(getCustomName());
+        b.besitzerSetzen(p);
+        sl.addFreshEntity(b);
+        p.displayClientMessage(Component.literal("<").append(getDisplayName()).append("> ")
+                .append(Component.translatable("ueberlebender.deadzonemc.angeheuert")).withStyle(ChatFormatting.WHITE), false);
+        playSound(SoundEvents.VILLAGER_YES, 0.8F, 1.0F);
+        discard();
     }
 
     private void verwandeln() {

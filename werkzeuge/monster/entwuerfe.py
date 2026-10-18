@@ -1624,6 +1624,41 @@ def bauen(name):
 
 
 
+def begleiter():
+    """Begleiter: angeheuerter Überlebender. Großer Rucksack, Schutzbrille auf der Stirn, Gewehr über dem Rücken."""
+    p = {"h": farbe("4a3020"), "e": farbe("1a1410"), "w": farbe("e8e0d0"), "b": farbe("7a5a40"),
+         "g": farbe("3a4a2a"), "G": farbe("4a5a36")}
+    jacke = kombi(stoff("5a5a3a", loecher=1, blut=0, falten=3, schmutz="3a3a24"),
+                  lambda mm, r, f, w: mm.flecken(r, farbe("6a4a2a"), dichte=0.2, skala=2, schwelle=0.75, staerke=0.8))
+    gesicht_ = ["hhhhhhhh", "hhhhhhhh", ".we..ew.", "...bb...", "gGgGgGgG", "GgGgGgGg", "gGgGgGgG", "........"]
+
+    def extras(m, k):
+        k["kopf"].w((-4, 31, -4), (8, 1.5, 8), einfarbig("3a2618", 8), aufblasen=0.2)  # Haare
+        k["kopf"].w((-4, 26, 2.6), (8, 5, 1.6), einfarbig("3a2618", 8), aufblasen=0.2)
+        k["kopf"].w((-4.4, 27, -2), (0.8, 4, 4.6), einfarbig("3a2618", 8))
+        k["kopf"].w((3.6, 27, -2), (0.8, 4, 4.6), einfarbig("3a2618", 8))
+        k["kopf"].w((-4.3, 30.3, -4.4), (8.6, 1.2, 8.8), einfarbig("2a2a2a", 4))  # Brillenband
+        k["kopf"].w((-3.2, 30, -4.9), (2.6, 1.8, 1), einfarbig("6aa8b8", 12))  # Gläser auf der Stirn
+        k["kopf"].w((0.6, 30, -4.9), (2.6, 1.8, 1), einfarbig("6aa8b8", 12))
+        ruck = m.k("rucksack", "oberkoerper", drehpunkt=(0, 18, 2))
+        ruck.w((-4, 11, 2), (8, 12, 5), stoff("7a6a48", loecher=0, blut=0, falten=3, schmutz="4a3e2a"))
+        ruck.w((-3.5, 23, 2.5), (7, 3, 4), einfarbig("6a5a3a", 6))  # Schlafsack
+        ruck.w((-5, 13, 3), (1, 6, 3), stoff("3a3a24", loecher=0, blut=0, falten=2))  # Seitentaschen
+        ruck.w((4, 13, 3), (1, 6, 3), stoff("3a3a24", loecher=0, blut=0, falten=2))
+        gewehr = m.k("gewehr_ruecken", "rucksack", drehpunkt=(0, 18, 7), drehung=(0, 0, 40))
+        gewehr.w((-0.5, 8, 7), (1, 18, 1.5), einfarbig("2a2018", 6))
+        gewehr.w((-0.6, 20, 6.8), (1.2, 4, 2), einfarbig("2a2b28", 6))
+        beine = {kn.name: kn for kn in m.knochen}
+        for n, x in (("bein_rechts", 0.5), ("bein_links", -3.5)):
+            beine[n].w((x - 0.2, 4, -2.4), (3.4, 3, 1), einfarbig("2a2a2a", 6))  # Knieschoner
+    m = _mensch("begleiter", "c09878", gesicht_, p, jacke, stoff("3a3a30", loecher=1, blut=0, falten=4),
+                einfarbig("2a2018", 6), extras, arm_pose=((-14, 0, 4), (-10, 0, -4)))
+    return m, "Begleiter", "Freundlich · angeheuert, folgt dir und kämpft an deiner Seite", "1,9 Blöcke"
+
+
+ALLE.update({"begleiter": begleiter})
+
+
 # ---------------------------------------------------------------------------
 # Gegenstände der Zone
 

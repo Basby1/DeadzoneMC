@@ -527,6 +527,25 @@ TEXTE = {
     "block.deadzonemc.landmine": "Landmine",
     "handbuch.deadzonemc.20": "FALLEN\n\nStacheldraht: bremst und verletzt alles, was hindurch will.\nBärenfalle: hält fest und verletzt schwer. Rechtsklick spannt sie neu.\nLandmine: explodiert unter Infizierten.\n\nSchleichend lösen Spieler Falle und Mine nicht aus.",
 
+    # Begleiter
+    "entity.deadzonemc.begleiter": "Begleiter",
+    "item.deadzonemc.begleiter_spawn_egg": "Spawn-Ei: Begleiter",
+    "ueberlebender.deadzonemc.anheuern_zu_wenig": "Für eine Handvoll Patronen riskiere ich nicht mein Leben. Fünfzehn, dann komme ich mit.",
+    "ueberlebender.deadzonemc.anheuern_voll": "Du hast schon genug Leute dabei. Zu viele fallen auf.",
+    "ueberlebender.deadzonemc.angeheuert": "Abgemacht. Ich halte dir den Rücken frei.",
+    "begleiter.deadzonemc.fremd": "Ich arbeite nicht für dich.",
+    "begleiter.deadzonemc.warte": "Gut, ich warte hier.",
+    "begleiter.deadzonemc.folge": "Ich bin direkt hinter dir.",
+    "begleiter.deadzonemc.munition": "Danke. Ich habe jetzt %s Schuss.",
+    "begleiter.deadzonemc.danke": "Das tut gut. Danke.",
+    "begleiter.deadzonemc.waffe": "Damit lässt sich arbeiten.",
+    "begleiter.deadzonemc.leer": "Ich bin leer! Ich brauche Munition!",
+    "begleiter.deadzonemc.status": "Leben %s/%s · Munition %s · %s",
+    "begleiter.deadzonemc.status_warte": "wartet",
+    "begleiter.deadzonemc.status_folge": "folgt dir",
+    "begleiter.deadzonemc.tot": "%s ist gefallen.",
+    "handbuch.deadzonemc.21": "BEGLEITER\n\nFreundliche Überlebende schließen sich dir für 15 Militärpatronen an (Rechtsklick mit Patronen). Höchstens zwei.\n\nSchleichen + Rechtsklick: warten/folgen. Gib ihnen Munition, Konserven, Verbände oder eine Nahkampfwaffe.",
+
     # Tod
     "death.attack.deadzonemc.saurer_regen": "%1$s wurde vom sauren Regen verätzt",
     "death.attack.deadzonemc.saurer_regen.player": "%1$s wurde vom sauren Regen verätzt, während %2$s zusah",

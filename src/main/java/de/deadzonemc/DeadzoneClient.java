@@ -42,6 +42,7 @@ public class DeadzoneClient {
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.WACHE.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "wache", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.BEWOHNER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "bewohner", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.AUFTRAGGEBER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "auftraggeber", false));
+        e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.BEGLEITER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "begleiter", false));
         e.registerEntityRenderer(de.deadzonemc.zone.Zone.BOLZEN_TYP.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
         e.registerEntityRenderer(de.deadzonemc.zone.Zone.ABWURFKISTE.get(), c -> {
             var r = new software.bernie.geckolib.renderer.GeoEntityRenderer<de.deadzonemc.zone.Abwurfkiste>(c,

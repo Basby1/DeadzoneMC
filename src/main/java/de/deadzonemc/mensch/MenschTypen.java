@@ -40,6 +40,10 @@ public final class MenschTypen {
             () -> EntityType.Builder.of(Haendler::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
                     .build(DeadzoneMC.MODID + ":haendler"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<Begleiter>> BEGLEITER = TYPEN.register("begleiter",
+            () -> EntityType.Builder.of(Begleiter::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
+                    .build(DeadzoneMC.MODID + ":begleiter"));
+
     public static final DeferredHolder<EntityType<?>, EntityType<Wache>> WACHE = TYPEN.register("wache",
             () -> EntityType.Builder.of(Wache::new, MobCategory.CREATURE).sized(0.6F, 1.95F).clientTrackingRange(10)
                     .build(DeadzoneMC.MODID + ":wache"));
@@ -54,6 +58,7 @@ public final class MenschTypen {
         ei("wache", WACHE, 0x5a6a72, 0xd8c020);
         ei("bewohner", BEWOHNER, 0x8a7a5a, 0x4a6a3a);
         ei("auftraggeber", AUFTRAGGEBER, 0x3a3a4a, 0xd8b030);
+        ei("begleiter", BEGLEITER, 0x5a5a3a, 0x8ad0e0);
         ei("soldat", SOLDAT, 0x4f5a3b, 0x1e1f1d);
         ei("kultist", KULTIST, 0x5c5853, 0x9fd8ff);
         ei("ueberlebender", UEBERLEBENDER, 0x5a6a72, 0x7a2a2a);
@@ -78,6 +83,7 @@ public final class MenschTypen {
         e.put(WACHE.get(), Wache.attribute().build());
         e.put(BEWOHNER.get(), Bewohner.attribute().build());
         e.put(AUFTRAGGEBER.get(), Auftraggeber.attribute().build());
+        e.put(BEGLEITER.get(), Begleiter.attribute().build());
         e.put(HAENDLER.get(), Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5).build());
     }
 }
