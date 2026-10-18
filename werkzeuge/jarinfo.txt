@@ -1,1 +1,1 @@
-tacz-1-21-1:api/event/common|api/item/IGun|api/DefaultAssets|api/TimelessAPI@GunShootEvent|GunFireEvent|IGun\.class
+the-lost-cities:worldgen/lost/City\.class|api/ILostCityInformation|api/ILostChunkInfo|worldgen/lost/BuildingInfo\.class@worldgen/lost/City\.class|ILostCityInformation
