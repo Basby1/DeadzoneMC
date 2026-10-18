@@ -94,4 +94,9 @@ public class Verschmolzener extends Boss {
         }
         return ok;
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.CRIMSON_SPORE;
+    }
 }

@@ -181,4 +181,9 @@ public class DasHerz extends Boss {
         spawnAtLocation(new ItemStack(Items.NETHERITE_SCRAP, 4));
         spawnAtLocation(new ItemStack(Items.NETHER_STAR));
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.LAVA;
+    }
 }

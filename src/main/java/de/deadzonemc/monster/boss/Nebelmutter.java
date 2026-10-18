@@ -96,4 +96,9 @@ public class Nebelmutter extends Boss {
     protected boolean kannAnstuermen() {
         return false;
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.WHITE_ASH;
+    }
 }

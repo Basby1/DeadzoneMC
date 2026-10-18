@@ -89,4 +89,9 @@ public class Strahlende extends Boss {
         spawnAtLocation(new ItemStack(ModRegistry.GASMASKE.get()));
         spawnAtLocation(new ItemStack(ModRegistry.FILTER_ITEM.get(), 4));
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.GLOW;
+    }
 }

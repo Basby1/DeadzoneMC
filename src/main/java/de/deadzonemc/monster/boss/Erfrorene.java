@@ -92,4 +92,9 @@ public class Erfrorene extends Boss {
         }
         return super.hurt(quelle, menge);
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.SNOWFLAKE;
+    }
 }

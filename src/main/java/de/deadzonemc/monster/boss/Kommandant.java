@@ -143,4 +143,9 @@ public class Kommandant extends Boss {
     protected boolean wuchtangriffe() {
         return false;
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.SMOKE;
+    }
 }

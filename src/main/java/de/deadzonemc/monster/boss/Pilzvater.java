@@ -96,4 +96,9 @@ public class Pilzvater extends Boss {
             sl.sendParticles(SPORE, getX(), getY() + 3.2, getZ(), 6, 1.2, 0.6, 1.2, 0);
         }
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.SPORE_BLOSSOM_AIR;
+    }
 }

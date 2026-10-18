@@ -367,6 +367,11 @@ public abstract class Boss extends DeadzoneMonster {
         return wut ? 30 + random.nextInt(30) : 50 + random.nextInt(45);
     }
 
+    /** Partikel, die während des Kampfes um die Spieler treiben (null = keine). */
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.ASH;
+    }
+
     /** Ob dieser Boss zu erhöhten oder fernen Zielen springen kann (wer anstürmt, springt auch). */
     protected boolean kannSpringen() {
         return kannAnstuermen();
@@ -547,6 +552,17 @@ public abstract class Boss extends DeadzoneMonster {
         }
         if (kampf && ziel != null && ziel.isAlive() && !imAuftritt() && sprungStart < 0) {
             kampfTick(sl, ziel);
+        }
+        // Kampfatmosphäre: jeder Boss füllt die Luft um die Kämpfenden mit seinem eigenen Staub, Schnee, Sporen …
+        if (kampf && tickCount % 5 == 0) {
+            var partikel = kampfPartikel();
+            if (partikel != null) {
+                for (ServerPlayer p : sl.players()) {
+                    if (p.distanceToSqr(this) < 40 * 40) {
+                        sl.sendParticles(p, partikel, false, p.getX(), p.getY() + 1.5, p.getZ(), wut ? 10 : 6, 7, 3, 7, 0.01);
+                    }
+                }
+            }
         }
         if (letzteKraft && tickCount % 10 == 0) {
             leiste.setColor(tickCount % 20 == 0 ? BossEvent.BossBarColor.RED : BossEvent.BossBarColor.WHITE);

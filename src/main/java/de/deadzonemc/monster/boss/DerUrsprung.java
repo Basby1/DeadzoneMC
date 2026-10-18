@@ -216,4 +216,9 @@ public class DerUrsprung extends Boss {
     private AABB bereich() {
         return getBoundingBox().inflate(40);
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.REVERSE_PORTAL;
+    }
 }

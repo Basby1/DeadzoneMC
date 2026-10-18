@@ -69,4 +69,9 @@ public class Brutkoenigin extends Boss {
             level.sendParticles(ParticleTypes.ITEM_SLIME, s.getX(), s.getY() + 0.3, s.getZ(), 10, 0.3, 0.2, 0.3, 0.05);
         }
     }
+
+    @Override
+    protected net.minecraft.core.particles.ParticleOptions kampfPartikel() {
+        return net.minecraft.core.particles.ParticleTypes.MYCELIUM;
+    }
 }
