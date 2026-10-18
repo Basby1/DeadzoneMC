@@ -80,6 +80,8 @@ acceptable-game-versions = ["1.21"]
                 for n in namen:
                     if not n.endswith(".class") and re_m.search(n) and not n.endswith("/"):
                         aus.append("  Datei " + n)
+                        if voll and voll.search(n) and z.getinfo(n).file_size < 40000:
+                            aus.append(z.read(n).decode("utf-8", "replace"))
                 klassen = [n for n in namen if n.endswith(".class") and re_m.search(n)]
                 z.extractall(ziel, klassen)
             for k in klassen:

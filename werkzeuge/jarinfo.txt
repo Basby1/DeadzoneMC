@@ -1,1 +1,1 @@
-the-lost-cities:worldgen/lost/City\.class|api/ILostCityInformation|api/ILostChunkInfo|worldgen/lost/BuildingInfo\.class@worldgen/lost/City\.class|ILostCityInformation
+the-lost-cities:config/LostCityProfile|profiles/.*\.json|ProfileSetup|config/.*Settings@LostCityProfile|profiles/(default|cavern|floating)\.json
