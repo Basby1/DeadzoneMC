@@ -46,7 +46,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Rüstungssätze für jede Klasse, aus Monster-Drops und Rezepten
 - [x] Zonenwerkbank + 26 eigene Zonen-Verzauberungen (nur dort, bezahlt mit Erfahrung + Zonenmaterial)
 - [ ] Monster-Drops als Bauteile (Mutantenhaut, Sehnen, Knochensplitter, Kristallstaub …), Pflanzen, viele Rezepte
-- [ ] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager), …
+- [x] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager mit 18 Plätzen, Inhalt bleibt beim Abbauen; geduckt = Rückkehrpunkt)
 - [~] Selbstverteidigungsanlagen: Geschützturm (dreht sich, schießt mit Munition) [x], Landmine/Bärenfalle/Stacheldraht [x], Werkzeuge [ ]
 - [ ] Fahrzeuge mit integriertem Lager
 - [x] Notstromaggregator: Schutzzone sichtbar, unbegrenzt viele Generatoren

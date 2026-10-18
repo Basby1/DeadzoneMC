@@ -52,6 +52,7 @@ public final class Selbsttest {
             "place feature deadzonemc:frachter ~30 ~ ~-30",
             "setblock ~2 ~ ~2 deadzonemc:geschuetzturm",
             "setblock ~4 ~ ~2 deadzonemc:zonenwerkbank",
+            "setblock ~6 ~ ~2 deadzonemc:zelt",
             "summon deadzonemc:wanderer ~-15 ~2 ~5",
             "summon deadzonemc:schreier ~-12 ~2 ~5",
             "summon deadzonemc:lauerer ~-9 ~2 ~5",

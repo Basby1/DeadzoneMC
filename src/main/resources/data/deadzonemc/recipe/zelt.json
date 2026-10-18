@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "misc",
+ "pattern": [
+  " S ",
+  "BSB",
+  "B B"
+ ],
+ "key": {
+  "S": {
+   "item": "minecraft:stick"
+  },
+  "B": {
+   "item": "deadzonemc:baumwolle"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:zelt",
+  "count": 1
+ }
+}

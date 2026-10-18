@@ -1,0 +1,19 @@
+{
+ "variants": {
+  "facing=north": {
+   "model": "deadzonemc:block/zelt",
+   "y": 180
+  },
+  "facing=east": {
+   "model": "deadzonemc:block/zelt",
+   "y": 270
+  },
+  "facing=south": {
+   "model": "deadzonemc:block/zelt"
+  },
+  "facing=west": {
+   "model": "deadzonemc:block/zelt",
+   "y": 90
+  }
+ }
+}

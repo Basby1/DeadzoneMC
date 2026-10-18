@@ -724,6 +724,8 @@
   "notiz.deadzonemc.station_null_4.titel": "Letzter Eintrag",
   "notiz.deadzonemc.station_null_4.1": "Der Kern atmet. Alle paar Tage baut sich Druck auf und entlädt sich in einer Welle über das ganze Land. Wer draußen ist, verbrennt von innen.\n\nDie Abschaltung ist fehlgeschlagen.",
   "notiz.deadzonemc.station_null_4.2": "Etwas lebt jetzt in der Reaktorhalle. Es leuchtet.\n\nWenn jemand das liest: Schaltet ihn ab. Wir konnten es nicht.\n\n– E. Vahl",
+  "block.deadzonemc.zelt": "Kleines Zelt",
+  "zelt.deadzonemc.rueckkehr": "Zelt ist jetzt dein Rückkehrpunkt",
   "block.deadzonemc.geschuetzturm": "Geschützturm",
   "item.deadzonemc.geschuetzturm_kopf": "Geschützturm-Kopf",
   "block.deadzonemc.geschuetzturm.info": "Schießt auf Monster in 20 Blöcken · Munition: 9 mm, 5,56, 7,62 · laut!",
