@@ -1,30 +1,26 @@
-"""Menümusik "Sektor 4": düsteres Ambient-Stück, komplett hier synthetisiert (keine fremden Aufnahmen).
+"""Musik von Deadzone MC – komplett hier synthetisiert (keine fremden Aufnahmen, keine Lizenzfragen).
 
-  python3 werkzeuge/musik.py   – schreibt assets/deadzonemc/sounds/musik/titel.ogg
+  python3 werkzeuge/musik.py            – alle Stücke
+  python3 werkzeuge/musik.py nacht tief – nur diese
 
-Aufbau (ca. 2:40, d-Moll): tiefer Dröhnton, langsame Flächen (Dm – B – Gm – A), ein einsames Klavier-Motiv,
-ferne Metallschläge und Wind. Mit Hall, Ein- und Ausblendung.
+Schreibt assets/deadzonemc/sounds/musik/<name>.ogg. Welche Musik wann läuft, entscheidet der Client
+(de.deadzonemc.client.ClientMusik): Titel, Tag, Nebel, Nacht, unter Tage, Bosskampf/Emission.
 """
 import os
 import subprocess
+import sys
 import tempfile
 
 import numpy as np
 from scipy.io import wavfile
-from scipy.signal import butter, fftconvolve, sosfilt
+from scipy.signal import butter, fftconvolve, lfilter, sosfilt
 
 SR = 44100
-DAUER = 160.0
 WURZEL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ZIEL = os.path.join(WURZEL, "src", "main", "resources", "assets", "deadzonemc", "sounds", "musik", "titel.ogg")
-
-rng = np.random.default_rng(404)
-N = int(SR * DAUER)
-t = np.arange(N) / SR
+ORDNER = os.path.join(WURZEL, "src", "main", "resources", "assets", "deadzonemc", "sounds", "musik")
 
 
 def hz(note):
-    """Notenname wie 'D3', 'Bb2', 'C#4' -> Frequenz."""
     namen = {"C": 0, "C#": 1, "Db": 1, "D": 2, "D#": 3, "Eb": 3, "E": 4, "F": 5, "F#": 6, "Gb": 6, "G": 7,
              "G#": 8, "Ab": 8, "A": 9, "A#": 10, "Bb": 10, "B": 11}
     n, okt = note[:-1], int(note[-1])
@@ -33,6 +29,10 @@ def hz(note):
 
 def tiefpass(x, f, ordnung=2):
     return sosfilt(butter(ordnung, f, "low", fs=SR, output="sos"), x)
+
+
+def hochpass(x, f, ordnung=2):
+    return sosfilt(butter(ordnung, f, "high", fs=SR, output="sos"), x)
 
 
 def bandpass(x, a, b):
@@ -51,133 +51,270 @@ def huellkurve(laenge, anschlag, abklang):
     return e
 
 
-def einfuegen(spur, start, klang):
-    i = int(start * SR)
-    j = min(len(spur), i + len(klang))
-    if i < len(spur):
-        spur[i:j] += klang[:j - i]
+class Stueck:
+    def __init__(self, dauer, saat):
+        self.dauer = dauer
+        self.n = int(SR * dauer)
+        self.t = np.arange(self.n) / SR
+        self.spur = np.zeros(self.n)
+        self.rng = np.random.default_rng(saat)
 
+    def dazu(self, start, klang, lautst=1.0):
+        i = int(start * SR)
+        j = min(self.n, i + len(klang))
+        if 0 <= i < self.n:
+            self.spur[i:j] += klang[:j - i] * lautst
 
-# ---- Dröhnton ----------------------------------------------------------------------------------
-def droehnen():
-    x = np.zeros(N)
-    for f0, lautst in ((hz("D1"), 1.0), (hz("A1"), 0.5), (hz("D2"), 0.35)):
-        for k in range(1, 9):
-            verstimmt = f0 * k * (1 + 0.0015 * np.sin(2 * np.pi * 0.03 * t + k))
-            phase = 2 * np.pi * np.cumsum(verstimmt) / SR
-            x += lautst / k ** 1.3 * np.sin(phase + rng.random() * 6)
-    x = tiefpass(x, 380)
-    welle = 0.6 + 0.4 * np.sin(2 * np.pi * t / 37.0 - 1.2)
-    return x * welle * 0.11
+    # ---- Schichten -------------------------------------------------------------------------
+    def droehnen(self, grundtoene, lautst, periode=37.0, hell=380):
+        x = np.zeros(self.n)
+        for f0, a in grundtoene:
+            for k in range(1, 9):
+                verstimmt = f0 * k * (1 + 0.0015 * np.sin(2 * np.pi * 0.03 * self.t + k))
+                phase = 2 * np.pi * np.cumsum(verstimmt) / SR
+                x += a / k ** 1.3 * np.sin(phase + self.rng.random() * 6)
+        x = tiefpass(x, hell)
+        self.spur += x * (0.6 + 0.4 * np.sin(2 * np.pi * self.t / periode - 1.2)) * lautst
 
+    def flaeche(self, noten, laenge, hell=1400, tremolo=0.0):
+        n = int(laenge * SR)
+        tt = np.arange(n) / SR
+        x = np.zeros(n)
+        for note in noten:
+            f = hz(note)
+            for verst in (-0.004, 0.0, 0.005):
+                for k, a in ((1, 1.0), (2, 0.35), (3, 0.15), (4, 0.06)):
+                    x += a * np.sin(2 * np.pi * f * (1 + verst) * k * tt + self.rng.random() * 6)
+        x = tiefpass(x, hell)
+        if tremolo:
+            x *= 1 - tremolo * (0.5 + 0.5 * np.sin(2 * np.pi * 7 * tt))
+        return x * huellkurve(laenge, laenge * 0.35, laenge * 0.45)
 
-# ---- Flächen -----------------------------------------------------------------------------------
-AKKORDE = [["D3", "F3", "A3", "D4"], ["Bb2", "D3", "F3", "Bb3"], ["G2", "Bb2", "D3", "G3"], ["A2", "C#3", "E3", "A3"]]
+    def flaechen(self, akkorde, laenge, lautst, start=4.0, hell=1400, tremolo=0.0):
+        i = 0
+        while start < self.dauer - 6:
+            self.dazu(start, self.flaeche(akkorde[i % len(akkorde)], laenge + 6, hell, tremolo), lautst)
+            start += laenge
+            i += 1
 
-
-def flaeche(noten, laenge):
-    n = int(laenge * SR)
-    tt = np.arange(n) / SR
-    x = np.zeros(n)
-    for note in noten:
+    def klavier(self, note, laenge=5.0):
+        n = int(laenge * SR)
+        tt = np.arange(n) / SR
         f = hz(note)
-        for verst in (-0.004, 0.0, 0.005):  # Chorus
-            ff = f * (1 + verst)
-            for k, a in ((1, 1.0), (2, 0.35), (3, 0.15), (4, 0.06)):
-                x += a * np.sin(2 * np.pi * ff * k * tt + rng.random() * 6)
-    x = tiefpass(x, 1400)
-    return x * huellkurve(laenge, laenge * 0.35, laenge * 0.45)
+        x = np.zeros(n)
+        for k, a in ((1, 1.0), (2, 0.5), (3, 0.22), (4, 0.12), (5, 0.06)):
+            x += a * np.sin(2 * np.pi * f * k * (1 + 0.0004 * k * k) * tt) * np.exp(-tt * (1.1 + 0.6 * k))
+        return x * np.minimum(1, tt * 400)
+
+    def zupf(self, note, laenge=4.0, daempfung=0.996):
+        """Gezupfte Saite (Karplus-Strong), klingt wie eine alte Gitarre."""
+        f = hz(note)
+        p = int(SR / f)
+        n = int(laenge * SR)
+        anreg = np.zeros(n)
+        anreg[:p] = self.rng.uniform(-1, 1, p)
+        anreg[:p] = tiefpass(anreg[:p], 3000)
+        a = np.zeros(p + 2)
+        a[0] = 1
+        a[p] = -daempfung / 2
+        a[p + 1] = -daempfung / 2
+        return lfilter([1.0], a, anreg)
+
+    def glocke(self, note, laenge=7.0):
+        n = int(laenge * SR)
+        tt = np.arange(n) / SR
+        f = hz(note)
+        x = np.zeros(n)
+        for r, a in ((1.0, 1.0), (2.0, 0.5), (2.76, 0.4), (4.07, 0.25), (5.4, 0.15)):
+            x += a * np.sin(2 * np.pi * f * r * tt) * np.exp(-tt * (0.5 + r * 0.3))
+        return x * np.minimum(1, tt * 800)
+
+    def melodie(self, einsaetze, instrument, lautst):
+        for start, motiv in einsaetze:
+            for note, dt in motiv:
+                klang = getattr(self, instrument)(note)
+                self.dazu(start + dt + self.rng.normal(0, 0.03), klang, lautst * self.rng.uniform(0.8, 1.0))
+
+    def metall(self, zeiten, lautst):
+        for start in zeiten:
+            f0 = self.rng.uniform(70, 120)
+            n = int(7 * SR)
+            tt = np.arange(n) / SR
+            x = np.zeros(n)
+            for r, a in ((1.0, 1.0), (2.76, 0.6), (5.40, 0.4), (8.93, 0.25), (13.3, 0.12)):
+                x += a * np.sin(2 * np.pi * f0 * r * tt) * np.exp(-tt * (0.6 + r * 0.25))
+            self.dazu(start, tiefpass(x, 2500), lautst * self.rng.uniform(0.6, 1.0))
+
+    def wind(self, lautst):
+        x = bandpass(self.rng.normal(0, 1, self.n), 180, 900)
+        lfo = 0.5 + 0.5 * np.sin(2 * np.pi * self.t / 11.0) * np.sin(2 * np.pi * self.t / 29.0 + 1)
+        self.spur += x * (0.2 + 0.8 * lfo) * lautst
+
+    def herzschlag(self, bpm, lautst, von=0.0, bis=None):
+        bis = bis or self.dauer
+        n = int(0.35 * SR)
+        tt = np.arange(n) / SR
+        schlag = np.sin(2 * np.pi * (48 + 30 * np.exp(-tt * 30)) * tt) * np.exp(-tt * 14)
+        t0 = von
+        while t0 < bis:
+            self.dazu(t0, schlag, lautst)
+            self.dazu(t0 + 0.28, schlag, lautst * 0.6)
+            t0 += 60.0 / bpm
+
+    def trommel(self, start, tief=1.0, lautst=1.0):
+        n = int(1.2 * SR)
+        tt = np.arange(n) / SR
+        f = (70 + 90 * np.exp(-tt * 18)) * tief
+        x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 5)
+        x += tiefpass(self.rng.normal(0, 1, n), 1200) * np.exp(-tt * 40) * 0.4
+        self.dazu(start, x, lautst)
+
+    def rhythmus(self, bpm, muster, lautst, von, bis):
+        """muster: Liste aus (Schlag im Takt in Achteln, Tonhöhenfaktor, Stärke) für einen 4/4-Takt."""
+        takt = 4 * 60.0 / bpm
+        t0 = von
+        while t0 < bis:
+            for achtel, tief, st in muster:
+                self.trommel(t0 + achtel * takt / 8, tief, lautst * st)
+            t0 += takt
+
+    def ostinato(self, noten, bpm, lautst, von, bis):
+        achtel = 60.0 / bpm / 2
+        t0 = von
+        i = 0
+        while t0 < bis:
+            n = int(achtel * 0.9 * SR)
+            tt = np.arange(n) / SR
+            f = hz(noten[i % len(noten)])
+            x = sum(a * np.sin(2 * np.pi * f * k * tt) for k, a in ((1, 1), (2, 0.5), (3, 0.3)))
+            x = tiefpass(x * np.exp(-tt * 6), 900)
+            self.dazu(t0, x, lautst)
+            t0 += achtel
+            i += 1
+
+    def tropfen(self, anzahl, lautst):
+        for _ in range(anzahl):
+            start = self.rng.uniform(2, self.dauer - 4)
+            n = int(0.25 * SR)
+            tt = np.arange(n) / SR
+            f = self.rng.uniform(1300, 2600) * (1 + 0.6 * tt)
+            x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 28)
+            self.dazu(start, x, lautst * self.rng.uniform(0.4, 1.0))
+
+    # ---- Ausgabe ---------------------------------------------------------------------------
+    def hall(self, x, dauer, saat):
+        r = np.random.default_rng(saat)
+        n = int(dauer * SR)
+        ir = r.normal(0, 1, n) * np.exp(-np.arange(n) / SR * 5.5 / dauer)
+        ir = tiefpass(ir, 5000)
+        ir /= np.sqrt(np.sum(ir ** 2))
+        return fftconvolve(x, ir)[:len(x)]
+
+    def speichern(self, name, hall=4.5, nass=0.6, einblenden=5.0, ausblenden=8.0, pegel=0.7):
+        trocken = hochpass(self.spur, 32)
+        links = 0.55 * trocken + nass * self.hall(trocken, hall, 1)
+        rechts = 0.55 * trocken + nass * self.hall(trocken, hall, 2)
+        stereo = np.stack([links, rechts], axis=1) * huellkurve(self.dauer, einblenden, ausblenden)[:self.n, None]
+        stereo /= np.max(np.abs(stereo)) / pegel
+        os.makedirs(ORDNER, exist_ok=True)
+        ziel = os.path.join(ORDNER, f"{name}.ogg")
+        with tempfile.TemporaryDirectory() as tmp:
+            wav = os.path.join(tmp, "x.wav")
+            wavfile.write(wav, SR, (stereo * 32767).astype(np.int16))
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-c:a", "libvorbis", "-q:a", "2", ziel],
+                           check=True)
+        print(f"{name}: {self.dauer:.0f} s, {os.path.getsize(ziel) // 1024} KB")
 
 
-def flaechen():
-    x = np.zeros(N)
-    laenge = 20.0
-    start = 4.0
-    i = 0
-    while start < DAUER - 6:
-        einfuegen(x, start, flaeche(AKKORDE[i % 4], laenge + 6))
-        start += laenge
-        i += 1
-    return x * 0.06
+# ---- Die Stücke ----------------------------------------------------------------------------------
+DM = [["D3", "F3", "A3", "D4"], ["Bb2", "D3", "F3", "Bb3"], ["G2", "Bb2", "D3", "G3"], ["A2", "C#3", "E3", "A3"]]
 
 
-# ---- Klavier-Motiv -----------------------------------------------------------------------------
-def klavier(note, laenge=5.0, staerke=1.0):
-    n = int(laenge * SR)
-    tt = np.arange(n) / SR
-    f = hz(note)
-    x = np.zeros(n)
-    for k, a in ((1, 1.0), (2, 0.5), (3, 0.22), (4, 0.12), (5, 0.06)):
-        inh = 1 + 0.0004 * k * k  # leicht verstimmte Obertöne wie bei einem alten Klavier
-        x += a * np.sin(2 * np.pi * f * k * inh * tt) * np.exp(-tt * (1.1 + 0.6 * k))
-    x *= np.minimum(1, tt * 400)  # weicher Anschlag
-    return x * staerke
+def titel():
+    """Sektor 4 – Titelmusik: Dröhnen, Flächen, einsames Klavier, Metall, Wind."""
+    s = Stueck(160, 404)
+    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.5), (hz("D2"), 0.35)], 0.11)
+    s.flaechen(DM, 20.0, 0.06)
+    motiv = [("D4", 0.0), ("F4", 1.6), ("E4", 3.2), ("A3", 4.8), ("D4", 8.5), ("C4", 10.1), ("Bb3", 11.7), ("A3", 13.3)]
+    antwort = [("A4", 0.0), ("G4", 1.6), ("F4", 3.2), ("E4", 4.8), ("D4", 6.4), ("C#4", 9.0), ("D4", 12.0)]
+    s.melodie([(24.0, motiv), (44.0, antwort), (84.0, motiv), (104.0, antwort), (128.0, motiv[:4])], "klavier", 0.2)
+    s.metall([16.0, 51.0, 77.0, 113.0, 139.0], 0.06)
+    s.wind(0.018)
+    s.speichern("titel")
 
 
-MOTIV = [("D4", 0.0), ("F4", 1.6), ("E4", 3.2), ("A3", 4.8), ("D4", 8.5), ("C4", 10.1), ("Bb3", 11.7), ("A3", 13.3)]
-ANTWORT = [("A4", 0.0), ("G4", 1.6), ("F4", 3.2), ("E4", 4.8), ("D4", 6.4), ("C#4", 9.0), ("D4", 12.0)]
+def morgen():
+    """Grauer Morgen – Tag: gezupfte Gitarre über weichen Flächen, a-Moll, etwas Hoffnung."""
+    s = Stueck(150, 11)
+    s.droehnen([(hz("A1"), 0.8), (hz("E2"), 0.4)], 0.06, periode=29.0)
+    s.flaechen([["A2", "C3", "E3", "A3"], ["F2", "A2", "C3", "F3"], ["C3", "E3", "G3", "C4"], ["G2", "B2", "D3", "G3"]],
+               16.0, 0.05, start=2.0, hell=1800)
+    figur = [("A3", 0.0), ("E4", 0.5), ("C4", 1.0), ("E4", 1.5), ("A3", 2.0), ("E4", 2.5), ("B3", 3.0), ("C4", 3.5)]
+    figur_f = [("F3", 0.0), ("C4", 0.5), ("A3", 1.0), ("C4", 1.5), ("F3", 2.0), ("C4", 2.5), ("G3", 3.0), ("A3", 3.5)]
+    einsaetze = []
+    for start in range(10, 140, 16):
+        einsaetze.append((float(start), figur))
+        einsaetze.append((start + 8.0, figur_f))
+    s.melodie(einsaetze, "zupf", 0.16)
+    lied = [("E4", 0.0), ("D4", 2.0), ("C4", 4.0), ("B3", 6.0), ("C4", 8.0), ("A3", 10.0)]
+    s.melodie([(42.0, lied), (90.0, lied)], "klavier", 0.14)
+    s.wind(0.012)
+    s.speichern("morgen", hall=3.5, nass=0.5)
 
 
-def melodie():
-    x = np.zeros(N)
-    for start, motiv, st in ((24.0, MOTIV, 0.9), (44.0, ANTWORT, 0.8), (84.0, MOTIV, 1.0), (104.0, ANTWORT, 0.85),
-                             (128.0, MOTIV[:4], 0.7)):
-        for note, dt in motiv:
-            einfuegen(x, start + dt + rng.normal(0, 0.04), klavier(note, staerke=st * rng.uniform(0.8, 1.0)))
-    return x * 0.2
+def nebel():
+    """Nebelwand – dichter Nebel und Dämmerung: Cluster-Flächen, ferne Glocken, keine Melodie zum Festhalten."""
+    s = Stueck(140, 23)
+    s.droehnen([(hz("E1"), 1.0), (hz("B1"), 0.4)], 0.1, periode=23.0, hell=300)
+    s.flaechen([["E3", "F3", "B3"], ["D3", "Eb3", "A3"], ["E3", "G3", "Ab3"], ["C3", "Db3", "G3"]], 18.0, 0.05,
+               start=3.0, hell=1100)
+    for st in (14.0, 37.0, 58.0, 81.0, 104.0, 122.0):
+        s.dazu(st, s.glocke(s.rng.choice(["E5", "F5", "B4", "Bb4"])), 0.06)
+    s.metall([30.0, 95.0], 0.04)
+    s.wind(0.03)
+    s.speichern("nebel", hall=6.0, nass=0.75)
 
 
-# ---- Metall und Wind ---------------------------------------------------------------------------
-def metallschlag(f0):
-    n = int(7 * SR)
-    tt = np.arange(n) / SR
-    x = np.zeros(n)
-    for r, a in ((1.0, 1.0), (2.76, 0.6), (5.40, 0.4), (8.93, 0.25), (13.3, 0.12)):
-        x += a * np.sin(2 * np.pi * f0 * r * tt) * np.exp(-tt * (0.6 + r * 0.25))
-    return tiefpass(x, 2500)
+def nacht():
+    """Nachtwache – Nacht: Herzschlag, tiefe phrygische Flächen, hohe einzelne Klaviertöne."""
+    s = Stueck(150, 37)
+    s.droehnen([(hz("D1"), 1.0), (hz("Eb2"), 0.25)], 0.1, periode=31.0, hell=320)
+    s.flaechen([["D3", "F3", "A3"], ["Eb3", "G3", "Bb3"], ["D3", "F3", "A3"], ["C3", "Eb3", "G3"]], 18.0, 0.045,
+               start=3.0, hell=1000)
+    s.herzschlag(54, 0.12, von=8.0, bis=140.0)
+    hoch = [("A5", 0.0), ("Bb5", 3.0), ("A5", 6.0), ("F5", 10.0)]
+    s.melodie([(30.0, hoch), (70.0, hoch), (112.0, hoch[:3])], "klavier", 0.07)
+    s.metall([22.0, 61.0, 99.0, 131.0], 0.05)
+    s.wind(0.02)
+    s.speichern("nacht", hall=5.0, nass=0.65)
 
 
-def metall():
-    x = np.zeros(N)
-    for start in (16.0, 51.0, 77.0, 113.0, 139.0):
-        einfuegen(x, start, metallschlag(rng.uniform(70, 120)) * rng.uniform(0.6, 1.0))
-    return x * 0.06
+def tief():
+    """Unter Tage – Höhlen, Metro, Station Null: tiefer Bass, tropfendes Wasser, Rohre, kaum Harmonie."""
+    s = Stueck(140, 51)
+    s.droehnen([(hz("C1"), 1.0), (hz("Gb1"), 0.35)], 0.13, periode=41.0, hell=260)
+    s.flaechen([["C3", "Gb3"], ["Db3", "G3"]], 30.0, 0.03, start=6.0, hell=700)
+    s.tropfen(45, 0.05)
+    s.metall([12.0, 33.0, 47.0, 78.0, 92.0, 120.0], 0.07)
+    s.speichern("tief", hall=7.0, nass=0.8)
 
 
-def wind():
-    rauschen = rng.normal(0, 1, N)
-    x = bandpass(rauschen, 180, 900)
-    lfo = 0.5 + 0.5 * np.sin(2 * np.pi * t / 11.0) * np.sin(2 * np.pi * t / 29.0 + 1)
-    return x * (0.2 + 0.8 * lfo) * 0.018
+def gefecht():
+    """Gefecht – Bosskampf und Emission: Trommeln, treibendes Ostinato, Tremolo-Flächen in d-Moll."""
+    s = Stueck(120, 77)
+    bpm = 96
+    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.5)], 0.09, periode=9.0)
+    s.flaechen([["D3", "F3", "A3"], ["Bb2", "D3", "F3"], ["C3", "E3", "G3"], ["A2", "C#3", "E3"]], 10.0, 0.05,
+               start=0.0, hell=1800, tremolo=0.6)
+    s.ostinato(["D2", "D2", "D3", "D2", "F2", "D2", "E2", "C#2"], bpm, 0.11, 2.5, 117.0)
+    muster = [(0, 0.8, 1.0), (3, 1.0, 0.6), (4, 0.8, 0.9), (6, 1.2, 0.5), (7, 1.2, 0.5)]
+    s.rhythmus(bpm, muster, 0.22, 5.0, 115.0)
+    s.metall([20.0, 45.0, 70.0, 95.0], 0.05)
+    s.speichern("gefecht", hall=2.5, nass=0.4, einblenden=1.5, ausblenden=4.0, pegel=0.8)
 
 
-# ---- Hall und Ausgabe --------------------------------------------------------------------------
-def hall(x, dauer=4.5, saat=0):
-    r = np.random.default_rng(saat)
-    n = int(dauer * SR)
-    ir = r.normal(0, 1, n) * np.exp(-np.arange(n) / SR * 5.5 / dauer)
-    ir = tiefpass(ir, 5000)
-    ir /= np.sqrt(np.sum(ir ** 2))
-    return fftconvolve(x, ir)[:len(x)]
-
-
-def main():
-    trocken = droehnen() + flaechen() + melodie() + metall() + wind()
-    trocken = sosfilt(butter(2, 32, "high", fs=SR, output="sos"), trocken)  # Tiefstbass weg (schont Laptop-Lautsprecher)
-    links = 0.55 * trocken + 0.6 * hall(trocken, saat=1)
-    rechts = 0.55 * trocken + 0.6 * hall(trocken, saat=2)
-    stereo = np.stack([links, rechts], axis=1)
-    hulle = huellkurve(DAUER, 5.0, 8.0)[:N]
-    stereo *= hulle[:, None]
-    stereo /= np.max(np.abs(stereo)) / 0.7
-    os.makedirs(os.path.dirname(ZIEL), exist_ok=True)
-    with tempfile.TemporaryDirectory() as tmp:
-        wav = os.path.join(tmp, "titel.wav")
-        wavfile.write(wav, SR, (stereo * 32767).astype(np.int16))
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-c:a", "libvorbis", "-q:a", "3", ZIEL],
-                       check=True)
-    print("Musik geschrieben:", ZIEL, os.path.getsize(ZIEL) // 1024, "KB")
-
+ALLE = {"titel": titel, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
 
 if __name__ == "__main__":
-    main()
+    for name in (sys.argv[1:] or ALLE):
+        ALLE[name]()

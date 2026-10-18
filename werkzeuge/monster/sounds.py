@@ -174,6 +174,9 @@ def schreiben():
             for d in dateien:
                 d["attenuation_distance"] = 64
         daten[f"monster.{name}"] = eintrag
+    # Musik (werkzeuge/musik.py)
+    for stueck in ("titel", "morgen", "nebel", "nacht", "tief", "gefecht"):
+        daten[f"musik.{stueck}"] = {"sounds": [{"name": f"deadzonemc:musik/{stueck}", "stream": True}]}
     with open(ZIEL, "w") as f:
         json.dump(daten, f, indent=1)
     print(len(daten), "Geräusche geschrieben")

@@ -56,6 +56,10 @@ public final class ClientWetter {
         emission = stufe;
     }
 
+    public static int emission() {
+        return emission;
+    }
+
     public static WetterArt art() {
         return art;
     }

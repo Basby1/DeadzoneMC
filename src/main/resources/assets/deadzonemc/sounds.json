@@ -3018,5 +3018,53 @@
     "volume": 1.0
    }
   ]
+ },
+ "musik.titel": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/titel",
+    "stream": true
+   }
+  ]
+ },
+ "musik.morgen": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/morgen",
+    "stream": true
+   }
+  ]
+ },
+ "musik.nebel": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/nebel",
+    "stream": true
+   }
+  ]
+ },
+ "musik.nacht": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/nacht",
+    "stream": true
+   }
+  ]
+ },
+ "musik.tief": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/tief",
+    "stream": true
+   }
+  ]
+ },
+ "musik.gefecht": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/gefecht",
+    "stream": true
+   }
+  ]
  }
 }

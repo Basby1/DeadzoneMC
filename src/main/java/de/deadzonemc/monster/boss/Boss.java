@@ -46,6 +46,7 @@ public abstract class Boss extends DeadzoneMonster {
         this.leiste = new ServerBossEvent(getDisplayName().copy().withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD),
                 BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10);
         this.leiste.setDarkenScreen(true);
+        this.leiste.setPlayBossMusic(true);
         this.leiste.setVisible(false);
         this.auftritt = RawAnimation.begin().thenPlay("animation." + art + ".spawn");
         this.xpReward = 120;
