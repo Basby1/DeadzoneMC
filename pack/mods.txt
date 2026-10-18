@@ -5,7 +5,7 @@
 mc-mods/the-lost-cities                 both
 mc-mods/structory                       both
 mc-mods/biomes-o-plenty                 both
-mc-mods/lootr                           both
+# mc-mods/lootr  (entfernt: Truhen blieben im Pack leer)
 
 # --- Waffen & Kampf ---
 mc-mods/tacz-1-21-1                     both

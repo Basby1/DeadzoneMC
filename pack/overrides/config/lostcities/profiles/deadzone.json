@@ -14,7 +14,7 @@
   "lostcity": {
     "ruinChance": 0.25,
     "buildingChance": 0.45,
-    "chestWithoutLootChance": 0.35,
+    "chestWithoutLootChance": 0.12,
     "randomLeafBlockChance": 0.2,
     "rubbleLayer": true
   }
