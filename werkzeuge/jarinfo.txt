@@ -1,1 +1,1 @@
-the-lost-cities:config/LostCityProfile|profiles/.*\.json|ProfileSetup|config/.*Settings@LostCityProfile|profiles/(default|cavern|floating)\.json
+the-lost-cities:data/lostcities/lostcities/(citystyles|worldstyles|multibuildings|buildings)/@(citystyles|worldstyles)/
