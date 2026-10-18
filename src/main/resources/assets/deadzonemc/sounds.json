@@ -3066,5 +3066,29 @@
     "stream": true
    }
   ]
+ },
+ "musik.stadt": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/stadt",
+    "stream": true
+   }
+  ]
+ },
+ "musik.wildnis": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/wildnis",
+    "stream": true
+   }
+  ]
+ },
+ "musik.zuflucht": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/zuflucht",
+    "stream": true
+   }
+  ]
  }
 }

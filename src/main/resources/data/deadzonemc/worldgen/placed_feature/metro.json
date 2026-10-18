@@ -1,0 +1,8 @@
+{
+  "feature": "deadzonemc:metro",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

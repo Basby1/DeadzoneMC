@@ -470,7 +470,8 @@ public final class Selbsttest {
                                         || b.is(Blocks.COBBLESTONE_WALL) || b.is(Blocks.SKELETON_SKULL)
                                         || b.is(Blocks.GLASS_PANE) || b.is(Blocks.DARK_OAK_LOG)
                                         || b.is(Blocks.STRIPPED_SPRUCE_LOG) || b.is(Blocks.BLACK_CONCRETE)
-                                        || b.is(Blocks.GRAY_CONCRETE) || b.getBlock() instanceof net.minecraft.world.level.block.BedBlock) {
+                                        || b.is(Blocks.GRAY_CONCRETE) || b.is(Blocks.SOUL_LANTERN) || b.is(Blocks.CHAIN) || b.is(Blocks.RAIL)
+                                        || b.getBlock() instanceof net.minecraft.world.level.block.BedBlock) {
                                     zaehler.merge(BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath(), 1, Integer::sum);
                                 }
                             }

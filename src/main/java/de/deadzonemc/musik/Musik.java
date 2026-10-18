@@ -22,6 +22,9 @@ public final class Musik {
     public static final DeferredHolder<SoundEvent, SoundEvent> NACHT = stueck("nacht");
     public static final DeferredHolder<SoundEvent, SoundEvent> TIEF = stueck("tief");
     public static final DeferredHolder<SoundEvent, SoundEvent> GEFECHT = stueck("gefecht");
+    public static final DeferredHolder<SoundEvent, SoundEvent> STADT = stueck("stadt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> WILDNIS = stueck("wildnis");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ZUFLUCHT = stueck("zuflucht");
 
     private static DeferredHolder<SoundEvent, SoundEvent> stueck(String name) {
         return KLAENGE.register("musik." + name, () -> SoundEvent.createVariableRangeEvent(
@@ -30,5 +33,6 @@ public final class Musik {
 
     public static void registrieren(IEventBus modBus) {
         KLAENGE.register(modBus);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(OrtMelder::tick);
     }
 }

@@ -313,7 +313,92 @@ def gefecht():
     s.speichern("gefecht", hall=2.5, nass=0.4, einblenden=1.5, ausblenden=4.0, pegel=0.8)
 
 
+
+def stadt():
+    """Tote Stadt – tagsüber zwischen den Ruinen: Industriepuls, ferne Sirene, verstimmtes Klavier, Metall."""
+    s = Stueck(150, 61)
+    s.droehnen([(hz("F1"), 1.0), (hz("C2"), 0.5)], 0.09, periode=17.0, hell=420)
+    s.flaechen([["F2", "Ab2", "C3"], ["Db3", "F3", "Ab3"], ["Eb3", "G3", "Bb3"], ["C3", "E3", "G3"]], 20.0, 0.045,
+               start=3.0, hell=1200)
+    # Ferne Sirene: langsames Auf und Ab, stark verhallt
+    n = int(14 * SR)
+    tt = np.arange(n) / SR
+    f = 330 + 120 * np.sin(2 * np.pi * tt / 7.0 - np.pi / 2)
+    sirene = np.sin(2 * np.pi * np.cumsum(f) / SR) * huellkurve(14, 4, 5)
+    sirene = bandpass(sirene, 250, 900)
+    s.dazu(35.0, sirene, 0.03)
+    s.dazu(108.0, sirene, 0.025)
+    # Industriepuls: dumpfes Pochen wie eine kaputte Maschine
+    n = int(0.4 * SR)
+    tt = np.arange(n) / SR
+    poch = tiefpass(np.sin(2 * np.pi * 62 * tt) * np.exp(-tt * 10) + 0.3 * s.rng.normal(0, 1, n) * np.exp(-tt * 30), 400)
+    t0 = 12.0
+    while t0 < 140:
+        s.dazu(t0, poch, 0.13)
+        s.dazu(t0 + 0.9, poch, 0.07)
+        t0 += 2.4
+    verstimmt = [("C5", 0.0), ("Db5", 1.8), ("Ab4", 3.6), ("F4", 6.0)]
+    s.melodie([(28.0, verstimmt), (64.0, verstimmt), (98.0, verstimmt[:3]), (126.0, verstimmt)], "klavier", 0.09)
+    s.metall([20.0, 50.0, 83.0, 117.0, 140.0], 0.07)
+    s.wind(0.016)
+    s.speichern("stadt", hall=5.0, nass=0.65)
+
+
+def wildnis():
+    """Weites Land – draußen in der Natur: ruhige Gitarre in e-Moll, Luft, ein Hauch Hoffnung, viel Raum."""
+    s = Stueck(160, 83)
+    s.droehnen([(hz("E1"), 0.6), (hz("B1"), 0.4)], 0.05, periode=43.0, hell=500)
+    s.flaechen([["E3", "G3", "B3", "E4"], ["C3", "E3", "G3", "C4"], ["G2", "B2", "D3", "G3"], ["D3", "F#3", "A3", "D4"]],
+               20.0, 0.04, start=2.0, hell=2200)
+    a = [("E3", 0.0), ("B3", 0.6), ("E4", 1.2), ("G4", 1.8), ("B3", 2.4), ("E4", 3.0)]
+    c = [("C3", 0.0), ("G3", 0.6), ("C4", 1.2), ("E4", 1.8), ("G3", 2.4), ("C4", 3.0)]
+    g = [("G2", 0.0), ("D3", 0.6), ("G3", 1.2), ("B3", 1.8), ("D3", 2.4), ("G3", 3.0)]
+    d = [("D3", 0.0), ("A3", 0.6), ("D4", 1.2), ("F#4", 1.8), ("A3", 2.4), ("D4", 3.0)]
+    einsaetze = []
+    t0 = 8.0
+    while t0 < 150:
+        for figur in (a, a, c, c, g, g, d, d):
+            if t0 < 150:
+                einsaetze.append((t0, figur))
+            t0 += 5.0 / 2
+    s.melodie(einsaetze, "zupf", 0.13)
+    lied = [("B4", 0.0), ("A4", 2.5), ("G4", 5.0), ("F#4", 7.5), ("E4", 10.0)]
+    s.melodie([(48.0, lied), (100.0, lied)], "klavier", 0.1)
+    s.wind(0.02)
+    s.speichern("wildnis", hall=4.0, nass=0.55)
+
+
+def zuflucht():
+    """Lagerfeuer – in einer Zuflucht: warme Gitarrenakkorde, knisterndes Feuer, endlich etwas Ruhe."""
+    s = Stueck(140, 97)
+    s.flaechen([["C3", "E3", "G3", "C4"], ["A2", "C3", "E3", "A3"], ["F2", "A2", "C3", "F3"], ["G2", "B2", "D3", "G3"]],
+               16.0, 0.035, start=1.0, hell=1600)
+    akkorde = [["C3", "E3", "G3", "C4", "E4"], ["A2", "E3", "A3", "C4", "E4"], ["F2", "C3", "F3", "A3", "C4"],
+               ["G2", "D3", "G3", "B3", "D4"]]
+    t0 = 4.0
+    i = 0
+    while t0 < 132:
+        akk = akkorde[(i // 2) % 4]
+        for schlag in (0.0, 2.0):  # langsam gezupft, Ton für Ton
+            for k, note in enumerate(akk):
+                s.dazu(t0 + schlag + k * 0.07, s.zupf(note, 3.5, 0.995), 0.09)
+        t0 += 4.0
+        i += 1
+    lied = [("E4", 0.0), ("G4", 1.0), ("A4", 2.0), ("G4", 3.5), ("E4", 5.0), ("D4", 6.0), ("C4", 8.0)]
+    s.melodie([(36.0, lied), (68.0, lied), (100.0, lied)], "klavier", 0.1)
+    # Feuerknistern
+    for _ in range(900):
+        st = s.rng.uniform(0, s.dauer - 1)
+        n = int(0.01 * SR)
+        s.dazu(st, hochpass(s.rng.normal(0, 1, n), 2000) * np.exp(-np.arange(n) / SR * 400), s.rng.uniform(0.01, 0.05))
+    s.spur += tiefpass(s.rng.normal(0, 1, s.n), 300) * 0.006
+    s.speichern("zuflucht", hall=2.5, nass=0.4)
+
+
+ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht}
+
 ALLE = {"titel": titel, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
+ALLE.update(ALLE_NEU)
 
 if __name__ == "__main__":
     for name in (sys.argv[1:] or ALLE):

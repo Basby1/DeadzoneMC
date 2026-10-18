@@ -99,3 +99,5 @@ mc-mods/ai-improvements                 both
 mc-mods/dynamic-fps                     client
 mc-mods/moreculling                     client
 mc-mods/badoptimizations                client
+mc-mods/xaeros-minimap-fair-play-edition both
+mc-mods/xaeros-world-map                both

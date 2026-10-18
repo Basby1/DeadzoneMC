@@ -22,6 +22,8 @@ public final class Netz {
                         de.deadzonemc.klasse.Klassen::empfangen));
         registrar.playToClient(de.deadzonemc.zone.EmissionPayload.TYPE, de.deadzonemc.zone.EmissionPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> ClientWetter.emissionSetzen(n.stufe())));
+        registrar.playToClient(de.deadzonemc.musik.OrtPayload.TYPE, de.deadzonemc.musik.OrtPayload.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientMusik.ortSetzen(n.ort())));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientDaten.entdecktSetzen(n.monster())));
     }

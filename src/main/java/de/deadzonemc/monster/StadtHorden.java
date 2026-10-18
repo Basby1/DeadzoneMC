@@ -76,10 +76,10 @@ public final class StadtHorden {
                     .withStyle(net.minecraft.ChatFormatting.DARK_GRAY, net.minecraft.ChatFormatting.ITALIC), true);
         }
         int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(40, 12, 40)).size();
-        if (nah >= 10 || welt.random.nextInt(2) == 0) {
+        if (nah >= 20) {
             return;
         }
-        int anzahl = 2 + welt.random.nextInt(3);
+        int anzahl = 3 + welt.random.nextInt(4);
         for (int versuch = 0; versuch < 12 && anzahl > 0; versuch++) {
             double winkel = welt.random.nextDouble() * Math.PI * 2;
             double abstand = 14 + welt.random.nextDouble() * 16;

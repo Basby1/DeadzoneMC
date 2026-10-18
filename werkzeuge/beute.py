@@ -442,6 +442,23 @@ TABELLEN = {
         item(m("schatzkarte"), 2),
     ]), {"rolls": 1, "entries": [notiz("station_null_1"), notiz("station_null_2"), notiz("station_null_3"),
                                  notiz("station_null_4")]}],
+    # Metro: Waggons und Lager in den Tunneln
+    "metro": [pool(2, 5, [
+        item(m("konservendose"), 10, 1, 3),
+        item(m("verband"), 8, 1, 3),
+        item(m("schmerzmittel"), 4, 1, 2),
+        item(m("antibiotika"), 2),
+        item(m("batterie"), 6, 1, 3),
+        item(m("elektronik"), 5, 1, 3),
+        item(m("schrott"), 6, 2, 5),
+        item(m("militaerpatrone"), 5, 3, 10),
+        item(m("filter"), 3),
+        item(m("bolzen"), 2, 3, 8),
+        item("minecraft:torch", 6, 2, 8),
+        item("minecraft:bread", 4, 1, 3),
+        waffe("m1911", 2), waffe("hk_mp5a5", 1), waffe("m870", 1),
+        munition("9mm", 4, 8, 24), munition("45acp", 3, 6, 16), munition("12g", 3, 4, 10),
+    ]), notizen(35, ["tagebuch_2", "funkspruch", "abschied", "evakuierung"])],
     "autowrack": [pool(1, 3, [
         item(m("schrott"), 10, 1, 3),
         item(m("batterie"), 4),
