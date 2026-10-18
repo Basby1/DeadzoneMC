@@ -87,6 +87,5 @@ public class ZufluchtStruktur extends Structure {
         } catch (RuntimeException e) {
             return false;
         }
-        return false;
     }
 }
