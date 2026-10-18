@@ -143,7 +143,7 @@ public final class ZufluchtBau {
         laterne(b, 28, 5, 0);
         laterne(b, 35, 5, 0);
         b.setze(28, 1, 0, Blocks.HAY_BLOCK);
-        b.setze(35, 1, 0, Blocks.BARREL);
+        b.kiste(35, 1, 0, Blocks.BARREL.defaultBlockState(), "zuflucht");
     }
 
     private static void turm(Baukasten b, int x0, int z0) {
@@ -175,7 +175,7 @@ public final class ZufluchtBau {
         b.leiter(x0 + 2, 7, 7, z0 + 3, V);
         laterne(b, x0 + 1, 9, z0 + 1, true);
         laterne(b, x0 + 3, 9, z0 + 3, true);
-        b.setze(x0 + 3, 8, z0 + 1, Blocks.BARREL);
+        b.kiste(x0 + 3, 8, z0 + 1, Blocks.BARREL.defaultBlockState(), "zuflucht");
     }
 
     private static void laterne(Baukasten b, int x, int y, int z) {
@@ -250,10 +250,14 @@ public final class ZufluchtBau {
             for (int z = 0; z <= 3; z++) {
                 b.setze(x0 + x, 4, z0 + z, dach);
             }
-            b.setze(x0 + x, 1, z0, x == 2 ? Blocks.AIR.defaultBlockState() : Blocks.BARREL.defaultBlockState());
+            if (x == 2) {
+                b.setze(x0 + x, 1, z0, Blocks.AIR.defaultBlockState());
+            } else {
+                b.kiste(x0 + x, 1, z0, Blocks.BARREL.defaultBlockState(), "zuflucht");
+            }
         }
         b.setze(x0 + 2, 1, z0, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.HALF, Half.TOP));
-        b.setze(x0 + 1, 1, z0 + 3, Blocks.CHEST);
+        b.kiste(x0 + 1, 1, z0 + 3, Blocks.CHEST.defaultBlockState(), "zuflucht");
         b.setze(x0 + 3, 1, z0 + 3, Blocks.CRAFTING_TABLE);
         b.schild(x0 + 2, 3, z0 - 1, V, Blocks.SPRUCE_WALL_SIGN, DyeColor.WHITE, beschriftung);
         laterne(b, x0 + 2, 3, z0 + 1, true);
@@ -264,7 +268,7 @@ public final class ZufluchtBau {
         stand(b, 16, 8, Blocks.GREEN_WOOL, "Waffen");
         stand(b, 8, 17, Blocks.BLUE_WOOL, "Technik");
         b.setze(15, 1, 18, Blocks.HAY_BLOCK);
-        b.setze(16, 1, 19, Blocks.BARREL);
+        b.kiste(16, 1, 19, Blocks.BARREL.defaultBlockState(), "zuflucht");
         b.setze(17, 1, 18, Blocks.COMPOSTER);
         b.setze(20, 1, 20, Blocks.CAULDRON);
     }
@@ -293,11 +297,11 @@ public final class ZufluchtBau {
         b.tuer(38, 1, 11, L, Blocks.SPRUCE_DOOR, false);
         b.setze(44, 1, 13, Blocks.LECTERN);
         b.setze(46, 1, 13, Blocks.CARTOGRAPHY_TABLE);
-        b.setze(47, 1, 13, Blocks.BARREL);
+        b.kiste(47, 1, 13, Blocks.BARREL.defaultBlockState(), "zuflucht");
         b.setze(42, 1, 8, Blocks.SPRUCE_FENCE);
         b.setze(42, 2, 8, Blocks.SPRUCE_PRESSURE_PLATE);
         b.setze(41, 1, 8, Blocks.SPRUCE_STAIRS.defaultBlockState().setValue(StairBlock.FACING, R));
-        b.setze(48, 1, 7, Blocks.CHEST);
+        b.kiste(48, 1, 7, Blocks.CHEST.defaultBlockState(), "zuflucht");
         laterne(b, 43, 4, 10, true);
         laterne(b, 46, 4, 12, true);
         b.schild(37, 3, 11, L, Blocks.SPRUCE_WALL_SIGN, DyeColor.YELLOW, "AUFTRÄGE", "Arbeit gegen", "Patronen");
@@ -323,7 +327,7 @@ public final class ZufluchtBau {
         b.bett(58, 1, 12, H, Blocks.WHITE_BED);
         b.setze(54, 1, 8, Blocks.BREWING_STAND);
         b.setze(57, 1, 8, Blocks.CAULDRON);
-        b.setze(58, 1, 8, Blocks.BARREL);
+        b.kiste(58, 1, 8, Blocks.BARREL.defaultBlockState(), "zuflucht");
         laterne(b, 55, 3, 10, true);
     }
 
@@ -340,7 +344,7 @@ public final class ZufluchtBau {
             }
         }
         b.bett(x0 + 1, 1, z0 + 4, kopf, Blocks.BROWN_BED);
-        b.setze(x0 + 3, 1, z0 + 4, Blocks.BARREL);
+        b.kiste(x0 + 3, 1, z0 + 4, Blocks.BARREL.defaultBlockState(), "zuflucht");
         laterne(b, x0 + 2, 1, z0 + 1);
     }
 
@@ -375,9 +379,9 @@ public final class ZufluchtBau {
         b.setze(39, 1, 43, Blocks.FURNACE);
         b.setze(39, 1, 44, Blocks.SMOKER);
         b.setze(39, 1, 45, Blocks.CRAFTING_TABLE);
-        b.setze(56, 1, 43, Blocks.CHEST);
-        b.setze(56, 1, 44, Blocks.CHEST);
-        b.setze(56, 1, 46, Blocks.BARREL);
+        b.kiste(56, 1, 43, Blocks.CHEST.defaultBlockState(), "zuflucht");
+        b.kiste(56, 1, 44, Blocks.CHEST.defaultBlockState(), "zuflucht");
+        b.kiste(56, 1, 46, Blocks.BARREL.defaultBlockState(), "zuflucht");
         for (int x = 41; x <= 54; x += 4) {
             laterne(b, x, 5, 47, true);
         }

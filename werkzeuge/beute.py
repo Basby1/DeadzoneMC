@@ -442,6 +442,22 @@ TABELLEN = {
         item(m("schatzkarte"), 2),
     ]), {"rolls": 1, "entries": [notiz("station_null_1"), notiz("station_null_2"), notiz("station_null_3"),
                                  notiz("station_null_4")]}],
+    # Zuflucht: Vorräte der Bewohner (bescheiden)
+    "zuflucht": [pool(1, 4, [
+        item("minecraft:bread", 8, 1, 3),
+        item("minecraft:wheat", 6, 2, 8),
+        item("minecraft:potato", 6, 1, 4),
+        item("minecraft:carrot", 4, 1, 4),
+        item(m("konservendose"), 5, 1, 2),
+        item(m("stoffreste"), 6, 1, 4),
+        item(m("verband"), 3, 1, 2),
+        item("minecraft:torch", 6, 2, 8),
+        item("minecraft:oak_log", 5, 2, 6),
+        item("minecraft:coal", 5, 1, 4),
+        item(m("schrott"), 4, 1, 4),
+        item(m("militaerpatrone"), 2, 1, 4),
+        leer(6),
+    ])],
     # Metro: Waggons und Lager in den Tunneln
     "metro": [pool(2, 5, [
         item(m("konservendose"), 10, 1, 3),
