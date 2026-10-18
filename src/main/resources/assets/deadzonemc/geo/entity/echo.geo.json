@@ -1,0 +1,304 @@
+{
+ "format_version": "1.12.0",
+ "minecraft:geometry": [
+  {
+   "description": {
+    "identifier": "geometry.deadzonemc.echo",
+    "texture_width": 128,
+    "texture_height": 64,
+    "visible_bounds_width": 4,
+    "visible_bounds_height": 4,
+    "visible_bounds_offset": [
+     0,
+     1.5,
+     0
+    ]
+   },
+   "bones": [
+    {
+     "name": "koerper",
+     "pivot": [
+      -0.0,
+      12.0,
+      0.0
+     ]
+    },
+    {
+     "name": "bein_rechts",
+     "pivot": [
+      -2.0,
+      12.0,
+      0.0
+     ],
+     "parent": "koerper",
+     "cubes": [
+      {
+       "origin": [
+        -4.0,
+        0.0,
+        -2.0
+       ],
+       "size": [
+        4.0,
+        12.0,
+        4.0
+       ],
+       "uv": [
+        56,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -4.0,
+        -0.5,
+        -2.5
+       ],
+       "size": [
+        4.0,
+        3.0,
+        5.0
+       ],
+       "uv": [
+        86,
+        16
+       ],
+       "inflate": 0.4
+      }
+     ]
+    },
+    {
+     "name": "bein_links",
+     "pivot": [
+      2.0,
+      12.0,
+      0.0
+     ],
+     "parent": "koerper",
+     "cubes": [
+      {
+       "origin": [
+        -0.0,
+        0.0,
+        -2.0
+       ],
+       "size": [
+        4.0,
+        12.0,
+        4.0
+       ],
+       "uv": [
+        72,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -0.0,
+        -0.5,
+        -2.5
+       ],
+       "size": [
+        4.0,
+        3.0,
+        5.0
+       ],
+       "uv": [
+        104,
+        16
+       ],
+       "inflate": 0.4
+      }
+     ]
+    },
+    {
+     "name": "oberkoerper",
+     "pivot": [
+      -0.0,
+      12.0,
+      0.0
+     ],
+     "parent": "koerper",
+     "cubes": [
+      {
+       "origin": [
+        -4.0,
+        12.0,
+        -2.0
+       ],
+       "size": [
+        8.0,
+        12.0,
+        4.0
+       ],
+       "uv": [
+        32,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -4.3,
+        12.0,
+        1.9
+       ],
+       "size": [
+        8.6,
+        10.0,
+        2.0
+       ],
+       "uv": [
+        0,
+        16
+       ]
+      }
+     ]
+    },
+    {
+     "name": "kopf",
+     "pivot": [
+      -0.0,
+      24.0,
+      0.0
+     ],
+     "parent": "oberkoerper",
+     "rotation": [
+      -0.0,
+      -0.0,
+      -6.0
+     ],
+     "cubes": [
+      {
+       "origin": [
+        -4.0,
+        24.0,
+        -4.0
+       ],
+       "size": [
+        8.0,
+        8.0,
+        8.0
+       ],
+       "uv": [
+        0,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -4.4,
+        28.0,
+        2.0
+       ],
+       "size": [
+        8.8,
+        5.0,
+        3.0
+       ],
+       "uv": [
+        22,
+        16
+       ]
+      }
+     ]
+    },
+    {
+     "name": "arm_rechts",
+     "pivot": [
+      -5.0,
+      22.0,
+      0.0
+     ],
+     "parent": "oberkoerper",
+     "rotation": [
+      60.0,
+      -0.0,
+      0.0
+     ],
+     "cubes": [
+      {
+       "origin": [
+        -8.0,
+        12.0,
+        -2.0
+       ],
+       "size": [
+        4.0,
+        12.0,
+        4.0
+       ],
+       "uv": [
+        88,
+        0
+       ]
+      },
+      {
+       "origin": [
+        -8.3,
+        11.0,
+        -2.3
+       ],
+       "size": [
+        4.6,
+        3.0,
+        4.6
+       ],
+       "uv": [
+        46,
+        16
+       ]
+      }
+     ]
+    },
+    {
+     "name": "arm_links",
+     "pivot": [
+      5.0,
+      22.0,
+      0.0
+     ],
+     "parent": "oberkoerper",
+     "rotation": [
+      8.0,
+      -0.0,
+      -6.0
+     ],
+     "cubes": [
+      {
+       "origin": [
+        4.0,
+        12.0,
+        -2.0
+       ],
+       "size": [
+        4.0,
+        12.0,
+        4.0
+       ],
+       "uv": [
+        104,
+        0
+       ]
+      },
+      {
+       "origin": [
+        3.700000000000001,
+        11.0,
+        -2.3
+       ],
+       "size": [
+        4.6,
+        3.0,
+        4.6
+       ],
+       "uv": [
+        66,
+        16
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
