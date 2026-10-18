@@ -665,13 +665,19 @@ public final class Selbsttest {
                 BlockPos sp = ow.getSharedSpawnPos();
                 int stadt = 0;
                 int gesamt = 0;
+                int treffer = 0;
+                int geschaetztGesamt = 0;
                 BlockPos fund = null;
                 for (int cx = -15; cx <= 15; cx++) {
                     for (int cz = -15; cz <= 15; cz++) {
                         gesamt++;
                         int x = (sp.getX() >> 4) + cx;
                         int z = (sp.getZ() >> 4) + cz;
+                        boolean geschaetzt = de.deadzonemc.welt.Staedte.vielleichtStadt(ow, x, z);
                         if (de.deadzonemc.welt.Staedte.istStadt(ow, x, z)) {
+                            if (geschaetzt) {
+                                treffer++;
+                            }
                             stadt++;
                             if (fund == null || Math.abs(cx) + Math.abs(cz) < Math.abs((fund.getX() >> 4) - (sp.getX() >> 4)) + Math.abs((fund.getZ() >> 4) - (sp.getZ() >> 4))) {
                                 fund = new BlockPos(x * 16 + 8, 0, z * 16 + 8);
@@ -679,7 +685,15 @@ public final class Selbsttest {
                         }
                     }
                 }
-                StringBuilder d = new StringBuilder("Stadt-Chunks um den Spawn: " + stadt + " von " + gesamt);
+                for (int cx = -15; cx <= 15; cx++) {
+                    for (int cz = -15; cz <= 15; cz++) {
+                        if (de.deadzonemc.welt.Staedte.vielleichtStadt(ow, (sp.getX() >> 4) + cx, (sp.getZ() >> 4) + cz)) {
+                            geschaetztGesamt++;
+                        }
+                    }
+                }
+                StringBuilder d = new StringBuilder("Stadt-Chunks um den Spawn: " + stadt + " von " + gesamt
+                        + " (Schätzung: " + geschaetztGesamt + ", davon echt " + treffer + ")");
                 if (fund != null) {
                     Integer h = de.deadzonemc.welt.Staedte.strassenhoehe(ow, fund.getX() >> 4, fund.getZ() >> 4);
                     d.append(", Straßenhöhe bei ").append(fund.getX()).append("/").append(fund.getZ()).append(": ").append(h);

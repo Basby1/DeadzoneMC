@@ -69,7 +69,7 @@ public class ZufluchtStruktur extends Structure {
             }
             for (int dx = -3; dx <= 3; dx += 3) {
                 for (int dz = -3; dz <= 3; dz += 3) {
-                    if (Staedte.istStadt(server.overworld(), cx + dx, cz + dz)) {
+                    if (Staedte.vielleichtStadt(server.overworld(), cx + dx, cz + dz)) {
                         return true;
                     }
                 }

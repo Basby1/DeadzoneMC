@@ -96,6 +96,68 @@ public final class Staedte {
         return h == Integer.MIN_VALUE ? null : h;
     }
 
+    // ---- Schnelle Schätzung (nur Stadtradien, ohne Gelände zu berechnen) -------------------------
+
+    private static volatile boolean faktorKaputt;
+    private static Method cityFactor;
+    private static java.lang.reflect.Constructor<?> chunkCoord;
+    private static Method profilHolen;
+    private static java.lang.reflect.Field providerFeld;
+    private static java.lang.reflect.Field schwelleFeld;
+
+    /**
+     * Ob hier wahrscheinlich eine Stadt liegt – nur aus den Stadtzentren und Radien von Lost Cities, ohne das
+     * Gelände zu berechnen. Billig und für die Weltgenerierung geeignet (die genaue Abfrage kostet pro Chunk
+     * eine komplette Geländeberechnung und bremst die Strukturplatzierung extrem aus).
+     */
+    public static boolean vielleichtStadt(Level level, int chunkX, int chunkZ) {
+        if (level.dimension() != Level.OVERWORLD || !bereit() || faktorKaputt) {
+            return false;
+        }
+        try {
+            Object info = getLostInfo.invoke(lostCities, level);
+            if (info == null) {
+                return false;
+            }
+            if (cityFactor == null) {
+                Class<?> dim = Class.forName("mcjty.lostcities.worldgen.IDimensionInfo");
+                Class<?> coord = Class.forName("mcjty.lostcities.varia.ChunkCoord");
+                Class<?> profil = Class.forName("mcjty.lostcities.config.LostCityProfile");
+                Class<?> city = Class.forName("mcjty.lostcities.worldgen.lost.City");
+                cityFactor = city.getMethod("getCityFactor", coord, dim, profil);
+                chunkCoord = coord.getConstructor(net.minecraft.resources.ResourceKey.class, int.class, int.class);
+                profilHolen = dim.getMethod("getProfile");
+                for (Class<?> k = info.getClass(); k != null && providerFeld == null; k = k.getSuperclass()) {
+                    for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                        if (dim.isAssignableFrom(f.getType())) {
+                            f.setAccessible(true);
+                            providerFeld = f;
+                            break;
+                        }
+                    }
+                }
+                try {
+                    schwelleFeld = profil.getField("CITY_THRESHOLD");
+                } catch (NoSuchFieldException e) {
+                    schwelleFeld = null;
+                }
+                if (providerFeld == null) {
+                    throw new NoSuchFieldException("IDimensionInfo in " + info.getClass());
+                }
+            }
+            Object provider = providerFeld.get(info);
+            Object profil = profilHolen.invoke(provider);
+            Object c = chunkCoord.newInstance(level.dimension(), chunkX, chunkZ);
+            float faktor = (Float) cityFactor.invoke(null, c, provider, profil);
+            double schwelle = schwelleFeld == null ? 0.15 : ((Number) schwelleFeld.get(profil)).doubleValue();
+            return faktor > schwelle;
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            LOG.warn("Lost-Cities-Stadtschätzung nicht nutzbar: {}", e.toString());
+            faktorKaputt = true;
+            return false;
+        }
+    }
+
     public static boolean istStadt(Level level, int chunkX, int chunkZ) {
         return strassenhoehe(level, chunkX, chunkZ) != null;
     }
