@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -50,6 +51,33 @@ public abstract class DeadzoneMonster extends Monster implements GeoEntity {
         this.rennen = RawAnimation.begin().thenLoop("animation." + art + "." + (hatLauf() ? "run" : "walk"));
         this.angriff = RawAnimation.begin().thenPlay("animation." + art + ".attack");
         this.spezial = RawAnimation.begin().thenPlay("animation." + art + ".special");
+    }
+
+    // ---- Lärm -------------------------------------------------------------------------------
+
+    private Vec3 laermZiel;
+    private int laermRest;
+
+    /** Hat ein Geräusch gehört: läuft eine Weile dorthin (solange es kein Ziel hat). */
+    public void laermGehoert(Vec3 ort) {
+        if (this instanceof de.deadzonemc.monster.boss.Boss) {
+            return;
+        }
+        laermZiel = ort.add(random.nextGaussian() * 2, 0, random.nextGaussian() * 2);
+        laermRest = 600;
+        getNavigation().moveTo(laermZiel.x, laermZiel.y, laermZiel.z, 1.15);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (laermZiel != null) {
+            if (--laermRest <= 0 || getTarget() != null || position().distanceToSqr(laermZiel) < 4) {
+                laermZiel = null;
+            } else if (tickCount % 20 == 0 && getNavigation().isDone()) {
+                getNavigation().moveTo(laermZiel.x, laermZiel.y, laermZiel.z, 1.15);
+            }
+        }
     }
 
     /** Ob das Modell eine eigene Renn-Animation hat. */

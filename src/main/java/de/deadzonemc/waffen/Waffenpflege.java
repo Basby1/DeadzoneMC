@@ -110,6 +110,7 @@ public final class Waffenpflege {
                 ((ICancellableEvent) e).setCanceled(true);
                 return;
             }
+            de.deadzonemc.monster.Laerm.schuss(wer);
             // Sanfter Verschleiß: rund 1000 Schüsse bis "kaputt", Ladehemmungen erst ab 80 % und auch dann selten
             int v = Math.min(1000, s.getOrDefault(VERSCHLEISS.get(), 0) + 1);
             s.set(VERSCHLEISS.get(), v);

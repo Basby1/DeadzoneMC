@@ -258,6 +258,24 @@ public final class Herden {
         }
     }
 
+    /** Ein lautes Geräusch in Hörweite lenkt Herden um (Schüsse, Explosionen, Motoren). */
+    public static void laermGehoert(ServerLevel w, Vec3 ort, double radius) {
+        for (Herde h : HERDEN) {
+            if (h.ueberfall) {
+                continue;
+            }
+            for (UUID id : h.mitglieder) {
+                if (w.getEntity(id) instanceof DeadzoneMonster m) {
+                    if (m.position().distanceToSqr(ort) < radius * radius) {
+                        h.ziel = ort;
+                        h.richtung = ort.subtract(m.position()).multiply(1, 0, 1).normalize();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     private static void herdenBewegen(ServerLevel w) {
         Iterator<Herde> it = HERDEN.iterator();
         while (it.hasNext()) {
