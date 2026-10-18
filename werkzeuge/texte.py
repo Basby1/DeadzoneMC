@@ -559,7 +559,7 @@ TEXTE = {
     "waffe.deadzonemc.abgenutzt": "abgenutzt",
     "waffe.deadzonemc.verschlissen": "verschlissen",
     "waffe.deadzonemc.kaputt": "kaputt",
-    "handbuch.deadzonemc.22": "WAFFENPFLEGE\n\nJeder Schuss nutzt die Waffe ab. Verschlissene Waffen haben Ladehemmungen: Schleichen + F lädt durch.\n\nEin Waffenpflegeset (Waffenhändler oder selbst gebaut) macht die Waffe wieder wie neu. Munition baust du am Waffentisch.",
+    "handbuch.deadzonemc.22": "WAFFENPFLEGE\n\nWaffen nutzen sich nur langsam ab. Erst stark verschlissene Waffen (nach vielen hundert Schüssen) haben selten Ladehemmungen: Schleichen + F lädt durch.\n\nEin Waffenpflegeset (Waffenhändler oder selbst gebaut) macht die Waffe wieder wie neu. Munition baust du am Waffentisch.",
 
     "metro.deadzonemc.betreten": "Die alten U-Bahn-Tunnel. Hier unten ist es nie ganz still.",
 

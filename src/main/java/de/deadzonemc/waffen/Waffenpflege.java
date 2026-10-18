@@ -55,7 +55,7 @@ public final class Waffenpflege {
                     .persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build());
 
     public static final DeferredItem<PflegesetItem> PFLEGESET = ITEMS.register("pflegeset",
-            () -> new PflegesetItem(new Item.Properties().durability(6)));
+            () -> new PflegesetItem(new Item.Properties().durability(20)));
 
     private static Method schuetze;
     private static Method waffe;
@@ -110,12 +110,10 @@ public final class Waffenpflege {
                 ((ICancellableEvent) e).setCanceled(true);
                 return;
             }
-            int v = Math.min(1000, s.getOrDefault(VERSCHLEISS.get(), 0) + 3);
+            // Sanfter Verschleiß: rund 1000 Schüsse bis "kaputt", Ladehemmungen erst ab 80 % und auch dann selten
+            int v = Math.min(1000, s.getOrDefault(VERSCHLEISS.get(), 0) + 1);
             s.set(VERSCHLEISS.get(), v);
-            double chance = v < 400 ? 0 : (v - 400) / 600.0 * 0.07;
-            if (wer.level().isRaining() && wer.level().canSeeSky(wer.blockPosition())) {
-                chance += 0.01;
-            }
+            double chance = v < 800 ? 0 : (v - 800) / 200.0 * 0.02;
             if (chance > 0 && wer.getRandom().nextDouble() < chance) {
                 s.set(LADEHEMMUNG.get(), true);
                 wer.level().playSound(null, wer.getX(), wer.getY(), wer.getZ(), SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 1.0F, 1.6F);
