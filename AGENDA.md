@@ -47,10 +47,10 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Zonenwerkbank + 26 eigene Zonen-Verzauberungen (nur dort, bezahlt mit Erfahrung + Zonenmaterial)
 - [ ] Monster-Drops als Bauteile (Mutantenhaut, Sehnen, Knochensplitter, Kristallstaub …), Pflanzen, viele Rezepte
 - [ ] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager), …
-- [ ] Selbstverteidigungsanlagen: Geschütztürme, Minen, Fallen, Werkzeuge
+- [~] Selbstverteidigungsanlagen: Geschützturm (dreht sich, schießt mit Munition) [x], Landmine/Bärenfalle/Stacheldraht [x], Werkzeuge [ ]
 - [ ] Fahrzeuge mit integriertem Lager
 - [x] Notstromaggregator: Schutzzone sichtbar, unbegrenzt viele Generatoren
-- [ ] Feldhandbuch mit allen Rezepten (Rezept-Raster), beim ersten Spawn
+- [x] Feldhandbuch mit allen Rezepten (geduckt benutzen: Rezept-Raster), beim ersten Spawn
 
 ## Etappe D – Geschichte & Fraktionen
 - [ ] Hauptgeschichte in 5 Akten (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,

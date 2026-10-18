@@ -18,6 +18,11 @@ public final class NotizAnzeige {
         buchZeigen("notiz.deadzonemc." + id + ".");
     }
 
+    /** Rezeptteil des Feldhandbuchs. */
+    public static void rezepte() {
+        Minecraft.getInstance().setScreen(new RezeptbuchScreen());
+    }
+
     /** Das Handbuch: alle Seiten handbuch.deadzonemc.1, .2, ... */
     public static void handbuch() {
         List<Component> seiten = seitenLesen("handbuch.deadzonemc.");

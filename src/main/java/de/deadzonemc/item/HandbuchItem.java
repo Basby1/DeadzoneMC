@@ -26,13 +26,18 @@ public class HandbuchItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("item.deadzonemc.handbuch.info").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.translatable("item.deadzonemc.handbuch.rezepte").withStyle(ChatFormatting.GRAY));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (level.isClientSide) {
-            NotizAnzeige.handbuch();
+            if (player.isShiftKeyDown()) {
+                de.deadzonemc.client.NotizAnzeige.rezepte(); // geduckt: Rezepte
+            } else {
+                NotizAnzeige.handbuch();
+            }
         }
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
     }

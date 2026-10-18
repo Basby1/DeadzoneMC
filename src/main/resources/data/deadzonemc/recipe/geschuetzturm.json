@@ -1,0 +1,27 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "misc",
+ "pattern": [
+  "DPD",
+  "ITI",
+  "I I"
+ ],
+ "key": {
+  "D": {
+   "item": "deadzonemc:drohnenteile"
+  },
+  "P": {
+   "item": "deadzonemc:p9"
+  },
+  "T": {
+   "item": "minecraft:dispenser"
+  },
+  "I": {
+   "item": "minecraft:iron_ingot"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:geschuetzturm",
+  "count": 1
+ }
+}

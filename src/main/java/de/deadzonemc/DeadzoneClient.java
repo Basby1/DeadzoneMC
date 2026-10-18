@@ -70,6 +70,7 @@ public class DeadzoneClient {
     }
 
     private static void renderer(EntityRenderersEvent.RegisterRenderers e) {
+        e.registerBlockEntityRenderer(de.deadzonemc.falle.Fallen.GESCHUETZTURM_BE.get(), de.deadzonemc.client.GeschuetzturmRenderer::new);
         e.registerEntityRenderer(de.deadzonemc.waffen.wurf.Wurfwaffen.WURFKOERPER.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
         e.registerEntityRenderer(MonsterTypen.WANDERER.get(), c -> new MonsterRenderer<>(c, "wanderer", false, false, 0.5F));
