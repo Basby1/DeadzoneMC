@@ -157,7 +157,7 @@ public final class Auftraege {
     private static String itemName(String ziel) {
         if (ziel.startsWith("#")) {
             return ziel.equals("#minecraft:logs") ? "Holzstämme" : ziel.equals("#deadzonemc:artefakte") ? "Artefakt(e)"
-                    : ziel.substring(1);
+                    : ziel.equals("#deadzonemc:munition") ? "Munition (beliebig)" : ziel.substring(1);
         }
         if (ziel.equals("tacz:ammo")) {
             return "Munition";

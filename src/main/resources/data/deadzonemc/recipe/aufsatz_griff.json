@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  " I ",
+  " L ",
+  " L "
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "L": {
+   "item": "minecraft:leather"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:aufsatz_griff",
+  "count": 1
+ }
+}

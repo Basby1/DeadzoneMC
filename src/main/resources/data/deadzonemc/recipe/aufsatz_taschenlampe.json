@@ -1,0 +1,26 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "IGB",
+  " E "
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "G": {
+   "item": "minecraft:glass_pane"
+  },
+  "B": {
+   "item": "deadzonemc:batterie"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:aufsatz_taschenlampe",
+  "count": 1
+ }
+}

@@ -9,9 +9,95 @@
       },
       "entries": [
         {
-          "type": "minecraft:loot_table",
-          "value": "deadzonemc:waffen/luftabwurf",
-          "weight": 12
+          "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:praezisionsgewehr",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:mg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 80
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:pumpgun",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:mp9",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
         }
       ]
     },
@@ -23,9 +109,79 @@
       },
       "entries": [
         {
-          "type": "minecraft:loot_table",
-          "value": "deadzonemc:waffen/luftabwurf",
-          "weight": 21
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_556",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 30,
+                "max": 60
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_762",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 20,
+                "max": 40
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_schrot",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 12,
+                "max": 24
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_9mm",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 30,
+                "max": 60
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_762",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 30,
+                "max": 60
+              }
+            }
+          ]
         }
       ]
     },

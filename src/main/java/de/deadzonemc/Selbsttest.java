@@ -389,17 +389,8 @@ public final class Selbsttest {
             for (int i = 0; i < 4; i++) {
                 for (net.minecraft.world.item.ItemStack s : t.getRandomItems(params)) {
                     b.append(BuiltInRegistries.ITEM.getKey(s.getItem()).getPath()).append(" x").append(s.getCount());
-                    try {
-                        Class<?> igun = Class.forName("com.tacz.guns.api.item.IGun");
-                        if (igun.isInstance(s.getItem())) {
-                            b.append(" Waffe=").append(igun.getMethod("getGunId", net.minecraft.world.item.ItemStack.class).invoke(s.getItem(), s));
-                        }
-                        Class<?> iammo = Class.forName("com.tacz.guns.api.item.IAmmo");
-                        if (iammo.isInstance(s.getItem())) {
-                            b.append(" Munition=").append(iammo.getMethod("getAmmoId", net.minecraft.world.item.ItemStack.class).invoke(s.getItem(), s));
-                        }
-                    } catch (Exception e) {
-                        b.append(" (").append(e.getClass().getSimpleName()).append(")");
+                    if (s.getItem() instanceof de.deadzonemc.waffen.feuer.SchusswaffeItem) {
+                        b.append(" Magazin=").append(s.getOrDefault(de.deadzonemc.waffen.feuer.Feuerwaffen.MAGAZIN.get(), 0));
                     }
                     b.append(", ");
                 }

@@ -1,0 +1,27 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "IGI",
+  "IBI",
+  "IEI"
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_nugget"
+  },
+  "G": {
+   "item": "minecraft:glass_pane"
+  },
+  "B": {
+   "item": "deadzonemc:batterie"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:taschenlampe",
+  "count": 1
+ }
+}

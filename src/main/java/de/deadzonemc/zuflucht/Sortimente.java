@@ -85,8 +85,8 @@ public final class Sortimente {
                 kauf(o, 20, ModRegistry.GASMASKE.get(), 1, 2);
                 kauf(o, 4, ModRegistry.FILTER_ITEM.get(), 1, 8);
                 kauf(o, 6, de.deadzonemc.waffen.Waffenpflege.PFLEGESET.get(), 1, 4);
-                ankauf(o, mod("tacz:modern_kinetic_gun"), 1, 10, 6);
-                ankauf(o, mod("tacz:ammo"), 30, 3, 12);
+                ankauf(o, mod("deadzonemc:p9"), 1, 10, 6);
+                ankauf(o, mod("deadzonemc:munition_9mm"), 30, 3, 12);
             }
             case TECHNIK -> {
                 kauf(o, 3, ModRegistry.BATTERIE.get(), 2, 8);

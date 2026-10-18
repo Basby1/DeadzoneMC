@@ -19,6 +19,11 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebelFarbe);
         modBus.addListener(DeadzoneClient::renderer);
         modBus.addListener(de.deadzonemc.client.ClientKlasse::tasten);
+        modBus.addListener(de.deadzonemc.client.ClientWaffen::tasten);
+        modBus.addListener(de.deadzonemc.client.ClientWaffen::ebenen);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::klick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::fov);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientKlasse::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);

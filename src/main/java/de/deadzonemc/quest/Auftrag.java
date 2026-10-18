@@ -40,7 +40,7 @@ public record Auftrag(String id, Art art, String titel, String text, String ziel
                     "minecraft:leather", 8, 8, "ueberleben", 50, 3),
             new Auftrag("munition", Art.BRINGEN, "Munition für die Wache",
                     "Jede Kugel zählt. Bring Munition, ganz gleich welches Kaliber.",
-                    "tacz:ammo", 30, 18, "schusswaffen", 100, 8),
+                    "#deadzonemc:munition", 30, 18, "schusswaffen", 100, 8),
             new Auftrag("artefakt", Art.BRINGEN, "Forschungsauftrag",
                     "Ein Wissenschaftler aus Station Null zahlt jeden Preis für Artefakte. Hol eins aus einem Anomalienfeld.",
                     "#deadzonemc:artefakte", 1, 35, "ueberleben", 250, 10),

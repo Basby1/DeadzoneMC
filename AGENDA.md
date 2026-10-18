@@ -11,12 +11,12 @@ eine Entscheidung bei Lina liegt. Mods von CurseForge dürfen hinzugefügt werde
 Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 
 ## Etappe A – Spielbarkeit (dringend, nach Testspiel 18.10.)
-- [ ] Spawn-Schutz: Schonfrist nach Spawn/Respawn, Gegner in der Nähe entfernen, kein Spawn-Camping; prüfen, wer schießt
-- [ ] Startausrüstung: rostiges Messer + Grund-Überlebenspaket
-- [ ] Tag leichter / weniger Beute – Nacht viel gefährlicher / deutlich bessere Beute
-- [ ] Beutestufen für Gebäude: Anzeige beim Betreten, höhere Stufe = gefährlicher + bessere Beute, nachts +1
-- [ ] Blutungs-Debuff entfernen
-- [ ] Infizierte langsamer (man muss weglaufen können)
+- [x] Spawn-Schutz: Schonfrist nach Spawn/Respawn, Gegner in der Nähe entfernen, kein Spawn-Camping; prüfen, wer schießt
+- [x] Startausrüstung: rostiges Messer + Grund-Überlebenspaket
+- [x] Tag leichter / weniger Beute – Nacht viel gefährlicher / deutlich bessere Beute
+- [x] Beutestufen für Gebäude: Anzeige beim Betreten, höhere Stufe = gefährlicher + bessere Beute, nachts +1
+- [x] Blutungs-Debuff entfernen
+- [x] Infizierte langsamer (man muss weglaufen können)
 
 ## Etappe B – Welt, Beute, Spannung
 - [~] Weicher Übergang Land → Vorort → Stadt (StadtrandFeature, Vorort-Stil, Profil) – im Spiel prüfen
@@ -31,7 +31,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Zufluchten logisch (je Stadt eine am Rand an der Straße)
 
 ## Etappe C – Ausrüstung & Crafting
-- [ ] Eigenes Waffensystem statt TaCZ (TaCZ entfernen): Pistolen, Revolver, Schrot, MP, Sturmgewehr, Scharfschütze,
+- [~] Eigenes Waffensystem statt TaCZ (TaCZ entfernen): Pistolen, Revolver, Schrot, MP, Sturmgewehr, Scharfschütze,
       Eigenbau (Rohrgewehr, Armbrust), wenige klare Kaliber, Nachladen, Zielen, Rückstoß, Mündungsfeuer,
       Aufsätze (Schalldämpfer = weniger Lärm, Taschenlampe, Zielfernrohr), Nahkampfwaffen
 - [ ] Handgranaten (craftbar), Brandsätze, Rauch
@@ -41,7 +41,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager), …
 - [ ] Selbstverteidigungsanlagen: Geschütztürme, Minen, Fallen, Werkzeuge
 - [ ] Fahrzeuge mit integriertem Lager
-- [ ] Notstromaggregator: Schutzzone sichtbar, unbegrenzt viele Generatoren
+- [x] Notstromaggregator: Schutzzone sichtbar, unbegrenzt viele Generatoren
 - [ ] Feldhandbuch mit allen Rezepten (Rezept-Raster), beim ersten Spawn
 
 ## Etappe D – Geschichte & Fraktionen

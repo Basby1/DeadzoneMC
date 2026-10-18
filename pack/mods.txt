@@ -8,7 +8,7 @@ mc-mods/biomes-o-plenty                 both
 # mc-mods/lootr  (entfernt: Truhen blieben im Pack leer)
 
 # --- Waffen & Kampf ---
-mc-mods/tacz-1-21-1                     both
+# mc-mods/tacz-1-21-1  (ersetzt durch eigene Deadzone-Waffen)
 mc-mods/better-combat-by-daedelus       both
 mc-mods/shoulder-surfing-reloaded       client
 

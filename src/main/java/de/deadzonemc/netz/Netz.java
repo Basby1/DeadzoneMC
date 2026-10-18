@@ -24,6 +24,13 @@ public final class Netz {
                 (n, ctx) -> ctx.enqueueWork(() -> ClientWetter.emissionSetzen(n.stufe())));
         registrar.playToClient(de.deadzonemc.musik.OrtPayload.TYPE, de.deadzonemc.musik.OrtPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientMusik.ortSetzen(n.ort())));
+        registrar.playToServer(de.deadzonemc.waffen.feuer.WaffenPayloads.Schuss.TYPE,
+                de.deadzonemc.waffen.feuer.WaffenPayloads.Schuss.STREAM_CODEC, de.deadzonemc.waffen.feuer.Schiessen::empfangen);
+        registrar.playToServer(de.deadzonemc.waffen.feuer.WaffenPayloads.Laden.TYPE,
+                de.deadzonemc.waffen.feuer.WaffenPayloads.Laden.STREAM_CODEC, de.deadzonemc.waffen.feuer.Nachladen::empfangen);
+        registrar.playToClient(de.deadzonemc.waffen.feuer.WaffenPayloads.Rueckmeldung.TYPE,
+                de.deadzonemc.waffen.feuer.WaffenPayloads.Rueckmeldung.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientWaffen.rueckmeldung(n)));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientDaten.entdecktSetzen(n.monster())));
     }

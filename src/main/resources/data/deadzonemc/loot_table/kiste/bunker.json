@@ -120,17 +120,113 @@
         },
         {
           "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 7,
+                "deadzonemc:verschleiss": 250
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 7,
+                "deadzonemc:verschleiss": 250
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:kalaschnikow",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 7,
+                "deadzonemc:verschleiss": 250
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:kalaschnikow",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 7,
+                "deadzonemc:verschleiss": 250
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_556",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 10,
+                "max": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_762",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 6,
+                "max": 20
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_762",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 10,
+                "max": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "deadzonemc:schatzkarte",
           "weight": 2
         },
         {
           "type": "minecraft:empty",
           "weight": 3
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "deadzonemc:waffen/bunker",
-          "weight": 15
         }
       ]
     },

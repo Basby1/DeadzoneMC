@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "IPI",
+  "SPS",
+  " P "
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "P": {
+   "tag": "minecraft:planks"
+  },
+  "S": {
+   "item": "minecraft:string"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:armbrust",
+  "count": 1
+ }
+}

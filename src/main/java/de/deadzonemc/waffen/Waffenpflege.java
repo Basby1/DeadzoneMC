@@ -111,6 +111,15 @@ public final class Waffenpflege {
                 return;
             }
             de.deadzonemc.monster.Laerm.schuss(wer);
+            nachSchuss(s, wer);
+        } catch (ReflectiveOperationException ex) {
+            LOG.debug("TaCZ-Schuss nicht lesbar", ex);
+        }
+    }
+
+    /** Verschleiß nach einem Schuss (eigene Waffen und TaCZ). */
+    public static void nachSchuss(ItemStack s, LivingEntity wer) {
+        {
             // Sanfter Verschleiß: rund 1000 Schüsse bis "kaputt", Ladehemmungen erst ab 80 % und auch dann selten
             int v = Math.min(1000, s.getOrDefault(VERSCHLEISS.get(), 0) + 1);
             s.set(VERSCHLEISS.get(), v);
@@ -122,13 +131,12 @@ public final class Waffenpflege {
                     p.displayClientMessage(Component.translatable("waffe.deadzonemc.ladehemmung").withStyle(ChatFormatting.RED), true);
                 }
             }
-        } catch (ReflectiveOperationException ex) {
-            LOG.debug("TaCZ-Schuss nicht lesbar", ex);
         }
     }
 
     public static boolean istSchusswaffe(ItemStack s) {
-        return !s.isEmpty() && "tacz:modern_kinetic_gun".equals(BuiltInRegistries.ITEM.getKey(s.getItem()).toString());
+        return !s.isEmpty() && (s.getItem() instanceof de.deadzonemc.waffen.feuer.SchusswaffeItem
+                || "tacz:modern_kinetic_gun".equals(BuiltInRegistries.ITEM.getKey(s.getItem()).toString()));
     }
 
     /** Schleichen + Hand tauschen (F) mit einer Schusswaffe: Ladehemmung beheben. */

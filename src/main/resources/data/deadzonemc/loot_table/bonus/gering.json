@@ -110,9 +110,34 @@
           ]
         },
         {
-          "type": "minecraft:loot_table",
-          "value": "deadzonemc:waffen/bonus_gering",
-          "weight": 7
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_9mm",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 4,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_schrot",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
         }
       ]
     }

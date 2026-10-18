@@ -39,16 +39,9 @@ public class Haendler extends WanderingTrader implements GeoEntity {
         setDespawnDelay(36000);
     }
 
+    /** Früher TaCZ – jetzt eigene Waffen und Munition (Namen werden übersetzt). */
     public static ItemStack tacz(String item, String schluessel, String wert, int menge) {
-        Item i = BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("tacz", item));
-        if (i == Items.AIR) {
-            return ItemStack.EMPTY;
-        }
-        ItemStack s = new ItemStack(i, menge);
-        CompoundTag t = new CompoundTag();
-        t.putString(schluessel, "tacz:" + wert);
-        s.set(DataComponents.CUSTOM_DATA, CustomData.of(t));
-        return s;
+        return de.deadzonemc.waffen.feuer.Feuerwaffen.ausTacz(item, wert, menge);
     }
 
     private static MerchantOffer angebot(ItemLike preis, int anzahl, ItemStack ware, int vorrat) {

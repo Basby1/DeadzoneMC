@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  " N",
+  "/ ",
+  "F "
+ ],
+ "key": {
+  "N": {
+   "item": "minecraft:iron_nugget"
+  },
+  "/": {
+   "item": "minecraft:stick"
+  },
+  "F": {
+   "item": "minecraft:feather"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:munition_bolzen",
+  "count": 4
+ }
+}

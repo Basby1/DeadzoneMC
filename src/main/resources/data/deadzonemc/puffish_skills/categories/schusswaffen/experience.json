@@ -44,31 +44,9 @@
         }
        }
       ]
-     },
-     "waffe": {
-      "operations": [
-       {
-        "type": "get_weapon_item_stack"
-       },
-       {
-        "type": "puffish_skills:test",
-        "data": {
-         "item": "tacz:modern_kinetic_gun"
-        }
-       },
-       {
-        "type": "puffish_skills:switch",
-        "data": {
-         "true": 1,
-         "false": 0
-        }
-       }
-      ],
-      "fallback": 0,
-      "required": false
      }
     },
-    "experience": "min(hp, 80) * (0.15 + 0.07 * min(xp, 5)) * max(fern, waffe)",
+    "experience": "min(hp, 80) * (0.15 + 0.07 * min(xp, 5)) * fern",
     "anti_farming_per_chunk": {
      "limit_per_chunk": 15,
      "reset_after_seconds": 300

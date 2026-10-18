@@ -94,14 +94,65 @@
           "weight": 3
         },
         {
-          "type": "minecraft:loot_table",
-          "value": "deadzonemc:bonus/legendaer",
-          "weight": 3
+          "type": "minecraft:item",
+          "name": "deadzonemc:revolver",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:revolver",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_357",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 6,
+                "max": 14
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_357",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 6,
+                "max": 14
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:loot_table",
-          "value": "deadzonemc:waffen/tresor",
-          "weight": 10
+          "value": "deadzonemc:bonus/legendaer",
+          "weight": 3
         }
       ]
     }

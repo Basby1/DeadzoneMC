@@ -6,6 +6,116 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:kalaschnikow",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:sturmgewehr",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 30
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:pumpgun",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:jagdgewehr",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:magazin": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_556",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 20,
+                "max": 45
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_762",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 20,
+                "max": 40
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:munition_762",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 10,
+                "max": 20
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "deadzonemc:nachtsichtgeraet",
           "weight": 6
         },
@@ -68,11 +178,6 @@
           "type": "minecraft:loot_table",
           "value": "deadzonemc:bonus/legendaer",
           "weight": 6
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "deadzonemc:waffen/bonus_hoch",
-          "weight": 26
         }
       ]
     }

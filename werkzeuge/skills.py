@@ -122,9 +122,8 @@ def kill(ausdruck, **variablen):
 
 NAHKAMPF = kill("min(hp, 80) * (0.15 + 0.07 * min(xp, 5)) * nah",
                 nah=var("get_damage_source", "is_melee"))
-FERNKAMPF = kill("min(hp, 80) * (0.15 + 0.07 * min(xp, 5)) * max(fern, waffe)",
-                 fern=var("get_damage_source", "is_projectile"),
-                 waffe=var("get_weapon_item_stack", test(item="tacz:modern_kinetic_gun"), fallback=0))
+FERNKAMPF = kill("min(hp, 80) * (0.15 + 0.07 * min(xp, 5)) * fern",
+                 fern=var("get_damage_source", "is_projectile"))
 TREFFER = {"type": "puffish_skills:deal_damage",
            "data": {"variables": {"d": var("get_dealt_damage"), "fern": var("get_damage_source", "is_projectile")},
                     "experience": "min(d, 10) * 0.15 * fern"}}

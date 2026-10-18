@@ -120,7 +120,7 @@ public class Begleiter extends Mensch {
             warten = !warten;
             getNavigation().stop();
             sagen(p, Component.translatable(warten ? "begleiter.deadzonemc.warte" : "begleiter.deadzonemc.folge"));
-        } else if (id.equals("tacz:ammo")) {
+        } else if (s.getItem() instanceof de.deadzonemc.waffen.feuer.MunitionItem) {
             int n = s.getCount();
             munition += n;
             s.shrink(n);

@@ -63,21 +63,36 @@ WAFFEN = {
 }
 
 
+# Alte TaCZ-Namen -> eigene Deadzone-Waffen (Waffen/Feuerwaffen.java)
+EIGENE = {
+    "glock_17": "p9", "m9a4": "p9", "cz75": "p9", "p320": "p9", "m1911": "p9", "hk_mk23": "p9",
+    "rhino357": "revolver", "deagle": "revolver", "hk_mp5a5": "mp9", "uzi": "mp9", "ump45": "mp9",
+    "m870": "pumpgun", "spas_12": "pumpgun", "m1014": "pumpgun", "db_short": "doppelflinte", "db_long": "doppelflinte",
+    "g36k": "sturmgewehr", "hk416d": "sturmgewehr", "m4a1": "sturmgewehr", "ak47": "kalaschnikow",
+    "sks_tactical": "kalaschnikow", "hk_g3": "kalaschnikow", "kar98": "jagdgewehr", "m700": "jagdgewehr",
+    "mk14": "praezisionsgewehr", "m249": "mg",
+}
+MAGAZIN = {"p9": 15, "revolver": 6, "mp9": 30, "pumpgun": 6, "doppelflinte": 2, "sturmgewehr": 30, "kalaschnikow": 30,
+           "jagdgewehr": 5, "praezisionsgewehr": 10, "mg": 80, "rohrpistole": 1, "rohrgewehr": 1, "armbrust": 1}
+KALIBER = {"9mm": "9mm", "45acp": "9mm", "357mag": "357", "50ae": "357", "12g": "schrot", "556x45": "556",
+           "762x39": "762", "308": "762", "792x57": "762", "30_06": "762"}
+
+
 def waffe(name, gewicht, voll=False):
-    """Eine Schusswaffe, meist mit fast leerem Magazin."""
-    munition, magazin = WAFFEN[name]
-    schuss = magazin if voll else max(0, magazin // 4)
-    return {"type": "minecraft:item", "name": "tacz:modern_kinetic_gun", "weight": gewicht,
-            "functions": [{"function": "minecraft:set_custom_data",
-                           "tag": f'{{GunId:"tacz:{name}",GunFireMode:"SEMI",GunCurrentAmmoCount:{schuss}}}'},
-                          {"function": "minecraft:set_count", "count": 1}]}
+    """Eine eigene Schusswaffe (alte TaCZ-Namen werden übersetzt), meist mit fast leerem Magazin und Gebrauchsspuren."""
+    art = EIGENE.get(name, name)
+    mag = MAGAZIN[art]
+    schuss = mag if voll else max(0, mag // 4)
+    komp = {f"{MOD}:magazin": schuss}
+    if not voll:
+        komp[f"{MOD}:verschleiss"] = 250
+    return {"type": "minecraft:item", "name": f"{MOD}:{art}", "weight": gewicht,
+            "functions": [{"function": "minecraft:set_components", "components": komp}]}
 
 
 def munition(art, gewicht, minimum, maximum):
-    return {"type": "minecraft:item", "name": "tacz:ammo", "weight": gewicht,
-            "functions": [{"function": "minecraft:set_custom_data", "tag": f'{{AmmoId:"tacz:{art}"}}'},
-                          {"function": "minecraft:set_count",
-                           "count": {"type": "minecraft:uniform", "min": minimum, "max": maximum}}]}
+    kal = KALIBER.get(art, art)
+    return item(f"{MOD}:munition_{kal}", gewicht, minimum, maximum)
 
 
 def besonders(eintrag, name=None, lore=None, seltenheit=None, verzauberungen=None, farbe="gold"):
@@ -665,8 +680,11 @@ def main():
         json.dump({"replace": False, "entries": [f"{MOD}:gefahrenbonus"]}, f, indent=1)
     os.makedirs(os.path.join(daten, "tags", "item"), exist_ok=True)
     with open(os.path.join(daten, "tags", "item", "fund.json"), "w") as f:
-        json.dump({"values": [f"#{MOD}:artefakte", "minecraft:diamond", f"{MOD}:schatzkarte",
-                              {"id": "tacz:modern_kinetic_gun", "required": False}]}, f, indent=1)
+        json.dump({"values": [f"#{MOD}:artefakte", "minecraft:diamond", f"{MOD}:schatzkarte", f"#{MOD}:schusswaffen"]}, f, indent=1)
+    with open(os.path.join(daten, "tags", "item", "schusswaffen.json"), "w") as f:
+        json.dump({"values": [f"{MOD}:{w}" for w in MAGAZIN]}, f, indent=1)
+    with open(os.path.join(daten, "tags", "item", "munition.json"), "w") as f:
+        json.dump({"values": [f"{MOD}:munition_{k}" for k in ("9mm", "357", "schrot", "556", "762", "rohr", "bolzen")]}, f, indent=1)
     print(f"{len(TABELLEN)} Beutetabellen, {len(BONUS)} Bonustabellen geschrieben.")
 
 

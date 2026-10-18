@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "SSS",
+  "SST",
+  "PP "
+ ],
+ "key": {
+  "S": {
+   "item": "deadzonemc:schrott"
+  },
+  "P": {
+   "tag": "minecraft:planks"
+  },
+  "T": {
+   "item": "minecraft:tripwire_hook"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:rohrgewehr",
+  "count": 1
+ }
+}

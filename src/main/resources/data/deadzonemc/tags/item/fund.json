@@ -3,9 +3,6 @@
   "#deadzonemc:artefakte",
   "minecraft:diamond",
   "deadzonemc:schatzkarte",
-  {
-   "id": "tacz:modern_kinetic_gun",
-   "required": false
-  }
+  "#deadzonemc:schusswaffen"
  ]
 }
