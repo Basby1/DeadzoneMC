@@ -3453,5 +3453,158 @@
     "name": "deadzonemc:waffe/einschlag"
    }
   ]
+ },
+ "atmo.schrei": {
+  "subtitle": "subtitles.deadzonemc.atmo.schrei",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/schrei_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:atmo/schrei_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:atmo/schrei_3",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:atmo/schrei_4",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "atmo.schuesse": {
+  "subtitle": "subtitles.deadzonemc.atmo.schuesse",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/schuesse_1",
+    "attenuation_distance": 128
+   },
+   {
+    "name": "deadzonemc:atmo/schuesse_2",
+    "attenuation_distance": 128
+   },
+   {
+    "name": "deadzonemc:atmo/schuesse_3",
+    "attenuation_distance": 128
+   },
+   {
+    "name": "deadzonemc:atmo/schuesse_4",
+    "attenuation_distance": 128
+   }
+  ]
+ },
+ "atmo.sirene": {
+  "subtitle": "subtitles.deadzonemc.atmo.sirene",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/sirene_1",
+    "attenuation_distance": 160
+   }
+  ]
+ },
+ "atmo.klopfen": {
+  "subtitle": "subtitles.deadzonemc.atmo.klopfen",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/klopfen_1",
+    "attenuation_distance": 24
+   },
+   {
+    "name": "deadzonemc:atmo/klopfen_2",
+    "attenuation_distance": 24
+   },
+   {
+    "name": "deadzonemc:atmo/klopfen_3",
+    "attenuation_distance": 24
+   }
+  ]
+ },
+ "atmo.schritte": {
+  "subtitle": "subtitles.deadzonemc.atmo.schritte",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/schritte_1",
+    "attenuation_distance": 20
+   },
+   {
+    "name": "deadzonemc:atmo/schritte_2",
+    "attenuation_distance": 20
+   },
+   {
+    "name": "deadzonemc:atmo/schritte_3",
+    "attenuation_distance": 20
+   }
+  ]
+ },
+ "atmo.fluestern": {
+  "subtitle": "subtitles.deadzonemc.atmo.fluestern",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/fluestern_1",
+    "attenuation_distance": 16
+   },
+   {
+    "name": "deadzonemc:atmo/fluestern_2",
+    "attenuation_distance": 16
+   },
+   {
+    "name": "deadzonemc:atmo/fluestern_3",
+    "attenuation_distance": 16
+   },
+   {
+    "name": "deadzonemc:atmo/fluestern_4",
+    "attenuation_distance": 16
+   }
+  ]
+ },
+ "atmo.heulen": {
+  "subtitle": "subtitles.deadzonemc.atmo.heulen",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/heulen_1",
+    "attenuation_distance": 112
+   },
+   {
+    "name": "deadzonemc:atmo/heulen_2",
+    "attenuation_distance": 112
+   },
+   {
+    "name": "deadzonemc:atmo/heulen_3",
+    "attenuation_distance": 112
+   }
+  ]
+ },
+ "atmo.metall": {
+  "subtitle": "subtitles.deadzonemc.atmo.metall",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/metall_1",
+    "attenuation_distance": 48
+   },
+   {
+    "name": "deadzonemc:atmo/metall_2",
+    "attenuation_distance": 48
+   },
+   {
+    "name": "deadzonemc:atmo/metall_3",
+    "attenuation_distance": 48
+   }
+  ]
+ },
+ "atmo.funk": {
+  "subtitle": "subtitles.deadzonemc.atmo.funk",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/funk_1",
+    "attenuation_distance": 24
+   },
+   {
+    "name": "deadzonemc:atmo/funk_2",
+    "attenuation_distance": 24
+   }
+  ]
  }
 }

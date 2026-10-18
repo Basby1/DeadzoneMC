@@ -35,6 +35,10 @@ public final class ClientMusik {
         ort = o;
     }
 
+    public static int ort() {
+        return ort;
+    }
+
     private ClientMusik() {
     }
 

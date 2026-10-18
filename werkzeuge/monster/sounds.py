@@ -174,7 +174,7 @@ def schreiben():
     daten = {}
     # Waffenklänge stammen aus werkzeuge/waffen.py – erhalten
     if os.path.exists(ZIEL):
-        daten.update({k: v for k, v in json.load(open(ZIEL)).items() if k.startswith("waffe.")})
+        daten.update({k: v for k, v in json.load(open(ZIEL)).items() if k.startswith(("waffe.", "atmo."))})
     for name, dateien in SOUNDS.items():
         art = name.split(".")[0]
         eintrag = {"subtitle": f"subtitles.deadzonemc.{name}", "sounds": dateien}

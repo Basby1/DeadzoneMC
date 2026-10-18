@@ -802,9 +802,9 @@ TEXTE = {
 
 
 def main():
-    # Texte der Zonen-Verzauberungen (erzeugt von verzauberungen.py)
-    zusatz = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verzauberungen_texte.json")
-    if os.path.exists(zusatz):
+    # Erzeugte Texte anderer Werkzeuge (verzauberungen.py, atmosphaere.py …): werkzeuge/*_texte.json
+    import glob
+    for zusatz in sorted(glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), "*_texte.json"))):
         with open(zusatz, encoding="utf-8") as f:
             TEXTE.update(json.load(f))
     os.makedirs(ZIEL, exist_ok=True)

@@ -33,7 +33,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [~] Ladenschilder (Polizei, Apotheke, Waffen, Krankenhaus, Supermarkt, Tankstelle, Werkstatt, Baumarkt, Militär, Bank)
 - [~] Neue Stadtgebäude: Einfamilienhäuser, Bungalow, Tankstelle, Werkstatt, Baumarkt, Militärposten, Bank
 - [ ] Viel mehr Infizierte, Hinterhalte bei Beute, Türen aufbrechen, pechschwarze Nächte
-- [ ] Horror-Geräuschkulisse (Schreie, Schüsse, Sirenen, Klopfen, Schritte, Flüstern im Nebel)
+- [x] Horror-Geräuschkulisse (Schreie, Schüsse, Sirenen, Heulen, Klopfen, Schritte, Flüstern im Nebel, Metall, Funk) – selbst synthetisiert
 - [ ] Gefährliche Orte (Metro, Bunker, Station Null) deutlich härter, Warnschilder, beste Beute
 - [~] POIs: abgestürzte Hubschrauber (Rauchsäule, Militärbeute) [x], Passagierflugzeuge [x], gestrandete Frachter [x], Konvois [ ]
 - [ ] Zufluchten logisch (je Stadt eine am Rand an der Straße)
