@@ -1,1 +1,1 @@
-tacz-1-21-1:attachments/[a-z0-9_]+\.json|attachment@NIEMALS
+the-lost-cities:data/lostcities/lostcities/(conditions|palettes)/[a-z_]+\.json|LostChestInfo|ChestInfo|lost/cityassets/Condition|LootTableProcessor|worldgen/lost/regassets/data/ConditionPart@conditions/|palettes/common\.json|Condition\.class
