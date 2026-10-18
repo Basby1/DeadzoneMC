@@ -2625,6 +2625,67 @@
    }
   ]
  },
+ "monster.das_herz.ambient": {
+  "subtitle": "subtitles.deadzonemc.das_herz.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_3"
+   }
+  ]
+ },
+ "monster.das_herz.hurt": {
+  "subtitle": "subtitles.deadzonemc.das_herz.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/hurt_2"
+   }
+  ]
+ },
+ "monster.das_herz.death": {
+  "subtitle": "subtitles.deadzonemc.das_herz.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/death_1"
+   }
+  ]
+ },
+ "monster.das_herz.brullen": {
+  "subtitle": "subtitles.deadzonemc.das_herz.brullen",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/brullen_1",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/brullen_3",
+    "attenuation_distance": 64
+   }
+  ]
+ },
+ "monster.das_herz.herzschlag": {
+  "subtitle": "subtitles.deadzonemc.das_herz.herzschlag",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/herzschlag_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/herzschlag_2"
+   }
+  ]
+ },
  "musik.titel": {
   "sounds": [
    {

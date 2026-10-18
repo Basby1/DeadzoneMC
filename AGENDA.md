@@ -68,7 +68,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Animationen und Ausrichtung aller Mobs prüfen (nichts läuft rückwärts)
 
 ## Etappe F – Dimensionen & Endgame
-- [ ] Herz der Zone (Nether) + 10 Mobs (Entwürfe freigegeben) + epischer Nether-Endboss (Entwurf „Das Herz der Zone“ gezeigt 18.10.)
+- [~] Herz der Zone (Nether) + 10 Mobs (Entwürfe freigegeben, Einbau offen) + Nether-Endboss „Das Herz der Zone“ [x eingebaut: Glutsäulen, Hitzewelle, Glutleiber, Schwachstelle vorn, Story-Spawn]
 - [ ] Orbitalstation (End) + 10 Mobs (freigegeben) + Questreihe (Lebenserhaltung, 4 Energieknoten, KI, Logbücher)
 - [ ] Der Ursprung: riesig, epische Spawn-Animation nach allen Schritten, Raid-Mechaniken, ersetzt den Enderdrachen
 - [ ] Endlos weiterspielbar nach dem Finale

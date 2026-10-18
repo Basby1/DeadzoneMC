@@ -58,5 +58,18 @@
  "boss.deadzonemc.erfrorene.tod": "Endlich... warm...",
  "boss.deadzonemc.erfrorene.spott.1": "Halt meine Hand.",
  "boss.deadzonemc.erfrorene.spott.2": "Der Sturm kennt deinen Namen.",
- "boss.deadzonemc.erfrorene.spott.3": "Hier draußen erfriert jeder."
+ "boss.deadzonemc.erfrorene.spott.3": "Hier draußen erfriert jeder.",
+ "entity.deadzonemc.das_herz": "Das Herz der Zone",
+ "item.deadzonemc.das_herz_spawn_egg": "Spawn-Ei: Das Herz der Zone",
+ "subtitles.deadzonemc.das_herz.ambient": "Das Herz grollt",
+ "subtitles.deadzonemc.das_herz.hurt": "Das Herz wird verletzt",
+ "subtitles.deadzonemc.das_herz.death": "Das Herz zerbricht",
+ "subtitles.deadzonemc.das_herz.brullen": "Das Herz brüllt",
+ "subtitles.deadzonemc.das_herz.herzschlag": "Ein gewaltiger Herzschlag",
+ "boss.deadzonemc.das_herz.auftritt": "DU... BIST DURCH DEN RISS GEKOMMEN.",
+ "boss.deadzonemc.das_herz.wut": "ICH BIN DIE ZONE. ICH BIN JEDE EMISSION.",
+ "boss.deadzonemc.das_herz.tod": "Der Himmel... sie hören... zu...",
+ "boss.deadzonemc.das_herz.spott.1": "Jeder Schlag von mir lässt eure Welt zittern.",
+ "boss.deadzonemc.das_herz.spott.2": "Vahl hat mich geöffnet. Du wirst mich nicht schließen.",
+ "boss.deadzonemc.das_herz.spott.3": "Hörst du es? Das bist du – in mir."
 }

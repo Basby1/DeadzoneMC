@@ -246,7 +246,22 @@ def platzen(p, rng):
     return s
 
 
-ARCHETYPEN = {"stoehnen": stoehnen, "schmerz": schmerz, "tod": tod, "kreischen": kreischen, "knurren": knurren,
+def herzschlag(p, rng):
+    """Zwei tiefe, dumpfe Schläge – das Herz der Zone."""
+    d = 1.6
+    n = int(d * SR)
+    s = np.zeros(n)
+    for k, st in ((0.05, 1.0), (0.38, 0.7)):
+        i = int(k * SR)
+        m = int(0.5 * SR)
+        tt = np.arange(m) / SR
+        schlag = np.sin(2 * np.pi * (32 + 40 * np.exp(-tt * 25)) * tt) * np.exp(-tt * 7)
+        schlag += 0.3 * tp(rng.normal(0, 1, m), 300) * np.exp(-tt * 20)
+        s[i:i + m] += schlag * st
+    return s
+
+
+ARCHETYPEN = {"herzschlag": herzschlag, "stoehnen": stoehnen, "schmerz": schmerz, "tod": tod, "kreischen": kreischen, "knurren": knurren,
               "bruellen": bruellen, "keuchen": keuchen, "gurgeln": gurgeln, "zirpen": zirpen, "fluestern": fluestern,
               "husten": husten, "summen": summen, "platzen": platzen}
 
@@ -303,6 +318,9 @@ ARTEN = {
                 {"ambient": ("knurren", 3), "hurt": ("schmerz", 2), "death": ("tod", 1), "brullen": ("bruellen", 3)}),
     "pilzvater": (P(55, rau=0.6, formanten=(350, 750, 1700), gurgeln=0.7, hall=0.3),
                   {"ambient": ("gurgeln", 3), "hurt": ("schmerz", 2), "death": ("tod", 1)}),
+    "das_herz": (P(36, rau=0.55, fry=0.8, formanten=(260, 620, 1500), stimmen=3, hall=0.5),
+                 {"ambient": ("knurren", 3), "hurt": ("schmerz", 2), "death": ("tod", 1), "brullen": ("bruellen", 3),
+                  "herzschlag": ("herzschlag", 2)}),
     "erfrorene": (P(280, rau=0.5, formanten=(900, 1800, 3500), hall=0.55, stimmen=2),
                   {"ambient": ("stoehnen", 3), "hurt": ("schmerz", 2), "death": ("kreischen", 1), "brullen": ("kreischen", 2)}),
 }

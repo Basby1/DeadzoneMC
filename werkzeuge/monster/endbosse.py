@@ -152,6 +152,49 @@ def mimik():
 E.ALLE.update({"das_herz": das_herz, "mimik": mimik})
 E.ANSICHTEN.update({"das_herz": ((-25, 8), (70, 4), (200, 12)), "mimik": ((-30, 8), (60, 4), (200, 10))})
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "--anim" not in sys.argv:
     for n in (sys.argv[1:] or ["das_herz", "mimik"]):
         print(DIM.bauen(n))
+
+
+def herz_animationen():
+    """Animationen für das Herz der Zone (schreibt das_herz.animation.json)."""
+    import animationen as AN
+    idle = AN.Anim("idle", 2.4)
+    for t0 in (0.0, 1.2):  # Herzschlag: zwei Schläge pro Sekunde-ish
+        idle.tasten("herzkern", "scale", {t0: (1, 1, 1), t0 + 0.12: (1.18, 1.18, 1.18), t0 + 0.3: (1.05, 1.05, 1.05),
+                                          t0 + 0.42: (1.12, 1.12, 1.12), t0 + 0.8: (1, 1, 1)})
+    AN.atmen(idle, "rumpf", 2)
+    idle.welle("kopf", "z", 4)
+    idle.welle("arm_rechts", "z", 3)
+    idle.welle("arm_links", "z", 3, phase=0.5)
+    for i in range(6):
+        idle.welle(f"splitter_{i}", "y", 2.5, art="position", phase=i / 6)
+        idle.welle(f"splitter_{i}", "y", 40, phase=i / 6)
+    gang = AN.Anim("walk", 2.4)  # steht fest im Glutsee – nur Unruhe
+    AN.atmen(gang, "rumpf", 3)
+    gang.welle("kopf", "y", 10)
+    for i in range(6):
+        gang.welle(f"splitter_{i}", "y", 3, art="position", phase=i / 6)
+    schlag = AN.Anim("attack", 1.4, schleife=False)
+    for arm in ("arm_rechts", "arm_links"):
+        schlag.tasten(arm, "rotation", {0: (0, 0, 0), 0.6: (110, 0, 0), 0.85: (-25, 0, 0), 1.4: (0, 0, 0)})
+    schlag.tasten("rumpf", "rotation", {0: (0, 0, 0), 0.6: (-10, 0, 0), 0.85: (18, 0, 0), 1.4: (0, 0, 0)})
+    emission = AN.Anim("special", 2.2, schleife=False)
+    emission.tasten("rumpf", "rotation", {0: (0, 0, 0), 0.7: (-18, 0, 0), 1.6: (-18, 0, 0), 2.2: (0, 0, 0)})
+    emission.tasten("kopf", "rotation", {0: (0, 0, 0), 0.7: (-25, 0, 0), 1.6: (-25, 0, 0), 2.2: (0, 0, 0)})
+    for arm, s in (("arm_rechts", 1), ("arm_links", -1)):
+        emission.tasten(arm, "rotation", {0: (0, 0, 0), 0.7: (30, 0, s * 45), 1.6: (30, 0, s * 45), 2.2: (0, 0, 0)})
+    emission.tasten("herzkern", "scale", {0: (1, 1, 1), 0.7: (1.5, 1.5, 1.5), 1.6: (1.5, 1.5, 1.5), 2.2: (1, 1, 1)})
+    auftritt = AN.boss_auftritt("das_herz", knochen="sockel", tiefe=-60, laenge=5.0)
+    anims = [idle, gang, schlag, emission, auftritt] + AN.kampf_anims("das_herz")
+    import json
+    import os
+    daten = {"format_version": "1.8.0", "animations": {f"animation.das_herz.{a.name}": a.json() for a in anims}}
+    with open(os.path.join(AN.ZIEL, "das_herz.animation.json"), "w") as f:
+        json.dump(daten, f)
+    print("Animation das_herz geschrieben")
+
+
+if __name__ == "__main__" and "--anim" in sys.argv:
+    herz_animationen()

@@ -114,6 +114,11 @@ public class DeadzoneClient {
         e.registerEntityRenderer(MonsterTypen.SCHEINTOTER.get(), c -> new MonsterRenderer<>(c, "scheintoter", false, false, 0.6F));
         e.registerEntityRenderer(MonsterTypen.VERSCHMOLZENER.get(), c -> new MonsterRenderer<>(c, "verschmolzener", true, false, 1.6F));
         e.registerEntityRenderer(MonsterTypen.NEBELMUTTER.get(), c -> new MonsterRenderer<>(c, "nebelmutter", true, true, 0.8F));
+        e.registerEntityRenderer(MonsterTypen.DAS_HERZ.get(), c -> {
+            var r = new MonsterRenderer<de.deadzonemc.monster.boss.DasHerz>(c, "das_herz", true, false, 5.0F);
+            r.withScale(3.0F);
+            return r;
+        });
         e.registerEntityRenderer(MonsterTypen.STRAHLENDE.get(), c -> new MonsterRenderer<>(c, "strahlende", true, false, 1.3F));
         e.registerEntityRenderer(MonsterTypen.BRUTKOENIGIN.get(), c -> new MonsterRenderer<>(c, "brutkoenigin", true, false, 1.6F));
         e.registerEntityRenderer(MonsterTypen.SCHLAECHTER.get(), c -> new MonsterRenderer<>(c, "schlaechter", true, false, 1.0F));
