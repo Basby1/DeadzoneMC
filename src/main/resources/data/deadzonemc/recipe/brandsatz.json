@@ -1,0 +1,16 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "equipment",
+ "ingredients": [
+  {
+   "item": "deadzonemc:wodka"
+  },
+  {
+   "item": "deadzonemc:stoffreste"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:brandsatz",
+  "count": 1
+ }
+}

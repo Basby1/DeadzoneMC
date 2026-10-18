@@ -1,0 +1,23 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "NEN",
+  "NBN"
+ ],
+ "key": {
+  "N": {
+   "item": "minecraft:iron_nugget"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  },
+  "B": {
+   "item": "deadzonemc:batterie"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:laermkoeder",
+  "count": 1
+ }
+}

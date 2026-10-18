@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  " I ",
+  "SGS",
+  " S "
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_nugget"
+  },
+  "S": {
+   "item": "deadzonemc:schrott"
+  },
+  "G": {
+   "item": "minecraft:gunpowder"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:handgranate",
+  "count": 2
+ }
+}

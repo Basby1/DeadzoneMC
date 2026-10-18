@@ -1,267 +1,4 @@
 {
- "waffe.p9.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.p9.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/p9_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/p9_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/p9_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.revolver.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.revolver.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/revolver_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/revolver_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/revolver_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.mp9.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.mp9.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/mp9_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/mp9_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/mp9_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.pumpgun.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.pumpgun.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/pumpgun_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/pumpgun_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/pumpgun_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.doppelflinte.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.doppelflinte.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/doppelflinte_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/doppelflinte_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/doppelflinte_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.sturmgewehr.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.sturmgewehr.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/sturmgewehr_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/sturmgewehr_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/sturmgewehr_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.kalaschnikow.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.kalaschnikow.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/kalaschnikow_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/kalaschnikow_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/kalaschnikow_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.jagdgewehr.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.jagdgewehr.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/jagdgewehr_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/jagdgewehr_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/jagdgewehr_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.praezisionsgewehr.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.praezisionsgewehr.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/praezisionsgewehr_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/praezisionsgewehr_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/praezisionsgewehr_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.mg.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.mg.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/mg_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/mg_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/mg_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.rohrpistole.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.rohrpistole.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/rohrpistole_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/rohrpistole_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/rohrpistole_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.rohrgewehr.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.rohrgewehr.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/rohrgewehr_1",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/rohrgewehr_2",
-    "attenuation_distance": 96
-   },
-   {
-    "name": "deadzonemc:waffe/rohrgewehr_3",
-    "attenuation_distance": 96
-   }
-  ]
- },
- "waffe.armbrust.schuss": {
-  "subtitle": "subtitles.deadzonemc.waffe.armbrust.schuss",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/armbrust_1"
-   }
-  ]
- },
- "waffe.gedaempft": {
-  "subtitle": "subtitles.deadzonemc.waffe.gedaempft",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/gedaempft_1"
-   },
-   {
-    "name": "deadzonemc:waffe/gedaempft_2"
-   }
-  ]
- },
- "waffe.laden": {
-  "subtitle": "subtitles.deadzonemc.waffe.laden",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/laden"
-   }
-  ]
- },
- "waffe.laden_fertig": {
-  "subtitle": "subtitles.deadzonemc.waffe.laden_fertig",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/laden_fertig"
-   }
-  ]
- },
- "waffe.patrone": {
-  "subtitle": "subtitles.deadzonemc.waffe.patrone",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/patrone"
-   }
-  ]
- },
- "waffe.leer": {
-  "subtitle": "subtitles.deadzonemc.waffe.leer",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/leer"
-   }
-  ]
- },
- "waffe.einschlag": {
-  "subtitle": "subtitles.deadzonemc.waffe.einschlag",
-  "sounds": [
-   {
-    "name": "deadzonemc:waffe/einschlag"
-   }
-  ]
- },
  "monster.wanderer.ambient": {
   "subtitle": "subtitles.deadzonemc.wanderer.ambient",
   "sounds": [
@@ -3451,6 +3188,269 @@
    {
     "name": "deadzonemc:musik/zuflucht",
     "stream": true
+   }
+  ]
+ },
+ "waffe.p9.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.p9.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/p9_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/p9_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/p9_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.revolver.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.revolver.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/revolver_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/revolver_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/revolver_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.mp9.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.mp9.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/mp9_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/mp9_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/mp9_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.pumpgun.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.pumpgun.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/pumpgun_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/pumpgun_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/pumpgun_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.doppelflinte.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.doppelflinte.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/doppelflinte_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/doppelflinte_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/doppelflinte_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.sturmgewehr.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.sturmgewehr.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/sturmgewehr_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/sturmgewehr_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/sturmgewehr_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.kalaschnikow.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.kalaschnikow.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/kalaschnikow_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/kalaschnikow_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/kalaschnikow_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.jagdgewehr.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.jagdgewehr.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/jagdgewehr_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/jagdgewehr_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/jagdgewehr_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.praezisionsgewehr.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.praezisionsgewehr.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/praezisionsgewehr_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/praezisionsgewehr_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/praezisionsgewehr_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.mg.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.mg.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/mg_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/mg_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/mg_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.rohrpistole.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.rohrpistole.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/rohrpistole_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/rohrpistole_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/rohrpistole_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.rohrgewehr.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.rohrgewehr.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/rohrgewehr_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/rohrgewehr_2",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:waffe/rohrgewehr_3",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "waffe.armbrust.schuss": {
+  "subtitle": "subtitles.deadzonemc.waffe.armbrust.schuss",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/armbrust_1"
+   }
+  ]
+ },
+ "waffe.gedaempft": {
+  "subtitle": "subtitles.deadzonemc.waffe.gedaempft",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/gedaempft_1"
+   },
+   {
+    "name": "deadzonemc:waffe/gedaempft_2"
+   }
+  ]
+ },
+ "waffe.laden": {
+  "subtitle": "subtitles.deadzonemc.waffe.laden",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/laden"
+   }
+  ]
+ },
+ "waffe.laden_fertig": {
+  "subtitle": "subtitles.deadzonemc.waffe.laden_fertig",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/laden_fertig"
+   }
+  ]
+ },
+ "waffe.patrone": {
+  "subtitle": "subtitles.deadzonemc.waffe.patrone",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/patrone"
+   }
+  ]
+ },
+ "waffe.leer": {
+  "subtitle": "subtitles.deadzonemc.waffe.leer",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/leer"
+   }
+  ]
+ },
+ "waffe.einschlag": {
+  "subtitle": "subtitles.deadzonemc.waffe.einschlag",
+  "sounds": [
+   {
+    "name": "deadzonemc:waffe/einschlag"
    }
   ]
  }

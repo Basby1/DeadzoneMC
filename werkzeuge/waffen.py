@@ -362,6 +362,44 @@ def rezepte():
             "deadzonemc:taschenlampe")
 
 
+WURF_BILDER = {
+    "handgranate": (["................", "......kk........", ".....kmmk.......", "......kkkk......", ".....kooook.....", "....kooOooook...",
+                     "...koOoooooook..", "...kooooOoooook.", "...koooooooook..", "...kooOooooook..", "....koooooOok...", ".....kooooook...",
+                     "......kkkkkk....", "................", "................", "................"],
+                    {"k": "1a1e14", "m": "6a6e72", "o": "4a5428", "O": "5e6a34"}),
+    "brandsatz": (["................", ".......rr.......", "......rYYr......", ".......ww.......", "......wwww......", "......kggk......",
+                   ".....kggggk.....", ".....kgGggk.....", ".....kggggk.....", ".....kgggGk.....", ".....kggggk.....", ".....kggggk.....",
+                   "......kkkk......", "................", "................", "................"],
+                  {"k": "1a2a1a", "g": "4a7a3a", "G": "8ac87a", "w": "d8d0c0", "r": "e85a1e", "Y": "ffd84a"}),
+    "rauchgranate": (["................", "......kk........", ".....kmmk.......", ".....kkkk.......", "....kssssk......", "....kSSSSk......",
+                      "....kssssk......", "....kssssk......", "....kSSSSk......", "....kssssk......", "....kssssk......", "....kkkkkk......",
+                      "................", "................", "................", "................"],
+                     {"k": "1a1a1a", "m": "6a6e72", "s": "8a8e8a", "S": "d8d8d0"}),
+    "blendgranate": (["................", "......kk........", ".....kmmk.......", ".....kkkk.......", "....kbbbbk......", "....kyyyyk......",
+                      "....kbbbbk......", "....kbbbbk......", "....kyyyyk......", "....kbbbbk......", "....kbbbbk......", "....kkkkkk......",
+                      "................", "................", "................", "................"],
+                     {"k": "1a1a1a", "m": "6a6e72", "b": "2a3a5a", "y": "e8e04a"}),
+    "laermkoeder": (["................", "................", "....kkkkkkk.....", "...kmmmmmmmk....", "...kmrkkkkmk....", "...kmkGGGkmk....",
+                     "...kmkGgGkmk....", "...kmkkkkkmk....", "...kmmmmmmmk....", "...kmooomoomk...", "...kmmmmmmmk....", "....kkkkkkk.....",
+                     "....k.....k.....", "................", "................", "................"],
+                    {"k": "1a1a1a", "m": "5a5e62", "r": "e82a2a", "G": "6aff6a", "g": "2a8a2a", "o": "c8c8c0"}),
+}
+
+
+def wurf_rezepte():
+    S, E, B = "deadzonemc:schrott", "deadzonemc:elektronik", "deadzonemc:batterie"
+    geformt("handgranate", [" I ", "SGS", " S "], {"I": "minecraft:iron_nugget", "S": S, "G": "minecraft:gunpowder"}, "deadzonemc:handgranate", 2)
+    with open(os.path.join(D, "recipe", "brandsatz.json"), "w") as f:
+        json.dump({"type": "minecraft:crafting_shapeless", "category": "equipment",
+                   "ingredients": [{"item": "deadzonemc:wodka"}, {"item": "deadzonemc:stoffreste"}],
+                   "result": {"id": "deadzonemc:brandsatz", "count": 1}}, f, indent=1)
+    geformt("rauchgranate", [" I ", "CGC", " I "], {"I": "minecraft:iron_nugget", "C": "minecraft:charcoal", "G": "minecraft:gunpowder"},
+            "deadzonemc:rauchgranate", 2)
+    geformt("blendgranate", [" I ", "GSG", " I "], {"I": "minecraft:iron_nugget", "G": "minecraft:glowstone_dust", "S": "minecraft:gunpowder"},
+            "deadzonemc:blendgranate", 2)
+    geformt("laermkoeder", ["NEN", "NBN"], {"N": "minecraft:iron_nugget", "E": E, "B": B}, "deadzonemc:laermkoeder", 1)
+
+
 def main():
     for p in ("models/item", "textures/item"):
         os.makedirs(os.path.join(A, p), exist_ok=True)
@@ -386,8 +424,11 @@ def main():
     for n, px in AUFSATZ_BILDER.items():
         bild("aufsatz_" + n, zeichne(px, farben))
     bild("taschenlampe", zeichne(LAMPE, farben))
+    for n, (px, fb) in WURF_BILDER.items():
+        bild(n, zeichne(px, fb))
     sounds_json_ergaenzen(klaenge())
     rezepte()
+    wurf_rezepte()
     # Taschenlampe leuchtet auch in der Hand (LambDynamicLights)
     p = os.path.join(A, "dynamiclights", "item")
     os.makedirs(p, exist_ok=True)

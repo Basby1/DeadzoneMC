@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  " I ",
+  "GSG",
+  " I "
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_nugget"
+  },
+  "G": {
+   "item": "minecraft:glowstone_dust"
+  },
+  "S": {
+   "item": "minecraft:gunpowder"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:blendgranate",
+  "count": 2
+ }
+}

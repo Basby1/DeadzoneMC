@@ -393,6 +393,18 @@ TEXTE = {
     "subtitles.deadzonemc.waffe.rohrpistole.schuss": "Schuss",
     "subtitles.deadzonemc.waffe.rohrgewehr.schuss": "Schuss",
     "subtitles.deadzonemc.waffe.armbrust.schuss": "Schuss",
+    # ---- Wurfwaffen ----
+    "item.deadzonemc.handgranate": "Handgranate",
+    "item.deadzonemc.handgranate.info": "Rechtsklick werfen · explodiert nach 3 Sekunden · sehr laut",
+    "item.deadzonemc.brandsatz": "Brandsatz",
+    "item.deadzonemc.brandsatz.info": "Zerplatzt beim Aufprall und setzt alles in Brand",
+    "item.deadzonemc.rauchgranate": "Rauchgranate",
+    "item.deadzonemc.rauchgranate.info": "Dichter Rauch: Infizierte darin verlieren dich aus den Augen",
+    "item.deadzonemc.blendgranate": "Blendgranate",
+    "item.deadzonemc.blendgranate.info": "Greller Blitz: Infizierte erblinden und taumeln (nicht hinsehen!)",
+    "item.deadzonemc.laermkoeder": "Lärmköder",
+    "item.deadzonemc.laermkoeder.info": "Piept 12 Sekunden lang und lockt Infizierte und Herden an",
+    "entity.deadzonemc.wurfkoerper": "Wurfkörper",
     # ---- Beute ----
     "block.deadzonemc.tresor": "Tresor",
     "block.deadzonemc.tresor.zu": "Verschlossen. Mit einem Brecheisen ließe er sich aufbrechen – das wird laut.",
