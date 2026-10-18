@@ -116,6 +116,17 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         return true;
     }
 
+    /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
+    public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
+        Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
+        Rahmen f = new Rahmen(w, boden, lang, lang.getClockWise());
+        switch (art) {
+            case HUBSCHRAUBER -> hubschrauber(f, r);
+            case FLUGZEUG -> flugzeug(f, r);
+            case FRACHTER -> frachter(f, r, 1);
+        }
+    }
+
     // ---- Hubschrauber ---------------------------------------------------------------------
 
     private static void hubschrauber(Rahmen f, RandomSource r) {

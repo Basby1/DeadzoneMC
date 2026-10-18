@@ -47,6 +47,7 @@ public final class Selbsttest {
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "#waffen",
             "#versteck",
+            "#poi",
             "place feature deadzonemc:absturz_hubschrauber ~30 ~ ~30",
             "place feature deadzonemc:absturz_flugzeug ~-30 ~ ~30",
             "place feature deadzonemc:frachter ~30 ~ ~-30",
@@ -833,6 +834,35 @@ public final class Selbsttest {
                 }
                 d.append(" Zeit ").append(server.overworld().getGameTime());
                 LOG.info("[Selbsttest] Basis-Diagnose: {}", d);
+                return;
+            }
+            if (befehl.equals("#poi")) {
+                ServerLevel ow = server.overworld();
+                BlockPos sp = ow.getSharedSpawnPos();
+                StringBuilder d = new StringBuilder();
+                int i = 0;
+                for (var art : de.deadzonemc.welt.feature.AbsturzFeature.Art.values()) {
+                    int x = sp.getX() + 160 + i * 48;
+                    int z = sp.getZ() - 160;
+                    i++;
+                    for (int cx = -1; cx <= 1; cx++) {
+                        for (int cz = -1; cz <= 1; cz++) {
+                            ow.getChunk((x >> 4) + cx, (z >> 4) + cz);
+                        }
+                    }
+                    int y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, x, z);
+                    de.deadzonemc.welt.feature.AbsturzFeature.testBauen(ow, ow.random, new BlockPos(x, y, z), art);
+                    int kisten = 0;
+                    for (BlockPos q : BlockPos.betweenClosed(x - 15, y - 3, z - 15, x + 15, y + 14, z + 15)) {
+                        if (ow.getBlockEntity(q) instanceof net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity rc
+                                && rc.getLootTable() != null) {
+                            kisten++;
+                        }
+                    }
+                    d.append(art).append(" bei ").append(x).append(" ").append(y).append(" ").append(z)
+                            .append(": ").append(kisten).append(" Behälter mit Beute; ");
+                }
+                LOG.info("[Selbsttest] POIs: {}", d);
                 return;
             }
             if (befehl.equals("#versteck")) {
