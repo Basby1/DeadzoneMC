@@ -1,1 +1,1 @@
-tacz:attachments/[a-z0-9_]+\.json|attachment_index|tacz/index/attachments@NIEMALS
+tacz-1-21-1:attachments/[a-z0-9_]+\.json|attachment@NIEMALS
