@@ -1,4 +1,1 @@
-{
-  "structures": [{"structure": "deadzonemc:zuflucht", "weight": 1}],
-  "placement": {"type": "minecraft:random_spread", "spacing": 32, "separation": 14, "salt": 918273645}
-}
+{"structures": [{"structure": "deadzonemc:zuflucht", "weight": 1}], "placement": {"type": "minecraft:random_spread", "spacing": 26, "separation": 10, "salt": 918273645}}

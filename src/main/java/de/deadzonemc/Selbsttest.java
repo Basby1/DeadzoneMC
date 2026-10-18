@@ -586,13 +586,20 @@ public final class Selbsttest {
                     } catch (Exception e) {
                         LOG.error("[Selbsttest] Station Null nicht platzierbar", e);
                     }
-                    if (de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y - 20, z)) != null) {
+                    boolean da = false;
+                    for (int dy = -60; dy <= 60 && !da; dy += 6) {
+                        if (de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y + dy, z)) != null) {
+                            y += dy;
+                            da = true;
+                        }
+                    }
+                    if (da) {
                         break;
                     }
                 }
                 LOG.info("[Selbsttest] Station Null nach {} Versuchen", versuche);
                 java.util.Map<String, Integer> zahl = new java.util.TreeMap<>();
-                for (BlockPos b : BlockPos.betweenClosed(x - 30, y - 30, z - 30, x + 30, y + 8, z + 30)) {
+                for (BlockPos b : BlockPos.betweenClosed(x - 30, y - 40, z - 30, x + 30, y + 30, z + 30)) {
                     var st = ow.getBlockState(b);
                     if (st.is(net.minecraft.world.level.block.Blocks.SPAWNER) || st.is(net.minecraft.world.level.block.Blocks.CHEST)
                             || st.is(net.minecraft.world.level.block.Blocks.BARREL) || st.is(net.minecraft.world.level.block.Blocks.LADDER)
@@ -600,8 +607,8 @@ public final class Selbsttest {
                         zahl.merge(st.getBlock().getDescriptionId().replace("block.", ""), 1, Integer::sum);
                     }
                 }
-                var start = de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y - 20, z));
-                BlockPos kern = de.deadzonemc.welt.station.StationNull.reaktor(ow, new BlockPos(x, y - 20, z));
+                var start = de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y, z));
+                BlockPos kern = de.deadzonemc.welt.station.StationNull.reaktor(ow, new BlockPos(x, y, z));
                 LOG.info("[Selbsttest] Station Null bei {} {} {}: erkannt {}, Reaktor {}, Blöcke {}", x, y, z, start != null,
                         kern == null ? "-" : kern.toShortString(), zahl);
                 return;

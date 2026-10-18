@@ -36,17 +36,17 @@ public class StationNullStruktur extends Structure {
         int mx = ctx.chunkPos().getMiddleBlockX();
         int mz = ctx.chunkPos().getMiddleBlockZ();
         int meer = ctx.chunkGenerator().getSeaLevel();
-        int[] hoehen = new int[5];
+        int[] hoehen = new int[3];
         int i = 0;
-        for (int[] d : new int[][]{{0, 0}, {-8, -8}, {8, -8}, {-8, 8}, {8, 8}}) {
+        for (int[] d : new int[][]{{0, 0}, {-10, -10}, {10, 10}}) {
             hoehen[i++] = ctx.chunkGenerator().getBaseHeight(mx + d[0], mz + d[1], Heightmap.Types.OCEAN_FLOOR_WG,
                     ctx.heightAccessor(), ctx.randomState());
         }
         Arrays.sort(hoehen);
-        if (hoehen[0] <= meer || hoehen[4] - hoehen[0] > 8) {
+        if (hoehen[0] <= meer || hoehen[2] - hoehen[0] > 12) {
             return Optional.empty();
         }
-        int y = hoehen[2];
+        int y = hoehen[1];
         if (y - TIEFE - 2 < ctx.heightAccessor().getMinBuildHeight() + 4) {
             return Optional.empty();
         }

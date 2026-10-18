@@ -45,22 +45,19 @@ public class ZufluchtStruktur extends Structure {
         if (mitte <= meer) {
             return Optional.empty();
         }
-        int[] hoehen = new int[5];
+        int[] hoehen = new int[3];
         hoehen[0] = mitte;
         int i = 1;
-        for (int[] d : new int[][]{{-28, -28}, {28, -28}, {-28, 28}, {28, 28}}) {
+        for (int[] d : new int[][]{{-24, -24}, {24, 24}}) {
             int h = ctx.chunkGenerator().getBaseHeight(mx + d[0], mz + d[1], Heightmap.Types.OCEAN_FLOOR_WG,
                     ctx.heightAccessor(), ctx.randomState());
-            if (h <= meer || Math.abs(h - mitte) > 10) {
+            if (h <= meer || Math.abs(h - mitte) > 14) {
                 return Optional.empty(); // Wasser oder zu steil
             }
             hoehen[i++] = h;
         }
         Arrays.sort(hoehen);
-        if (hoehen[4] - hoehen[0] > 12) {
-            return Optional.empty();
-        }
-        int y = hoehen[2];
+        int y = hoehen[1];
         Direction vorne = Direction.from2DDataValue((int) Math.floorMod(ctx.seed() ^ (mx * 31L + mz), 4L));
         long saat = ctx.seed() ^ (mx * 0x9E3779B97F4A7C15L) ^ (mz * 0xC2B2AE3D27D4EB4FL);
         int minX = mx - GROESSE / 2;
