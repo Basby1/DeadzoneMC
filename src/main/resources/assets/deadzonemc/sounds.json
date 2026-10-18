@@ -1713,22 +1713,22 @@
     "volume": 0.45
    },
    {
-    "name": "minecraft:block/chain/hit1",
+    "name": "minecraft:block/chain/break1",
     "pitch": 0.7,
     "volume": 0.8
    },
    {
-    "name": "minecraft:block/chain/hit2",
+    "name": "minecraft:block/chain/break2",
     "pitch": 0.7,
     "volume": 0.8
    },
    {
-    "name": "minecraft:block/chain/hit3",
+    "name": "minecraft:block/chain/break3",
     "pitch": 0.7,
     "volume": 0.8
    },
    {
-    "name": "minecraft:block/chain/hit4",
+    "name": "minecraft:block/chain/break4",
     "pitch": 0.7,
     "volume": 0.8
    }
