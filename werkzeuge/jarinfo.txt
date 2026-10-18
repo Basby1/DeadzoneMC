@@ -1,1 +1,1 @@
-puffish-skills:operation|prototype|builtin|condition|experience/source
+puffish-skills:operation|prototype|builtin|condition|experience/source@DamageSourceClassification|DamageTypeCondition|ItemStackCondition|StatCondition|calculation/prototype/BuiltinPrototypes|OperationConfigContext|Prototype\.class|PrototypeImpl

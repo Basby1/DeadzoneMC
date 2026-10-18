@@ -43,6 +43,10 @@ acceptable-game-versions = ["1.21"]
     subprocess.run(["packwiz", "refresh"], cwd=ORDNER, check=True)
     aus = []
     for slug, muster in auftraege:
+        voll = None
+        if "@" in muster:
+            muster, v = muster.split("@", 1)
+            voll = re.compile(v, re.I)
         vorher = set(glob.glob(os.path.join(ORDNER, "**", "*.pw.toml"), recursive=True))
         subprocess.run(["packwiz", "-y", "curseforge", "add", "https://www.curseforge.com/minecraft/mc-mods/" + slug],
                        cwd=ORDNER, capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=300)
@@ -81,6 +85,8 @@ acceptable-game-versions = ["1.21"]
             for k in klassen:
                 r = subprocess.run(["javap", "-c", "-constants", "-p", os.path.join(ziel, k)],
                                    capture_output=True, text=True)
+                if voll and voll.search(k):
+                    aus.append(f"==== {k} (voll)\n" + r.stdout[:60000])
                 texte = list(dict.fromkeys(re.findall(r"// String (.+)$", r.stdout, re.M)))
                 if texte:
                     aus.append(f"{k}: " + " | ".join(texte))
