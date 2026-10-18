@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HZH",
+  "H H",
+  "H H"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:chitinplatte"
+  },
+  "Z": {
+   "item": "deadzonemc:mutantenhaut"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:mutantenpanzer_beine",
+  "count": 1
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "H H",
+  "HEH",
+  "ZHZ"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:sehne"
+  },
+  "Z": {
+   "tag": "minecraft:leaves"
+  },
+  "E": {
+   "item": "deadzonemc:mutantenhaut"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:tarnanzug_brust",
+  "count": 1
+ }
+}

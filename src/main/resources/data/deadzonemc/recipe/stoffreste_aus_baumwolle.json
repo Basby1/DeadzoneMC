@@ -1,0 +1,16 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  {
+   "item": "deadzonemc:baumwolle"
+  },
+  {
+   "item": "deadzonemc:baumwolle"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:stoffreste",
+  "count": 2
+ }
+}

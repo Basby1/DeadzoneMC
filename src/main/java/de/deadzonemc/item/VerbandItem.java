@@ -47,7 +47,8 @@ public class VerbandItem extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (!level.isClientSide) {
             entity.removeEffect(de.deadzonemc.verletzung.Verletzungen.BLUTUNG);
-            entity.heal(6.0F * (entity instanceof Player p ? de.deadzonemc.klasse.Klassen.heilfaktor(p) : 1.0F));
+            entity.heal(6.0F * (entity instanceof Player p ? de.deadzonemc.klasse.Klassen.heilfaktor(p)
+                    * (de.deadzonemc.ausruestung.Ausruestung.traegt(p, de.deadzonemc.ausruestung.Ausruestung.Satz.SANITAETER) >= 4 ? 1.5F : 1.0F) : 1.0F));
             level.playSound(null, entity.blockPosition(), SoundEvents.WOOL_PLACE, SoundSource.PLAYERS, 1.0F, 0.8F);
         }
         stack.consume(1, entity);

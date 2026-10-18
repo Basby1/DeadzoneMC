@@ -131,6 +131,21 @@
         {
           "type": "minecraft:empty",
           "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:heilkraut",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
         }
       ]
     },

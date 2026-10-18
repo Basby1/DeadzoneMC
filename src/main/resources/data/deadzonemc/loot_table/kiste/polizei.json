@@ -201,6 +201,21 @@
         {
           "type": "minecraft:empty",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:taschenlampe",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:handgranate",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:rauchgranate",
+          "weight": 2
         }
       ]
     },

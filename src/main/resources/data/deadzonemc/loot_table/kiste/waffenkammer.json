@@ -256,6 +256,26 @@
         {
           "type": "minecraft:empty",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:aufsatz_schalldaempfer",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:aufsatz_zielfernrohr",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:aufsatz_magazin",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:aufsatz_taschenlampe",
+          "weight": 2
         }
       ]
     }

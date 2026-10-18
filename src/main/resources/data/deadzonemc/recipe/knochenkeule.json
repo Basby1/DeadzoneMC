@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  " KK",
+  " KK",
+  "S  "
+ ],
+ "key": {
+  "K": {
+   "item": "deadzonemc:knochensplitter"
+  },
+  "S": {
+   "item": "minecraft:stick"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:knochenkeule",
+  "count": 1
+ }
+}

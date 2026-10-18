@@ -1,0 +1,19 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  {
+   "item": "deadzonemc:baseballschlaeger"
+  },
+  {
+   "item": "deadzonemc:naegel"
+  },
+  {
+   "item": "deadzonemc:naegel"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:nagelschlaeger",
+  "count": 1
+ }
+}

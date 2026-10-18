@@ -1,0 +1,23 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HHH",
+  "Z Z"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:chitinplatte"
+  },
+  "Z": {
+   "item": "deadzonemc:mutantenhaut"
+  },
+  "E": {
+   "item": "deadzonemc:mutagen"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:mutantenpanzer_kopf",
+  "count": 1
+ }
+}

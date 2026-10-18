@@ -102,6 +102,9 @@ public final class Schiessen {
         } else if (p.isShiftKeyDown()) {
             streuung *= 0.75F;
         }
+        if (de.deadzonemc.ausruestung.Satzboni.taktisch(p)) {
+            streuung *= 0.75F;
+        }
         if (zielen && Feuerwaffen.hatAufsatz(s, "zielfernrohr")) {
             streuung *= 0.4F;
         }

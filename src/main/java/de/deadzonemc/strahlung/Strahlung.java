@@ -69,6 +69,9 @@ public final class Strahlung {
             menge *= 0.3F;
         }
         menge *= de.deadzonemc.klasse.Talente.strahlenfaktor(p);
+        if (de.deadzonemc.ausruestung.Satzboni.schutzanzug(p)) {
+            menge *= 0.2F;
+        }
         p.setData(DOSIS, Math.min(MAX, p.getData(DOSIS) + menge));
     }
 
@@ -141,6 +144,9 @@ public final class Strahlung {
         }
         if (r > 0) {
             r *= de.deadzonemc.klasse.Talente.strahlenfaktor(p);
+            if (de.deadzonemc.ausruestung.Satzboni.schutzanzug(p)) {
+                r *= 0.2F;
+            }
         }
         RATE.put(p.getUUID(), r);
         if (gas && !geschuetzt) {

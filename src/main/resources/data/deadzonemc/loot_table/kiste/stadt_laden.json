@@ -171,6 +171,11 @@
         {
           "type": "minecraft:empty",
           "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:taschenlampe",
+          "weight": 2
         }
       ]
     },

@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HZH",
+  "H H",
+  "H H"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:sehne"
+  },
+  "Z": {
+   "tag": "minecraft:leaves"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:tarnanzug_beine",
+  "count": 1
+ }
+}

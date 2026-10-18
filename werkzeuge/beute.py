@@ -610,6 +610,31 @@ BONUS = {
 }
 
 
+# Neue Materialien und Samen in passenden Behältern
+ZUSATZ = {
+    "werkzeug": [item(m("naegel"), 6, 2, 8), item(m("klebeband"), 4), item(m("brecheisen"), 1, schaden=(0.2, 0.6))],
+    "werkstatt": [item(m("naegel"), 6, 2, 8), item(m("klebeband"), 5), item(m("gummi"), 4, 1, 2)],
+    "baumarkt": [item(m("naegel"), 8, 4, 12), item(m("klebeband"), 6, 1, 2)],
+    "autowrack": [item(m("gummi"), 6, 1, 2), item(m("klebeband"), 2)],
+    "keller": [item(m("naegel"), 3, 2, 6), item(m("baumwollsamen"), 2, 1, 3)],
+    "schuppen": [item(m("heilkraut_samen"), 4, 1, 3), item(m("baumwollsamen"), 4, 1, 3), item(m("naegel"), 3, 2, 5)],
+    "scheune": [item(m("heilkraut_samen"), 4, 1, 3), item(m("baumwollsamen"), 5, 1, 3)],
+    "kueche": [item(m("heilkraut"), 2, 1, 2)],
+    "apotheke": [item(m("heilkraut"), 5, 1, 3), item(m("heilkraut_samen"), 2, 1, 2)],
+    "stadt_laden": [item(m("taschenlampe"), 2)],
+    "polizei": [item(m("taschenlampe"), 3), item(m("handgranate"), 1), item(m("rauchgranate"), 2)],
+    "militaer": [item(m("handgranate"), 4, 1, 2), item(m("rauchgranate"), 3), item(m("blendgranate"), 3),
+                 item(m("aufsatz_schalldaempfer"), 2), item(m("aufsatz_zielfernrohr"), 2), item(m("aufsatz_griff"), 2),
+                 item(m("taktisch_brust"), 1, schaden=(0.2, 0.5)), item(m("taktisch_kopf"), 1, schaden=(0.2, 0.5))],
+    "waffenkammer": [item(m("aufsatz_schalldaempfer"), 2), item(m("aufsatz_zielfernrohr"), 2), item(m("aufsatz_magazin"), 2),
+                     item(m("aufsatz_taschenlampe"), 2)],
+    "bunker": [item(m("schutzanzug_kopf"), 1, schaden=(0.2, 0.5)), item(m("schutzanzug_brust"), 1, schaden=(0.2, 0.5))],
+    "versteck": [item(m("taschenlampe"), 2), item(m("handgranate"), 2)],
+}
+for _name, _eintraege in ZUSATZ.items():
+    if _name in TABELLEN:
+        TABELLEN[_name][0]["entries"].extend(_eintraege)
+
 # Großzügiger als zu Beginn: Plündern soll sich lohnen (Rückmeldung nach dem ersten Testspiel).
 GROSSZUEGIG = {"rolls_plus": 1, "rolls_faktor": 1.5, "leer_faktor": 0.4}
 NICHT_ANHEBEN = {"luftabwurf", "station_null", "tresor"}

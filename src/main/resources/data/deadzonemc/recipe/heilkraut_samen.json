@@ -1,0 +1,13 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  {
+   "item": "deadzonemc:heilkraut"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:heilkraut_samen",
+  "count": 2
+ }
+}

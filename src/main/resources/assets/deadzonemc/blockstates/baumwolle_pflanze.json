@@ -1,0 +1,28 @@
+{
+ "variants": {
+  "age=0": {
+   "model": "deadzonemc:block/baumwolle_0"
+  },
+  "age=1": {
+   "model": "deadzonemc:block/baumwolle_0"
+  },
+  "age=2": {
+   "model": "deadzonemc:block/baumwolle_1"
+  },
+  "age=3": {
+   "model": "deadzonemc:block/baumwolle_1"
+  },
+  "age=4": {
+   "model": "deadzonemc:block/baumwolle_2"
+  },
+  "age=5": {
+   "model": "deadzonemc:block/baumwolle_2"
+  },
+  "age=6": {
+   "model": "deadzonemc:block/baumwolle_3"
+  },
+  "age=7": {
+   "model": "deadzonemc:block/baumwolle_3"
+  }
+ }
+}

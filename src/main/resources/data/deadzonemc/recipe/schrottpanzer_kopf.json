@@ -1,0 +1,23 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HHH",
+  "Z Z"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:schrott"
+  },
+  "Z": {
+   "item": "deadzonemc:panzerplatte"
+  },
+  "E": {
+   "item": "minecraft:leather"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:schrottpanzer_kopf",
+  "count": 1
+ }
+}

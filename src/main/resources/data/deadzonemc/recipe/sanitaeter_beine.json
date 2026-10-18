@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HZH",
+  "H H",
+  "H H"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:baumwolle"
+  },
+  "Z": {
+   "item": "deadzonemc:stoffreste"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:sanitaeter_beine",
+  "count": 1
+ }
+}

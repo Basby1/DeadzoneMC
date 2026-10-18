@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HZH",
+  "H H",
+  "H H"
+ ],
+ "key": {
+  "H": {
+   "item": "minecraft:leather"
+  },
+  "Z": {
+   "item": "deadzonemc:stoffreste"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:pluenderer_beine",
+  "count": 1
+ }
+}

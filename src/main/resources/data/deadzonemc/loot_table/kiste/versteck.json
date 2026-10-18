@@ -263,6 +263,16 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:taschenlampe",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:handgranate",
+          "weight": 2
         }
       ]
     },

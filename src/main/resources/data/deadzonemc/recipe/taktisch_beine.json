@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "HZH",
+  "H H",
+  "H H"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:stoffreste"
+  },
+  "Z": {
+   "item": "deadzonemc:panzerplatte"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:taktisch_beine",
+  "count": 1
+ }
+}

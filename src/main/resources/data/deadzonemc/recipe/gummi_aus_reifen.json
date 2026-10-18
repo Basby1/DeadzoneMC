@@ -1,0 +1,16 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  {
+   "item": "deadzonemc:schrott"
+  },
+  {
+   "item": "minecraft:slime_ball"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:gummi",
+  "count": 2
+ }
+}

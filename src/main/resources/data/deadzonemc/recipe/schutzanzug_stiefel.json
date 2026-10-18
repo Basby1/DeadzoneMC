@@ -1,0 +1,20 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "Z Z",
+  "H H"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:gummi"
+  },
+  "Z": {
+   "item": "deadzonemc:stoffreste"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:schutzanzug_stiefel",
+  "count": 1
+ }
+}

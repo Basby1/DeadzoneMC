@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "  C",
+  " C ",
+  "MS "
+ ],
+ "key": {
+  "C": {
+   "item": "deadzonemc:chitinplatte"
+  },
+  "M": {
+   "item": "deadzonemc:mutagen"
+  },
+  "S": {
+   "item": "deadzonemc:sehne"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:mutantenklinge",
+  "count": 1
+ }
+}

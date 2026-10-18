@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "H H",
+  "HEH",
+  "ZHZ"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:baumwolle"
+  },
+  "Z": {
+   "item": "deadzonemc:stoffreste"
+  },
+  "E": {
+   "item": "deadzonemc:heilkraut"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:sanitaeter_brust",
+  "count": 1
+ }
+}

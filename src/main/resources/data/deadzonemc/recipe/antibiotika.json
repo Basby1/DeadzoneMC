@@ -1,0 +1,22 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  {
+   "item": "deadzonemc:verseuchtes_gewebe"
+  },
+  {
+   "item": "deadzonemc:heilkraut"
+  },
+  {
+   "item": "deadzonemc:heilkraut"
+  },
+  {
+   "item": "minecraft:glass_bottle"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:antibiotika",
+  "count": 1
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  {
+   "item": "deadzonemc:mottenstaub"
+  },
+  {
+   "item": "minecraft:gunpowder"
+  },
+  {
+   "item": "minecraft:iron_nugget"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:blendgranate",
+  "count": 2
+ }
+}

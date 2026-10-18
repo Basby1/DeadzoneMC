@@ -108,7 +108,7 @@ public final class ClientWaffen {
             abklingen = a.takt;
             if (mag > 0 && ladenRest <= 0) {
                 float r = a.rueckstoss * (zielen ? 0.6F : 1.0F) * (Feuerwaffen.hatAufsatz(s, "griff") ? 0.6F : 1.0F)
-                        * (p.isShiftKeyDown() ? 0.8F : 1.0F);
+                        * (p.isShiftKeyDown() ? 0.8F : 1.0F) * (de.deadzonemc.ausruestung.Satzboni.taktisch(p) ? 0.75F : 1.0F);
                 rueckstossRest += r;
                 p.setYRot(p.getYRot() + (p.getRandom().nextFloat() - 0.5F) * r * 0.5F);
             }

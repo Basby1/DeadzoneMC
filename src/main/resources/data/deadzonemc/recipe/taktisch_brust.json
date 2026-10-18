@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "H H",
+  "HEH",
+  "ZHZ"
+ ],
+ "key": {
+  "H": {
+   "item": "deadzonemc:stoffreste"
+  },
+  "Z": {
+   "item": "deadzonemc:panzerplatte"
+  },
+  "E": {
+   "item": "minecraft:iron_ingot"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:taktisch_brust",
+  "count": 1
+ }
+}
