@@ -23,6 +23,7 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::bild);
+        NeoForge.EVENT_BUS.addListener(DeadzoneClient::titelbildschirm);
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.ItemTooltipEvent e) -> {
             if (de.deadzonemc.waffen.Waffenpflege.istSchusswaffe(e.getItemStack())) {
                 e.getToolTip().add(1, de.deadzonemc.waffen.Waffenpflege.zustand(e.getItemStack()));
@@ -32,6 +33,32 @@ public class DeadzoneClient {
                 }
             }
         });
+    }
+
+    /** Titelbildschirm aufräumen: Realms-Knopf weg, die Knöpfe darunter rücken nach. */
+    private static void titelbildschirm(net.neoforged.neoforge.client.event.ScreenEvent.Init.Post e) {
+        if (!(e.getScreen() instanceof net.minecraft.client.gui.screens.TitleScreen)) {
+            return;
+        }
+        net.minecraft.client.gui.components.AbstractWidget realms = null;
+        for (var l : e.getListenersList()) {
+            if (l instanceof net.minecraft.client.gui.components.AbstractWidget w
+                    && w.getMessage().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc
+                    && tc.getKey().equals("menu.online")) {
+                realms = w;
+            }
+        }
+        if (realms == null) {
+            return;
+        }
+        int y = realms.getY();
+        e.removeListener(realms);
+        for (var l : e.getListenersList()) {
+            if (l instanceof net.minecraft.client.gui.components.AbstractWidget w && w.getY() > y + 4
+                    && w.getY() < y + 120) {
+                w.setY(w.getY() - 24);
+            }
+        }
     }
 
     private static void renderer(EntityRenderersEvent.RegisterRenderers e) {

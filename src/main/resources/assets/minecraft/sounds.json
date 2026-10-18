@@ -1,0 +1,11 @@
+{
+  "music.menu": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "deadzonemc:musik/titel",
+        "stream": true
+      }
+    ]
+  }
+}

@@ -161,7 +161,7 @@ def voreinstellungen():
     with open(os.path.join(PACK, "options.txt"), "w") as f:
         liste_ = ",".join(['"vanilla"'] + [f'"file/{p}"' for p in pakete])
         f.write(f"lang:de_de\nresourcePacks:[{liste_}]\nrenderDistance:12\nsimulationDistance:8\n"
-                "gamma:0.0\nsoundCategory_ambient:1.0\n")
+                "gamma:0.0\nsoundCategory_ambient:1.0\ndarkMojangStudiosBackground:true\n")
     melden("notice", "Voreinstellungen", f"Shader: {shader}\nRessourcenpakete: {pakete}")
 
 
