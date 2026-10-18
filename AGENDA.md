@@ -53,10 +53,10 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Feldhandbuch mit allen Rezepten (geduckt benutzen: Rezept-Raster), beim ersten Spawn
 
 ## Etappe D – Geschichte & Fraktionen
-- [ ] (Entwurf an Lina 18.10.) Hauptgeschichte in 5 Akten (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
+- [ ] (Entwurf von Lina freigegeben 18.10.) Hauptgeschichte in 5 Akten (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
       immer klar, was als Nächstes zu tun ist
 - [ ] Intro-Sequenz beim ersten Betreten mit Spielernamen
-- [ ] Fraktionen mit Questreihen, Ansehen, Vorteilen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
+- [ ] (freigegeben 18.10.; WICHTIG: Nether/End-Zugang NICHT von Fraktionen abhängig – normale Portale) Fraktionen mit Questreihen, Ansehen, Vorteilen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
       Kinder des Waldes (Baumhäuser), Sandwanderer, Unterwasservolk, Hüter des Himmels (Lategame, schwer erreichbar)
 - [ ] Mimik: übernimmt Skin/Name eines Mitspielers, greift schreiend an, wenn man allein ist (Entwurf der Enthüllung gezeigt 18.10.)
 
@@ -64,7 +64,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Eigene gruselige Klänge für alle eigenen Monster (synthetisierte Stimmen: Stöhnen, Kreischen, Knurren, Gurgeln, Brüllen … je Art eigenes Profil)
 - [ ] Musik gruseliger und atmosphärischer; neues Titelstück
 - [x] Titelbildschirm: bewegter Hintergrund (Ruinenpanorama, treibende Nebelbänke, Wetterleuchten)
-- [ ] Bosse: eigene Klänge, epische Kampfmusik, Sprachzeilen – Kämpfe auf Leben und Tod
+- [x] Bosse: eigene Klänge (synthetisierte Stimmen), epische Kampfmusik „Endkampf“, Sprachzeilen (Auftritt, Spott, Raserei, Tod)
 - [ ] Animationen und Ausrichtung aller Mobs prüfen (nichts läuft rückwärts)
 
 ## Etappe F – Dimensionen & Endgame

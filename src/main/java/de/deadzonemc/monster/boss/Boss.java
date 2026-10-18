@@ -96,9 +96,31 @@ public abstract class Boss extends DeadzoneMonster {
         return auftrittRest > 0;
     }
 
+    private int spottPause = 300;
+
+    /** Sprachzeile des Bosses (boss.deadzonemc.<art>.<fall>) an alle Spieler in der Nähe, mit seiner Stimme. */
+    protected void sprechen(ServerLevel sl, String fall) {
+        Component zeile = Component.literal("«").append(Component.translatable("boss.deadzonemc." + art + "." + fall)).append("»")
+                .withStyle(ChatFormatting.ITALIC, fall.equals("wut") ? ChatFormatting.RED : ChatFormatting.GRAY);
+        Component text = Component.literal("").append(getDisplayName().copy().withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD))
+                .append(Component.literal(": ").withStyle(ChatFormatting.DARK_GRAY)).append(zeile);
+        for (ServerPlayer p : sl.players()) {
+            if (p.distanceToSqr(this) < 64 * 64) {
+                p.sendSystemMessage(text);
+            }
+        }
+        SoundEvent stimme = MonsterSounds.holen(art, "ambient");
+        if (stimme != null && !fall.equals("wut")) {
+            sl.playSound(null, getX(), getY(), getZ(), stimme, SoundSource.HOSTILE, 3.0F, 0.85F);
+        }
+    }
+
     /** Startet den Auftritt (Animation, Titel, Gebrüll). */
     public void auftreten() {
         auftrittRest = auftrittDauer();
+        if (level() instanceof ServerLevel sl0) {
+            sprechen(sl0, "auftritt");
+        }
         triggerAnim("auftritt", "spawn");
         if (level() instanceof ServerLevel sl) {
             SoundEvent brull = MonsterSounds.holen(art, "brullen");
@@ -195,7 +217,13 @@ public abstract class Boss extends DeadzoneMonster {
                             .withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), true);
                 }
             }
+            sprechen(sl, "wut");
             return;
+        }
+        // Zwischendurch spricht (oder droht) der Boss
+        if (--spottPause <= 0) {
+            spottPause = 420 + random.nextInt(300);
+            sprechen(sl, "spott." + (1 + random.nextInt(3)));
         }
         if (!wuchtangriffe()) {
             return;
@@ -428,6 +456,7 @@ public abstract class Boss extends DeadzoneMonster {
             spawnAtLocation(new ItemStack(ModRegistry.ANTIBIOTIKA.get(), 1 + random.nextInt(2)));
             spawnAtLocation(new ItemStack(ModRegistry.ELEKTRONIK.get(), 2 + random.nextInt(4)));
             beute(sl);
+            sprechen(sl, "tod");
             Component name = getDisplayName();
             for (ServerPlayer p : sl.players()) {
                 if (p.distanceToSqr(this) < 96 * 96) {

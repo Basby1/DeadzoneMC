@@ -2696,5 +2696,13 @@
     "stream": true
    }
   ]
+ },
+ "musik.endkampf": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/endkampf",
+    "stream": true
+   }
+  ]
  }
 }

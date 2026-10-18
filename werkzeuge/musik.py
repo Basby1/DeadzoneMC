@@ -395,7 +395,43 @@ def zuflucht():
     s.speichern("zuflucht", hall=2.5, nass=0.4)
 
 
-ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht}
+def endkampf():
+    """Endkampf – Bosse: schnelle Kriegstrommeln, Blechbläser-Akkordschläge, Chorflächen in c-Moll, Steigerungen."""
+    s = Stueck(150, 4242)
+    bpm = 132
+    takt = 4 * 60.0 / bpm
+    s.droehnen([(hz("C1"), 1.0), (hz("G1"), 0.6)], 0.12, periode=6.0, hell=300)
+    chor = [["C3", "Eb3", "G3", "C4"], ["Ab2", "C3", "Eb3", "Ab3"], ["Bb2", "D3", "F3", "Bb3"], ["G2", "B2", "D3", "G3"]]
+    s.flaechen(chor, takt * 4, 0.06, start=0.0, hell=2600)
+    s.ostinato(["C2", "C2", "G2", "C2", "Eb2", "C2", "D2", "B1"], bpm, 0.14, takt * 2, 146.0)
+    muster = [(0, 0.7, 1.0), (1.5, 1.0, 0.45), (2, 0.8, 0.8), (3, 1.3, 0.5), (4, 0.7, 1.0), (5.5, 1.0, 0.45),
+              (6, 0.8, 0.75), (6.5, 1.3, 0.5), (7, 1.3, 0.6), (7.5, 1.3, 0.7)]
+    s.rhythmus(bpm, muster, 0.26, takt * 4, 146.0)
+    # Blechbläser-Schläge (kurze, helle Akkorde) auf der Eins, ab dem zweiten Durchgang
+    t0 = takt * 8
+    i = 0
+    while t0 < 140:
+        akk = chor[(i // 2) % 4]
+        hoch = [n[:-1] + str(int(n[-1]) + 1) for n in akk[:3]]
+        s.dazu(t0, s.flaeche(hoch, 0.55, hell=3400), 0.11)
+        s.dazu(t0 + takt * 0.75, s.flaeche(hoch, 0.3, hell=3400), 0.07)
+        t0 += takt
+        i += 1
+    # Große Schläge alle 8 Takte und Steigerungen davor
+    t0 = takt * 8
+    while t0 < 146:
+        s.trommel(t0, tief=0.5, lautst=1.2)
+        s.trommel(t0 + 0.02, tief=0.8, lautst=0.6)
+        n = int(takt * 2 * SR)
+        tt = np.arange(n) / SR
+        anstieg = bandpass(s.rng.normal(0, 1, n), 800, 6000) * (tt / tt[-1]) ** 3
+        s.dazu(t0 - takt * 2, anstieg, 0.05)
+        t0 += takt * 8
+    s.metall([30.0, 60.0, 90.0, 120.0], 0.06)
+    s.speichern("endkampf", hall=3.0, nass=0.45, einblenden=1.0, ausblenden=4.0, pegel=0.85)
+
+
+ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf}
 
 ALLE = {"titel": titel, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
 ALLE.update(ALLE_NEU)

@@ -23,6 +23,7 @@ public final class Musik {
     public static final DeferredHolder<SoundEvent, SoundEvent> TIEF = stueck("tief");
     public static final DeferredHolder<SoundEvent, SoundEvent> GEFECHT = stueck("gefecht");
     public static final DeferredHolder<SoundEvent, SoundEvent> STADT = stueck("stadt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> ENDKAMPF = stueck("endkampf");
     public static final DeferredHolder<SoundEvent, SoundEvent> WILDNIS = stueck("wildnis");
     public static final DeferredHolder<SoundEvent, SoundEvent> ZUFLUCHT = stueck("zuflucht");
 

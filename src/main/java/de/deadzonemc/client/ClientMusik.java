@@ -20,6 +20,7 @@ public final class ClientMusik {
     private static final int RUHE_MAX = 8 * 60 * 20;
 
     private static Music gefecht;
+    private static Music endkampf;
     private static Music tief;
     private static Music nacht;
     private static Music nebel;
@@ -45,6 +46,7 @@ public final class ClientMusik {
     private static void anlegen() {
         if (gefecht == null) {
             gefecht = new Music(Musik.GEFECHT, 0, 0, true);
+            endkampf = new Music(Musik.ENDKAMPF, 0, 0, true);
             tief = new Music(Musik.TIEF, RUHE_MIN, RUHE_MAX, false);
             nacht = new Music(Musik.NACHT, RUHE_MIN, RUHE_MAX, false);
             nebel = new Music(Musik.NEBEL, RUHE_MIN, RUHE_MAX, false);
@@ -59,11 +61,19 @@ public final class ClientMusik {
 
     public static void waehlen(SelectMusicEvent e) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null || mc.level.dimension() != Level.OVERWORLD) {
+        if (mc.player == null || mc.level == null) {
             return;
         }
         anlegen();
-        if (mc.gui.getBossOverlay().shouldPlayMusic() || ClientWetter.emission() > 0) {
+        // Bosskampf (auch in Nether und End): epische Kampfmusik
+        if (mc.gui.getBossOverlay().shouldPlayMusic()) {
+            e.setMusic(endkampf);
+            return;
+        }
+        if (mc.level.dimension() != Level.OVERWORLD) {
+            return;
+        }
+        if (ClientWetter.emission() > 0) {
             e.setMusic(gefecht);
             return;
         }
