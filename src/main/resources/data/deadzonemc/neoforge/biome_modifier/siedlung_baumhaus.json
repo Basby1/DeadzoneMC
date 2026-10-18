@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#minecraft:is_forest",
+ "features": [
+  "deadzonemc:siedlung_baumhaus"
+ ],
+ "step": "surface_structures"
+}

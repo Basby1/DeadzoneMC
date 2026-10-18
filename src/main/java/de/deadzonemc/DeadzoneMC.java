@@ -16,6 +16,7 @@ public class DeadzoneMC {
         ModRegistry.registrieren(modBus);
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
         de.deadzonemc.monster.Verbote.registrieren();
+        de.deadzonemc.fraktion.Fraktionen.registrieren();
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Mimik::erscheinen);
         de.deadzonemc.mensch.MenschTypen.registrieren(modBus);
         de.deadzonemc.zone.Zone.registrieren(modBus);

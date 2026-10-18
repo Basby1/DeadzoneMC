@@ -92,6 +92,8 @@ public class DeadzoneClient {
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.UEBERLEBENDER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "ueberlebender", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.HAENDLER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "haendler", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.WACHE.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "wache", false));
+        de.deadzonemc.mensch.MenschTypen.FRAKTIONEN.forEach((n, h) -> e.registerEntityRenderer(h.get(),
+                c -> new de.deadzonemc.client.MenschRenderer<>(c, n, n.equals("totenfluesterer") || n.equals("tiefenvolk") || n.equals("himmelshueter"))));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.BEWOHNER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "bewohner", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.AUFTRAGGEBER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "auftraggeber", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.BEGLEITER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "begleiter", false));

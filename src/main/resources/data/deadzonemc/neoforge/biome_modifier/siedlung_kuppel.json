@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#minecraft:is_ocean",
+ "features": [
+  "deadzonemc:siedlung_kuppel"
+ ],
+ "step": "surface_structures"
+}

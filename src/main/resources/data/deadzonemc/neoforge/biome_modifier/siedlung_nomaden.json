@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#deadzonemc:wueste",
+ "features": [
+  "deadzonemc:siedlung_nomaden"
+ ],
+ "step": "surface_structures"
+}

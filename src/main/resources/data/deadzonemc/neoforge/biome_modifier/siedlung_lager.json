@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#deadzonemc:land",
+ "features": [
+  "deadzonemc:siedlung_lager"
+ ],
+ "step": "surface_structures"
+}

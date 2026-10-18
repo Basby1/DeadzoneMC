@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#deadzonemc:verseucht",
+ "features": [
+  "deadzonemc:siedlung_schrein"
+ ],
+ "step": "surface_structures"
+}

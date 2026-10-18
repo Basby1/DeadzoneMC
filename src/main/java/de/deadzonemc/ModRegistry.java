@@ -126,6 +126,13 @@ public final class ModRegistry {
                     .copyOnDeath()
                     .build());
 
+    /** Fortschritt in den Questreihen der Fraktionen (Schritt, Zähler, letzte Gabe). */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.Map<String, Integer>>> FRAKTIONSQUESTS =
+            ANHAENGE.register("fraktionsquests", () -> AttachmentType.<java.util.Map<String, Integer>>builder(() -> java.util.Map.of())
+                    .serialize(Codec.unboundedMap(Codec.STRING, Codec.INT))
+                    .copyOnDeath()
+                    .build());
+
     /** Ansehen bei den Fraktionen. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.Map<String, Integer>>> ANSEHEN =
             ANHAENGE.register("ansehen", () -> AttachmentType.<java.util.Map<String, Integer>>builder(() -> java.util.Map.of())
@@ -198,6 +205,13 @@ public final class ModRegistry {
 
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> TOTER_BAUM =
             FEATURES.register("toter_baum", ToterBaumFeature::new);
+    static {
+        for (var a : de.deadzonemc.welt.feature.SiedlungFeature.Art.values()) {
+            FEATURES.register("siedlung_" + a.name().toLowerCase(java.util.Locale.ROOT),
+                    () -> new de.deadzonemc.welt.feature.SiedlungFeature(a));
+        }
+    }
+
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> ABSTURZ_HUBSCHRAUBER =
             FEATURES.register("absturz_hubschrauber",
                     () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.HUBSCHRAUBER));

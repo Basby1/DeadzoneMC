@@ -56,7 +56,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [~] (freigegeben 18.10.) Hauptgeschichte in 5 Akten – eingebaut: 14 Schritte, Tagebuch (J), Zielmarker, Funkprotokolle, Story-Bosse an markierten Orten; Akt IV/V warten auf Herz/Ursprung-Bosse und Orbit-Questreihe (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
       immer klar, was als Nächstes zu tun ist
 - [~] Intro beim ersten Betreten mit Spielernamen (Titel + Text) – echte Kamerafahrt fehlt noch
-- [ ] (freigegeben 18.10.; WICHTIG: Nether/End-Zugang NICHT von Fraktionen abhängig – normale Portale) Fraktionen mit Questreihen, Ansehen, Vorteilen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
+- [x] (freigegeben 18.10.; Nether/End-Zugang NICHT von Fraktionen abhängig) Fraktionen mit Questreihen (je 3), Ansehen, Vorteilen und eigenen Siedlungen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
       Kinder des Waldes (Baumhäuser), Sandwanderer, Unterwasservolk, Hüter des Himmels (Lategame, schwer erreichbar)
 - [x] Mimik: übernimmt Skin/Name eines Mitspielers (allein: deine eigene), folgt still, enthüllt sich schreiend, wenn man allein ist
 
