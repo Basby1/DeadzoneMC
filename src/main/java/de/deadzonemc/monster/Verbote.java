@@ -52,7 +52,7 @@ public final class Verbote {
             event.setCanceled(true);
             return;
         }
-        if (e instanceof Mob m && !(m instanceof Player)) {
+        if (e instanceof Mob m) {
             // Monster, die schon mit Reittier oder Reiter erscheinen, werden getrennt
             if (m instanceof Enemy && (m.isPassenger() || m.isVehicle())) {
                 m.ejectPassengers();
