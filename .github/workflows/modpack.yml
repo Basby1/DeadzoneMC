@@ -71,6 +71,7 @@ jobs:
           cp "$GITHUB_WORKSPACE/build/jstack.txt" . 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE"/build/server/crash-reports . 2>/dev/null || true
           cp "$GITHUB_WORKSPACE"/build/server/logs/latest.log . 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE"/build/server/poi_dump . 2>/dev/null || true
           git add -A && git -c user.name=ci -c user.email=ci@localhost commit -qm "Testprotokoll ${GITHUB_SHA::7}"
           git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" testprotokoll
 

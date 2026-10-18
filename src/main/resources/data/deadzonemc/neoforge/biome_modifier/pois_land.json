@@ -1,0 +1,9 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#deadzonemc:land",
+ "features": [
+  "deadzonemc:panzer",
+  "deadzonemc:konvoi"
+ ],
+ "step": "surface_structures"
+}

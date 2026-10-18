@@ -51,6 +51,8 @@ public final class Selbsttest {
             "place feature deadzonemc:absturz_hubschrauber ~30 ~ ~30",
             "place feature deadzonemc:absturz_flugzeug ~-30 ~ ~30",
             "place feature deadzonemc:frachter ~30 ~ ~-30",
+            "place feature deadzonemc:panzer ~-30 ~ ~-30",
+            "place feature deadzonemc:konvoi ~60 ~ ~0",
             "setblock ~2 ~ ~2 deadzonemc:geschuetzturm",
             "setblock ~4 ~ ~2 deadzonemc:zonenwerkbank",
             "setblock ~6 ~ ~2 deadzonemc:zelt",
@@ -405,6 +407,44 @@ public final class Selbsttest {
     }
 
     /** Würfelt Waffenbeute aus und prüft über TaCZ selbst, ob die Waffen erkannt werden. */
+    /** Schreibt einen Blockquader als JSON nach poi_dump/ – für die Sichtprüfung der Bauten außerhalb des Spiels. */
+    private static void blockDump(ServerLevel w, String name, int x, int y, int z, int r, int unten, int oben) {
+        try {
+            java.nio.file.Path ordner = java.nio.file.Path.of("poi_dump");
+            java.nio.file.Files.createDirectories(ordner);
+            java.util.Map<String, Integer> palette = new java.util.LinkedHashMap<>();
+            StringBuilder daten = new StringBuilder();
+            for (int dy = -unten; dy <= oben; dy++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    for (int dx = -r; dx <= r; dx++) {
+                        var b = w.getBlockState(new BlockPos(x + dx, y + dy, z + dz));
+                        String k = BuiltInRegistries.BLOCK.getKey(b.getBlock()).toString();
+                        if (b.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.AXIS)) {
+                            k += "[" + b.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AXIS) + "]";
+                        }
+                        Integer id = palette.get(k);
+                        if (id == null) {
+                            id = palette.size();
+                            palette.put(k, id);
+                        }
+                        daten.append(id).append(',');
+                    }
+                }
+            }
+            StringBuilder j = new StringBuilder("{\"groesse\":[").append(2 * r + 1).append(',').append(unten + oben + 1)
+                    .append(',').append(2 * r + 1).append("],\"boden\":").append(unten).append(",\"palette\":[");
+            boolean erst = true;
+            for (String k : palette.keySet()) {
+                j.append(erst ? "" : ",").append('"').append(k).append('"');
+                erst = false;
+            }
+            j.append("],\"daten\":[").append(daten, 0, Math.max(0, daten.length() - 1)).append("]}");
+            java.nio.file.Files.writeString(ordner.resolve(name + ".json"), j);
+        } catch (Exception e) {
+            LOG.warn("[Selbsttest] Blockdump {} fehlgeschlagen: {}", name, e.toString());
+        }
+    }
+
     private static void waffenPruefen(MinecraftServer server) {
         ServerLevel level = server.overworld();
         StringBuilder b = new StringBuilder();
@@ -884,6 +924,7 @@ public final class Selbsttest {
                     }
                     d.append(art).append(" bei ").append(x).append(" ").append(y).append(" ").append(z)
                             .append(": ").append(kisten).append(" Behälter mit Beute; ");
+                    blockDump(ow, "poi_" + art.name().toLowerCase(java.util.Locale.ROOT), x, y, z, 17, 4, 16);
                 }
                 int j = 0;
                 for (var art : de.deadzonemc.welt.feature.SiedlungFeature.Art.values()) {
@@ -900,7 +941,17 @@ public final class Selbsttest {
                     long leute = ow.getEntitiesOfClass(de.deadzonemc.fraktion.Fraktionsmitglied.class,
                             new net.minecraft.world.phys.AABB(x - 20, y - 20, z - 20, x + 20, y + 40, z + 20)).size();
                     d.append(art).append(": ").append(leute).append(" Bewohner; ");
+                    blockDump(ow, "siedlung_" + art.name().toLowerCase(java.util.Locale.ROOT), x, y, z, 18, 4, 26);
                 }
+                // Orbitalstation probeweise hoch über der Oberwelt
+                BlockPos st = new BlockPos(sp.getX() + 400, 250, sp.getZ() + 400);
+                for (int cx = -2; cx <= 2; cx++) {
+                    for (int cz = -2; cz <= 2; cz++) {
+                        ow.getChunk((st.getX() >> 4) + cx, (st.getZ() >> 4) + cz);
+                    }
+                }
+                de.deadzonemc.orbit.Orbitalstation.testBauen(ow, st);
+                blockDump(ow, "orbitalstation", st.getX(), st.getY(), st.getZ(), 26, 2, 8);
                 LOG.info("[Selbsttest] POIs: {}", d);
                 return;
             }

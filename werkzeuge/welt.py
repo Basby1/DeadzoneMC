@@ -51,6 +51,8 @@ CONFIGURED = {
     "absturz_hubschrauber": {"type": f"{MOD}:absturz_hubschrauber", "config": {}},
     "absturz_flugzeug": {"type": f"{MOD}:absturz_flugzeug", "config": {}},
     "frachter": {"type": f"{MOD}:frachter", "config": {}},
+    "panzer": {"type": f"{MOD}:panzer", "config": {}},
+    "konvoi": {"type": f"{MOD}:konvoi", "config": {}},
     **{f"siedlung_{a}": {"type": f"{MOD}:siedlung_{a}", "config": {}} for a in ("lager", "schrein", "baumhaus", "nomaden", "kuppel", "horst")},
     "strahlenfaesser": {"type": f"{MOD}:strahlenfaesser", "config": {}},
     "versteck": {"type": f"{MOD}:versteck", "config": {}},
@@ -129,6 +131,8 @@ PLACED = {
     "absturz_hubschrauber": ("absturz_hubschrauber", an_der_oberflaeche(seltenheit=140)),
     "absturz_flugzeug": ("absturz_flugzeug", an_der_oberflaeche(seltenheit=260)),
     "frachter": ("frachter", an_der_oberflaeche(seltenheit=30, wasser_ok=True)),
+    "panzer": ("panzer", an_der_oberflaeche(seltenheit=90)),
+    "konvoi": ("konvoi", an_der_oberflaeche(seltenheit=220)),
     # Siedlungen der Fraktionen
     "siedlung_lager": ("siedlung_lager", an_der_oberflaeche(seltenheit=110)),
     "siedlung_schrein": ("siedlung_schrein", an_der_oberflaeche(seltenheit=40)),

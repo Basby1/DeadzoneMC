@@ -118,14 +118,21 @@ public final class Orbitalstation {
     }
 
     private static void bauen(ServerLevel w, int y) {
+        bauen(w, y, MITTE.getX(), MITTE.getZ());
+    }
+
+    /** Für den Selbsttest: die Station an beliebiger Stelle errichten. */
+    public static void testBauen(ServerLevel w, BlockPos mitte) {
+        bauen(w, mitte.getY(), mitte.getX(), mitte.getZ());
+    }
+
+    private static void bauen(ServerLevel w, int y, int cx, int cz) {
         BlockState boden = Blocks.WHITE_CONCRETE.defaultBlockState();
         BlockState rand = Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState();
         BlockState wand = Blocks.IRON_BLOCK.defaultBlockState();
         BlockState glas = Blocks.CYAN_STAINED_GLASS.defaultBlockState();
         BlockState licht = Blocks.SEA_LANTERN.defaultBlockState();
         BlockState stuetze = Blocks.END_STONE_BRICKS.defaultBlockState();
-        int cx = MITTE.getX();
-        int cz = MITTE.getZ();
         for (int dx = -R; dx <= R; dx++) {
             for (int dz = -R; dz <= R; dz++) {
                 double d = Math.sqrt(dx * dx + dz * dz);

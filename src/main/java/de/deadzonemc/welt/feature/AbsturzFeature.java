@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI }
 
     private final Art art;
 
@@ -112,6 +112,8 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case HUBSCHRAUBER -> hubschrauber(f, r);
             case FLUGZEUG -> flugzeug(f, r);
             case FRACHTER -> frachter(f, r, meer - boden.getY());
+            case PANZER -> panzer(f, r, 0, 0, true);
+            case KONVOI -> konvoi(f, r);
         }
         return true;
     }
@@ -124,6 +126,8 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case HUBSCHRAUBER -> hubschrauber(f, r);
             case FLUGZEUG -> flugzeug(f, r);
             case FRACHTER -> frachter(f, r, 1);
+            case PANZER -> panzer(f, r, 0, 0, true);
+            case KONVOI -> konvoi(f, r);
         }
     }
 
@@ -356,6 +360,125 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
         spawnen(f, MonsterTypen.WANDERER::get, 2 + r.nextInt(2), r);
+    }
+
+    // ---- Panzerwrack und Konvoi ----------------------------------------------------------------
+
+    /**
+     * Ein alter Kampfpanzer, Jahrzehnte alt oder in den ersten Tagen der Abriegelung liegen geblieben: Wanne mit
+     * Ketten und Laufrollen, Turm mit Kanone (oft zur Seite gedreht), offene Luke, Rost, Moos, Ranken.
+     * Im Inneren: Munitionskisten.
+     */
+    private static void panzer(Rahmen f, RandomSource r, int l0, int b0, boolean einzeln) {
+        boolean alt = r.nextInt(3) > 0; // alt = überwuchert, sonst ausgebrannt
+        BlockState gruen = Blocks.GREEN_TERRACOTTA.defaultBlockState();
+        BlockState oliv = Blocks.MOSS_BLOCK.defaultBlockState();
+        BlockState rost = Blocks.BROWN_TERRACOTTA.defaultBlockState();
+        BlockState russ = Blocks.POLISHED_BLACKSTONE.defaultBlockState();
+        BlockState kette = Blocks.POLISHED_DEEPSLATE.defaultBlockState();
+        BlockState rolle = Blocks.DEEPSLATE_TILES.defaultBlockState();
+        BlockState stufeK = Blocks.POLISHED_DEEPSLATE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+        java.util.function.Supplier<BlockState> haut = () -> {
+            if (!alt) {
+                return r.nextInt(3) == 0 ? rost : russ;
+            }
+            int z = r.nextInt(10);
+            return z < 6 ? gruen : z < 8 ? rost : oliv;
+        };
+        if (einzeln) {
+            krater(f, r, 6);
+        }
+        // Wanne l -4..4, b -2..2 (Ketten auf b = ±2)
+        for (int l = -4; l <= 4; l++) {
+            for (int b = -2; b <= 2; b++) {
+                int ll = l0 + l;
+                int bb = b0 + b;
+                boolean kettenseite = Math.abs(b) == 2;
+                if (kettenseite) {
+                    f.setzen(ll, bb, 0, (l == -4 || l == 4) ? stufeK : (l % 2 == 0 ? rolle : kette));
+                    f.setzen(ll, bb, 1, (l == -4 || l == 4) ? Bau.LUFT : kette);
+                } else {
+                    f.setzen(ll, bb, 0, kette);
+                    f.setzen(ll, bb, 1, haut.get());
+                    f.setzen(ll, bb, 2, (l == 4) ? (alt ? Blocks.MOSSY_COBBLESTONE_SLAB : Blocks.BLACKSTONE_SLAB)
+                            .defaultBlockState() : haut.get());
+                }
+                f.stuetzen(ll, bb, 0, Blocks.COARSE_DIRT.defaultBlockState());
+            }
+        }
+        // Bug (schräge Front)
+        for (int b = -1; b <= 1; b++) {
+            f.setzen(l0 - 5, b0 + b, 1, (alt ? Blocks.MOSSY_STONE_BRICK_SLAB : Blocks.BLACKSTONE_SLAB).defaultBlockState());
+            f.setzen(l0 - 5, b0 + b, 0, haut.get());
+            f.stuetzen(l0 - 5, b0 + b, 0, Blocks.COARSE_DIRT.defaultBlockState());
+        }
+        // Innenraum mit Munitionskiste (unter der Luke)
+        f.setzen(l0 + 1, b0, 2, Bau.LUFT);
+        f.setzen(l0 + 1, b0, 1, Bau.LUFT);
+        f.kiste(l0, b0, 1, "militaer", r, true);
+        // Turm 3x3 mit Kanone, oft verdreht
+        boolean quer = r.nextInt(3) == 0;
+        for (int l = -1; l <= 1; l++) {
+            for (int b = -1; b <= 1; b++) {
+                f.setzen(l0 + 1 + l, b0 + b, 3, (l == 0 && b == 0) ? Blocks.IRON_TRAPDOOR.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.TrapDoorBlock.OPEN, true) : haut.get());
+            }
+        }
+        net.minecraft.core.Direction.Axis achse = quer ? f.quer().getAxis() : f.lang().getAxis();
+        BlockState rohr = Blocks.POLISHED_BASALT.defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS, achse);
+        for (int i = 2; i <= 6; i++) {
+            if (quer) {
+                f.setzen(l0 + 1, b0 + i, 3, rohr);
+            } else {
+                f.setzen(l0 + 1 - i, b0, 3, rohr);
+            }
+        }
+        if (alt) {
+            for (int i = 0; i < 6; i++) {
+                int l = l0 + r.nextInt(7) - 3;
+                int b = b0 + (r.nextBoolean() ? 3 : -3);
+                f.setzen(l, b, 1, Blocks.VINE.defaultBlockState()
+                        .setValue(b > b0 ? net.minecraft.world.level.block.VineBlock.getPropertyForFace(f.quer().getOpposite())
+                                : net.minecraft.world.level.block.VineBlock.getPropertyForFace(f.quer()), true));
+            }
+            f.setzen(l0 + 2, b0 - 1, 4, Blocks.MOSS_CARPET.defaultBlockState());
+        } else {
+            f.setzen(l0, b0 + 1, 4, Blocks.SKELETON_SKULL.defaultBlockState());
+            f.setzen(l0 + 1, b0, 2, Blocks.COBWEB.defaultBlockState());
+        }
+    }
+
+    /** Liegengebliebener Konvoi: zwei Panzer und ein Lastwagen hintereinander, dazwischen Kisten und Sandsäcke. */
+    private static void konvoi(Rahmen f, RandomSource r) {
+        krater(f, r, 9);
+        panzer(f, r, -9, 0, false);
+        panzer(f, r, 8, 1, false);
+        // Lastwagen in der Mitte: Fahrerhaus + Ladefläche mit Plane
+        BlockState lack = Blocks.GREEN_TERRACOTTA.defaultBlockState();
+        BlockState plane = Blocks.GREEN_WOOL.defaultBlockState();
+        for (int l = -2; l <= 3; l++) {
+            for (int b = -1; b <= 1; b++) {
+                f.setzen(l, b, 0, (l == -1 || l == 2) && b != 0 ? Blocks.BLACK_CONCRETE.defaultBlockState() : lack);
+                f.stuetzen(l, b, 0, Blocks.COARSE_DIRT.defaultBlockState());
+                if (l <= -1) {
+                    f.setzen(l, b, 1, l == -2 ? Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState() : lack);
+                    f.setzen(l, b, 2, lack);
+                } else {
+                    boolean rand = Math.abs(b) == 1 || l == 3;
+                    f.setzen(l, b, 1, rand && r.nextInt(4) > 0 ? plane : Bau.LUFT);
+                    f.setzen(l, b, 2, r.nextInt(3) > 0 ? plane : Bau.LUFT);
+                }
+            }
+        }
+        f.kiste(1, 0, 1, "militaer", r, true);
+        f.kiste(2, 0, 1, r.nextInt(3) == 0 ? "waffenkammer" : "apotheke", r, false);
+        // Sandsäcke
+        for (int i = 0; i < 6; i++) {
+            BlockPos p = f.pos(-4 + r.nextInt(9), r.nextBoolean() ? 4 : -4, 0);
+            int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+            f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), Blocks.MUD_BRICK_SLAB.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+        spawnen(f, de.deadzonemc.monster.MonsterTypen.GEFALLENER_SOLDAT::get, 2 + r.nextInt(2), r);
     }
 
     // ---- Hilfen ---------------------------------------------------------------------------
