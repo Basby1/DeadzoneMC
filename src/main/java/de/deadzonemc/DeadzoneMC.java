@@ -35,6 +35,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.StadtHorden::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Herden::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Laerm::explosion);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.KeineSonne::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Laerm::blockBricht);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Laerm::spieler);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.boss.BossSpawner::tick);
