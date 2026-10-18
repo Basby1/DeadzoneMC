@@ -43,8 +43,18 @@ public class GefahrenBonus extends LootModifier {
         return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "bonus/" + name));
     }
 
-    /** Gefahrenstufe 0..4 eines Ortes. */
+    /** Beutestufe 0..5 eines Ortes jetzt: Ortsgefahr, nachts eine Stufe mehr. */
     public static int stufe(ServerLevel level, BlockPos pos) {
+        return Math.min(5, ortsstufe(level, pos) + (nacht(level) ? 1 : 0));
+    }
+
+    public static boolean nacht(ServerLevel level) {
+        long t = level.getDayTime() % 24000L;
+        return t > 13000 && t < 23000;
+    }
+
+    /** Gefahr des Ortes selbst, 0..4 (ohne Tageszeit). */
+    public static int ortsstufe(ServerLevel level, BlockPos pos) {
         int stufe = 0;
         float f = Staedte.stadtFaktor(level, pos.getX() >> 4, pos.getZ() >> 4);
         double s = Staedte.schwelle();
@@ -72,8 +82,9 @@ public class GefahrenBonus extends LootModifier {
             var r = ctx.getRandom();
             switch (st) {
                 case 0 -> {
-                    if (r.nextFloat() < 0.15F) {
-                        wuerfeln("gering", ctx, beute);
+                    // Tagsüber im Umland: eher mager – einzelne Stücke fallen weg
+                    if (beute.size() > 2 && r.nextFloat() < 0.5F) {
+                        beute.remove(r.nextInt(beute.size()));
                     }
                 }
                 case 1 -> {
@@ -92,7 +103,13 @@ public class GefahrenBonus extends LootModifier {
                     wuerfeln("hoch", ctx, beute);
                     wuerfeln("mittel", ctx, beute);
                 }
+                case 4 -> {
+                    wuerfeln("hoch", ctx, beute);
+                    wuerfeln("hoch", ctx, beute);
+                    wuerfeln("mittel", ctx, beute);
+                }
                 default -> {
+                    wuerfeln("hoch", ctx, beute);
                     wuerfeln("hoch", ctx, beute);
                     wuerfeln("hoch", ctx, beute);
                     wuerfeln("mittel", ctx, beute);

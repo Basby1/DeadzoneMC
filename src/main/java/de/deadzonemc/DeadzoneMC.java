@@ -34,6 +34,14 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(WetterSystem::dimensionGewechselt);
         NeoForge.EVENT_BUS.addListener(WetterSystem::befehleRegistrieren);
         NeoForge.EVENT_BUS.addListener(Spielstart::beimBetreten);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::betreten);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::respawn);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::erscheinen);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::zielen);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::schaden);
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.AttackEntityEvent e) ->
+                de.deadzonemc.monster.SpawnSchutz.aufhoeren(e.getEntity()));
+        NeoForge.EVENT_BUS.addListener(Spielstart::nachRespawn);
         NeoForge.EVENT_BUS.addListener(Spielstart::peilen);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.StadtHorden::tick);

@@ -133,7 +133,7 @@ public class Wanderer extends DeadzoneMonster {
             // ohne Vorwarnung lossprinten
             sprint = 40 + random.nextInt(40);
             if (!tempo.hasModifier(SPRINT)) {
-                tempo.addTransientModifier(new AttributeModifier(SPRINT, 0.9, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+                tempo.addTransientModifier(new AttributeModifier(SPRINT, 0.35, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
             }
         }
     }

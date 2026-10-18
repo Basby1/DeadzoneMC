@@ -21,7 +21,7 @@ public class Seuchenhund extends DeadzoneMonster {
     public static AttributeSupplier.Builder attribute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 14)
-                .add(Attributes.MOVEMENT_SPEED, 0.36)
+                .add(Attributes.MOVEMENT_SPEED, 0.31)
                 .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.FOLLOW_RANGE, 40);
     }

@@ -82,13 +82,7 @@ public final class Verletzungen {
             }
             return;
         }
-        if (quelle.getEntity() instanceof Enemy && quelle.getDirectEntity() == quelle.getEntity() && schaden >= 3) {
-            float chance = 0.2F + (p.getItemBySlot(EquipmentSlot.CHEST).isEmpty() ? 0.12F : 0F) + Math.min(0.2F, schaden * 0.02F);
-            if (zufall.nextFloat() < chance && !p.hasEffect(BLUTUNG)) {
-                p.addEffect(new MobEffectInstance(BLUTUNG, MobEffectInstance.INFINITE_DURATION, 0, false, false, true));
-                p.displayClientMessage(Component.translatable("verletzung.deadzonemc.blutung").withStyle(ChatFormatting.DARK_RED), true);
-            }
-        }
+        // Blutung ist entfernt (Rückmeldung: zu nervig). Der Effekt bleibt nur registriert, damit alte Spielstände laden.
     }
 
     /** Verliert alle 5 Sekunden ein halbes Herz, bis ein Verband angelegt wird. */
@@ -109,17 +103,7 @@ public final class Verletzungen {
 
         @Override
         public boolean applyEffectTick(LivingEntity wer, int staerke) {
-            if (wer.level() instanceof ServerLevel sl) {
-                if (wer.tickCount % 10 == 0) {
-                    sl.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()),
-                            wer.getX(), wer.getY() + 0.4, wer.getZ(), 2, 0.2, 0.1, 0.2, 0.0);
-                }
-                if (wer.tickCount % 100 == 0) {
-                    Holder<DamageType> typ = sl.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(BLUTVERLUST);
-                    wer.hurt(new DamageSource(typ), 1.0F);
-                }
-            }
-            return true;
+            return false; // entfernt: alte Blutungen verschwinden beim nächsten Tick
         }
     }
 

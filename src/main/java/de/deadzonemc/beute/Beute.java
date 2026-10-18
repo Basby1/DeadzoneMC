@@ -67,6 +67,10 @@ public final class Beute {
             () -> BlockEntityType.Builder.of(TresorBlockEntity::new, TRESOR.get()).build(null));
 
     // ---- Werkzeuge ----
+    /** Startwaffe: stumpf, rostig, besser als nichts. */
+    public static final DeferredItem<SwordItem> ROSTIGES_MESSER = ITEMS.register("rostiges_messer",
+            () -> new SwordItem(Tiers.STONE, new Item.Properties().durability(160)
+                    .attributes(SwordItem.createAttributes(Tiers.STONE, 1, -2.0F))));
     public static final DeferredItem<BrecheisenItem> BRECHEISEN = ITEMS.register("brecheisen",
             () -> new BrecheisenItem(Tiers.IRON, new Item.Properties().durability(96)
                     .attributes(SwordItem.createAttributes(Tiers.IRON, 2, -2.9F))));
@@ -107,9 +111,11 @@ public final class Beute {
         NeoForge.EVENT_BUS.addListener(Nachschub::angeklickt);
         NeoForge.EVENT_BUS.addListener(Nachschub::tick);
         NeoForge.EVENT_BUS.addListener(NachtsichtItem::tick);
+        NeoForge.EVENT_BUS.addListener(Beutestufe::tick);
     }
 
     public static void tabFuellen(net.minecraft.world.item.CreativeModeTab.Output ausgabe) {
+        ausgabe.accept(ROSTIGES_MESSER.get());
         ausgabe.accept(TRESOR_ITEM.get());
         ausgabe.accept(BRECHEISEN.get());
         ausgabe.accept(NACHTSICHT.get());

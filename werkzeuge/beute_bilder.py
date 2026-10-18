@@ -82,7 +82,7 @@ def item_bild(name, pixel, farben):
                 b.putpixel((x, y), c(farben[ch]))
     b.save(os.path.join(A, "textures", "item", name + ".png"))
     with open(os.path.join(A, "models", "item", name + ".json"), "w") as f:
-        json.dump({"parent": "minecraft:item/handheld" if name == "brecheisen" else "minecraft:item/generated",
+        json.dump({"parent": "minecraft:item/handheld" if name in ("brecheisen", "rostiges_messer") else "minecraft:item/generated",
                    "textures": {"layer0": f"deadzonemc:item/{name}"}}, f, indent=1)
 
 
@@ -103,6 +103,24 @@ BRECHEISEN = [
     ".krrrk..........",
     "..kkrk..........",
     "....k...........",
+]
+MESSER = [
+    "................",
+    "................",
+    "............kk..",
+    "...........krsk.",
+    "..........krsk..",
+    ".........krsk...",
+    "........krsk....",
+    ".......krrk.....",
+    "......kroko.....",
+    ".....kook.......",
+    "....kbbk........",
+    "...kbbk.........",
+    "..kbbk..........",
+    "..kkk...........",
+    "................",
+    "................",
 ]
 NACHTSICHT = [
     "................",
@@ -146,6 +164,7 @@ def main():
         os.makedirs(os.path.join(A, p), exist_ok=True)
     tresor()
     item_bild("brecheisen", BRECHEISEN, {"k": "1e1414", "r": "a82a1e"})
+    item_bild("rostiges_messer", MESSER, {"k": "1e1814", "r": "8a5a3a", "s": "b0a090", "o": "6a3a1e", "b": "4a2e1a"})
     item_bild("nachtsichtgeraet", NACHTSICHT, {"k": "1a1a18", "d": "3a4032", "g": "2e5a2e", "G": "7aff7a", "s": "2a2a26"})
     nachtsicht_ruestung()
     print("Tresor, Brecheisen, Nachtsichtgerät")

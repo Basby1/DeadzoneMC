@@ -40,6 +40,17 @@ public final class Spielstart {
             spieler.teleportTo(oberwelt, ziel.getX() + 0.5, ziel.getY(), ziel.getZ() + 0.5,
                     spieler.getRandom().nextFloat() * 360F, 0F);
         }
+        // Grund-Überlebenspaket: man soll sich am Anfang verteidigen und ein, zwei Tage durchhalten können
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(de.deadzonemc.beute.Beute.ROSTIGES_MESSER.get()));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.VERBAND.get(), 3));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.KONSERVENDOSE.get(), 3));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BREAD, 4));
+        spieler.getInventory().add(net.minecraft.world.item.alchemy.PotionContents.createItemStack(
+                net.minecraft.world.item.Items.POTION, net.minecraft.world.item.alchemy.Potions.WATER));
+        spieler.getInventory().add(net.minecraft.world.item.alchemy.PotionContents.createItemStack(
+                net.minecraft.world.item.Items.POTION, net.minecraft.world.item.alchemy.Potions.WATER));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.TORCH, 8));
+        spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.SCHMERZMITTEL.get(), 1));
         spieler.getInventory().add(NotizItem.erstellen("start"));
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.HANDBUCH.get()));
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.GENERATOR_ITEM.get()));
@@ -51,6 +62,24 @@ public final class Spielstart {
         spieler.getInventory().add(karte);
         spieler.displayClientMessage(Component.translatable("start.deadzonemc.ankunft")
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
+    }
+
+    /** Nach dem Tod: ein rostiges Messer und ein Verband – nackt und wehrlos zu starten wäre unfair. */
+    public static void nachRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.isEndConquered() || !(event.getEntity() instanceof ServerPlayer p)) {
+            return;
+        }
+        boolean waffe = false;
+        for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
+            if (p.getInventory().getItem(i).getItem() instanceof net.minecraft.world.item.SwordItem
+                    || p.getInventory().getItem(i).getItem() instanceof net.minecraft.world.item.AxeItem) {
+                waffe = true;
+            }
+        }
+        if (!waffe) {
+            p.getInventory().add(new net.minecraft.world.item.ItemStack(de.deadzonemc.beute.Beute.ROSTIGES_MESSER.get()));
+        }
+        p.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.VERBAND.get(), 1));
     }
 
     private static final java.util.Map<java.util.UUID, java.util.Set<Long>> GEPEILT = new java.util.HashMap<>();

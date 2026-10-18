@@ -26,7 +26,7 @@ public class Kriecher extends DeadzoneMonster {
     public static AttributeSupplier.Builder attribute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20)
-                .add(Attributes.MOVEMENT_SPEED, 0.34)
+                .add(Attributes.MOVEMENT_SPEED, 0.28)
                 .add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.FOLLOW_RANGE, 32);
     }

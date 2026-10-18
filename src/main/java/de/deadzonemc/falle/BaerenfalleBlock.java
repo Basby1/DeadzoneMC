@@ -92,10 +92,6 @@ public class BaerenfalleBlock extends HorizontalDirectionalBlock {
         le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 9, false, false, true));
         le.setDeltaMovement(Vec3.ZERO);
         le.teleportTo(pos.getX() + 0.5, le.getY(), pos.getZ() + 0.5);
-        if (le instanceof Player p) {
-            p.addEffect(new MobEffectInstance(de.deadzonemc.verletzung.Verletzungen.BLUTUNG,
-                    MobEffectInstance.INFINITE_DURATION, 0, false, false, true));
-        }
         if (level instanceof ServerLevel sl) {
             sl.sendParticles(net.minecraft.core.particles.ParticleTypes.CRIT, pos.getX() + 0.5, pos.getY() + 0.3,
                     pos.getZ() + 0.5, 12, 0.3, 0.2, 0.3, 0.2);

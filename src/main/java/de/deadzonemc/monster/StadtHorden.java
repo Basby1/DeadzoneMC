@@ -27,7 +27,8 @@ public final class StadtHorden {
 
     /** Wie viele Deadzone-Monster höchstens um einen Spieler in der Stadt unterwegs sind. */
     static int deckel(ServerLevel welt) {
-        int d = welt.isNight() ? 100 : 70;
+        // Tagsüber spielbar, nachts die Hölle (Rückmeldung: Tag leichter, Nacht viel gefährlicher)
+        int d = welt.isNight() ? 110 : 40;
         if (DeadzoneMonster.dichterNebel(welt)) {
             d += 20;
         }
@@ -56,6 +57,9 @@ public final class StadtHorden {
             Integer strasseHier = Staedte.strassenhoehe(welt, p.chunkPosition().x, p.chunkPosition().z);
             if (strasseHier != null && p.getBlockY() < strasseHier - 5 && !welt.canSeeSky(p.blockPosition())) {
                 metro(welt, p);
+                continue;
+            }
+            if (SpawnSchutz.geschuetzt(p)) {
                 continue;
             }
             int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(64, 32, 64)).size();
@@ -122,7 +126,10 @@ public final class StadtHorden {
                 || !welt.canSeeSky(p.blockPosition())) {
             return;
         }
-        int deckel = welt.isNight() ? 45 : 28;
+        if (SpawnSchutz.geschuetzt(p)) {
+            return;
+        }
+        int deckel = welt.isNight() ? 45 : 14;
         if (DeadzoneMonster.dichterNebel(welt)) {
             deckel += 10;
         }

@@ -41,7 +41,7 @@ public class Lauerer extends DeadzoneMonster {
     public static AttributeSupplier.Builder attribute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 18)
-                .add(Attributes.MOVEMENT_SPEED, 0.33)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_DAMAGE, 6)
                 .add(Attributes.FOLLOW_RANGE, 24);
     }

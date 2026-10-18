@@ -24,7 +24,7 @@ public class Nebelwesen extends DeadzoneMonster {
     public static AttributeSupplier.Builder attribute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.MOVEMENT_SPEED, 0.28)
+                .add(Attributes.MOVEMENT_SPEED, 0.26)
                 .add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.FOLLOW_RANGE, 32);
     }

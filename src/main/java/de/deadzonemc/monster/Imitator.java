@@ -37,7 +37,7 @@ public class Imitator extends DeadzoneMonster {
     public static AttributeSupplier.Builder attribute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20)
-                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.MOVEMENT_SPEED, 0.26)
                 .add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.FOLLOW_RANGE, 48);
     }

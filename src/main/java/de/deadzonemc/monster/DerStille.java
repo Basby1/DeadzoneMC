@@ -36,7 +36,7 @@ public class DerStille extends DeadzoneMonster {
     public static AttributeSupplier.Builder attribute() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 40)
-                .add(Attributes.MOVEMENT_SPEED, 0.42)
+                .add(Attributes.MOVEMENT_SPEED, 0.34)
                 .add(Attributes.ATTACK_DAMAGE, 9)
                 .add(Attributes.FOLLOW_RANGE, 64)
                 .add(Attributes.ARMOR, 6)
