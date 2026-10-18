@@ -23,6 +23,8 @@ TAGS = {
     "totwald": optional("biomesoplenty:dead_forest", "biomesoplenty:wasteland", "biomesoplenty:bog",
                         "biomesoplenty:muskeg", "biomesoplenty:wasteland_steppe"),
     # Lebensräume für Herden und Spawns
+    # Verseucht oder Totwald – jeder Biom nur einmal, sonst entsteht ein Zyklus in der Feature-Reihenfolge
+    "schreinland": ["#deadzonemc:verseucht", "#deadzonemc:totwald"],
     "land": optional("#minecraft:is_forest", "#minecraft:is_taiga", "#minecraft:is_savanna", "#c:is_plains",
                      "#c:is_snowy", "minecraft:plains", "minecraft:meadow"),
     "wasser": optional("#minecraft:is_river", "#minecraft:is_beach", "#c:is_swamp", "minecraft:swamp",
@@ -42,8 +44,7 @@ MODIFIKATOREN = {
                                    "deadzonemc:anomalie_selten"],
                       "step": "vegetal_decoration"},
     "siedlung_lager": {"type": "neoforge:add_features", "biomes": "#deadzonemc:land", "features": ["deadzonemc:siedlung_lager"], "step": "surface_structures"},
-    "siedlung_schrein": {"type": "neoforge:add_features", "biomes": "#deadzonemc:verseucht", "features": ["deadzonemc:siedlung_schrein"], "step": "surface_structures"},
-    "siedlung_schrein_totwald": {"type": "neoforge:add_features", "biomes": "#deadzonemc:totwald", "features": ["deadzonemc:siedlung_schrein"], "step": "surface_structures"},
+    "siedlung_schrein": {"type": "neoforge:add_features", "biomes": "#deadzonemc:schreinland", "features": ["deadzonemc:siedlung_schrein"], "step": "surface_structures"},
     "siedlung_baumhaus": {"type": "neoforge:add_features", "biomes": "#minecraft:is_forest", "features": ["deadzonemc:siedlung_baumhaus"], "step": "surface_structures"},
     "siedlung_nomaden": {"type": "neoforge:add_features", "biomes": "#deadzonemc:wueste", "features": ["deadzonemc:siedlung_nomaden"], "step": "surface_structures"},
     "siedlung_kuppel": {"type": "neoforge:add_features", "biomes": "#minecraft:is_ocean", "features": ["deadzonemc:siedlung_kuppel"], "step": "surface_structures"},
