@@ -1,1 +1,2 @@
-the-lost-cities:data/lostcities/lostcities/(conditions|palettes)/[a-z_]+\.json|LostChestInfo|ChestInfo|lost/cityassets/Condition|LootTableProcessor|worldgen/lost/regassets/data/ConditionPart@conditions/|palettes/common\.json|Condition\.class
+ultimate-car-mod:assets/[a-z_]+/lang/en_us\.json@en_us\.json
+immersive-machinery:assets/[a-z_]+/lang/en_us\.json@en_us\.json
