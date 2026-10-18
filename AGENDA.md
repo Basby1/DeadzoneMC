@@ -34,7 +34,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [~] Neue Stadtgebäude: Einfamilienhäuser, Bungalow, Tankstelle, Werkstatt, Baumarkt, Militärposten, Bank
 - [ ] Viel mehr Infizierte, Hinterhalte bei Beute, Türen aufbrechen, pechschwarze Nächte
 - [x] Horror-Geräuschkulisse (Schreie, Schüsse, Sirenen, Heulen, Klopfen, Schritte, Flüstern im Nebel, Metall, Funk) – selbst synthetisiert
-- [ ] Gefährliche Orte (Metro, Bunker, Station Null) deutlich härter, Warnschilder, beste Beute
+- [~] Gefährliche Orte (Metro, Bunker, Station Null) deutlich härter, Warnschilder, beste Beute (Station Null hat Warnschilder, Metro dauernd Nachschub an Monstern, Untertage +1 Beutestufe)
 - [~] POIs: abgestürzte Hubschrauber (Rauchsäule, Militärbeute) [x], Passagierflugzeuge [x], gestrandete Frachter [x], Konvois [ ]
 - [ ] Zufluchten logisch (je Stadt eine am Rand an der Straße)
 
@@ -61,7 +61,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Mimik: übernimmt Skin/Name eines Mitspielers, greift schreiend an, wenn man allein ist (Entwurf der Enthüllung zeigen)
 
 ## Etappe E – Klang, Musik, Präsentation
-- [ ] Eigene gruselige Klänge für alle eigenen Monster
+- [x] Eigene gruselige Klänge für alle eigenen Monster (synthetisierte Stimmen: Stöhnen, Kreischen, Knurren, Gurgeln, Brüllen … je Art eigenes Profil)
 - [ ] Musik gruseliger und atmosphärischer; neues Titelstück
 - [ ] Titelbildschirm: bewegter Hintergrund (Ruinenstadt im Nebel)
 - [ ] Bosse: eigene Klänge, epische Kampfmusik, Sprachzeilen – Kämpfe auf Leben und Tod

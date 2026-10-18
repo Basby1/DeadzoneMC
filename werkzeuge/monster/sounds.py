@@ -170,7 +170,15 @@ SOUNDS = {
 }
 
 
+def eigene_stimmen():
+    """Stimmen aus stimmen.py ersetzen die umgefärbten Minecraft-Klänge (Schritte usw. bleiben)."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import stimmen
+    return stimmen.eintraege()
+
+
 def schreiben():
+    SOUNDS.update(eigene_stimmen())
     daten = {}
     # Waffenklänge stammen aus werkzeuge/waffen.py – erhalten
     if os.path.exists(ZIEL):
@@ -198,6 +206,8 @@ def pruefen():
     fehlt = []
     for name, dateien in SOUNDS.items():
         for d in dateien:
+            if not d["name"].startswith("minecraft:"):
+                continue  # eigene Datei
             pfad = "minecraft/sounds/" + d["name"].split(":", 1)[1] + ".ogg"
             if pfad not in index:
                 fehlt.append(f"{name}: {d['name']}")
