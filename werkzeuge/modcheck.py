@@ -14,9 +14,12 @@ KOPF = {"User-Agent": "Basby1/DeadzoneMC modcheck (github.com/Basby1/DeadzoneMC)
 
 # (Name/Slug, Art) – Art: mod, shader, resourcepack
 KANDIDATEN = [
-    ("ultimate-car-mod", "mod"), ("ultimate-car", "mod"), ("immersive-machinery", "mod"), ("small-ships", "mod"),
-    ("simple-planes", "mod"), ("create", "mod"), ("vehicle-mod", "mod"), ("automobility", "mod"),
-    ("mrcrayfishs-vehicle-mod", "mod"), ("car-mod", "mod"), ("immersive-vehicles", "mod"), ("drivebywire", "mod"),
+    ("simple-voice-chat", "mod"), ("securitycraft", "mod"), ("first-aid", "mod"), ("cold-sweat", "mod"),
+    ("presence-footsteps", "mod"), ("camera-overhaul", "mod"), ("visuality", "mod"), ("effective", "mod"),
+    ("falling-leaves", "mod"), ("true-darkness", "mod"), ("dynamic-crosshair", "mod"), ("sounds", "mod"),
+    ("auditory", "mod"), ("travelers-backpack", "mod"), ("guns-and-zombies", "mod"), ("spartan-weaponry", "mod"),
+    ("immersive-overlays", "mod"), ("better-third-person", "mod"), ("drippy-loading-screen", "mod"),
+    ("explosive-enhancement", "mod"), ("rope-bridge", "mod"), ("waystones", "mod"),
 ]
 
 LADER = {"mod": ["neoforge"], "shader": ["iris"], "resourcepack": ["minecraft"]}
