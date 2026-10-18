@@ -24,7 +24,7 @@
         "type": "get_stat"
        },
        {
-        "type": "test",
+        "type": "puffish_skills:test",
         "data": {
          "stat": "minecraft.custom:minecraft.sprint_one_cm"
         }
@@ -37,7 +37,7 @@
         "type": "get_stat"
        },
        {
-        "type": "test",
+        "type": "puffish_skills:test",
         "data": {
          "stat": "minecraft.custom:minecraft.climb_one_cm"
         }
@@ -50,7 +50,7 @@
         "type": "get_stat"
        },
        {
-        "type": "test",
+        "type": "puffish_skills:test",
         "data": {
          "stat": "minecraft.custom:minecraft.jump"
         }
@@ -63,7 +63,7 @@
         "type": "get_stat"
        },
        {
-        "type": "test",
+        "type": "puffish_skills:test",
         "data": {
          "stat": "minecraft.custom:minecraft.swim_one_cm"
         }

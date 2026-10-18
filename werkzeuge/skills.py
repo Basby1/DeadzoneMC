@@ -37,8 +37,14 @@ def parkour(*aktionen):
                       "lock_command": f"parcool action lock @s parcool:{a}"}} for a in aktionen]
 
 
+# Bedingungen und Zusatz-Operationen liegen im Namensraum puffish_skills, die get_*-Operationen in minecraft
+EIGENE = {"is_melee", "is_projectile", "is_magic", "switch", "has_tag", "get_attribute", "get_effect",
+          "get_score", "get_stat_value"}
+
+
 def var(*ops, fallback=None):
-    v = {"operations": [o if isinstance(o, dict) else {"type": o} for o in ops]}
+    v = {"operations": [o if isinstance(o, dict) else {"type": ("puffish_skills:" + o) if o in EIGENE else o}
+                        for o in ops]}
     if fallback is not None:
         v["fallback"] = fallback
         v["required"] = False
@@ -46,7 +52,7 @@ def var(*ops, fallback=None):
 
 
 def test(**daten):
-    return {"type": "test", "data": daten}
+    return {"type": "puffish_skills:test", "data": daten}
 
 
 class Baum:

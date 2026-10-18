@@ -34,7 +34,7 @@
         "type": "get_damage_source"
        },
        {
-        "type": "is_projectile"
+        "type": "puffish_skills:is_projectile"
        }
       ]
      },
@@ -44,7 +44,7 @@
         "type": "get_weapon_item_stack"
        },
        {
-        "type": "test",
+        "type": "puffish_skills:test",
         "data": {
          "item": "tacz:modern_kinetic_gun"
         }
@@ -78,7 +78,7 @@
         "type": "get_damage_source"
        },
        {
-        "type": "is_projectile"
+        "type": "puffish_skills:is_projectile"
        }
       ]
      }

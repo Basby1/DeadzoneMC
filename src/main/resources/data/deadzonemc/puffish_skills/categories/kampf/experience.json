@@ -34,7 +34,7 @@
         "type": "get_damage_source"
        },
        {
-        "type": "is_melee"
+        "type": "puffish_skills:is_melee"
        }
       ]
      }
