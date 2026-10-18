@@ -644,7 +644,9 @@ public final class Selbsttest {
                 ServerLevel ow = server.overworld();
                 var tag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
                         net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "zuflucht"));
-                BlockPos z = ow.findNearestMapStructure(tag, ow.getSharedSpawnPos(), 100, false);
+                long t0 = System.currentTimeMillis();
+                BlockPos z = ow.findNearestMapStructure(tag, ow.getSharedSpawnPos(), 40, false);
+                LOG.info("[Selbsttest] Zuflucht-Suche dauerte {} ms", System.currentTimeMillis() - t0);
                 if (z == null) {
                     LOG.info("[Selbsttest] Zuflucht: keine gefunden");
                     return;

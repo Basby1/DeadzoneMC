@@ -55,7 +55,7 @@ public final class Spielstart {
     public static void zufluchtVerraten(ServerPlayer spieler, ServerLevel oberwelt) {
         var tag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
                 net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "zuflucht"));
-        BlockPos z = oberwelt.findNearestMapStructure(tag, spieler.blockPosition(), 48, false);
+        BlockPos z = oberwelt.findNearestMapStructure(tag, spieler.blockPosition(), 32, false);
         if (z == null) {
             return;
         }

@@ -37,22 +37,30 @@ public class ZufluchtStruktur extends Structure {
         int mx = ctx.chunkPos().getMiddleBlockX();
         int mz = ctx.chunkPos().getMiddleBlockZ();
         int meer = ctx.chunkGenerator().getSeaLevel();
-        int[] hoehen = new int[9];
-        int i = 0;
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dz = -1; dz <= 1; dz++) {
-                hoehen[i++] = ctx.chunkGenerator().getBaseHeight(mx + dx * 30, mz + dz * 30, Heightmap.Types.OCEAN_FLOOR_WG,
-                        ctx.heightAccessor(), ctx.randomState());
-            }
-        }
-        Arrays.sort(hoehen);
-        if (hoehen[0] <= meer || hoehen[8] - hoehen[0] > 12) {
-            return Optional.empty(); // Wasser oder zu steil
-        }
+        // Erst die billige Prüfung (Stadt), dann Höhen – jede Höhenabfrage kostet eine Geländeberechnung
         if (inStadt(ctx.chunkPos().x, ctx.chunkPos().z)) {
             return Optional.empty();
         }
-        int y = hoehen[4];
+        int mitte = ctx.chunkGenerator().getBaseHeight(mx, mz, Heightmap.Types.OCEAN_FLOOR_WG, ctx.heightAccessor(), ctx.randomState());
+        if (mitte <= meer) {
+            return Optional.empty();
+        }
+        int[] hoehen = new int[5];
+        hoehen[0] = mitte;
+        int i = 1;
+        for (int[] d : new int[][]{{-28, -28}, {28, -28}, {-28, 28}, {28, 28}}) {
+            int h = ctx.chunkGenerator().getBaseHeight(mx + d[0], mz + d[1], Heightmap.Types.OCEAN_FLOOR_WG,
+                    ctx.heightAccessor(), ctx.randomState());
+            if (h <= meer || Math.abs(h - mitte) > 10) {
+                return Optional.empty(); // Wasser oder zu steil
+            }
+            hoehen[i++] = h;
+        }
+        Arrays.sort(hoehen);
+        if (hoehen[4] - hoehen[0] > 12) {
+            return Optional.empty();
+        }
+        int y = hoehen[2];
         Direction vorne = Direction.from2DDataValue((int) Math.floorMod(ctx.seed() ^ (mx * 31L + mz), 4L));
         long saat = ctx.seed() ^ (mx * 0x9E3779B97F4A7C15L) ^ (mz * 0xC2B2AE3D27D4EB4FL);
         int minX = mx - GROESSE / 2;
