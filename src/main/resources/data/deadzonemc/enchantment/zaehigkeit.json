@@ -1,0 +1,34 @@
+{
+ "description": {
+  "translate": "enchantment.deadzonemc.zaehigkeit"
+ },
+ "supported_items": "#deadzonemc:verzauberbar/brust",
+ "weight": 5,
+ "max_level": 3,
+ "min_cost": {
+  "base": 10,
+  "per_level_above_first": 10
+ },
+ "max_cost": {
+  "base": 40,
+  "per_level_above_first": 10
+ },
+ "anvil_cost": 4,
+ "slots": [
+  "chest"
+ ],
+ "effects": {
+  "minecraft:attributes": [
+   {
+    "id": "deadzonemc:verzauberung.zaehigkeit",
+    "attribute": "minecraft:generic.max_health",
+    "amount": {
+     "type": "minecraft:linear",
+     "base": 2.0,
+     "per_level_above_first": 2.0
+    },
+    "operation": "add_value"
+   }
+  ]
+ }
+}

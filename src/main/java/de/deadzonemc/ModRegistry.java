@@ -265,6 +265,7 @@ public final class ModRegistry {
                         de.deadzonemc.waffen.feuer.Feuerwaffen.tabFuellen(ausgabe);
                         de.deadzonemc.waffen.wurf.Wurfwaffen.tabFuellen(ausgabe);
                         de.deadzonemc.ausruestung.Ausruestung.tabFuellen(ausgabe);
+                        de.deadzonemc.verzauberung.Zonenverzauberung.tabFuellen(ausgabe);
                         ausgabe.accept(de.deadzonemc.welt.schild.Ladenschild.SCHILD_ITEM.get());
                         ausgabe.accept(de.deadzonemc.waffen.Waffenpflege.PFLEGESET.get());
                         de.deadzonemc.monster.MonsterTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));

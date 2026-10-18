@@ -1,0 +1,12 @@
+{
+ "replace": false,
+ "values": [
+  "deadzonemc:pluenderer_beine",
+  "deadzonemc:schrottpanzer_beine",
+  "deadzonemc:taktisch_beine",
+  "deadzonemc:sanitaeter_beine",
+  "deadzonemc:schutzanzug_beine",
+  "deadzonemc:tarnanzug_beine",
+  "deadzonemc:mutantenpanzer_beine"
+ ]
+}

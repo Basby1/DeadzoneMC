@@ -796,6 +796,11 @@ TEXTE = {
 
 
 def main():
+    # Texte der Zonen-Verzauberungen (erzeugt von verzauberungen.py)
+    zusatz = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verzauberungen_texte.json")
+    if os.path.exists(zusatz):
+        with open(zusatz, encoding="utf-8") as f:
+            TEXTE.update(json.load(f))
     os.makedirs(ZIEL, exist_ok=True)
     for datei in ("de_de.json", "en_us.json"):
         with open(os.path.join(ZIEL, datei), "w", encoding="utf-8") as f:

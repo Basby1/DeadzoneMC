@@ -44,7 +44,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
       Aufsätze (Schalldämpfer = weniger Lärm, Taschenlampe, Zielfernrohr), Nahkampfwaffen
 - [ ] Handgranaten (craftbar), Brandsätze, Rauch
 - [ ] Rüstungssätze für jede Klasse, aus Monster-Drops und Rezepten
-- [ ] Deadzone-Verzauberungstisch + mindestens 20 eigene Verzauberungen, passend zur Welt
+- [x] Zonenwerkbank + 26 eigene Zonen-Verzauberungen (nur dort, bezahlt mit Erfahrung + Zonenmaterial)
 - [ ] Monster-Drops als Bauteile (Mutantenhaut, Sehnen, Knochensplitter, Kristallstaub …), Pflanzen, viele Rezepte
 - [ ] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager), …
 - [ ] Selbstverteidigungsanlagen: Geschütztürme, Minen, Fallen, Werkzeuge

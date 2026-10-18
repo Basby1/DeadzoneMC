@@ -116,6 +116,16 @@ public class GefahrenBonus extends LootModifier {
                 }
             }
         }
+        // Verzauberung Glückspilz (Kopf): je Stufe ein Extra-Wurf mit 40 % Chance
+        if (ctx.getParamOrNull(LootContextParams.THIS_ENTITY) instanceof net.minecraft.world.entity.player.Player sp) {
+            int glueck = de.deadzonemc.verzauberung.Zonenverzauberung.stufe(
+                    sp.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD), "glueckspilz");
+            for (int i = 0; i < glueck; i++) {
+                if (ctx.getRandom().nextFloat() < 0.4F) {
+                    wuerfeln(i == 2 ? "mittel" : "gering", ctx, beute);
+                }
+            }
+        }
         for (ItemStack s : beute) {
             if (besonders(s)) {
                 s.set(Beute.FUND.get(), true);

@@ -1,0 +1,7 @@
+{
+ "values": [
+  "#minecraft:enchantable/durability",
+  "#deadzonemc:verzauberbar/schusswaffe",
+  "#deadzonemc:verzauberbar/nahkampf"
+ ]
+}

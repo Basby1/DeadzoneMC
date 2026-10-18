@@ -132,7 +132,12 @@ public final class Feuerwaffen {
     }
 
     public static int magazinGroesse(ItemStack s, WaffenArt a) {
-        return hatAufsatz(s, "magazin") ? a.magazin + Math.max(1, a.magazin / 2) : a.magazin;
+        int n = hatAufsatz(s, "magazin") ? a.magazin + Math.max(1, a.magazin / 2) : a.magazin;
+        // Trommelmagazin (+25 % je Stufe, nur bei Waffen mit echtem Magazin)
+        if (a.magazin >= 5) {
+            n += Math.round(a.magazin * 0.25F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(s, "trommel"));
+        }
+        return n;
     }
 
     public static void tabFuellen(net.minecraft.world.item.CreativeModeTab.Output ausgabe) {

@@ -1,0 +1,17 @@
+{
+ "values": [
+  "#minecraft:swords",
+  "#minecraft:axes",
+  "deadzonemc:kampfmesser",
+  "deadzonemc:machete",
+  "deadzonemc:baseballschlaeger",
+  "deadzonemc:nagelschlaeger",
+  "deadzonemc:feuerwehraxt",
+  "deadzonemc:vorschlaghammer",
+  "deadzonemc:speer",
+  "deadzonemc:knochenkeule",
+  "deadzonemc:mutantenklinge",
+  "deadzonemc:rostiges_messer",
+  "deadzonemc:brecheisen"
+ ]
+}

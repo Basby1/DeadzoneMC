@@ -1,0 +1,12 @@
+{
+ "replace": false,
+ "values": [
+  "deadzonemc:pluenderer_stiefel",
+  "deadzonemc:schrottpanzer_stiefel",
+  "deadzonemc:taktisch_stiefel",
+  "deadzonemc:sanitaeter_stiefel",
+  "deadzonemc:schutzanzug_stiefel",
+  "deadzonemc:tarnanzug_stiefel",
+  "deadzonemc:mutantenpanzer_stiefel"
+ ]
+}

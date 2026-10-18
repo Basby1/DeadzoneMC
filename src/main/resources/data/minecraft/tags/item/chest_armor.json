@@ -1,0 +1,12 @@
+{
+ "replace": false,
+ "values": [
+  "deadzonemc:pluenderer_brust",
+  "deadzonemc:schrottpanzer_brust",
+  "deadzonemc:taktisch_brust",
+  "deadzonemc:sanitaeter_brust",
+  "deadzonemc:schutzanzug_brust",
+  "deadzonemc:tarnanzug_brust",
+  "deadzonemc:mutantenpanzer_brust"
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "replace": false,
+ "values": [
+  "deadzonemc:pluenderer_kopf",
+  "deadzonemc:schrottpanzer_kopf",
+  "deadzonemc:taktisch_kopf",
+  "deadzonemc:sanitaeter_kopf",
+  "deadzonemc:schutzanzug_kopf",
+  "deadzonemc:tarnanzug_kopf",
+  "deadzonemc:mutantenpanzer_kopf"
+ ]
+}

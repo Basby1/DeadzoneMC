@@ -1,0 +1,30 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "misc",
+ "pattern": [
+  "KMK",
+  "PWP",
+  "III"
+ ],
+ "key": {
+  "K": {
+   "item": "deadzonemc:strahlenkristall"
+  },
+  "M": {
+   "item": "deadzonemc:mutagen"
+  },
+  "P": {
+   "item": "deadzonemc:panzerplatte"
+  },
+  "W": {
+   "item": "minecraft:crafting_table"
+  },
+  "I": {
+   "item": "minecraft:iron_ingot"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:zonenwerkbank",
+  "count": 1
+ }
+}

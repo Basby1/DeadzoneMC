@@ -18,6 +18,8 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebel);
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebelFarbe);
         modBus.addListener(DeadzoneClient::renderer);
+        modBus.addListener((net.neoforged.neoforge.client.event.RegisterMenuScreensEvent e) ->
+                e.register(de.deadzonemc.verzauberung.Zonenverzauberung.MENU.get(), de.deadzonemc.client.ZonenwerkbankScreen::new));
         modBus.addListener(de.deadzonemc.client.ClientKlasse::tasten);
         modBus.addListener(de.deadzonemc.client.ClientWaffen::tasten);
         modBus.addListener(de.deadzonemc.client.ClientWaffen::ebenen);

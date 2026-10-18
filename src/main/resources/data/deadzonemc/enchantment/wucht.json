@@ -1,0 +1,34 @@
+{
+ "description": {
+  "translate": "enchantment.deadzonemc.wucht"
+ },
+ "supported_items": "#deadzonemc:verzauberbar/nahkampf",
+ "weight": 5,
+ "max_level": 2,
+ "min_cost": {
+  "base": 10,
+  "per_level_above_first": 10
+ },
+ "max_cost": {
+  "base": 40,
+  "per_level_above_first": 10
+ },
+ "anvil_cost": 4,
+ "slots": [
+  "mainhand"
+ ],
+ "effects": {
+  "minecraft:knockback": [
+   {
+    "effect": {
+     "type": "minecraft:add",
+     "value": {
+      "type": "minecraft:linear",
+      "base": 1,
+      "per_level_above_first": 1
+     }
+    }
+   }
+  ]
+ }
+}

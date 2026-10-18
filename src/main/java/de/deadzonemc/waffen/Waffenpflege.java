@@ -121,6 +121,10 @@ public final class Waffenpflege {
     public static void nachSchuss(ItemStack s, LivingEntity wer) {
         {
             // Sanfter Verschleiß: rund 1000 Schüsse bis "kaputt", Ladehemmungen erst ab 80 % und auch dann selten
+            // Verzauberung Robust: 25 % je Stufe, dass ein Schuss die Waffe nicht abnutzt
+            if (wer.getRandom().nextFloat() < 0.25F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(s, "robust")) {
+                return;
+            }
             int v = Math.min(1000, s.getOrDefault(VERSCHLEISS.get(), 0) + 1);
             s.set(VERSCHLEISS.get(), v);
             double chance = v < 800 ? 0 : (v - 800) / 200.0 * 0.02;

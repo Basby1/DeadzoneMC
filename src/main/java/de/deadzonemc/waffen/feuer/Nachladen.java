@@ -72,6 +72,12 @@ public final class Nachladen {
         return genommen;
     }
 
+    /** Nachladezeit mit Verzauberung Schnellladen (-15 % je Stufe). */
+    private static int dauer(ServerPlayer p, ItemStack s, WaffenArt a) {
+        return Math.max(4, Math.round(a.laden * (1 - 0.15F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(
+                p.level().registryAccess(), s, "schnellladen"))));
+    }
+
     public static void starten(ServerPlayer p) {
         ItemStack s = p.getMainHandItem();
         if (!(s.getItem() instanceof SchusswaffeItem w) || laedt(p)) {
@@ -87,10 +93,11 @@ public final class Nachladen {
                     Component.translatable("item.deadzonemc." + a.kaliber.itemId())).withStyle(ChatFormatting.RED), true);
             return;
         }
-        LAUFEND.put(p.getUUID(), new Vorgang(p, p.getInventory().selected, p.serverLevel().getGameTime() + a.laden));
+        int dauer = dauer(p, s, a);
+        LAUFEND.put(p.getUUID(), new Vorgang(p, p.getInventory().selected, p.serverLevel().getGameTime() + dauer));
         p.serverLevel().playSound(null, p.blockPosition(), Feuerwaffen.LADEN.get(), SoundSource.PLAYERS, 0.9F,
                 a.einzeln ? 1.2F : 1.0F);
-        PacketDistributor.sendToPlayer(p, new WaffenPayloads.Rueckmeldung(0, a.laden));
+        PacketDistributor.sendToPlayer(p, new WaffenPayloads.Rueckmeldung(0, dauer));
     }
 
     public static void tick(ServerTickEvent.Post event) {
@@ -127,8 +134,9 @@ public final class Nachladen {
         for (ServerPlayer p : weiter) {
             ItemStack s = p.getMainHandItem();
             if (s.getItem() instanceof SchusswaffeItem w) {
-                LAUFEND.put(p.getUUID(), new Vorgang(p, p.getInventory().selected, p.serverLevel().getGameTime() + w.art.laden));
-                PacketDistributor.sendToPlayer(p, new WaffenPayloads.Rueckmeldung(0, w.art.laden));
+                int d = dauer(p, s, w.art);
+                LAUFEND.put(p.getUUID(), new Vorgang(p, p.getInventory().selected, p.serverLevel().getGameTime() + d));
+                PacketDistributor.sendToPlayer(p, new WaffenPayloads.Rueckmeldung(0, d));
             }
         }
     }

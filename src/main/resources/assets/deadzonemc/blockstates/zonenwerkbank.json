@@ -1,0 +1,19 @@
+{
+ "variants": {
+  "facing=north": {
+   "model": "deadzonemc:block/zonenwerkbank"
+  },
+  "facing=east": {
+   "model": "deadzonemc:block/zonenwerkbank",
+   "y": 90
+  },
+  "facing=south": {
+   "model": "deadzonemc:block/zonenwerkbank",
+   "y": 180
+  },
+  "facing=west": {
+   "model": "deadzonemc:block/zonenwerkbank",
+   "y": 270
+  }
+ }
+}

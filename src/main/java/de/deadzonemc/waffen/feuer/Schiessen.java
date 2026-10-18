@@ -87,7 +87,9 @@ public final class Schiessen {
         boolean leise = Feuerwaffen.hatAufsatz(s, "schalldaempfer");
         lv.playSound(null, p.getX(), p.getEyeY(), p.getZ(), leise ? Feuerwaffen.GEDAEMPFT.get() : Feuerwaffen.SCHUSS.get(a).get(),
                 SoundSource.PLAYERS, leise ? 0.8F : 3.0F, 0.94F + p.getRandom().nextFloat() * 0.12F);
-        Laerm.machen(lv, p.position(), leise ? a.laerm * 0.25 : a.laerm);
+        var zugriff = lv.registryAccess();
+        int lautlos = de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "lautlos");
+        Laerm.machen(lv, p.position(), (leise ? a.laerm * 0.25 : a.laerm) * Math.max(0.25, 1 - 0.25 * lautlos));
         Vec3 blick = p.getLookAngle();
         Vec3 auge = p.getEyePosition();
         Vec3 rechts = blick.cross(new Vec3(0, 1, 0)).normalize();
@@ -108,9 +110,12 @@ public final class Schiessen {
         if (zielen && Feuerwaffen.hatAufsatz(s, "zielfernrohr")) {
             streuung *= 0.4F;
         }
+        streuung *= 1.0F - 0.15F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "ruhige_hand");
+        Treffer t = new Treffer(de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "kopfjaeger"), de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "hohlspitz"),
+                de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "durchschlag"), de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "brandmunition"));
         int bestes = 0;
         for (int i = 0; i < a.kugeln; i++) {
-            bestes = Math.max(bestes, strahl(lv, p, a, auge, streue(blick, streuung, p.getRandom()), i == 0));
+            bestes = Math.max(bestes, strahl(lv, p, a, auge, streue(blick, streuung, p.getRandom()), i == 0, t, t.durchschlag, null));
         }
         if (bestes > 0) {
             PacketDistributor.sendToPlayer(p, new WaffenPayloads.Rueckmeldung(bestes, 0));
@@ -129,13 +134,18 @@ public final class Schiessen {
         return richtung.add(u.scale(Math.cos(wnk) * Math.tan(rad))).add(v.scale(Math.sin(wnk) * Math.tan(rad))).normalize();
     }
 
+    /** Verzauberungen der Waffe für diesen Schuss. */
+    private record Treffer(int kopfjaeger, int hohlspitz, int durchschlag, int brand) {
+    }
+
     /** Verfolgt einen Strahl. Rückgabe: 0 nichts, 1 Treffer, 2 Kopfschuss, 3 tödlich. */
-    private static int strahl(ServerLevel lv, ServerPlayer p, WaffenArt a, Vec3 start, Vec3 richtung, boolean erster) {
+    private static int strahl(ServerLevel lv, ServerPlayer p, WaffenArt a, Vec3 start, Vec3 richtung, boolean erster, Treffer t,
+                              int durch, @javax.annotation.Nullable Entity schonGetroffen) {
         Vec3 ende = start.add(richtung.scale(a.reichweite));
         BlockHitResult block = lv.clip(new ClipContext(start, ende, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
         Vec3 bis = block.getType() == HitResult.Type.MISS ? ende : block.getLocation();
         EntityHitResult ent = ProjectileUtil.getEntityHitResult(lv, p, start, bis,
-                new AABB(start, bis).inflate(1.0), e -> e.isPickable() && !e.isSpectator() && e != p && e.isAlive(), 0.0F);
+                new AABB(start, bis).inflate(1.0), e -> e.isPickable() && !e.isSpectator() && e != p && e != schonGetroffen && e.isAlive(), 0.0F);
         if (ent != null && ent.getEntity() instanceof LivingEntity ziel) {
             Vec3 treffpunkt = ent.getLocation();
             double dist = start.distanceTo(treffpunkt);
@@ -147,7 +157,11 @@ public final class Schiessen {
             }
             boolean kopf = treffpunkt.y >= ziel.getEyeY() - 0.28 && ziel.getBbHeight() > 1.2F;
             if (kopf) {
-                schaden *= a.kopf;
+                schaden *= a.kopf * (1 + 0.2F * t.kopfjaeger);
+            }
+            schaden *= 1 + 0.12F * t.hohlspitz;
+            if (schonGetroffen != null) {
+                schaden *= 0.65F; // nach dem Durchschlagen
             }
             ziel.invulnerableTime = 0;
             boolean getroffen = ziel.hurt(new net.minecraft.world.damagesource.DamageSource(lv.registryAccess()
@@ -155,13 +169,19 @@ public final class Schiessen {
             ziel.invulnerableTime = 0;
             if (getroffen) {
                 ziel.knockback(0.15 * Math.min(2, a.kugeln), -richtung.x, -richtung.z);
+                if (t.brand > 0) {
+                    ziel.igniteForSeconds(3 * t.brand);
+                }
+            }
+            int ergebnis = !getroffen ? 0 : !ziel.isAlive() ? 3 : kopf ? 2 : 1;
+            if (durch > 0) {
+                // Durchschlag: weiter durch das Ziel hindurch
+                Vec3 weiter = treffpunkt.add(richtung.scale(0.6));
+                ergebnis = Math.max(ergebnis, strahl(lv, p, a, weiter, richtung, false, t, durch - 1, ziel));
             }
             lv.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK.defaultBlockState()),
                     treffpunkt.x, treffpunkt.y, treffpunkt.z, kopf ? 10 : 5, 0.1, 0.1, 0.1, 0.05);
-            if (!getroffen) {
-                return 0;
-            }
-            return !ziel.isAlive() ? 3 : kopf ? 2 : 1;
+            return ergebnis;
         }
         if (block.getType() == HitResult.Type.BLOCK) {
             BlockPos pos = block.getBlockPos();

@@ -68,7 +68,7 @@ public final class Strahlung {
         if (maske.is(ModRegistry.GASMASKE.get()) && maske.getOrDefault(ModRegistry.FILTER.get(), 0) > 0) {
             menge *= 0.3F;
         }
-        menge *= de.deadzonemc.klasse.Talente.strahlenfaktor(p);
+        menge *= de.deadzonemc.klasse.Talente.strahlenfaktor(p) * de.deadzonemc.verzauberung.Zonenverzauberung.strahlenFaktor(p);
         if (de.deadzonemc.ausruestung.Satzboni.schutzanzug(p)) {
             menge *= 0.2F;
         }
@@ -143,7 +143,7 @@ public final class Strahlung {
             r *= 0.2;
         }
         if (r > 0) {
-            r *= de.deadzonemc.klasse.Talente.strahlenfaktor(p);
+            r *= de.deadzonemc.klasse.Talente.strahlenfaktor(p) * de.deadzonemc.verzauberung.Zonenverzauberung.strahlenFaktor(p);
             if (de.deadzonemc.ausruestung.Satzboni.schutzanzug(p)) {
                 r *= 0.2F;
             }

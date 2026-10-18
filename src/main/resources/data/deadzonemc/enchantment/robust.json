@@ -1,0 +1,42 @@
+{
+ "description": {
+  "translate": "enchantment.deadzonemc.robust"
+ },
+ "supported_items": "#deadzonemc:verzauberbar/haltbar",
+ "weight": 5,
+ "max_level": 3,
+ "min_cost": {
+  "base": 10,
+  "per_level_above_first": 10
+ },
+ "max_cost": {
+  "base": 40,
+  "per_level_above_first": 10
+ },
+ "anvil_cost": 4,
+ "slots": [
+  "any"
+ ],
+ "effects": {
+  "minecraft:item_damage": [
+   {
+    "effect": {
+     "type": "minecraft:remove_binomial",
+     "chance": {
+      "type": "minecraft:fraction",
+      "numerator": {
+       "type": "minecraft:linear",
+       "base": 2.0,
+       "per_level_above_first": 2.0
+      },
+      "denominator": {
+       "type": "minecraft:linear",
+       "base": 10.0,
+       "per_level_above_first": 5.0
+      }
+     }
+    }
+   }
+  ]
+ }
+}

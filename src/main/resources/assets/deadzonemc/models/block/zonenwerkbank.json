@@ -1,0 +1,9 @@
+{
+ "parent": "minecraft:block/orientable_with_bottom",
+ "textures": {
+  "top": "deadzonemc:block/zonenwerkbank_oben",
+  "bottom": "deadzonemc:block/zonenwerkbank_seite",
+  "side": "deadzonemc:block/zonenwerkbank_seite",
+  "front": "deadzonemc:block/zonenwerkbank_vorne"
+ }
+}

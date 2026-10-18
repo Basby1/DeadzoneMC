@@ -1,0 +1,41 @@
+{
+ "description": {
+  "translate": "enchantment.deadzonemc.schaedelbrecher"
+ },
+ "supported_items": "#deadzonemc:verzauberbar/nahkampf",
+ "weight": 5,
+ "max_level": 5,
+ "min_cost": {
+  "base": 10,
+  "per_level_above_first": 10
+ },
+ "max_cost": {
+  "base": 40,
+  "per_level_above_first": 10
+ },
+ "anvil_cost": 4,
+ "slots": [
+  "mainhand"
+ ],
+ "effects": {
+  "minecraft:damage": [
+   {
+    "requirements": {
+     "condition": "minecraft:entity_properties",
+     "entity": "this",
+     "predicate": {
+      "type": "#deadzonemc:monster"
+     }
+    },
+    "effect": {
+     "type": "minecraft:add",
+     "value": {
+      "type": "minecraft:linear",
+      "base": 2.5,
+      "per_level_above_first": 2.5
+     }
+    }
+   }
+  ]
+ }
+}
