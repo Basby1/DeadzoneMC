@@ -66,6 +66,11 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Titelbildschirm: bewegter Hintergrund (Ruinenpanorama, treibende Nebelbänke, Wetterleuchten)
 - [x] Bosse: eigene Klänge (synthetisierte Stimmen), epische Kampfmusik „Endkampf“, Sprachzeilen (Auftritt, Spott, Raserei, Tod)
 - [x] Animationen und Ausrichtung aller Mobs prüfen (Arme/Waffen gespiegelt, Prüfskript)
+- [x] (19.10.) Bosskämpfe episch: rote Vorwarnungen, Sprung gegen Türme, Phasenwechsel mit Druckwelle/Zeitlupe,
+      Phase 3 mit blinkender Leiste, Auftritt mit Dunkelheit, Finale mit Blitz/Fanfare/„BEZWUNGEN“/Beutefontäne,
+      eigene Kampfatmosphäre je Boss; Gefechtsmusik bei großen Kämpfen
+- [x] (19.10.) Texturen geprüft: Glas/Auren/Schilde werden durchscheinend gezeichnet; Spawn-Eier ohne Modell repariert
+- [x] (19.10.) Lärmanzeige im HUD, Lebensbilanz beim Tod, Hinweis vor der ersten Nacht
 
 ## Etappe F – Dimensionen & Endgame
 - [~] Herz der Zone (Nether) + 10 Mobs [x eingebaut: eigene Fähigkeiten, Stimmen, Beute, Spawns im Nether] + Nether-Endboss „Das Herz der Zone“ [x eingebaut: Glutsäulen, Hitzewelle, Glutleiber, Schwachstelle vorn, Story-Spawn]
