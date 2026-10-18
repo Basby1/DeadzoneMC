@@ -319,7 +319,8 @@ TABELLEN = {
         item("minecraft:glass_bottle", 3, 1, 2),
         item("minecraft:leather_chestplate", 1, schaden=(0.2, 0.7)),
         item("minecraft:iron_nugget", 2, 1, 4),
-        waffe("glock_17", 1), munition("9mm", 1, 3, 10),
+        waffe("glock_17", 2), waffe("m1911", 1), waffe("db_short", 1),
+        munition("9mm", 3, 4, 12), munition("45acp", 2, 3, 8), munition("12g", 2, 2, 6),
         leer(14),
     ]), notizen(15, ["tagebuch_1", "tagebuch_2", "abschied", "evakuierung", "einkaufszettel", "kinderzettel", "brief"])],
     "stadt_laden": [pool(2, 5, ESSEN_KLEIN + [
@@ -490,7 +491,27 @@ TABELLEN = {
 }
 
 
+# Großzügiger als zu Beginn: Plündern soll sich lohnen (Rückmeldung nach dem ersten Testspiel).
+GROSSZUEGIG = {"rolls_plus": 1, "rolls_faktor": 1.5, "leer_faktor": 0.4}
+NICHT_ANHEBEN = {"luftabwurf", "station_null"}
+
+
+def anheben(name, pools):
+    if name in NICHT_ANHEBEN:
+        return
+    for pl in pools:
+        r = pl.get("rolls")
+        if isinstance(r, dict) and r.get("type") == "minecraft:uniform":
+            r["min"] = r["min"] + GROSSZUEGIG["rolls_plus"]
+            r["max"] = round(r["max"] * GROSSZUEGIG["rolls_faktor"]) + GROSSZUEGIG["rolls_plus"]
+            for e in pl["entries"]:
+                if e.get("type") == "minecraft:empty":
+                    e["weight"] = max(1, round(e["weight"] * GROSSZUEGIG["leer_faktor"]))
+
+
 def main():
+    for name, pools in TABELLEN.items():
+        anheben(name, pools)
     if os.path.isdir(ZIEL):
         shutil.rmtree(ZIEL)
     os.makedirs(ZIEL, exist_ok=True)

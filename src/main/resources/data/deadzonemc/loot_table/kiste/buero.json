@@ -4,8 +4,8 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
-        "max": 4
+        "min": 2,
+        "max": 7
       },
       "entries": [
         {
@@ -90,7 +90,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 10
+          "weight": 4
         }
       ]
     },

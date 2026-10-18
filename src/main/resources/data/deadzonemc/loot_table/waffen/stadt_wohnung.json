@@ -13,7 +13,7 @@
         {
           "type": "minecraft:item",
           "name": "tacz:modern_kinetic_gun",
-          "weight": 1,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_custom_data",
@@ -27,8 +27,38 @@
         },
         {
           "type": "minecraft:item",
-          "name": "tacz:ammo",
+          "name": "tacz:modern_kinetic_gun",
           "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{GunId:\"tacz:m1911\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:1}"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{GunId:\"tacz:db_short\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0}"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_custom_data",
@@ -38,8 +68,46 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
+                "min": 4,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{AmmoId:\"tacz:45acp\"}"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
                 "min": 3,
-                "max": 10
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{AmmoId:\"tacz:12g\"}"
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
               }
             }
           ]
