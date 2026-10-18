@@ -126,7 +126,7 @@ public final class Herden {
         if (takt % 40 == 13) {
             herdenBewegen(w);
         }
-        if (takt % 1200 != 600 || !w.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)
+        if (takt % 600 != 300 || !w.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)
                 || w.getDifficulty() == Difficulty.PEACEFUL) {
             return;
         }
@@ -135,11 +135,11 @@ public final class Herden {
                 continue;
             }
             long nah = HERDEN.stream().filter(h -> h.ziel.distanceToSqr(p.position()) < 160 * 160).count();
-            double chance = w.isNight() ? 0.35 : 0.2;
+            double chance = w.isNight() ? 0.7 : 0.5;
             if (DeadzoneMonster.dichterNebel(w)) {
                 chance += 0.15;
             }
-            if (nah < 2 && w.random.nextDouble() < chance) {
+            if (nah < 4 && w.random.nextDouble() < chance) {
                 herdeSpawnen(w, p.position(), p, false);
             }
             // Zufälliger Überfall: selten, nachts oder im Nebel, direkt auf den Spieler

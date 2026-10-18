@@ -158,4 +158,9 @@ public class Schlund extends Boss {
         super.readAdditionalSaveData(tag);
         unten = tag.getInt("Unten");
     }
+
+    @Override
+    protected boolean wuchtangriffe() {
+        return false;
+    }
 }

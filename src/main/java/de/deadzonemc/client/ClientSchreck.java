@@ -16,11 +16,18 @@ public final class ClientSchreck {
     private static final int DAUER = 16;
     private static int rest = 0;
     private static int staerke = 1;
+    /** false = nur Beben (Bossangriffe), true = Jumpscare mit Aufblitzen. */
+    private static boolean blitz = true;
     private static final RandomSource ZUFALL = RandomSource.create();
 
+    /** Positiv: Jumpscare mit Aufblitzen. Negativ: nur Bildschirmbeben in dieser Stärke. */
     public static void start(int s) {
+        if (s < 0 && blitz && rest > 0) {
+            return; // ein laufender Jumpscare hat Vorrang
+        }
         rest = DAUER;
-        staerke = Math.max(1, s);
+        blitz = s > 0;
+        staerke = Math.max(1, Math.abs(s));
     }
 
     public static void tick(ClientTickEvent.Post event) {
@@ -46,7 +53,7 @@ public final class ClientSchreck {
 
     public static void bild(RenderGuiEvent.Post event) {
         float a = anteil(event.getPartialTick().getGameTimeDeltaPartialTick(true));
-        if (a <= 0) {
+        if (a <= 0 || !blitz) {
             return;
         }
         var g = event.getGuiGraphics();

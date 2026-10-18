@@ -138,4 +138,9 @@ public class Kommandant extends Boss {
             spawnAtLocation(de.deadzonemc.mensch.Haendler.tacz("ammo", "AmmoId", "556x45", 60));
         }
     }
+
+    @Override
+    protected boolean wuchtangriffe() {
+        return false;
+    }
 }

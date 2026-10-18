@@ -27,9 +27,9 @@ public final class StadtHorden {
 
     /** Wie viele Deadzone-Monster höchstens um einen Spieler in der Stadt unterwegs sind. */
     static int deckel(ServerLevel welt) {
-        int d = welt.isNight() ? 60 : 40;
+        int d = welt.isNight() ? 100 : 70;
         if (DeadzoneMonster.dichterNebel(welt)) {
-            d += 12;
+            d += 20;
         }
         if (welt.getDifficulty() == Difficulty.EASY) {
             d = d * 2 / 3;
@@ -46,7 +46,11 @@ public final class StadtHorden {
             return;
         }
         for (ServerPlayer p : welt.players()) {
-            if (!DeadzoneMonster.echterSpieler(p) || !Staedte.istStadt(welt, p.chunkPosition().x, p.chunkPosition().z)) {
+            if (!DeadzoneMonster.echterSpieler(p)) {
+                continue;
+            }
+            if (!Staedte.istStadt(welt, p.chunkPosition().x, p.chunkPosition().z)) {
+                streuner(welt, p);
                 continue;
             }
             Integer strasseHier = Staedte.strassenhoehe(welt, p.chunkPosition().x, p.chunkPosition().z);
@@ -109,8 +113,63 @@ public final class StadtHorden {
         }
     }
 
+    /**
+     * Außerhalb der Städte: Streuner. Kleine gemischte Grüppchen (passend zur Gegend) tauchen außer Sicht auf,
+     * damit auch das Land nie leer wirkt. Zusätzlich zu den großen Herden.
+     */
+    private static void streuner(ServerLevel welt, ServerPlayer p) {
+        if (welt.getServer().getTickCount() % 200 != 20 || de.deadzonemc.zuflucht.ZufluchtSchutz.sicher(welt, p.blockPosition())
+                || !welt.canSeeSky(p.blockPosition())) {
+            return;
+        }
+        int deckel = welt.isNight() ? 45 : 28;
+        if (DeadzoneMonster.dichterNebel(welt)) {
+            deckel += 10;
+        }
+        int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(64, 32, 64)).size();
+        if (nah >= deckel) {
+            return;
+        }
+        int anzahl = Math.min(deckel - nah, 2 + welt.random.nextInt(welt.isNight() ? 5 : 3));
+        for (int versuch = 0; versuch < 8 && anzahl > 0; versuch++) {
+            double winkel = welt.random.nextDouble() * Math.PI * 2;
+            double abstand = 26 + welt.random.nextDouble() * 26;
+            int x = Mth.floor(p.getX() + Math.cos(winkel) * abstand);
+            int z = Mth.floor(p.getZ() + Math.sin(winkel) * abstand);
+            if (!welt.hasChunkAt(new BlockPos(x, 0, z))) {
+                continue;
+            }
+            int y = welt.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+            BlockPos mitte = boden(welt, x, z, y);
+            if (mitte == null || de.deadzonemc.zuflucht.ZufluchtSchutz.sicher(welt, mitte)) {
+                continue;
+            }
+            for (int i = 0; i < anzahl * 2 && anzahl > 0; i++) {
+                BlockPos pos = boden(welt, mitte.getX() + welt.random.nextInt(7) - 3, mitte.getZ() + welt.random.nextInt(7) - 3,
+                        mitte.getY());
+                if (pos == null) {
+                    continue;
+                }
+                DeadzoneMonster e = Herden.mitglied(welt, pos, false).create(welt);
+                if (e == null) {
+                    return;
+                }
+                e.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, welt.random.nextFloat() * 360, 0);
+                if (p.hasLineOfSight(e) || !welt.noCollision(e)) {
+                    continue;
+                }
+                EventHooks.finalizeMobSpawn(e, welt, welt.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null);
+                if (e.isSpawnCancelled()) {
+                    continue;
+                }
+                welt.addFreshEntity(e);
+                anzahl--;
+            }
+        }
+    }
+
     static int gruppengroesse(ServerLevel welt) {
-        int n = welt.isNight() ? 6 + welt.random.nextInt(6) : 4 + welt.random.nextInt(4);
+        int n = welt.isNight() ? 8 + welt.random.nextInt(7) : 6 + welt.random.nextInt(5);
         if (DeadzoneMonster.dichterNebel(welt)) {
             n += 3;
         }

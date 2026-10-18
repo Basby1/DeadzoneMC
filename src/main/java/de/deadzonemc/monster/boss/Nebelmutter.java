@@ -91,4 +91,9 @@ public class Nebelmutter extends Boss {
             discard();
         }
     }
+
+    @Override
+    protected boolean kannAnstuermen() {
+        return false;
+    }
 }
