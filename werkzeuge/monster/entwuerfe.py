@@ -619,10 +619,10 @@ def gefallener_soldat():
     br = m.k("bein_rechts", "koerper", drehpunkt=(2, 12, 0), drehung=(-6, 0, 0))
     br.w((0, 0, -2), (4, 12, 4), stoff("4a5038", loecher=1, blut=2, falten=4, haut_f=hautf))
     br.w((0, 0, -2), (4, 4, 4), stahl, aufblasen=0.25)
-    bl = m.k("bein_links", "koerper", drehpunkt=(-2, 12, 0), drehung=(28, 0, -4))  # nachgezogen
+    bl = m.k("bein_links", "koerper", drehpunkt=(-2, 12, 0), drehung=(-24, 0, -4))  # wird hinterhergezogen
     bl.w((-4, 0, -2), (4, 12, 4), stoff("4a5038", loecher=2, blut=3, falten=4, haut_f=hautf))
     bl.w((-4, 0, -2), (4, 3, 4), stahl, aufblasen=0.25)
-    ober = m.k("oberkoerper", "koerper", drehpunkt=(0, 12, 0), drehung=(10, 0, -12))
+    ober = m.k("oberkoerper", "koerper", drehpunkt=(0, 12, 0), drehung=(-14, 0, -10))  # nach vorn gekrümmt
     ober.w((-4, 12, -2), (8, 12, 4), tarn)
     ober.w((-4, 14, -2), (8, 9, 4), weste, aufblasen=0.7)
     for x in (-3.5, -1, 1.5):
@@ -631,7 +631,7 @@ def gefallener_soldat():
     ruck.w((-4, 12, 2.6), (8, 10, 5), stoff("4a4630", loecher=1, blut=0, falten=3))
     ruck.w((-4.5, 22, 3), (9, 3, 4), stoff("3a4a2a", loecher=0, blut=0, falten=4))  # Schlafsack
     ruck.w((2.5, 22, 5), (0.5, 9, 0.5), stahl)  # Funkantenne
-    kopf = m.k("kopf", "oberkoerper", drehpunkt=(0, 24, 0), drehung=(38, 0, 28))
+    kopf = m.k("kopf", "oberkoerper", drehpunkt=(0, 24, 0), drehung=(-20, 0, 26))  # hängt schief nach vorn
     kopf.w((-4, 24, -4), (8, 8, 8), h, deko=gesicht([
         "........",
         "........",

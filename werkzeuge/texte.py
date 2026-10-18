@@ -458,7 +458,7 @@ TEXTE = {
     "wetter.deadzonemc.klar.meldung": "Der Nebel lichtet sich. Selten sieht man so weit.",
     "wetter.deadzonemc.leichter_nebel.meldung": "Grauer Dunst legt sich über das Land.",
     "wetter.deadzonemc.dichter_nebel.meldung": "Der Nebel zieht sich zu. Man sieht kaum die eigene Hand.",
-    "wetter.deadzonemc.saurer_regen.meldung": "Es beginnt zu regnen. Der Regen brennt auf der Haut.",
+    "wetter.deadzonemc.saurer_regen.meldung": "Es beginnt zu regnen. Der Regen riecht nach Metall.",
     "wetter.deadzonemc.aschesturm.meldung": "Asche fällt vom Himmel. Jeder Atemzug kratzt.",
 
     # Befehle

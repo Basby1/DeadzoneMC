@@ -482,6 +482,76 @@ public final class Selbsttest {
         LOG.info("[Selbsttest] Zählung um {} (13x13 Chunks): {}", spawn.toShortString(), zaehler);
     }
 
+    private static BlockPos zufluchtOrt;
+
+    /** Öffnet (simuliert) Truhen um einen Ort: würfelt die Beute aus und zählt, was drin ist. */
+    private static void truhen(MinecraftServer server, BlockPos um, String name) {
+        ServerLevel level = server.overworld();
+        var spieler = net.neoforged.neoforge.common.util.FakePlayerFactory.getMinecraft(level);
+        spieler.moveTo(um.getX(), um.getY(), um.getZ());
+        Map<String, String> ergebnis = new TreeMap<>();
+        int leer = 0;
+        int voll = 0;
+        int ohneTabelle = 0;
+        for (int cx = (um.getX() >> 4) - 4; cx <= (um.getX() >> 4) + 4; cx++) {
+            for (int cz = (um.getZ() >> 4) - 4; cz <= (um.getZ() >> 4) + 4; cz++) {
+                LevelChunk chunk = level.getChunk(cx, cz);
+                for (BlockEntity be : new java.util.ArrayList<>(chunk.getBlockEntities().values())) {
+                    if (!(be instanceof net.minecraft.world.Container behaelter)) {
+                        continue;
+                    }
+                    String typ = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(be.getType()).toString();
+                    var tag = be.saveWithoutMetadata(level.registryAccess());
+                    String tabelle = tag.contains("LootTable") ? tag.getString("LootTable") : null;
+                    // 1) echter Weg für normale Truhen: Beute auspacken wie beim Öffnen
+                    int echt = -1;
+                    if (be instanceof net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity r) {
+                        r.unpackLootTable(spieler);
+                        echt = 0;
+                        for (int i = 0; i < behaelter.getContainerSize(); i++) {
+                            if (!behaelter.getItem(i).isEmpty()) {
+                                echt++;
+                            }
+                        }
+                    }
+                    // 2) Tabelle direkt auswürfeln (zeigt, ob die Tabelle selbst etwas liefert)
+                    int gewuerfelt = -1;
+                    if (tabelle != null) {
+                        var key = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                                net.minecraft.resources.ResourceLocation.parse(tabelle));
+                        var tab = server.reloadableRegistries().getLootTable(key);
+                        var params = new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+                                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,
+                                        net.minecraft.world.phys.Vec3.atCenterOf(be.getBlockPos()))
+                                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY, spieler)
+                                .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
+                        var sc = new net.minecraft.world.SimpleContainer(27);
+                        tab.fill(sc, params, level.random.nextLong());
+                        gewuerfelt = 0;
+                        for (int i = 0; i < 27; i++) {
+                            if (!sc.getItem(i).isEmpty()) {
+                                gewuerfelt++;
+                            }
+                        }
+                    } else {
+                        ohneTabelle++;
+                    }
+                    if (echt > 0 || gewuerfelt > 0) {
+                        voll++;
+                    } else {
+                        leer++;
+                    }
+                    if (ergebnis.size() < 40) {
+                        ergebnis.put(typ.replace("minecraft:", "") + "@" + be.getBlockPos().toShortString(),
+                                (tabelle == null ? "ohne Tabelle" : tabelle.replace("deadzonemc:", "")) + " echt=" + echt
+                                        + " gewürfelt=" + gewuerfelt);
+                    }
+                }
+            }
+        }
+        LOG.info("[Selbsttest] Truhen {}: voll {}, leer {}, ohne Tabelle {} – {}", name, voll, leer, ohneTabelle, ergebnis);
+    }
+
     public static void tick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
         tick++;
@@ -685,6 +755,8 @@ public final class Selbsttest {
                 LOG.info("[Selbsttest] Zuflucht bei {} / {} (Boden {}): Wesen {}, Händler {}, Schutz {}", z.getX(), z.getZ(), y,
                         zahl, handel, start != null ? de.deadzonemc.zuflucht.ZufluchtBau.name(
                                 ((de.deadzonemc.zuflucht.ZufluchtPiece) start.getPieces().get(0)).saat()) : "fehlt");
+                zufluchtOrt = z;
+                truhen(server, z, "Zuflucht");
                 stadtkarte(server, z.getX() - ow.getSharedSpawnPos().getX(), z.getZ() - ow.getSharedSpawnPos().getZ());
                 return;
             }
@@ -813,6 +885,7 @@ public final class Selbsttest {
             }
             if (befehl.equals("#zaehlen")) {
                 zaehlen(server);
+                truhen(server, mitte(server), "Stadt");
                 return;
             }
             LOG.info("[Selbsttest] /{} (nach {} s)", befehl, (System.currentTimeMillis() - START) / 1000);

@@ -106,18 +106,15 @@ public final class WetterSystem {
         }
     }
 
-    /** Saurer Regen verätzt ungeschützte Spieler, Asche raubt draußen den Atem. Ein Helm schützt. */
+    /** Asche raubt draußen den Atem. Ein Helm schützt. */
     private static void wetterWirkung(ServerPlayer spieler, ServerLevel level, WetterArt art) {
         if (spieler.isCreative() || spieler.isSpectator()) {
             return;
         }
         BlockPos kopf = BlockPos.containing(spieler.getEyePosition());
         long zeit = level.getGameTime();
-        if (art == WetterArt.SAURER_REGEN && zeit % 40 == 0 && level.isRainingAt(kopf)) {
-            if (!helmAbnutzen(spieler, 1)) {
-                spieler.hurt(schaden(level, SAURER_REGEN), 1.0F);
-            }
-        } else if (art == WetterArt.ASCHESTURM && level.canSeeSky(kopf)) {
+        // Saurer Regen macht keinen Schaden mehr (nur Stimmung) – das war zu nervig
+        if (art == WetterArt.ASCHESTURM && level.canSeeSky(kopf)) {
             if (zeit % 60 == 0 && !helmAbnutzen(spieler, 1)) {
                 spieler.hurt(schaden(level, ASCHE), 1.0F);
             }

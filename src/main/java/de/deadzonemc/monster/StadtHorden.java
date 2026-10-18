@@ -27,9 +27,9 @@ public final class StadtHorden {
 
     /** Wie viele Deadzone-Monster höchstens um einen Spieler in der Stadt unterwegs sind. */
     static int deckel(ServerLevel welt) {
-        int d = welt.isNight() ? 30 : 18;
+        int d = welt.isNight() ? 60 : 40;
         if (DeadzoneMonster.dichterNebel(welt)) {
-            d += 8;
+            d += 12;
         }
         if (welt.getDifficulty() == Difficulty.EASY) {
             d = d * 2 / 3;
@@ -38,7 +38,7 @@ public final class StadtHorden {
     }
 
     public static void tick(ServerTickEvent.Post event) {
-        if (event.getServer().getTickCount() % 80 != 40) {
+        if (event.getServer().getTickCount() % 40 != 20) {
             return;
         }
         ServerLevel welt = event.getServer().overworld();
@@ -56,7 +56,7 @@ public final class StadtHorden {
             }
             int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(64, 32, 64)).size();
             int frei = deckel(welt) - nah;
-            if (frei < 3 || welt.random.nextInt(3) == 0) {
+            if (frei < 3) {
                 continue;
             }
             gruppeSpawnen(welt, p.getX(), p.getBlockY(), p.getZ(), p, Math.min(frei, gruppengroesse(welt)));
@@ -110,9 +110,9 @@ public final class StadtHorden {
     }
 
     static int gruppengroesse(ServerLevel welt) {
-        int n = welt.isNight() ? 4 + welt.random.nextInt(5) : 3 + welt.random.nextInt(4);
+        int n = welt.isNight() ? 6 + welt.random.nextInt(6) : 4 + welt.random.nextInt(4);
         if (DeadzoneMonster.dichterNebel(welt)) {
-            n += 2;
+            n += 3;
         }
         return n;
     }
@@ -139,7 +139,7 @@ public final class StadtHorden {
         Basen basen = Basen.holen(welt);
         for (int versuch = 0; versuch < 10; versuch++) {
             double winkel = welt.random.nextDouble() * Math.PI * 2;
-            double abstand = 28 + welt.random.nextDouble() * 24;
+            double abstand = 22 + welt.random.nextDouble() * 24;
             int x = Mth.floor(ox + Math.cos(winkel) * abstand);
             int z = Mth.floor(oz + Math.sin(winkel) * abstand);
             if (!welt.hasChunkAt(new BlockPos(x, 0, z))) {

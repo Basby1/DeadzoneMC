@@ -848,6 +848,90 @@ def abwurfkiste():
 ALLE["abwurfkiste"] = abwurfkiste
 
 
+
+# ---------------------------------------------------------------------------
+# Kampfanimationen der Bosse: wuchtiger Schlag, Stampfen mit Sprung, Ansturm, Raserei (Phase 2).
+# Werden aus den Knochen des jeweiligen Modells gebaut.
+
+BOSSE = ("verschmolzener", "nebelmutter", "strahlende", "brutkoenigin", "schlaechter", "kommandant", "hirte",
+         "schlund", "pilzvater", "erfrorene")
+
+
+def _knochen(name):
+    import entwuerfe
+    return [k.name for k in entwuerfe.ALLE[name]()[0].knochen]
+
+
+def kampf_anims(name):
+    kn = set(_knochen(name))
+    wurzel = "koerper" if "koerper" in kn else ("basis" if "basis" in kn else None)
+    rumpf = "oberkoerper" if "oberkoerper" in kn else ("masse" if "masse" in kn else wurzel)
+    kopf = "kopf" if "kopf" in kn else None
+    arme = [a for a in ("arm_rechts", "arm_links") if a in kn]
+    segmente = sorted(k for k in kn if k.startswith("segment_"))
+
+    schlag = Anim("schlag", 0.9, schleife=False)
+    if rumpf:
+        schlag.tasten(rumpf, "rotation", {0: (0, 0, 0), 0.35: (22, 0, 0), 0.5: (-34, 0, 0), 0.9: (0, 0, 0)})
+    for a in arme:
+        schlag.tasten(a, "rotation", {0: (0, 0, 0), 0.35: (165, 0, 0), 0.5: (35, 0, 0), 0.9: (0, 0, 0)})
+    if kopf:
+        schlag.tasten(kopf, "rotation", {0: (0, 0, 0), 0.35: (14, 0, 0), 0.5: (-18, 0, 0), 0.9: (0, 0, 0)})
+    for i, sg in enumerate(segmente[-4:]):
+        schlag.tasten(sg, "rotation", {0: (0, 0, 0), 0.35: (18 + i * 4, 0, 0), 0.5: (-30, 0, 0), 0.9: (0, 0, 0)})
+    if wurzel:
+        schlag.tasten(wurzel, "position", {0: (0, 0, 0), 0.5: (0, -1.5, 0), 0.65: (0, 0, 0)})
+
+    stampfen = Anim("stampfen", 1.2, schleife=False)
+    if wurzel:
+        stampfen.tasten(wurzel, "position", {0: (0, 0, 0), 0.15: (0, -2, 0), 0.45: (0, 8, 0), 0.62: (0, -2.5, 0),
+                                              0.85: (0, 0, 0)})
+    if rumpf and rumpf != wurzel:
+        stampfen.tasten(rumpf, "rotation", {0: (0, 0, 0), 0.15: (-15, 0, 0), 0.45: (12, 0, 0), 0.62: (-32, 0, 0),
+                                            1.2: (0, 0, 0)})
+    for a, seite in zip(arme, (1, -1)):
+        stampfen.tasten(a, "rotation", {0: (0, 0, 0), 0.45: (160, 0, 25 * seite), 0.62: (20, 0, 0), 1.2: (0, 0, 0)})
+    for sg in segmente:
+        stampfen.tasten(sg, "rotation", {0: (0, 0, 0), 0.45: (-10, 0, 0), 0.62: (12, 0, 0), 1.2: (0, 0, 0)})
+
+    ansturm = Anim("ansturm", 0.8, schleife=False)
+    if rumpf:
+        ansturm.tasten(rumpf, "rotation", {0: (0, 0, 0), 0.1: (-35, 0, 0), 0.7: (-35, 0, 0), 0.8: (0, 0, 0)})
+    for a in arme:
+        ansturm.tasten(a, "rotation", {0: (0, 0, 0), 0.1: (-55, 0, 0), 0.7: (-55, 0, 0), 0.8: (0, 0, 0)})
+    if kopf:
+        ansturm.tasten(kopf, "rotation", {0: (0, 0, 0), 0.1: (-12, 0, 0), 0.7: (-12, 0, 0), 0.8: (0, 0, 0)})
+    for i, sg in enumerate(segmente):
+        ansturm.welle(sg, "y", 12, phase=i * 0.12, frequenz=2)
+
+    wut = Anim("wut", 1.6, schleife=False)
+    if rumpf:
+        wut.tasten(rumpf, "rotation", {0: (0, 0, 0), 0.3: (28, 0, 0), 1.25: (28, 0, 0), 1.6: (0, 0, 0)})
+    if kopf:
+        schuetteln = {0: (0, 0, 0), 0.3: (35, 0, 0)}
+        t = 0.36
+        i = 0
+        while t < 1.25:
+            schuetteln[round(t, 2)] = (35, 0, 7 if i % 2 == 0 else -7)
+            t += 0.08
+            i += 1
+        schuetteln[1.25] = (35, 0, 0)
+        schuetteln[1.6] = (0, 0, 0)
+        wut.tasten(kopf, "rotation", schuetteln)
+    for a, seite in zip(arme, (1, -1)):
+        wut.tasten(a, "rotation", {0: (0, 0, 0), 0.3: (-40, 0, 60 * seite), 1.25: (-40, 0, 60 * seite), 1.6: (0, 0, 0)})
+    for i, sg in enumerate(segmente):
+        wut.tasten(sg, "rotation", {0: (0, 0, 0), 0.3: (-14, 0, 0), 1.25: (-14, 0, 0), 1.6: (0, 0, 0)})
+    return [schlag, stampfen, ansturm, wut]
+
+
+def _mit_kampf(name, f):
+    return lambda: f() + kampf_anims(name)
+
+
+for _b in BOSSE:
+    ALLE[_b] = _mit_kampf(_b, ALLE[_b])
+
 def schreiben(name):
     anims = ALLE[name]()
     daten = {"format_version": "1.8.0",
