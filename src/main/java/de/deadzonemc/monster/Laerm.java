@@ -28,6 +28,12 @@ public final class Laerm {
             }
         }
         Herden.laermGehoert(level, ort, radius * 1.6);
+        // Wer das Geräusch gemacht hat (oder direkt daneben steht), sieht es in der Lärmanzeige
+        for (ServerPlayer p : level.players()) {
+            if (p.position().distanceToSqr(ort) < 16) {
+                net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, new de.deadzonemc.netz.LaermPayload((int) radius));
+            }
+        }
     }
 
     // ---- Quellen -----------------------------------------------------------------------------

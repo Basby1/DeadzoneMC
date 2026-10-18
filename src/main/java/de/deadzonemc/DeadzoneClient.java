@@ -26,6 +26,7 @@ public class DeadzoneClient {
         modBus.addListener(de.deadzonemc.client.ClientGeschichte::ebenen);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientGeschichte::tick);
         modBus.addListener(de.deadzonemc.client.ClientWaffen::ebenen);
+        modBus.addListener(de.deadzonemc.client.ClientLaerm::ebenen);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::klick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::fov);
