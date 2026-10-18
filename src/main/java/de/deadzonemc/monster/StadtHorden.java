@@ -49,12 +49,63 @@ public final class StadtHorden {
             if (!DeadzoneMonster.echterSpieler(p) || !Staedte.istStadt(welt, p.chunkPosition().x, p.chunkPosition().z)) {
                 continue;
             }
+            Integer strasseHier = Staedte.strassenhoehe(welt, p.chunkPosition().x, p.chunkPosition().z);
+            if (strasseHier != null && p.getBlockY() < strasseHier - 5 && !welt.canSeeSky(p.blockPosition())) {
+                metro(welt, p);
+                continue;
+            }
             int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(64, 32, 64)).size();
             int frei = deckel(welt) - nah;
             if (frei < 3 || welt.random.nextInt(3) == 0) {
                 continue;
             }
             gruppeSpawnen(welt, p.getX(), p.getBlockY(), p.getZ(), p, Math.min(frei, gruppengroesse(welt)));
+        }
+    }
+
+    private static final java.util.Set<java.util.UUID> IN_DER_METRO = new java.util.HashSet<>();
+
+    /** Unter der Stadt, in den U-Bahn-Tunneln: kleine Gruppen aus Kriechern, Wühlern und Lauerern im Dunkeln. */
+    private static void metro(ServerLevel welt, ServerPlayer p) {
+        if (IN_DER_METRO.add(p.getUUID())) {
+            p.displayClientMessage(net.minecraft.network.chat.Component.translatable("metro.deadzonemc.betreten")
+                    .withStyle(net.minecraft.ChatFormatting.DARK_GRAY, net.minecraft.ChatFormatting.ITALIC), true);
+        }
+        int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(40, 12, 40)).size();
+        if (nah >= 10 || welt.random.nextInt(2) == 0) {
+            return;
+        }
+        int anzahl = 2 + welt.random.nextInt(3);
+        for (int versuch = 0; versuch < 12 && anzahl > 0; versuch++) {
+            double winkel = welt.random.nextDouble() * Math.PI * 2;
+            double abstand = 14 + welt.random.nextDouble() * 16;
+            int x = Mth.floor(p.getX() + Math.cos(winkel) * abstand);
+            int z = Mth.floor(p.getZ() + Math.sin(winkel) * abstand);
+            if (!welt.hasChunkAt(new BlockPos(x, 0, z))) {
+                continue;
+            }
+            BlockPos pos = boden(welt, x, z, p.getBlockY());
+            if (pos == null || welt.canSeeSky(pos) || welt.getMaxLocalRawBrightness(pos) > 4) {
+                continue;
+            }
+            int w = welt.random.nextInt(100);
+            EntityType<? extends DeadzoneMonster> typ = w < 35 ? MonsterTypen.KRIECHER.get()
+                    : w < 55 ? MonsterTypen.WUEHLER.get() : w < 70 ? MonsterTypen.LAUERER.get()
+                    : w < 80 ? MonsterTypen.BRUT.get() : MonsterTypen.WANDERER.get();
+            DeadzoneMonster e = typ.create(welt);
+            if (e == null) {
+                return;
+            }
+            e.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, welt.random.nextFloat() * 360, 0);
+            if (p.hasLineOfSight(e) || !welt.noCollision(e)) {
+                continue;
+            }
+            EventHooks.finalizeMobSpawn(e, welt, welt.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null);
+            if (e.isSpawnCancelled()) {
+                continue;
+            }
+            welt.addFreshEntity(e);
+            anzahl--;
         }
     }
 

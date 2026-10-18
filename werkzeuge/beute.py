@@ -425,6 +425,23 @@ TABELLEN = {
         item("minecraft:iron_chestplate", 2),
         item("minecraft:iron_helmet", 2),
     ])],
+    # Station Null: Labor der Halden-Werke
+    "station_null": [pool(2, 4, [
+        item(m("anti_rad"), 6, 1, 3),
+        item(m("gasmaske"), 3),
+        item(m("filter"), 5, 2, 4),
+        item(m("geigerzaehler"), 2),
+        item(m("anomaliedetektor"), 2),
+        item(m("bolzen"), 4, 6, 12),
+        item(m("elektronik"), 6, 2, 6),
+        item(m("batterie"), 5, 2, 4),
+        item(m("militaerpatrone"), 6, 8, 20),
+        item(m("artefakt_qualle"), 1),
+        item(m("artefakt_steinblut"), 1),
+        item("minecraft:diamond", 1, 1, 2),
+        item(m("schatzkarte"), 2),
+    ]), {"rolls": 1, "entries": [notiz("station_null_1"), notiz("station_null_2"), notiz("station_null_3"),
+                                 notiz("station_null_4")]}],
     "autowrack": [pool(1, 3, [
         item(m("schrott"), 10, 1, 3),
         item(m("batterie"), 4),

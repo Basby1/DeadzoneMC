@@ -438,6 +438,7 @@ TEXTE = {
     "handbuch.deadzonemc.16": "ABWÜRFE\n\nManchmal meldet der Funk einen Versorgungsabwurf mit ungefähren Koordinaten.\n\nFolge der roten Rauchsäule. Die Kiste lohnt sich, aber der Lärm lockt eine Herde an. Sei schnell.",
     "handbuch.deadzonemc.17": "ZUFLUCHTEN\n\nUmmauerte Lager der Überlebenden. Drinnen bist du sicher, Wachen schießen auf alles, was hereinkommt.\n\nHändler tauschen gegen Militärpatronen. Der Verwalter vergibt Aufträge (/auftrag).",
     "handbuch.deadzonemc.19": "VERLETZUNGEN\n\nBlutung: Bisse und Hiebe reißen Wunden. Du verlierst langsam Blut, bis du einen Verband anlegst.\n\nKnochenbruch: nach einem schweren Sturz. Langsam, kaum springen – bis eine Schiene angelegt ist (2 Stöcke + Stoffreste).",
+    "handbuch.deadzonemc.23": "STATION NULL\n\nGerüchte sprechen von einem Labor der Halden-Werke, tief unter der Erde. Dort soll alles begonnen haben.\n\nWer es findet: Gasmaske, Licht und viel Munition mitnehmen.",
     "handbuch.deadzonemc.18": "FERTIGKEITEN\n\nTaste K öffnet deine Fertigkeiten. Kämpfen, Schießen, Überleben, Handwerk und Bewegung bringen Erfahrung – dafür gibt es Punkte für neue Fähigkeiten und Parkour-Bewegungen.",
 
     # Gebiete
@@ -560,6 +561,8 @@ TEXTE = {
     "waffe.deadzonemc.kaputt": "kaputt",
     "handbuch.deadzonemc.22": "WAFFENPFLEGE\n\nJeder Schuss nutzt die Waffe ab. Verschlissene Waffen haben Ladehemmungen: Schleichen + F lädt durch.\n\nEin Waffenpflegeset (Waffenhändler oder selbst gebaut) macht die Waffe wieder wie neu. Munition baust du am Waffentisch.",
 
+    "metro.deadzonemc.betreten": "Die alten U-Bahn-Tunnel. Hier unten ist es nie ganz still.",
+
     # Tod
     "death.attack.deadzonemc.saurer_regen": "%1$s wurde vom sauren Regen verätzt",
     "death.attack.deadzonemc.saurer_regen.player": "%1$s wurde vom sauren Regen verätzt, während %2$s zusah",
@@ -604,6 +607,18 @@ TEXTE = {
     "notiz.deadzonemc.kinderzettel.1": "Eine Wachsmalzeichnung: ein Haus, ein graues Gekritzel drumherum, und darin eine lange, schwarze Gestalt ohne Gesicht.\n\nDarunter, in Kinderschrift:",
     "notiz.deadzonemc.kinderzettel.2": "„Ich hab den großen Mann im Nebel gesehen. Er hat kein Gesicht. Er bewegt sich nicht, wenn man hinguckt. Nur wenn man wegguckt.\n\nMama sagt, ich soll nicht lügen.“",
 
+    "notiz.deadzonemc.station_null_1.titel": "Laborjournal Dr. Vahl, Tag 1",
+    "notiz.deadzonemc.station_null_1.1": "Erste Ausbringung von AURA über Sektor 4. Die Partikel binden Feuchtigkeit und Schadstoffe, genau wie berechnet.\n\nDer Nebel, der sich bildet, ist erwartet. Er soll sich nach drei Tagen auflösen.",
+    "notiz.deadzonemc.station_null_1.2": "Direktor Halden war persönlich hier. Er spricht von einem Durchbruch.\n\nIch habe ihm nicht gesagt, dass die Messwerte am Kern seit gestern schwanken.",
+    "notiz.deadzonemc.station_null_2.titel": "Laborjournal Dr. Vahl, Tag 19",
+    "notiz.deadzonemc.station_null_2.1": "Probe A-7 verhält sich nicht wie Materie. Um die Zelle knistert die Luft, Werkzeuge fallen nach oben.\n\nKessler hat einen Bolzen hineingeworfen. Der Blitz hat den Messtisch geschmolzen.",
+    "notiz.deadzonemc.station_null_2.2": "Draußen bilden sich ähnliche Stellen. Unsichtbar, bis man hineingerät.\n\nWir nennen sie Anomalien. Was darin wächst, nennen wir Artefakte. Sie strahlen.",
+    "notiz.deadzonemc.station_null_3.titel": "Interne Mitteilung – Sicherheit",
+    "notiz.deadzonemc.station_null_3.1": "An alle Mitarbeiter:\n\nPersonal mit Husten oder Fieber ist sofort in Raum B zu isolieren. Kein Kontakt.\n\nDie Funkverbindung nach außen bleibt bis auf Weiteres gesperrt.",
+    "notiz.deadzonemc.station_null_3.2": "Der Nebel draußen ist dichter geworden, nicht dünner.\n\nDie Wachen melden Gestalten am Zaun. Sie reagieren nicht auf Zurufe.\n\n– Sicherheitsleitung",
+    "notiz.deadzonemc.station_null_4.titel": "Letzter Eintrag",
+    "notiz.deadzonemc.station_null_4.1": "Der Kern atmet. Alle paar Tage baut sich Druck auf und entlädt sich in einer Welle über das ganze Land. Wer draußen ist, verbrennt von innen.\n\nDie Abschaltung ist fehlgeschlagen.",
+    "notiz.deadzonemc.station_null_4.2": "Etwas lebt jetzt in der Reaktorhalle. Es leuchtet.\n\nWenn jemand das liest: Schaltet ihn ab. Wir konnten es nicht.\n\n– E. Vahl",
     "notiz.deadzonemc.funkspruch.titel": "Abgefangener Funkspruch",
     "notiz.deadzonemc.funkspruch.1": "AN: alle Posten Sektor 4\n\nSektor 4 ist abgeriegelt. Keine weiteren Evakuierungen. Zivilisten im Sperrgebiet verbleiben bis auf Weiteres vor Ort.\n\nWiederhole: Niemand verlässt die Zone.",
     "notiz.deadzonemc.funkspruch.2": "Bei Kontakt mit Personen, die aus dem Nebel kommen: nicht ansprechen. Abstand halten. Feuer frei nach Ermessen.\n\nBefehl bestätigt.\n\n– Die Wacht",

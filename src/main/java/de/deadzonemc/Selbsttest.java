@@ -99,6 +99,7 @@ public final class Selbsttest {
             "kill @e[type=deadzonemc:begleiter]",
             "forceload add ~-24 ~-24 ~24 ~24",
             "#fallen",
+            "#station",
             "#feature anomalie 30 -40",
             "deadzone anomalie strudel",
             "summon deadzonemc:wanderer ~2 ~1 ~5",
@@ -145,6 +146,7 @@ public final class Selbsttest {
             "#feature strahlenfaesser 60 -60",
             "forceload add ~-24 ~-24 ~24 ~24",
             "#fallen",
+            "#station",
             "#feature anomalie 30 -40",
             "deadzone anomalie strudel",
             "summon deadzonemc:wanderer ~2 ~1 ~5",
@@ -559,6 +561,38 @@ public final class Selbsttest {
                     }
                 }
                 LOG.info("[Selbsttest] Fallen: {}", d);
+                return;
+            }
+            if (befehl.equals("#station")) {
+                ServerLevel ow = server.overworld();
+                BlockPos sp = ow.getSharedSpawnPos();
+                int x = sp.getX() + 160;
+                int z = sp.getZ() + 40;
+                for (int dx = -2; dx <= 2; dx++) {
+                    for (int dz = -2; dz <= 2; dz++) {
+                        ow.getChunk((x >> 4) + dx, (z >> 4) + dz);
+                    }
+                }
+                int y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                try {
+                    server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),
+                            "place structure deadzonemc:station_null " + x + " " + y + " " + z);
+                } catch (Exception e) {
+                    LOG.error("[Selbsttest] Station Null nicht platzierbar", e);
+                }
+                java.util.Map<String, Integer> zahl = new java.util.TreeMap<>();
+                for (BlockPos b : BlockPos.betweenClosed(x - 30, y - 30, z - 30, x + 30, y + 8, z + 30)) {
+                    var st = ow.getBlockState(b);
+                    if (st.is(net.minecraft.world.level.block.Blocks.SPAWNER) || st.is(net.minecraft.world.level.block.Blocks.CHEST)
+                            || st.is(net.minecraft.world.level.block.Blocks.BARREL) || st.is(net.minecraft.world.level.block.Blocks.LADDER)
+                            || st.is(de.deadzonemc.zone.Zone.ANOMALIE.get()) || st.is(net.minecraft.world.level.block.Blocks.IRON_DOOR)) {
+                        zahl.merge(st.getBlock().getDescriptionId().replace("block.", ""), 1, Integer::sum);
+                    }
+                }
+                var start = de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y - 20, z));
+                BlockPos kern = de.deadzonemc.welt.station.StationNull.reaktor(ow, new BlockPos(x, y - 20, z));
+                LOG.info("[Selbsttest] Station Null bei {} {} {}: erkannt {}, Reaktor {}, Blöcke {}", x, y, z, start != null,
+                        kern == null ? "-" : kern.toShortString(), zahl);
                 return;
             }
             if (befehl.equals("#emission_schnell")) {

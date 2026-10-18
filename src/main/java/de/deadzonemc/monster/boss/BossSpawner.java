@@ -90,6 +90,14 @@ public final class BossSpawner {
         boolean nacht = w.isNight();
         boolean nebel = DeadzoneMonster.dichterNebel(w);
         int r = w.random.nextInt(1000);
+        // Station Null: in der Reaktorhalle wartet die Strahlende
+        if (de.deadzonemc.welt.station.StationNull.imLabor(w, pos)) {
+            BlockPos kern = de.deadzonemc.welt.station.StationNull.reaktor(w, pos);
+            if (kern != null && kern.distSqr(pos) < 18 * 18 && r < 600) {
+                erscheinenBei(w, p, "strahlende", MonsterTypen.STRAHLENDE::get, kern);
+            }
+            return;
+        }
         if (nebel && nacht && (biom.is(tag(DeadzoneMC.MODID, "verseucht")) || biom.is(tag(DeadzoneMC.MODID, "totwald"))
                 || biom.is(tag(DeadzoneMC.MODID, "sumpfwald"))) && r < 7) {
             erscheinen(w, p, "nebelmutter", MonsterTypen.NEBELMUTTER::get, 30);
@@ -142,6 +150,26 @@ public final class BossSpawner {
             return b;
         }
         return null;
+    }
+
+    /** Lässt einen Boss genau an dieser Stelle erscheinen (z. B. im Reaktor von Station Null). */
+    public static Boss erscheinenBei(ServerLevel w, ServerPlayer p, String art, Supplier<? extends EntityType<? extends Boss>> typ,
+                                     BlockPos wo) {
+        if (!darf(w, p, art)) {
+            return null;
+        }
+        Boss b = typ.get().create(w);
+        if (b == null) {
+            return null;
+        }
+        b.moveTo(wo.getX() + 0.5, wo.getY(), wo.getZ() + 0.5, w.random.nextFloat() * 360, 0);
+        EventHooks.finalizeMobSpawn(b, w, w.getCurrentDifficultyAt(wo), MobSpawnType.EVENT, null);
+        if (b.isSpawnCancelled()) {
+            return null;
+        }
+        w.addFreshEntity(b);
+        vermerken(w, p, art);
+        return b;
     }
 
     /** Ein Hirte für eine Herde (selten): nur wenn die Bedingungen für einen Boss gerade passen. */

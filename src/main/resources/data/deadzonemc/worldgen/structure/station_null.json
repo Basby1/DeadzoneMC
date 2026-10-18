@@ -1,0 +1,7 @@
+{
+  "type": "deadzonemc:station_null",
+  "biomes": "#deadzonemc:hat_zuflucht",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none"
+}

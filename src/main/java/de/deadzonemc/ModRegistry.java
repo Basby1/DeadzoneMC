@@ -211,6 +211,11 @@ public final class ModRegistry {
     public static final DeferredHolder<StructurePieceType, StructurePieceType> ZUFLUCHT_TEIL =
             STRUKTUR_TEILE.register("zuflucht", () -> (StructurePieceType.ContextlessType) de.deadzonemc.zuflucht.ZufluchtPiece::new);
 
+    public static final DeferredHolder<StructureType<?>, StructureType<de.deadzonemc.welt.station.StationNullStruktur>> STATION_NULL =
+            STRUKTUR_TYPEN.register("station_null", () -> () -> de.deadzonemc.welt.station.StationNullStruktur.CODEC);
+    public static final DeferredHolder<StructurePieceType, StructurePieceType> STATION_NULL_TEIL =
+            STRUKTUR_TEILE.register("station_null", () -> (StructurePieceType.ContextlessType) de.deadzonemc.welt.station.StationNullPiece::new);
+
     public static final DeferredHolder<StructurePieceType, StructurePieceType> STRASSEN_TEIL =
             STRUKTUR_TEILE.register("strassenstueck", () -> (StructurePieceType.ContextlessType) StrassenPiece::new);
     public static final DeferredHolder<StructurePieceType, StructurePieceType> GEBAEUDE_TEIL =
