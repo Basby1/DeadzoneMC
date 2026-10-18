@@ -187,7 +187,7 @@ public class Mimik extends DeadzoneMonster {
     // ---- Erscheinen ----------------------------------------------------------------------------
 
     /** Nachts selten: Eine Mimik taucht hinter einem Spieler auf, in der Gestalt eines Mitspielers. */
-    public static void tick(ServerTickEvent.Post event) {
+    public static void erscheinen(ServerTickEvent.Post event) {
         if (event.getServer().getTickCount() % 2400 != 1234) {
             return;
         }
