@@ -586,11 +586,16 @@ public final class Selbsttest {
                     } catch (Exception e) {
                         LOG.error("[Selbsttest] Station Null nicht platzierbar", e);
                     }
+                    // /place registriert keine Strukturdaten – also an den Blöcken erkennen (Leiter im Schacht)
                     boolean da = false;
-                    for (int dy = -60; dy <= 60 && !da; dy += 6) {
-                        if (de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y + dy, z)) != null) {
-                            y += dy;
+                    for (BlockPos b : BlockPos.betweenClosed(x - 26, y - 60, z - 26, x + 26, y + 40, z + 26)) {
+                        if (ow.getBlockState(b).is(net.minecraft.world.level.block.Blocks.LADDER)
+                                && ow.getBlockState(b.below(20)).is(net.minecraft.world.level.block.Blocks.LADDER)) {
+                            x = b.getX();
+                            y = b.getY() + 10;
+                            z = b.getZ();
                             da = true;
+                            break;
                         }
                     }
                     if (da) {
