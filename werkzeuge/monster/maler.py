@@ -2,6 +2,12 @@
 dazu Pixel-Vorlagen für Gesichter. Leuchtende Pixel (Augen, Pusteln) landen zusätzlich in einer Glowmask.
 """
 import math
+import os
+
+# Unter diesem Alphawert gilt ein Pixel als Glas/Aura und wird durchscheinend gezeichnet.
+GLAS_SCHWELLE = 200
+# Diese Wesen werden ohnehin komplett durchscheinend gezeichnet (MonsterRenderer mit durchscheinend=true).
+GANZ_DURCHSCHEINEND = {"nebelwesen", "spaeherdrohne", "nebelmutter", "erfrorene", "hologeist", "spuk"}
 
 import numpy as np
 from PIL import Image
@@ -70,7 +76,22 @@ class Maler:
                     w.deko(self, rect, name, w)
 
     def speichern(self, pfad, glowpfad=None):
-        Image.fromarray(np.clip(self.bild, 0, 255).astype(np.uint8), "RGBA").save(pfad)
+        bild = np.clip(self.bild, 0, 255).astype(np.uint8)
+        name = os.path.basename(pfad)[:-4]
+        glaspfad = pfad[:-4] + "_glas.png"
+        # Halbdurchsichtige Stellen (Glas, Auren, Schilde) würden im Spiel als undurchsichtige Blöcke erscheinen,
+        # weil Monster ausgeschnitten (cutout) gezeichnet werden. Deshalb kommen sie in eine eigene Textur, die der
+        # Renderer in einem zweiten, durchscheinenden Durchgang darüberlegt.
+        halb = (bild[..., 3] > 0) & (bild[..., 3] < GLAS_SCHWELLE)
+        if name not in GANZ_DURCHSCHEINEND and halb.any():
+            glas = np.zeros_like(bild)
+            glas[halb] = bild[halb]
+            bild = bild.copy()
+            bild[halb] = 0
+            Image.fromarray(glas, "RGBA").save(glaspfad)
+        elif os.path.exists(glaspfad):
+            os.remove(glaspfad)
+        Image.fromarray(bild, "RGBA").save(pfad)
         if glowpfad and self.glow[..., 3].any():
             Image.fromarray(np.clip(self.glow, 0, 255).astype(np.uint8), "RGBA").save(glowpfad)
 

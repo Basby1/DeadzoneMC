@@ -43,6 +43,23 @@ public final class ClientMusik {
     private ClientMusik() {
     }
 
+    private static long gefechtGeprueft;
+    private static long gefechtBis;
+
+    /** Mindestens fünf angriffslustige Monster in der Nähe → Gefecht; endet erst 15 s nach dem letzten Andrang. */
+    private static boolean gefechtLage(Minecraft mc) {
+        long jetzt = mc.level.getGameTime();
+        if (jetzt - gefechtGeprueft >= 20 || jetzt < gefechtGeprueft) {
+            gefechtGeprueft = jetzt;
+            int n = mc.level.getEntitiesOfClass(net.minecraft.world.entity.monster.Monster.class,
+                    mc.player.getBoundingBox().inflate(20, 10, 20), m -> m.isAlive() && m.isAggressive()).size();
+            if (n >= 5) {
+                gefechtBis = jetzt + 300;
+            }
+        }
+        return jetzt < gefechtBis;
+    }
+
     private static void anlegen() {
         if (gefecht == null) {
             gefecht = new Music(Musik.GEFECHT, 0, 0, true);
@@ -68,6 +85,11 @@ public final class ClientMusik {
         // Bosskampf (auch in Nether und End): epische Kampfmusik
         if (mc.gui.getBossOverlay().shouldPlayMusic()) {
             e.setMusic(endkampf);
+            return;
+        }
+        // Große Gefechte (Horde, Rudel, Überfall): treibende Kampfmusik, die nach dem Kampf noch etwas nachklingt
+        if (gefechtLage(mc)) {
+            e.setMusic(gefecht);
             return;
         }
         if (mc.level.dimension() != Level.OVERWORLD) {

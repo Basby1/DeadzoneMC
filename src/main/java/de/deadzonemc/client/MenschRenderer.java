@@ -26,5 +26,7 @@ public class MenschRenderer<T extends Entity & GeoAnimatable> extends GeoEntityR
         if (leuchtet) {
             addRenderLayer(new AutoGlowingGeoLayer<>(this));
         }
+        addRenderLayer(new GlasLayer<>(this, ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID,
+                "textures/entity/" + name + "_glas.png")));
     }
 }

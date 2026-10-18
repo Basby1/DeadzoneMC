@@ -138,7 +138,7 @@ PLACED = {
     "siedlung_schrein": ("siedlung_schrein", an_der_oberflaeche(seltenheit=40)),
     "siedlung_baumhaus": ("siedlung_baumhaus", an_der_oberflaeche(seltenheit=55)),
     "siedlung_nomaden": ("siedlung_nomaden", an_der_oberflaeche(seltenheit=45)),
-    "siedlung_kuppel": ("siedlung_kuppel", an_der_oberflaeche(seltenheit=45, wasser_ok=True)),
+    "siedlung_kuppel": ("siedlung_kuppel", an_der_oberflaeche(seltenheit=110, wasser_ok=True)),
     "siedlung_horst": ("siedlung_horst", an_der_oberflaeche(seltenheit=35)),
     "strahlenfaesser": ("strahlenfaesser", an_der_oberflaeche(seltenheit=5)),
     "versteck": ("versteck", [{"type": "minecraft:biome"}]),

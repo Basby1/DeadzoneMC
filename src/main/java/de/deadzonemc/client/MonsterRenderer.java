@@ -23,6 +23,10 @@ public class MonsterRenderer<T extends DeadzoneMonster> extends GeoEntityRendere
         if (leuchtet) {
             addRenderLayer(new AutoGlowingGeoLayer<>(this));
         }
+        if (!durchscheinend) {
+            addRenderLayer(new GlasLayer<>(this, ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID,
+                    "textures/entity/" + name + "_glas.png")));
+        }
     }
 
     @Override

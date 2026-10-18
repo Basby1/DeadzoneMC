@@ -348,6 +348,23 @@ public class SiedlungFeature extends Feature<NoneFeatureConfiguration> {
                 }
             }
         }
+        // Tragsäule bis zum Boden mit Leiter – der Horst ruht auf einem alten Funkmast, nichts schwebt
+        int grund = w.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.OCEAN_FLOOR_WG, m.getX(), m.getZ());
+        for (int yy = Math.min(grund, y) - 2; yy < y; yy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    boolean ecke = Math.abs(dx) == 1 && Math.abs(dz) == 1;
+                    set(w, new BlockPos(m.getX() + dx, yy, m.getZ() + dz), ecke ? Blocks.IRON_BLOCK.defaultBlockState()
+                            : (yy % 6 == 0 ? Blocks.SEA_LANTERN.defaultBlockState() : Blocks.POLISHED_ANDESITE.defaultBlockState()));
+                }
+            }
+            if (yy >= grund) {
+                set(w, new BlockPos(m.getX(), yy, m.getZ() - 2), Blocks.LADDER.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.LadderBlock.FACING, net.minecraft.core.Direction.NORTH));
+            }
+        }
+        set(w, new BlockPos(m.getX(), y, m.getZ() - 2), Blocks.LADDER.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.LadderBlock.FACING, net.minecraft.core.Direction.NORTH));
         // Lichtsäule und Fernrohr-Pult
         for (int h = 1; h <= 4; h++) {
             set(w, new BlockPos(m.getX(), y + h, m.getZ()), h == 4 ? Blocks.END_ROD.defaultBlockState() : Blocks.QUARTZ_PILLAR.defaultBlockState());

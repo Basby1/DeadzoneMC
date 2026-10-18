@@ -461,15 +461,22 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                 f.setzen(l, b, 0, (l == -1 || l == 2) && b != 0 ? Blocks.BLACK_CONCRETE.defaultBlockState() : lack);
                 f.stuetzen(l, b, 0, Blocks.COARSE_DIRT.defaultBlockState());
                 if (l <= -1) {
-                    f.setzen(l, b, 1, l == -2 ? Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState() : lack);
-                    f.setzen(l, b, 2, lack);
+                    // Fahrerhaus: unten Blech, oben Frontscheibe (zersplittert) und Dach
+                    f.setzen(l, b, 1, lack);
+                    f.setzen(l, b, 2, l == -2 ? (r.nextInt(3) == 0 ? Bau.LUFT : Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState())
+                            : (b == 0 ? Bau.LUFT : Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState()));
+                    f.setzen(l, b, 3, lack);
                 } else {
+                    // Ladefläche mit zerrissener Plane über Spriegeln
                     boolean rand = Math.abs(b) == 1 || l == 3;
                     f.setzen(l, b, 1, rand && r.nextInt(4) > 0 ? plane : Bau.LUFT);
-                    f.setzen(l, b, 2, r.nextInt(3) > 0 ? plane : Bau.LUFT);
+                    f.setzen(l, b, 2, rand && r.nextInt(3) > 0 ? plane : Bau.LUFT);
+                    f.setzen(l, b, 3, r.nextInt(4) > 0 ? plane : Bau.LUFT);
                 }
             }
         }
+        f.setzen(-3, -1, 1, Blocks.REDSTONE_LAMP.defaultBlockState()); // Scheinwerfer
+        f.setzen(-3, 1, 1, Blocks.REDSTONE_LAMP.defaultBlockState());
         f.kiste(1, 0, 1, "militaer", r, true);
         f.kiste(2, 0, 1, r.nextInt(3) == 0 ? "waffenkammer" : "apotheke", r, false);
         // Sandsäcke
