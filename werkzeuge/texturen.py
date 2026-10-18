@@ -477,6 +477,24 @@ BILDER = {
         "................",
         "................",
     ]),
+    "pflegeset": ({"o": "#2a2018", "b": "#5a3a22", "B": "#7a5232", "m": "#9aa0a6", "h": "#d0d4d8", "y": "#c8a030", "c": "#e8e0c8"}, [
+        "................",
+        "................",
+        "..oooooooooooo..",
+        ".obbbbbbbbbbbbo.",
+        ".obBBBBBBBBBBbo.",
+        ".obBmmmmmmhBBbo.",
+        ".obBBBBBBBBBBbo.",
+        ".obByyBcccBBBbo.",
+        ".obByyBcccBmBbo.",
+        ".obBBBBBBBBmBbo.",
+        ".obBBhmmmmmmBbo.",
+        ".obBBBBBBBBBBbo.",
+        ".obbbbbbbbbbbbo.",
+        "..oooooooooooo..",
+        "................",
+        "................",
+    ]),
 }
 
 

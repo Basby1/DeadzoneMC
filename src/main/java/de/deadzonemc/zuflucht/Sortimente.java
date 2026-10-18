@@ -84,6 +84,7 @@ public final class Sortimente {
                 kauf(o, 55, Haendler.tacz("modern_kinetic_gun", "GunId", "ak47", 1), 1);
                 kauf(o, 20, ModRegistry.GASMASKE.get(), 1, 2);
                 kauf(o, 4, ModRegistry.FILTER_ITEM.get(), 1, 8);
+                kauf(o, 6, de.deadzonemc.waffen.Waffenpflege.PFLEGESET.get(), 1, 4);
                 ankauf(o, mod("tacz:modern_kinetic_gun"), 1, 10, 6);
                 ankauf(o, mod("tacz:ammo"), 30, 3, 12);
             }

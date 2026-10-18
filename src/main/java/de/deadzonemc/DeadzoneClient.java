@@ -23,6 +23,15 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::bild);
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.ItemTooltipEvent e) -> {
+            if (de.deadzonemc.waffen.Waffenpflege.istSchusswaffe(e.getItemStack())) {
+                e.getToolTip().add(1, de.deadzonemc.waffen.Waffenpflege.zustand(e.getItemStack()));
+                if (Boolean.TRUE.equals(e.getItemStack().get(de.deadzonemc.waffen.Waffenpflege.LADEHEMMUNG.get()))) {
+                    e.getToolTip().add(2, net.minecraft.network.chat.Component.translatable("waffe.deadzonemc.ladehemmung")
+                            .withStyle(net.minecraft.ChatFormatting.RED));
+                }
+            }
+        });
     }
 
     private static void renderer(EntityRenderersEvent.RegisterRenderers e) {

@@ -59,7 +59,7 @@ jobs:
         env:
           TEST_ORDNER: build/server
           TEST_BEFEHL: ./run.sh nogui
-          TEST_FRIST_MIN: '22'
+          TEST_FRIST_MIN: '16'
           TEST_ALLE_FEHLER: '1'
         run: python3 werkzeuge/servertest.py
 
@@ -68,6 +68,7 @@ jobs:
         run: |
           mkdir -p /tmp/proto && cd /tmp/proto && git init -q && git checkout -q -b testprotokoll
           cp "$GITHUB_WORKSPACE/build/testlog.txt" . 2>/dev/null || echo "kein Log" > testlog.txt
+          cp "$GITHUB_WORKSPACE/build/jstack.txt" . 2>/dev/null || true
           cp -r "$GITHUB_WORKSPACE"/build/server/crash-reports . 2>/dev/null || true
           cp "$GITHUB_WORKSPACE"/build/server/logs/latest.log . 2>/dev/null || true
           git add -A && git -c user.name=ci -c user.email=ci@localhost commit -qm "Testprotokoll ${GITHUB_SHA::7}"

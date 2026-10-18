@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "deadzonemc:stoffreste"
+    },
+    {
+      "item": "deadzonemc:stoffreste"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "minecraft:honey_bottle"
+    }
+  ],
+  "result": {
+    "id": "deadzonemc:pflegeset",
+    "count": 1
+  }
+}

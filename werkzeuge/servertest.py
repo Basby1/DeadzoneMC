@@ -90,6 +90,12 @@ def main():
                     dumps = []
                     for pid in pids:
                         dump = subprocess.run(["jstack", pid], capture_output=True, text=True, timeout=40).stdout
+                        try:
+                            os.makedirs("build", exist_ok=True)
+                            with open("build/jstack.txt", "a") as f:
+                                f.write(dump)
+                        except OSError:
+                            pass
                         haupt = [b for b in dump.split("\n\n") if "Server thread" in b or "deadzonemc" in b]
                         dumps.append("\n\n".join(haupt)[:6000])
                     text = "\n".join(dumps)

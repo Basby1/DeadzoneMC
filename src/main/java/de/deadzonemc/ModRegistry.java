@@ -246,6 +246,7 @@ public final class ModRegistry {
                         de.deadzonemc.zone.Zone.tabFuellen(ausgabe);
                         ausgabe.accept(de.deadzonemc.verletzung.Verletzungen.SCHIENE.get());
                         de.deadzonemc.falle.Fallen.tabFuellen(ausgabe);
+                        ausgabe.accept(de.deadzonemc.waffen.Waffenpflege.PFLEGESET.get());
                         de.deadzonemc.monster.MonsterTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         de.deadzonemc.mensch.MenschTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         for (String id : NotizItem.ALLE) {
