@@ -1,0 +1,36 @@
+name: Jar-Infos
+
+on:
+  push:
+    paths:
+      - 'werkzeuge/jarinfo.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  jarinfo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+          cache: false
+      - name: packwiz installieren
+        run: go install github.com/packwiz/packwiz@latest && echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+      - name: Texte aus Mods lesen
+        run: xargs -d '\n' -a werkzeuge/jarinfo.txt python3 werkzeuge/jarinfo.py
+      - name: Ergebnis in Branch jarinfo
+        if: always()
+        run: |
+          mkdir -p /tmp/ji && cd /tmp/ji && git init -q && git checkout -q -b jarinfo
+          cp "$GITHUB_WORKSPACE/build/jarinfo.txt" . 2>/dev/null || echo "nichts" > jarinfo.txt
+          git add -A && git -c user.name=ci -c user.email=ci@localhost commit -qm "Jar-Infos ${GITHUB_SHA::7}"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" jarinfo

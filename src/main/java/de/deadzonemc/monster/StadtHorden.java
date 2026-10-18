@@ -89,8 +89,8 @@ public final class StadtHorden {
         for (int versuch = 0; versuch < 10; versuch++) {
             double winkel = welt.random.nextDouble() * Math.PI * 2;
             double abstand = 28 + welt.random.nextDouble() * 24;
-            int x = Mth.floor(p.getX() + Math.cos(winkel) * abstand);
-            int z = Mth.floor(p.getZ() + Math.sin(winkel) * abstand);
+            int x = Mth.floor(ox + Math.cos(winkel) * abstand);
+            int z = Mth.floor(oz + Math.sin(winkel) * abstand);
             if (!welt.hasChunkAt(new BlockPos(x, 0, z))) {
                 continue;
             }
