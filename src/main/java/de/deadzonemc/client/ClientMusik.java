@@ -43,6 +43,38 @@ public final class ClientMusik {
     private ClientMusik() {
     }
 
+    private static Music frost;
+    private static Music fleisch;
+    private static Music marsch;
+
+    /** Jeder Boss hat sein Thema: Kälte/Nebel, Fleisch/Fäulnis, Befehl/Marsch – die Endbosse den großen Endkampf. */
+    private static Music bossMusik(Minecraft mc) {
+        if (frost == null) {
+            frost = new Music(Musik.BOSS_FROST, 0, 0, true);
+            fleisch = new Music(Musik.BOSS_FLEISCH, 0, 0, true);
+            marsch = new Music(Musik.BOSS_MARSCH, 0, 0, true);
+        }
+        de.deadzonemc.monster.boss.Boss naechster = null;
+        double best = 80 * 80;
+        for (var b : mc.level.getEntitiesOfClass(de.deadzonemc.monster.boss.Boss.class, mc.player.getBoundingBox().inflate(80))) {
+            double d = b.distanceToSqr(mc.player);
+            if (d < best) {
+                best = d;
+                naechster = b;
+            }
+        }
+        if (naechster == null) {
+            return endkampf;
+        }
+        String art = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(naechster.getType()).getPath();
+        return switch (art) {
+            case "erfrorene", "nebelmutter" -> frost;
+            case "schlaechter", "verschmolzener", "brutkoenigin", "schlund", "pilzvater" -> fleisch;
+            case "kommandant", "strahlende", "hirte" -> marsch;
+            default -> endkampf;
+        };
+    }
+
     private static long gefechtGeprueft;
     private static long gefechtBis;
 
@@ -84,7 +116,7 @@ public final class ClientMusik {
         anlegen();
         // Bosskampf (auch in Nether und End): epische Kampfmusik
         if (mc.gui.getBossOverlay().shouldPlayMusic()) {
-            e.setMusic(endkampf);
+            e.setMusic(bossMusik(mc));
             return;
         }
         // Große Gefechte (Horde, Rudel, Überfall): treibende Kampfmusik, die nach dem Kampf noch etwas nachklingt

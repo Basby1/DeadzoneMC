@@ -457,7 +457,95 @@ def endkampf():
     s.speichern("endkampf", hall=3.0, nass=0.45, einblenden=1.0, ausblenden=4.0, pegel=0.85)
 
 
-ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf}
+def _schlaege(s, bpm, von, bis, alle=8, lautst=1.2):
+    """Große Schläge alle `alle` Takte mit Rauschanstieg davor."""
+    takt = 4 * 60.0 / bpm
+    t0 = von
+    while t0 < bis:
+        s.trommel(t0, tief=0.5, lautst=lautst)
+        s.trommel(t0 + 0.02, tief=0.8, lautst=lautst * 0.5)
+        n = int(takt * 2 * SR)
+        tt = np.arange(n) / SR
+        anstieg = bandpass(s.rng.normal(0, 1, n), 800, 6000) * (tt / tt[-1]) ** 3
+        s.dazu(t0 - takt * 2, anstieg, 0.05)
+        t0 += takt * alle
+
+
+def _snare(s, start, lautst):
+    n = int(0.4 * SR)
+    tt = np.arange(n) / SR
+    x = bandpass(s.rng.normal(0, 1, n), 1500, 7000) * np.exp(-tt * 22)
+    x += 0.6 * np.sin(2 * np.pi * 190 * tt) * np.exp(-tt * 30)
+    s.dazu(start, x, lautst)
+
+
+def boss_frost():
+    """Bosse der Kälte und des Nebels (Erfrorene, Nebelmutter): Eisglocken, Streichertremolo, schwere langsame Schläge."""
+    s = Stueck(150, 5151)
+    bpm = 100
+    takt = 4 * 60.0 / bpm
+    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.5)], 0.12, periode=8.0, hell=260)
+    akk = [["D3", "F3", "A3", "D4"], ["Bb2", "D3", "F3", "Bb3"], ["G2", "Bb2", "D3", "G3"], ["A2", "C#3", "E3", "A3"]]
+    s.flaechen(akk, takt * 4, 0.07, start=0.0, hell=3200, tremolo=0.55)
+    motiv = [("D5", 0.0), ("F5", 0.6), ("A5", 1.2), ("E5", 1.8), ("D5", 3.0), ("C#5", 3.6)]
+    s.melodie([(t, motiv) for t in np.arange(takt * 4, 140, takt * 4)], "glocke", 0.05)
+    muster = [(0, 0.6, 1.0), (3, 0.9, 0.5), (4, 0.6, 0.9), (6, 1.2, 0.4), (7, 1.2, 0.55)]
+    s.rhythmus(bpm, muster, 0.24, takt * 4, 146.0)
+    s.ostinato(["D2", "D2", "A2", "D2", "F2", "D2", "E2", "C#2"], bpm, 0.10, takt * 8, 146.0)
+    _schlaege(s, bpm, takt * 8, 146)
+    s.wind(0.04)
+    s.speichern("boss_frost", hall=4.0, nass=0.5, einblenden=1.0, ausblenden=4.0, pegel=0.85)
+
+
+def boss_fleisch():
+    """Bosse aus Fleisch und Fäulnis (Schlächter, Verschmolzener, Brutkönigin, Schlund, Pilzvater): Industrie-Schläge,
+    phrygisches Ostinato, Herzschlag, schräge Akkorde."""
+    s = Stueck(150, 6262)
+    bpm = 140
+    takt = 4 * 60.0 / bpm
+    s.droehnen([(hz("E1"), 1.0), (hz("F1"), 0.35)], 0.14, periode=4.0, hell=220)
+    akk = [["E2", "B2", "F3"], ["E2", "Bb2", "F3"], ["E2", "G2", "C3"], ["E2", "B2", "F#3"]]
+    s.flaechen(akk, takt * 4, 0.07, start=0.0, hell=1800)
+    s.ostinato(["E2", "E2", "F2", "E2", "G2", "E2", "F2", "D2"], bpm, 0.17, takt * 2, 146.0)
+    muster = [(0, 0.6, 1.0), (1, 1.0, 0.4), (2, 0.7, 0.8), (3, 1.4, 0.55), (4, 0.6, 1.0), (4.5, 0.6, 0.6),
+              (6, 0.7, 0.8), (7, 1.4, 0.6), (7.5, 1.4, 0.7)]
+    s.rhythmus(bpm, muster, 0.27, takt * 4, 146.0)
+    s.metall(list(np.arange(takt * 8, 140, takt * 2)), 0.05)
+    s.herzschlag(70, 0.08, von=takt * 4, bis=146.0)
+    _schlaege(s, bpm, takt * 8, 146, lautst=1.3)
+    s.speichern("boss_fleisch", hall=2.6, nass=0.4, einblenden=1.0, ausblenden=4.0, pegel=0.85)
+
+
+def boss_marsch():
+    """Bosse mit Befehlsgewalt (Kommandant, Strahlender, Hirte): Militärmarsch mit kleiner Trommel, tiefes Blech in g-Moll."""
+    s = Stueck(150, 7373)
+    bpm = 116
+    takt = 4 * 60.0 / bpm
+    s.droehnen([(hz("G1"), 1.0), (hz("D2"), 0.4)], 0.11, periode=6.0, hell=280)
+    akk = [["G2", "Bb2", "D3", "G3"], ["Eb2", "G2", "Bb2", "Eb3"], ["C2", "Eb2", "G2", "C3"], ["D2", "F#2", "A2", "D3"]]
+    s.flaechen(akk, takt * 4, 0.08, start=0.0, hell=1300)
+    achtel = takt / 8
+    t0 = takt * 2
+    while t0 < 146:
+        for a, st in ((0, 1.0), (2, 0.5), (3, 0.35), (4, 0.9), (6, 0.5), (6.5, 0.35), (7, 0.6), (7.5, 0.7)):
+            _snare(s, t0 + a * achtel, 0.10 * st)
+        t0 += takt
+    s.rhythmus(bpm, [(0, 0.6, 1.0), (4, 0.6, 0.9), (6, 0.8, 0.5)], 0.26, takt * 4, 146.0)
+    s.ostinato(["G2", "G2", "D2", "G2", "Bb2", "A2", "G2", "F#2"], bpm, 0.13, takt * 4, 146.0)
+    t0 = takt * 8
+    i = 0
+    while t0 < 140:
+        a = akk[(i // 2) % 4]
+        hoch = [n[:-1] + str(int(n[-1]) + 1) for n in a[:3]]
+        s.dazu(t0, s.flaeche(hoch, 0.6, hell=2600), 0.10)
+        t0 += takt * 2
+        i += 1
+    _schlaege(s, bpm, takt * 8, 146)
+    s.speichern("boss_marsch", hall=3.0, nass=0.45, einblenden=1.0, ausblenden=4.0, pegel=0.85)
+
+
+ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf,
+            "boss_frost": boss_frost, "boss_fleisch": boss_fleisch, "boss_marsch": boss_marsch}
 
 ALLE = {"titel": titel, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
 ALLE.update(ALLE_NEU)

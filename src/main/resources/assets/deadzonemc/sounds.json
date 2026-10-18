@@ -3513,5 +3513,29 @@
     "stream": true
    }
   ]
+ },
+ "musik.boss_frost": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/boss_frost",
+    "stream": true
+   }
+  ]
+ },
+ "musik.boss_fleisch": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/boss_fleisch",
+    "stream": true
+   }
+  ]
+ },
+ "musik.boss_marsch": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/boss_marsch",
+    "stream": true
+   }
+  ]
  }
 }
