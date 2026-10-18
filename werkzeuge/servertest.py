@@ -104,7 +104,9 @@ def main():
 
     threading.Thread(target=wachhund, daemon=True).start()
     try:
+        ansi = re.compile(r"\x1b\[[0-9;]*m")
         for zeile in prozess.stdout:
+            zeile = ansi.sub("", zeile)
             zeilen.append(zeile)
             sys.stdout.write(zeile)
         prozess.wait(timeout=60)
@@ -112,6 +114,12 @@ def main():
         prozess.kill()
 
     log = "".join(zeilen)
+    try:
+        os.makedirs("build", exist_ok=True)
+        with open("build/testlog.txt", "w") as f:
+            f.write(log)
+    except OSError:
+        pass
     probleme = []
     if "Done (" not in log:
         probleme.append("Server ist nicht hochgefahren")
@@ -121,8 +129,14 @@ def main():
         melden("error", "Start fehlgeschlagen – letzte Zeilen", "".join(zeilen[-50:])[-3800:])
     if "[Selbsttest] fertig" not in log:
         probleme.append("Selbsttest ist nicht bis zum Ende gelaufen")
-    if "---- Minecraft Crash Report ----" in log or "Crash report saved" in log:
+    absturz_marken = ("---- Minecraft Crash Report ----", "Crash report saved", "crash report has been saved",
+                      "Encountered an unexpected exception", "Preparing crash report")
+    if any(m in log for m in absturz_marken):
         probleme.append("Absturzbericht gefunden")
+        for i, z in enumerate(zeilen):
+            if any(m in z for m in absturz_marken[3:]) or "Description:" in z:
+                melden("error", "Absturz – Ursache", "".join(zeilen[i:i + 40])[:3800])
+                break
 
     antworten = []
     im_test = False
@@ -154,6 +168,8 @@ def main():
     # Meldungen von Pufferfish's Skills (lädt unseren Skillbaum; Probleme stehen in Folgezeilen)
     skills = []
     for i, zeile in enumerate(zeilen):
+        if "ModDiscoverer" in zeile or "Found mod file" in zeile:
+            continue
         if "puffish" in zeile.lower() or "pufferfish" in zeile.lower() or "Data pack `deadzonemc`" in zeile:
             skills.append(zeile.strip()[:300])
             for folge in zeilen[i + 1:i + 25]:
