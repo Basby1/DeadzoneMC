@@ -76,7 +76,7 @@ public class IntroScreen extends Screen {
             g.pose().pushPose();
             g.pose().translate(width / 2F, height / 2F - 50, 0);
             g.pose().scale(3, 3, 1);
-            g.drawCenteredString(font, Component.literal("DEADZONE"), 0, 0, ((int) (alpha * 255) << 24) | 0xB02818);
+            g.drawCenteredString(font, Component.literal("DEADZONE"), 0, 0, (Math.max(4, (int) (alpha * 255)) << 24) | 0xB02818);
             g.pose().popPose();
         }
         g.drawString(font, Component.translatable("intro.deadzonemc.ueberspringen"), width - 120, height - balken / 2 - 4, 0x60FFFFFF, false);
