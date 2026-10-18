@@ -83,7 +83,7 @@ SOUNDS = {
     "wuehler.hurt": reihe("mob/silverfish/hit", 3, 0.4),
     "wuehler.death": eins("mob/spider/death", 0.4),
     "wuehler.graben": eins("mob/warden/dig", 1.2),
-    "sauger.ambient": warden("sniff", 5, 1.3, 0.7),
+    "sauger.ambient": warden("sniff", 4, 1.3, 0.7),
     "sauger.hurt": reihe("mob/endermen/hit", 4, 0.7),
     "sauger.death": eins("mob/endermen/death", 0.5),
     "sauger.saugen": eins("mob/wolf/panting", 0.4) + reihe("mob/slime/attack", 2, 0.5),
