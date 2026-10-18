@@ -563,6 +563,10 @@ TABELLEN = {
     ]), notizen(15, ["funkspruch", "halden_flyer", "evakuierung"])],
 }
 
+# Hauptgeschichte, Akt II: vier Funkprotokolle – Polizei, Krankenhaus/Apotheke, Militär, Waffenkammer/Bunker
+for _t, _nr, _ch in (("polizei", 1, 30), ("apotheke", 2, 25), ("militaer", 3, 35), ("waffenkammer", 4, 35), ("bunker", 4, 25)):
+    TABELLEN[_t].append(notizen(_ch, [f"funkprotokoll_{_nr}"]))
+
 
 # ---- Bonus nach Gefahrenstufe (GefahrenBonus.java) und legendäre Stücke --------------------------
 BONUS = {

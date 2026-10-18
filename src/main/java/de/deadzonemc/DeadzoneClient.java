@@ -22,6 +22,9 @@ public class DeadzoneClient {
                 e.register(de.deadzonemc.verzauberung.Zonenverzauberung.MENU.get(), de.deadzonemc.client.ZonenwerkbankScreen::new));
         modBus.addListener(de.deadzonemc.client.ClientKlasse::tasten);
         modBus.addListener(de.deadzonemc.client.ClientWaffen::tasten);
+        modBus.addListener(de.deadzonemc.client.ClientGeschichte::tasten);
+        modBus.addListener(de.deadzonemc.client.ClientGeschichte::ebenen);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientGeschichte::tick);
         modBus.addListener(de.deadzonemc.client.ClientWaffen::ebenen);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::klick);

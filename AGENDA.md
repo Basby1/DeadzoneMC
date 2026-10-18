@@ -53,9 +53,9 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Feldhandbuch mit allen Rezepten (geduckt benutzen: Rezept-Raster), beim ersten Spawn
 
 ## Etappe D – Geschichte & Fraktionen
-- [ ] (Entwurf von Lina freigegeben 18.10.) Hauptgeschichte in 5 Akten (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
+- [~] (freigegeben 18.10.) Hauptgeschichte in 5 Akten – eingebaut: 14 Schritte, Tagebuch (J), Zielmarker, Funkprotokolle, Story-Bosse an markierten Orten; Akt IV/V warten auf Herz/Ursprung-Bosse und Orbit-Questreihe (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
       immer klar, was als Nächstes zu tun ist
-- [ ] Intro-Sequenz beim ersten Betreten mit Spielernamen
+- [~] Intro beim ersten Betreten mit Spielernamen (Titel + Text) – echte Kamerafahrt fehlt noch
 - [ ] (freigegeben 18.10.; WICHTIG: Nether/End-Zugang NICHT von Fraktionen abhängig – normale Portale) Fraktionen mit Questreihen, Ansehen, Vorteilen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
       Kinder des Waldes (Baumhäuser), Sandwanderer, Unterwasservolk, Hüter des Himmels (Lategame, schwer erreichbar)
 - [ ] Mimik: übernimmt Skin/Name eines Mitspielers, greift schreiend an, wenn man allein ist (Entwurf der Enthüllung gezeigt 18.10.)

@@ -24,7 +24,8 @@ public class NotizItem extends Item {
     public static final String[] ALLE = {
             "start", "evakuierung", "einkaufszettel", "abschied", "tagebuch_1", "tagebuch_2",
             "halden_flyer", "kinderzettel", "funkspruch", "brief", "pfarrer", "feuerwehr_einsatz",
-            "station_null_1", "station_null_2", "station_null_3", "station_null_4"
+            "station_null_1", "station_null_2", "station_null_3", "station_null_4",
+            "funkprotokoll_1", "funkprotokoll_2", "funkprotokoll_3", "funkprotokoll_4", "vahl_logbuch"
     };
 
     public NotizItem(Properties properties) {

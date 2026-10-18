@@ -137,6 +137,14 @@ public final class WetterSystem {
         String[] namen = Arrays.stream(WetterArt.values()).map(WetterArt::id).toArray(String[]::new);
         event.getDispatcher().register(Commands.literal("deadzone")
                 .requires(quelle -> quelle.hasPermission(2))
+                .then(Commands.literal("geschichte")
+                        .then(Commands.argument("schritt", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0, 30))
+                                .executes(ctx -> {
+                                    de.deadzonemc.geschichte.Geschichte.setzen(ctx.getSource().getServer(),
+                                            com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "schritt"));
+                                    ctx.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal("Geschichte gesetzt"), true);
+                                    return 1;
+                                })))
                 .then(Commands.literal("nebel")
                         .executes(ctx -> nebelSchalten(ctx, null))
                         .then(Commands.literal("an").executes(ctx -> nebelSchalten(ctx, true)))

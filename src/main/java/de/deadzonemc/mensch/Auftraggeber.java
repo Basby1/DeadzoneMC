@@ -59,7 +59,9 @@ public class Auftraggeber extends Mensch {
                         .withStyle(net.minecraft.ChatFormatting.RED));
             } else {
                 getLookControl().setLookAt(sp);
-                Auftraege.sprechen(sp, this);
+                if (!de.deadzonemc.geschichte.Geschichte.verwalter(sp)) {
+                    Auftraege.sprechen(sp, this);
+                }
             }
         }
         return InteractionResult.sidedSuccess(level().isClientSide);

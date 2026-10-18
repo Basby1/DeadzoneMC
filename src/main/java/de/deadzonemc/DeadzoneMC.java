@@ -27,6 +27,7 @@ public class DeadzoneMC {
         de.deadzonemc.ausruestung.Ausruestung.registrieren(modBus);
         de.deadzonemc.verzauberung.Zonenverzauberung.registrieren(modBus);
         de.deadzonemc.zelt.Zelte.registrieren(modBus);
+        de.deadzonemc.geschichte.Geschichte.registrieren(modBus);
         de.deadzonemc.waffen.Waffenpflege.registrieren(modBus);
         de.deadzonemc.musik.Musik.registrieren(modBus);
         modBus.addListener(Netz::registrieren);
