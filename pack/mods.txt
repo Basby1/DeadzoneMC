@@ -37,6 +37,8 @@ mc-mods/carry-on                        both
 # --- Fahrzeuge ---
 mc-mods/immersive-aircraft              both
 mc-mods/astikor-carts-redux             both
+mc-mods/ultimate-car-mod                both
+mc-mods/immersive-machinery             both
 
 # --- Skills & Parkour ---
 mc-mods/puffish-skills                  both

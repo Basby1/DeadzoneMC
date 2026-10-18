@@ -47,8 +47,8 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Zonenwerkbank + 26 eigene Zonen-Verzauberungen (nur dort, bezahlt mit Erfahrung + Zonenmaterial)
 - [x] Monster-Drops als Bauteile (17 Materialien), Pflanzen (Heilkraut, Baumwolle), viele Rezepte
 - [x] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager mit 18 Plätzen, Inhalt bleibt beim Abbauen; geduckt = Rückkehrpunkt)
-- [~] Selbstverteidigungsanlagen: Geschützturm (dreht sich, schießt mit Munition) [x], Landmine/Bärenfalle/Stacheldraht [x], Werkzeuge [ ]
-- [ ] Fahrzeuge mit integriertem Lager
+- [x] Selbstverteidigungsanlagen: Geschützturm (dreht sich, schießt mit Munition), Landmine, Bärenfalle, Stacheldraht, Brecheisen
+- [~] Fahrzeuge mit integriertem Lager: Ultimate Car Mod (Autos mit Kofferraum, brauchen Treibstoff) + Immersive Machinery + Immersive Aircraft – Treibstoff in Tankstellen-Beute einbinden [ ]
 - [x] Notstromaggregator: Schutzzone sichtbar, unbegrenzt viele Generatoren
 - [x] Feldhandbuch mit allen Rezepten (geduckt benutzen: Rezept-Raster), beim ersten Spawn
 
