@@ -97,7 +97,7 @@ public final class ModRegistry {
                             .requiresCorrectToolForDrops()
                             .noOcclusion()));
     public static final DeferredItem<net.minecraft.world.item.BlockItem> GENERATOR_ITEM = ITEMS.registerSimpleBlockItem(GENERATOR,
-            new Item.Properties().stacksTo(1));
+            new Item.Properties().stacksTo(8));
 
     /** Welchen Monstern der Spieler schon begegnet ist (Handbuch). Bleibt nach dem Tod erhalten. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.List<String>>> ENTDECKT =

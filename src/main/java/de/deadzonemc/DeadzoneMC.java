@@ -42,6 +42,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.AttackEntityEvent e) ->
                 de.deadzonemc.monster.SpawnSchutz.aufhoeren(e.getEntity()));
         NeoForge.EVENT_BUS.addListener(Spielstart::nachRespawn);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.basis.Zonenanzeige::tick);
         NeoForge.EVENT_BUS.addListener(Spielstart::peilen);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.StadtHorden::tick);

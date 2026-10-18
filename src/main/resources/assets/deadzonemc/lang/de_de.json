@@ -344,7 +344,7 @@
   "strahlung.deadzonemc.filter_leer": "Der Filter deiner Gasmaske ist verbraucht!",
   "strahlung.deadzonemc.giftgas": "Die Luft brennt in der Lunge. Giftgas!",
   "block.deadzonemc.notstromgenerator": "Notstromgenerator",
-  "basis.deadzonemc.gegruendet": "Basis gegründet. Schutzbereich: %s Blöcke. Hier wachst du nach dem Tod wieder auf.",
+  "basis.deadzonemc.gegruendet": "Basis gegründet. Schutzbereich: %s Blöcke. Hier wachst du nach dem Tod wieder auf. Generator oder Elektronik in der Hand zeigt die Grenze.",
   "basis.deadzonemc.zu_wenig": "Für den Ausbau brauchst du %s Elektronikteile in der Hand.",
   "basis.deadzonemc.ausgebaut": "Generator auf Stufe %s ausgebaut. Schutzbereich jetzt %s Blöcke.",
   "basis.deadzonemc.info": "Notstromgenerator Stufe %s · Schutzbereich %s Blöcke · Sicherheit: %s. Respawnpunkt gesetzt.",
