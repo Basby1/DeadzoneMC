@@ -36,7 +36,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Horror-Geräuschkulisse (Schreie, Schüsse, Sirenen, Heulen, Klopfen, Schritte, Flüstern im Nebel, Metall, Funk) – selbst synthetisiert
 - [~] Gefährliche Orte (Metro, Bunker, Station Null) deutlich härter, Warnschilder, beste Beute (Station Null hat Warnschilder, Metro dauernd Nachschub an Monstern, Untertage +1 Beutestufe)
 - [~] POIs: abgestürzte Hubschrauber (Rauchsäule, Militärbeute) [x], Passagierflugzeuge [x], gestrandete Frachter [x], Konvois [ ]
-- [ ] Zufluchten logisch (je Stadt eine am Rand an der Straße)
+- [x] Zufluchten logisch: am Stadtrand an der Straße (Tor zur Stadt) oder auf dem Land, nie im Stadtkern
 
 ## Etappe C – Ausrüstung & Crafting
 - [x] Eigenes Waffensystem statt TaCZ (TaCZ entfernen): Pistolen, Revolver, Schrot, MP, Sturmgewehr, Scharfschütze,
