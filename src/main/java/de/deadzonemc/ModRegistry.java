@@ -198,6 +198,15 @@ public final class ModRegistry {
 
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> TOTER_BAUM =
             FEATURES.register("toter_baum", ToterBaumFeature::new);
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> ABSTURZ_HUBSCHRAUBER =
+            FEATURES.register("absturz_hubschrauber",
+                    () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.HUBSCHRAUBER));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> ABSTURZ_FLUGZEUG =
+            FEATURES.register("absturz_flugzeug",
+                    () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.FLUGZEUG));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> FRACHTER =
+            FEATURES.register("frachter",
+                    () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.FRACHTER));
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> AUTOWRACK =
             FEATURES.register("autowrack", AutowrackFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STRAHLENFAESSER =

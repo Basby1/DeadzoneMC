@@ -1,0 +1,8 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#minecraft:is_beach",
+ "features": [
+  "deadzonemc:frachter"
+ ],
+ "step": "surface_structures"
+}

@@ -35,7 +35,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Viel mehr Infizierte, Hinterhalte bei Beute, Türen aufbrechen, pechschwarze Nächte
 - [ ] Horror-Geräuschkulisse (Schreie, Schüsse, Sirenen, Klopfen, Schritte, Flüstern im Nebel)
 - [ ] Gefährliche Orte (Metro, Bunker, Station Null) deutlich härter, Warnschilder, beste Beute
-- [ ] POIs: abgestürzte Helikopter, Flugzeuge, Schiffsruinen, Konvois
+- [~] POIs: abgestürzte Hubschrauber (Rauchsäule, Militärbeute) [x], Passagierflugzeuge [x], gestrandete Frachter [x], Konvois [ ]
 - [ ] Zufluchten logisch (je Stadt eine am Rand an der Straße)
 
 ## Etappe C – Ausrüstung & Crafting

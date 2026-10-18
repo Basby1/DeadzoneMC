@@ -1,0 +1,9 @@
+{
+ "type": "neoforge:add_features",
+ "biomes": "#minecraft:is_overworld",
+ "features": [
+  "deadzonemc:absturz_hubschrauber",
+  "deadzonemc:absturz_flugzeug"
+ ],
+ "step": "surface_structures"
+}
