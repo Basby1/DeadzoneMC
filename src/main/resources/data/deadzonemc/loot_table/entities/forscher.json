@@ -1,0 +1,41 @@
+{
+ "type": "minecraft:entity",
+ "pools": [
+  {
+   "rolls": 1,
+   "conditions": [
+    {
+     "condition": "minecraft:killed_by_player"
+    },
+    {
+     "condition": "minecraft:random_chance",
+     "chance": 0.5
+    }
+   ],
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "deadzonemc:verseuchtes_gewebe"
+    }
+   ]
+  },
+  {
+   "rolls": 1,
+   "conditions": [
+    {
+     "condition": "minecraft:killed_by_player"
+    },
+    {
+     "condition": "minecraft:random_chance",
+     "chance": 0.2
+    }
+   ],
+   "entries": [
+    {
+     "type": "minecraft:item",
+     "name": "deadzonemc:mutagen"
+    }
+   ]
+  }
+ ]
+}

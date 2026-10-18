@@ -63,6 +63,19 @@ public final class MonsterTypen {
     // ---- Bosse ----
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Verschmolzener>> VERSCHMOLZENER = typ("verschmolzener", de.deadzonemc.monster.boss.Verschmolzener::new, 2.4F, 4.0F, 0x8e9883, 0xff3a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Nebelmutter>> NEBELMUTTER = typ("nebelmutter", de.deadzonemc.monster.boss.Nebelmutter::new, 1.2F, 6.8F, 0xd8dcd6, 0xd8fbff);
+    // ---- Dimensionswesen (Herz der Zone / Orbitalstation) ----
+    public static final java.util.Map<de.deadzonemc.monster.dimension.DimArt,
+            DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.dimension.Dimensionswesen>>> DIMENSION =
+            new java.util.EnumMap<>(de.deadzonemc.monster.dimension.DimArt.class);
+
+    static {
+        for (var d : de.deadzonemc.monster.dimension.DimArt.values()) {
+            DIMENSION.put(d, typ(d.id, (t, l) -> d.schwebt ? new de.deadzonemc.monster.dimension.SchwebendesWesen(t, l, d)
+                            : new de.deadzonemc.monster.dimension.Dimensionswesen(t, l, d), d.breite, d.hoehe,
+                    d.nether() ? 0x4a1a12 : 0x2a3a4a, d.nether() ? 0xff8a3a : 0x8ad0ff, d.nether()));
+        }
+    }
+
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.DerUrsprung>> DER_URSPRUNG = typ("der_ursprung", de.deadzonemc.monster.boss.DerUrsprung::new, 8.0F, 15.0F, 0x3e1832, 0xc060ff, true);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.DasHerz>> DAS_HERZ = typ("das_herz", de.deadzonemc.monster.boss.DasHerz::new, 7.0F, 16.0F, 0x2a1a16, 0xff5a1a, true);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Strahlende>> STRAHLENDE = typ("strahlende", de.deadzonemc.monster.boss.Strahlende::new, 2.0F, 3.8F, 0x7a8460, 0x9cff4a);
@@ -131,6 +144,7 @@ public final class MonsterTypen {
         e.put(STRAHLENDE.get(), de.deadzonemc.monster.boss.Strahlende.attribute().build());
         e.put(DAS_HERZ.get(), de.deadzonemc.monster.boss.DasHerz.attribute().build());
         e.put(DER_URSPRUNG.get(), de.deadzonemc.monster.boss.DerUrsprung.attribute().build());
+        DIMENSION.forEach((d, h) -> e.put(h.get(), de.deadzonemc.monster.dimension.Dimensionswesen.attribute(d).build()));
         e.put(BRUTKOENIGIN.get(), de.deadzonemc.monster.boss.Brutkoenigin.attribute().build());
         e.put(SCHLAECHTER.get(), de.deadzonemc.monster.boss.Schlaechter.attribute().build());
         e.put(KOMMANDANT.get(), de.deadzonemc.monster.boss.Kommandant.attribute().build());
@@ -146,6 +160,8 @@ public final class MonsterTypen {
     }
 
     private static void spawnRegeln(RegisterSpawnPlacementsEvent e) {
+        DIMENSION.forEach((d, h) -> e.register(h.get(), d.schwebt ? SpawnPlacementTypes.NO_RESTRICTIONS : SpawnPlacementTypes.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE));
         normal(e, WANDERER.get());
         normal(e, SCHREIER.get());
         normal(e, LAUERER.get());

@@ -55,7 +55,27 @@ public final class MonsterSounds {
             Map.entry("pilzvater", List.of("ambient", "hurt", "death", "step", "sporen")),
             Map.entry("erfrorene", List.of("ambient", "hurt", "death", "step", "brullen", "atem")),
             Map.entry("das_herz", List.of("ambient", "hurt", "death", "brullen", "herzschlag")),
-            Map.entry("der_ursprung", List.of("ambient", "hurt", "death", "brullen", "puls"))
+            Map.entry("der_ursprung", List.of("ambient", "hurt", "death", "brullen", "puls")),
+            Map.entry("lenker", List.of("ambient", "hurt", "death")),
+            Map.entry("spuk", List.of("ambient", "hurt", "death")),
+            Map.entry("truegruede", List.of("ambient", "hurt", "death")),
+            Map.entry("entreisser", List.of("ambient", "hurt", "death")),
+            Map.entry("chimaere", List.of("ambient", "hurt", "death")),
+            Map.entry("glasgaenger", List.of("ambient", "hurt", "death")),
+            Map.entry("schwebender", List.of("ambient", "hurt", "death")),
+            Map.entry("entlader", List.of("ambient", "hurt", "death")),
+            Map.entry("echo", List.of("ambient", "hurt", "death")),
+            Map.entry("zonenhirsch", List.of("ambient", "hurt", "death")),
+            Map.entry("leerlaeufer", List.of("ambient", "hurt", "death")),
+            Map.entry("wartungsspinne", List.of("ambient", "hurt", "death")),
+            Map.entry("wachkugel", List.of("ambient", "hurt", "death")),
+            Map.entry("versuchsobjekt", List.of("ambient", "hurt", "death")),
+            Map.entry("konglomerat", List.of("ambient", "hurt", "death")),
+            Map.entry("kryoschlaefer", List.of("ambient", "hurt", "death")),
+            Map.entry("leerenaal", List.of("ambient", "hurt", "death")),
+            Map.entry("klammerer", List.of("ambient", "hurt", "death")),
+            Map.entry("hologeist", List.of("ambient", "hurt", "death")),
+            Map.entry("forscher", List.of("ambient", "hurt", "death"))
     );
 
     private static final Map<String, DeferredHolder<SoundEvent, SoundEvent>> ALLE = new HashMap<>();

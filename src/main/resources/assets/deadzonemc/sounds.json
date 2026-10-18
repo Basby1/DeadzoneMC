@@ -2625,6 +2625,693 @@
    }
   ]
  },
+ "monster.lenker.ambient": {
+  "subtitle": "subtitles.deadzonemc.lenker.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/lenker/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/lenker/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/lenker/ambient_3"
+   }
+  ]
+ },
+ "monster.lenker.hurt": {
+  "subtitle": "subtitles.deadzonemc.lenker.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/lenker/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/lenker/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/lenker/hurt_3"
+   }
+  ]
+ },
+ "monster.lenker.death": {
+  "subtitle": "subtitles.deadzonemc.lenker.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/lenker/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/lenker/death_2"
+   }
+  ]
+ },
+ "monster.spuk.ambient": {
+  "subtitle": "subtitles.deadzonemc.spuk.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/spuk/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/spuk/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/spuk/ambient_3"
+   }
+  ]
+ },
+ "monster.spuk.hurt": {
+  "subtitle": "subtitles.deadzonemc.spuk.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/spuk/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/spuk/hurt_2"
+   }
+  ]
+ },
+ "monster.spuk.death": {
+  "subtitle": "subtitles.deadzonemc.spuk.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/spuk/death_1"
+   }
+  ]
+ },
+ "monster.truegruede.ambient": {
+  "subtitle": "subtitles.deadzonemc.truegruede.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/truegruede/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/truegruede/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/truegruede/ambient_3"
+   }
+  ]
+ },
+ "monster.truegruede.hurt": {
+  "subtitle": "subtitles.deadzonemc.truegruede.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/truegruede/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/truegruede/hurt_2"
+   }
+  ]
+ },
+ "monster.truegruede.death": {
+  "subtitle": "subtitles.deadzonemc.truegruede.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/truegruede/death_1"
+   }
+  ]
+ },
+ "monster.entreisser.ambient": {
+  "subtitle": "subtitles.deadzonemc.entreisser.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/entreisser/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/entreisser/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/entreisser/ambient_3"
+   }
+  ]
+ },
+ "monster.entreisser.hurt": {
+  "subtitle": "subtitles.deadzonemc.entreisser.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/entreisser/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/entreisser/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/entreisser/hurt_3"
+   }
+  ]
+ },
+ "monster.entreisser.death": {
+  "subtitle": "subtitles.deadzonemc.entreisser.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/entreisser/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/entreisser/death_2"
+   }
+  ]
+ },
+ "monster.chimaere.ambient": {
+  "subtitle": "subtitles.deadzonemc.chimaere.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/chimaere/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/chimaere/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/chimaere/ambient_3"
+   }
+  ]
+ },
+ "monster.chimaere.hurt": {
+  "subtitle": "subtitles.deadzonemc.chimaere.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/chimaere/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/chimaere/hurt_2"
+   }
+  ]
+ },
+ "monster.chimaere.death": {
+  "subtitle": "subtitles.deadzonemc.chimaere.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/chimaere/death_1"
+   }
+  ]
+ },
+ "monster.glasgaenger.ambient": {
+  "subtitle": "subtitles.deadzonemc.glasgaenger.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/glasgaenger/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/glasgaenger/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/glasgaenger/ambient_3"
+   }
+  ]
+ },
+ "monster.glasgaenger.hurt": {
+  "subtitle": "subtitles.deadzonemc.glasgaenger.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/glasgaenger/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/glasgaenger/hurt_2"
+   }
+  ]
+ },
+ "monster.glasgaenger.death": {
+  "subtitle": "subtitles.deadzonemc.glasgaenger.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/glasgaenger/death_1"
+   }
+  ]
+ },
+ "monster.schwebender.ambient": {
+  "subtitle": "subtitles.deadzonemc.schwebender.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/schwebender/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/schwebender/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/schwebender/ambient_3"
+   }
+  ]
+ },
+ "monster.schwebender.hurt": {
+  "subtitle": "subtitles.deadzonemc.schwebender.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/schwebender/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/schwebender/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/schwebender/hurt_3"
+   }
+  ]
+ },
+ "monster.schwebender.death": {
+  "subtitle": "subtitles.deadzonemc.schwebender.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/schwebender/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/schwebender/death_2"
+   }
+  ]
+ },
+ "monster.entlader.ambient": {
+  "subtitle": "subtitles.deadzonemc.entlader.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/entlader/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/entlader/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/entlader/ambient_3"
+   }
+  ]
+ },
+ "monster.entlader.hurt": {
+  "subtitle": "subtitles.deadzonemc.entlader.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/entlader/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/entlader/hurt_2"
+   }
+  ]
+ },
+ "monster.entlader.death": {
+  "subtitle": "subtitles.deadzonemc.entlader.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/entlader/death_1"
+   }
+  ]
+ },
+ "monster.echo.ambient": {
+  "subtitle": "subtitles.deadzonemc.echo.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/echo/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/echo/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/echo/ambient_3"
+   }
+  ]
+ },
+ "monster.echo.hurt": {
+  "subtitle": "subtitles.deadzonemc.echo.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/echo/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/echo/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/echo/hurt_3"
+   }
+  ]
+ },
+ "monster.echo.death": {
+  "subtitle": "subtitles.deadzonemc.echo.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/echo/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/echo/death_2"
+   }
+  ]
+ },
+ "monster.zonenhirsch.ambient": {
+  "subtitle": "subtitles.deadzonemc.zonenhirsch.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/zonenhirsch/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/zonenhirsch/ambient_2"
+   }
+  ]
+ },
+ "monster.zonenhirsch.hurt": {
+  "subtitle": "subtitles.deadzonemc.zonenhirsch.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/zonenhirsch/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/zonenhirsch/hurt_2"
+   }
+  ]
+ },
+ "monster.zonenhirsch.death": {
+  "subtitle": "subtitles.deadzonemc.zonenhirsch.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/zonenhirsch/death_1"
+   }
+  ]
+ },
+ "monster.leerlaeufer.ambient": {
+  "subtitle": "subtitles.deadzonemc.leerlaeufer.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/leerlaeufer/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/leerlaeufer/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/leerlaeufer/ambient_3"
+   }
+  ]
+ },
+ "monster.leerlaeufer.hurt": {
+  "subtitle": "subtitles.deadzonemc.leerlaeufer.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/leerlaeufer/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/leerlaeufer/hurt_2"
+   }
+  ]
+ },
+ "monster.leerlaeufer.death": {
+  "subtitle": "subtitles.deadzonemc.leerlaeufer.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/leerlaeufer/death_1"
+   }
+  ]
+ },
+ "monster.wartungsspinne.ambient": {
+  "subtitle": "subtitles.deadzonemc.wartungsspinne.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/wartungsspinne/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/wartungsspinne/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/wartungsspinne/ambient_3"
+   }
+  ]
+ },
+ "monster.wartungsspinne.hurt": {
+  "subtitle": "subtitles.deadzonemc.wartungsspinne.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/wartungsspinne/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/wartungsspinne/hurt_2"
+   }
+  ]
+ },
+ "monster.wartungsspinne.death": {
+  "subtitle": "subtitles.deadzonemc.wartungsspinne.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/wartungsspinne/death_1"
+   }
+  ]
+ },
+ "monster.wachkugel.ambient": {
+  "subtitle": "subtitles.deadzonemc.wachkugel.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/wachkugel/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/wachkugel/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/wachkugel/ambient_3"
+   }
+  ]
+ },
+ "monster.wachkugel.hurt": {
+  "subtitle": "subtitles.deadzonemc.wachkugel.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/wachkugel/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/wachkugel/hurt_2"
+   }
+  ]
+ },
+ "monster.wachkugel.death": {
+  "subtitle": "subtitles.deadzonemc.wachkugel.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/wachkugel/death_1"
+   }
+  ]
+ },
+ "monster.versuchsobjekt.ambient": {
+  "subtitle": "subtitles.deadzonemc.versuchsobjekt.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/ambient_3"
+   }
+  ]
+ },
+ "monster.versuchsobjekt.hurt": {
+  "subtitle": "subtitles.deadzonemc.versuchsobjekt.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/hurt_2"
+   }
+  ]
+ },
+ "monster.versuchsobjekt.death": {
+  "subtitle": "subtitles.deadzonemc.versuchsobjekt.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/death_1"
+   }
+  ]
+ },
+ "monster.konglomerat.ambient": {
+  "subtitle": "subtitles.deadzonemc.konglomerat.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/konglomerat/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/konglomerat/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/konglomerat/ambient_3"
+   }
+  ]
+ },
+ "monster.konglomerat.hurt": {
+  "subtitle": "subtitles.deadzonemc.konglomerat.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/konglomerat/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/konglomerat/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/konglomerat/hurt_3"
+   }
+  ]
+ },
+ "monster.konglomerat.death": {
+  "subtitle": "subtitles.deadzonemc.konglomerat.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/konglomerat/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/konglomerat/death_2"
+   }
+  ]
+ },
+ "monster.kryoschlaefer.ambient": {
+  "subtitle": "subtitles.deadzonemc.kryoschlaefer.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/ambient_3"
+   }
+  ]
+ },
+ "monster.kryoschlaefer.hurt": {
+  "subtitle": "subtitles.deadzonemc.kryoschlaefer.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/hurt_2"
+   }
+  ]
+ },
+ "monster.kryoschlaefer.death": {
+  "subtitle": "subtitles.deadzonemc.kryoschlaefer.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/death_1"
+   }
+  ]
+ },
+ "monster.leerenaal.ambient": {
+  "subtitle": "subtitles.deadzonemc.leerenaal.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/leerenaal/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/leerenaal/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/leerenaal/ambient_3"
+   }
+  ]
+ },
+ "monster.leerenaal.hurt": {
+  "subtitle": "subtitles.deadzonemc.leerenaal.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/leerenaal/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/leerenaal/hurt_2"
+   }
+  ]
+ },
+ "monster.leerenaal.death": {
+  "subtitle": "subtitles.deadzonemc.leerenaal.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/leerenaal/death_1"
+   }
+  ]
+ },
+ "monster.klammerer.ambient": {
+  "subtitle": "subtitles.deadzonemc.klammerer.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/klammerer/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/klammerer/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/klammerer/ambient_3"
+   }
+  ]
+ },
+ "monster.klammerer.hurt": {
+  "subtitle": "subtitles.deadzonemc.klammerer.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/klammerer/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/klammerer/hurt_2"
+   }
+  ]
+ },
+ "monster.klammerer.death": {
+  "subtitle": "subtitles.deadzonemc.klammerer.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/klammerer/death_1"
+   }
+  ]
+ },
+ "monster.hologeist.ambient": {
+  "subtitle": "subtitles.deadzonemc.hologeist.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/hologeist/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/hologeist/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/hologeist/ambient_3"
+   }
+  ]
+ },
+ "monster.hologeist.hurt": {
+  "subtitle": "subtitles.deadzonemc.hologeist.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/hologeist/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/hologeist/hurt_2"
+   }
+  ]
+ },
+ "monster.hologeist.death": {
+  "subtitle": "subtitles.deadzonemc.hologeist.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/hologeist/death_1"
+   }
+  ]
+ },
+ "monster.forscher.ambient": {
+  "subtitle": "subtitles.deadzonemc.forscher.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/forscher/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/forscher/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/forscher/ambient_3"
+   }
+  ]
+ },
+ "monster.forscher.hurt": {
+  "subtitle": "subtitles.deadzonemc.forscher.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/forscher/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/forscher/hurt_2"
+   }
+  ]
+ },
+ "monster.forscher.death": {
+  "subtitle": "subtitles.deadzonemc.forscher.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/forscher/death_1"
+   }
+  ]
+ },
  "monster.der_ursprung.ambient": {
   "subtitle": "subtitles.deadzonemc.der_ursprung.ambient",
   "sounds": [

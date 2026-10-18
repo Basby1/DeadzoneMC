@@ -1,0 +1,66 @@
+{
+ "type": "neoforge:add_spawns",
+ "biomes": "#minecraft:is_end",
+ "spawners": [
+  {
+   "type": "deadzonemc:leerlaeufer",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:wartungsspinne",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:wachkugel",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:versuchsobjekt",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:konglomerat",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:kryoschlaefer",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:leerenaal",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:klammerer",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 3
+  },
+  {
+   "type": "deadzonemc:hologeist",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:forscher",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  }
+ ]
+}
