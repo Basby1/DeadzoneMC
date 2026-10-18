@@ -815,6 +815,18 @@ def main():
             json.dump(TEXTE, f, indent=2, ensure_ascii=False)
             f.write("\n")
     print(f"{len(TEXTE)} Texte geschrieben.")
+    # Jedes Spawn-Ei braucht ein Itemmodell, sonst erscheint es im Kreativmenü lila-schwarz
+    modelle = os.path.join(ZIEL, "..", "models", "item")
+    neu = 0
+    for schluessel in TEXTE:
+        if schluessel.startswith("item.deadzonemc.") and schluessel.endswith("_spawn_egg"):
+            pfad = os.path.join(modelle, schluessel.split(".", 2)[2] + ".json")
+            if not os.path.exists(pfad):
+                with open(pfad, "w", encoding="utf-8") as f:
+                    f.write('{"parent": "minecraft:item/template_spawn_egg"}\n')
+                neu += 1
+    if neu:
+        print(f"{neu} Spawn-Ei-Modelle ergänzt.")
 
 
 if __name__ == "__main__":
