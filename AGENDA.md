@@ -39,13 +39,13 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Zufluchten logisch (je Stadt eine am Rand an der Straße)
 
 ## Etappe C – Ausrüstung & Crafting
-- [~] Eigenes Waffensystem statt TaCZ (TaCZ entfernen): Pistolen, Revolver, Schrot, MP, Sturmgewehr, Scharfschütze,
+- [x] Eigenes Waffensystem statt TaCZ (TaCZ entfernen): Pistolen, Revolver, Schrot, MP, Sturmgewehr, Scharfschütze,
       Eigenbau (Rohrgewehr, Armbrust), wenige klare Kaliber, Nachladen, Zielen, Rückstoß, Mündungsfeuer,
       Aufsätze (Schalldämpfer = weniger Lärm, Taschenlampe, Zielfernrohr), Nahkampfwaffen
-- [ ] Handgranaten (craftbar), Brandsätze, Rauch
-- [ ] Rüstungssätze für jede Klasse, aus Monster-Drops und Rezepten
+- [x] Handgranaten (craftbar), Brandsätze, Rauch, Blendgranate, Lärmköder
+- [x] Rüstungssätze für jede Klasse (7 Sätze mit Satzboni), aus Monster-Drops und Rezepten
 - [x] Zonenwerkbank + 26 eigene Zonen-Verzauberungen (nur dort, bezahlt mit Erfahrung + Zonenmaterial)
-- [ ] Monster-Drops als Bauteile (Mutantenhaut, Sehnen, Knochensplitter, Kristallstaub …), Pflanzen, viele Rezepte
+- [x] Monster-Drops als Bauteile (17 Materialien), Pflanzen (Heilkraut, Baumwolle), viele Rezepte
 - [x] Überlebens-Items: Taschenlampe mit Batterie, kleines Zelt (Zwischenlager mit 18 Plätzen, Inhalt bleibt beim Abbauen; geduckt = Rückkehrpunkt)
 - [~] Selbstverteidigungsanlagen: Geschützturm (dreht sich, schießt mit Munition) [x], Landmine/Bärenfalle/Stacheldraht [x], Werkzeuge [ ]
 - [ ] Fahrzeuge mit integriertem Lager
@@ -53,12 +53,12 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Feldhandbuch mit allen Rezepten (geduckt benutzen: Rezept-Raster), beim ersten Spawn
 
 ## Etappe D – Geschichte & Fraktionen
-- [ ] Hauptgeschichte in 5 Akten (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
+- [ ] (Entwurf an Lina 18.10.) Hauptgeschichte in 5 Akten (Tagebuch J, Marker), Fortschritt für die Gruppe, unvorhersehbare Plot-Twists,
       immer klar, was als Nächstes zu tun ist
 - [ ] Intro-Sequenz beim ersten Betreten mit Spielernamen
 - [ ] Fraktionen mit Questreihen, Ansehen, Vorteilen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
       Kinder des Waldes (Baumhäuser), Sandwanderer, Unterwasservolk, Hüter des Himmels (Lategame, schwer erreichbar)
-- [ ] Mimik: übernimmt Skin/Name eines Mitspielers, greift schreiend an, wenn man allein ist (Entwurf der Enthüllung zeigen)
+- [ ] Mimik: übernimmt Skin/Name eines Mitspielers, greift schreiend an, wenn man allein ist (Entwurf der Enthüllung gezeigt 18.10.)
 
 ## Etappe E – Klang, Musik, Präsentation
 - [x] Eigene gruselige Klänge für alle eigenen Monster (synthetisierte Stimmen: Stöhnen, Kreischen, Knurren, Gurgeln, Brüllen … je Art eigenes Profil)
@@ -68,7 +68,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [ ] Animationen und Ausrichtung aller Mobs prüfen (nichts läuft rückwärts)
 
 ## Etappe F – Dimensionen & Endgame
-- [ ] Herz der Zone (Nether) + 10 Mobs (Entwürfe freigegeben) + epischer Nether-Endboss (Entwurf zeigen)
+- [ ] Herz der Zone (Nether) + 10 Mobs (Entwürfe freigegeben) + epischer Nether-Endboss (Entwurf „Das Herz der Zone“ gezeigt 18.10.)
 - [ ] Orbitalstation (End) + 10 Mobs (freigegeben) + Questreihe (Lebenserhaltung, 4 Energieknoten, KI, Logbücher)
 - [ ] Der Ursprung: riesig, epische Spawn-Animation nach allen Schritten, Raid-Mechaniken, ersetzt den Enderdrachen
 - [ ] Endlos weiterspielbar nach dem Finale
