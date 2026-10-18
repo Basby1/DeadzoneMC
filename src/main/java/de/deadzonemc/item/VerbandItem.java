@@ -36,7 +36,7 @@ public class VerbandItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (player.getHealth() >= player.getMaxHealth()) {
+        if (player.getHealth() >= player.getMaxHealth() && !player.hasEffect(de.deadzonemc.verletzung.Verletzungen.BLUTUNG)) {
             return InteractionResultHolder.fail(stack);
         }
         player.startUsingItem(hand);
@@ -46,6 +46,7 @@ public class VerbandItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (!level.isClientSide) {
+            entity.removeEffect(de.deadzonemc.verletzung.Verletzungen.BLUTUNG);
             entity.heal(6.0F * (entity instanceof Player p ? de.deadzonemc.klasse.Klassen.heilfaktor(p) : 1.0F));
             level.playSound(null, entity.blockPosition(), SoundEvents.WOOL_PLACE, SoundSource.PLAYERS, 1.0F, 0.8F);
         }

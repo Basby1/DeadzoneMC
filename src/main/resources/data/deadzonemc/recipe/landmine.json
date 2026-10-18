@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " P ",
+    "ITI"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:stone_pressure_plate"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "result": {
+    "id": "deadzonemc:landmine",
+    "count": 2
+  }
+}

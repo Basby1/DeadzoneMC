@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,gespannt=true": {
+      "model": "deadzonemc:block/baerenfalle",
+      "y": 0
+    },
+    "facing=north,gespannt=false": {
+      "model": "deadzonemc:block/baerenfalle_zu",
+      "y": 0
+    },
+    "facing=east,gespannt=true": {
+      "model": "deadzonemc:block/baerenfalle",
+      "y": 90
+    },
+    "facing=east,gespannt=false": {
+      "model": "deadzonemc:block/baerenfalle_zu",
+      "y": 90
+    },
+    "facing=south,gespannt=true": {
+      "model": "deadzonemc:block/baerenfalle",
+      "y": 180
+    },
+    "facing=south,gespannt=false": {
+      "model": "deadzonemc:block/baerenfalle_zu",
+      "y": 180
+    },
+    "facing=west,gespannt=true": {
+      "model": "deadzonemc:block/baerenfalle",
+      "y": 270
+    },
+    "facing=west,gespannt=false": {
+      "model": "deadzonemc:block/baerenfalle_zu",
+      "y": 270
+    }
+  }
+}

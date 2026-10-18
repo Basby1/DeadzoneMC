@@ -95,6 +95,8 @@ public final class Selbsttest {
             "kill @e[type=deadzonemc:wache]",
             "kill @e[type=deadzonemc:bewohner]",
             "kill @e[type=deadzonemc:auftraggeber]",
+            "forceload add ~-24 ~-24 ~24 ~24",
+            "#fallen",
             "#feature anomalie 30 -40",
             "deadzone anomalie strudel",
             "summon deadzonemc:wanderer ~2 ~1 ~5",
@@ -106,6 +108,7 @@ public final class Selbsttest {
             "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
             "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
             "#zone",
+            "#fallen pruefen",
             "kill @e[type=#deadzonemc:monster]",
             "#herde",
             "#warten", "#warten",
@@ -138,6 +141,8 @@ public final class Selbsttest {
             "#feature schutt 40 -60",
             "#feature strommast 50 -60",
             "#feature strahlenfaesser 60 -60",
+            "forceload add ~-24 ~-24 ~24 ~24",
+            "#fallen",
             "#feature anomalie 30 -40",
             "deadzone anomalie strudel",
             "summon deadzonemc:wanderer ~2 ~1 ~5",
@@ -149,6 +154,7 @@ public final class Selbsttest {
             "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
             "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
             "#zone",
+            "#fallen pruefen",
             "kill @e[type=#deadzonemc:monster]",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/keller",
@@ -521,6 +527,36 @@ public final class Selbsttest {
                     d.append(h == null ? "keine" : de.deadzonemc.monster.Herden.beschreiben(ow, h)).append(" | ");
                 }
                 LOG.info("[Selbsttest] Herden: {} (aktiv {})", d, de.deadzonemc.monster.Herden.anzahl());
+                return;
+            }
+            if (befehl.startsWith("#fallen")) {
+                ServerLevel ow = server.overworld();
+                BlockPos sp = ow.getSharedSpawnPos();
+                var bloecke = java.util.List.of(de.deadzonemc.falle.Fallen.STACHELDRAHT.get(),
+                        de.deadzonemc.falle.Fallen.BAERENFALLE.get(), de.deadzonemc.falle.Fallen.LANDMINE.get());
+                StringBuilder d = new StringBuilder();
+                for (int i = 0; i < 3; i++) {
+                    int x = sp.getX() - 20 + i * 4;
+                    int z = sp.getZ() - 20;
+                    int y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                    BlockPos pos = new BlockPos(x, y, z);
+                    if (befehl.endsWith("pruefen")) {
+                        // die Falle steht eine Ebene tiefer, falls der Boden sich nicht geändert hat
+                        BlockPos f = ow.getBlockState(pos.below()).getBlock() == bloecke.get(i) ? pos.below() : pos;
+                        d.append(bloecke.get(i).getDescriptionId()).append("=").append(ow.getBlockState(f)).append(" ");
+                    } else {
+                        ow.setBlock(pos.below(), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), 3);
+                        ow.setBlock(pos, bloecke.get(i).defaultBlockState(), 3);
+                        var w = de.deadzonemc.monster.MonsterTypen.WANDERER.get().create(ow);
+                        if (w != null) {
+                            w.moveTo(x + 0.5, y, z + 0.5);
+                            w.setPersistenceRequired();
+                            ow.addFreshEntity(w);
+                        }
+                        d.append(bloecke.get(i).getDescriptionId()).append(" bei ").append(pos.toShortString()).append(" ");
+                    }
+                }
+                LOG.info("[Selbsttest] Fallen: {}", d);
                 return;
             }
             if (befehl.equals("#emission_schnell")) {

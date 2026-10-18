@@ -437,6 +437,7 @@ TEXTE = {
     "handbuch.deadzonemc.15": "EMISSION\n\nAlle paar Tage bricht eine Welle aus der Zone. Der Funk warnt 90 Sekunden vorher, der Himmel wird rot.\n\nGeh sofort unter ein Dach. Draußen überlebt niemand.\n\nDanach liegen neue Artefakte bereit.",
     "handbuch.deadzonemc.16": "ABWÜRFE\n\nManchmal meldet der Funk einen Versorgungsabwurf mit ungefähren Koordinaten.\n\nFolge der roten Rauchsäule. Die Kiste lohnt sich, aber der Lärm lockt eine Herde an. Sei schnell.",
     "handbuch.deadzonemc.17": "ZUFLUCHTEN\n\nUmmauerte Lager der Überlebenden. Drinnen bist du sicher, Wachen schießen auf alles, was hereinkommt.\n\nHändler tauschen gegen Militärpatronen. Der Verwalter vergibt Aufträge (/auftrag).",
+    "handbuch.deadzonemc.19": "VERLETZUNGEN\n\nBlutung: Bisse und Hiebe reißen Wunden. Du verlierst langsam Blut, bis du einen Verband anlegst.\n\nKnochenbruch: nach einem schweren Sturz. Langsam, kaum springen – bis eine Schiene angelegt ist (2 Stöcke + Stoffreste).",
     "handbuch.deadzonemc.18": "FERTIGKEITEN\n\nTaste K öffnet deine Fertigkeiten. Kämpfen, Schießen, Überleben, Handwerk und Bewegung bringen Erfahrung – dafür gibt es Punkte für neue Fähigkeiten und Parkour-Bewegungen.",
 
     # Gebiete
@@ -508,6 +509,23 @@ TEXTE = {
     "zone.deadzonemc.abwurf.funk": "📻 FUNK: Versorgungsabwurf bei etwa X %s / Z %s. Haltet nach der roten Rauchsäule Ausschau – und seid nicht die Einzigen.",
     "death.attack.deadzonemc.emission": "%1$s wurde von der Emission verbrannt",
     "death.attack.deadzonemc.emission.player": "%1$s wurde von der Emission verbrannt, auf der Flucht vor %2$s",
+
+    # Verletzungen
+    "effect.deadzonemc.blutung": "Blutung",
+    "effect.deadzonemc.knochenbruch": "Knochenbruch",
+    "item.deadzonemc.schiene": "Schiene",
+    "item.deadzonemc.schiene.info": "Richtet ein gebrochenes Bein (3 Sekunden anlegen)",
+    "item.deadzonemc.schiene.nicht_noetig": "Dir ist nichts gebrochen.",
+    "verletzung.deadzonemc.blutung": "Du blutest! Leg einen Verband an.",
+    "verletzung.deadzonemc.bruch": "Dein Bein ist gebrochen! Nur eine Schiene hilft.",
+    "death.attack.deadzonemc.blutverlust": "%1$s ist verblutet",
+    "death.attack.deadzonemc.blutverlust.player": "%1$s ist auf der Flucht vor %2$s verblutet",
+
+    # Fallen
+    "block.deadzonemc.stacheldraht": "Stacheldraht",
+    "block.deadzonemc.baerenfalle": "Bärenfalle",
+    "block.deadzonemc.landmine": "Landmine",
+    "handbuch.deadzonemc.20": "FALLEN\n\nStacheldraht: bremst und verletzt alles, was hindurch will.\nBärenfalle: hält fest und verletzt schwer. Rechtsklick spannt sie neu.\nLandmine: explodiert unter Infizierten.\n\nSchleichend lösen Spieler Falle und Mine nicht aus.",
 
     # Tod
     "death.attack.deadzonemc.saurer_regen": "%1$s wurde vom sauren Regen verätzt",

@@ -1,7 +1,10 @@
 {
- "replace": false,
- "values": [
-  "deadzonemc:notstromgenerator",
-  "deadzonemc:strahlenfass"
- ]
+  "replace": false,
+  "values": [
+    "deadzonemc:notstromgenerator",
+    "deadzonemc:strahlenfass",
+    "deadzonemc:stacheldraht",
+    "deadzonemc:baerenfalle",
+    "deadzonemc:landmine"
+  ]
 }

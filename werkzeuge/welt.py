@@ -369,6 +369,7 @@ BIOM_TAGS = {
 SCHADENSARTEN = {
     "saurer_regen": {"message_id": f"{MOD}.saurer_regen", "exhaustion": 0.0, "scaling": "never"},
     "asche": {"message_id": f"{MOD}.asche", "exhaustion": 0.1, "scaling": "never"},
+    "blutverlust": {"message_id": f"{MOD}.blutverlust", "exhaustion": 0.0, "scaling": "never"},
     "emission": {"message_id": f"{MOD}.emission", "exhaustion": 0.0, "scaling": "never", "effects": "burning"},
 }
 

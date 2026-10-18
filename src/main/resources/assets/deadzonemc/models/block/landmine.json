@@ -1,0 +1,157 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "m": "deadzonemc:block/landmine",
+    "particle": "deadzonemc:block/landmine"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        1.5,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#m",
+          "uv": [
+            0,
+            13,
+            8,
+            14.5
+          ]
+        },
+        "south": {
+          "texture": "#m",
+          "uv": [
+            0,
+            13,
+            8,
+            14.5
+          ]
+        },
+        "east": {
+          "texture": "#m",
+          "uv": [
+            0,
+            13,
+            8,
+            14.5
+          ]
+        },
+        "west": {
+          "texture": "#m",
+          "uv": [
+            0,
+            13,
+            8,
+            14.5
+          ]
+        },
+        "up": {
+          "texture": "#m",
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        "down": {
+          "texture": "#m",
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        1.5,
+        6.5
+      ],
+      "to": [
+        9.5,
+        2,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#m",
+          "uv": [
+            5,
+            5,
+            8,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#m",
+          "uv": [
+            5,
+            5,
+            8,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#m",
+          "uv": [
+            5,
+            5,
+            8,
+            8
+          ]
+        },
+        "west": {
+          "texture": "#m",
+          "uv": [
+            5,
+            5,
+            8,
+            8
+          ]
+        },
+        "up": {
+          "texture": "#m",
+          "uv": [
+            5,
+            5,
+            8,
+            8
+          ]
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    }
+  }
+}
