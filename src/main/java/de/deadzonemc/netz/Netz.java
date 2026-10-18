@@ -33,6 +33,8 @@ public final class Netz {
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientWaffen.rueckmeldung(n)));
         registrar.playToClient(de.deadzonemc.geschichte.GeschichtePayload.TYPE, de.deadzonemc.geschichte.GeschichtePayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientGeschichte.empfangen(n)));
+        registrar.playToClient(de.deadzonemc.geschichte.IntroPayload.TYPE, de.deadzonemc.geschichte.IntroPayload.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.IntroScreen.starten(n.namen())));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientDaten.entdecktSetzen(n.monster())));
     }

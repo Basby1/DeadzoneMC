@@ -33,6 +33,7 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientAtmosphaere::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.IntroScreen::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::bild);
         NeoForge.EVENT_BUS.addListener(DeadzoneClient::titelbildschirm);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientTitel::danach);

@@ -249,6 +249,9 @@ public final class Geschichte {
                         .withStyle(ChatFormatting.GRAY)));
                 p.sendSystemMessage(Component.translatable("geschichte.deadzonemc.intro", p.getName())
                         .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                String namen = String.join(", ", p.server.getPlayerList().getPlayers().stream()
+                        .map(x -> x.getGameProfile().getName()).toList());
+                PacketDistributor.sendToPlayer(p, new IntroPayload(namen));
             }
         }
     }

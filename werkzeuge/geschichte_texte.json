@@ -77,5 +77,9 @@
  "notiz.deadzonemc.funkprotokoll_4.2": "Das Experiment darf nicht bekannt werden.\n\nOberst Brandt\nKommandant der Wacht",
  "notiz.deadzonemc.vahl_logbuch.titel": "Vahls Logbuch",
  "notiz.deadzonemc.vahl_logbuch.1": "LETZTER EINTRAG\n\nDer Kern ist kein Reaktor. Er ist ein Tor. Wir haben nicht Energie gefördert – wir haben etwas geweckt, das auf der anderen Seite schlägt wie ein Herz.\n\nIch habe den Riss berührt. Er hat mich verändert.",
- "notiz.deadzonemc.vahl_logbuch.2": "Die Aschekinder nennen mich jetzt Hirte. Sie folgen dem Klang meiner Glocke – und die Toten folgen ihnen.\n\nWer mich sucht: Ich bin nicht mehr Elena.\n\n– E. V."
+ "notiz.deadzonemc.vahl_logbuch.2": "Die Aschekinder nennen mich jetzt Hirte. Sie folgen dem Klang meiner Glocke – und die Toten folgen ihnen.\n\nWer mich sucht: Ich bin nicht mehr Elena.\n\n– E. V.",
+ "intro.deadzonemc.1": "Sektor 4. Tag 41 nach der Abriegelung.",
+ "intro.deadzonemc.2": "Der letzte Evakuierungsflug ist nie angekommen.",
+ "intro.deadzonemc.ueberlebende": "Überlebende: %s",
+ "intro.deadzonemc.ueberspringen": "Leertaste: überspringen"
 }
