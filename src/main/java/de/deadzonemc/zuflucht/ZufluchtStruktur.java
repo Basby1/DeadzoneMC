@@ -78,11 +78,10 @@ public class ZufluchtStruktur extends Structure {
             if (server == null) {
                 return false;
             }
-            for (int dx = -3; dx <= 3; dx += 3) {
-                for (int dz = -3; dz <= 3; dz += 3) {
-                    if (Staedte.vielleichtStadt(server.overworld(), cx + dx, cz + dz)) {
-                        return true;
-                    }
+            // Mitte und zwei Ecken: am Stadtrand darf die Mauer stehen, mitten in der Stadt nicht
+            for (int[] d : new int[][]{{0, 0}, {-2, -2}, {2, 2}}) {
+                if (Staedte.vielleichtStadt(server.overworld(), cx + d[0], cz + d[1])) {
+                    return true;
                 }
             }
         } catch (RuntimeException e) {
