@@ -45,6 +45,11 @@ EIGENE = {"is_melee", "is_projectile", "is_magic", "switch", "has_tag", "get_att
 def var(*ops, fallback=None):
     v = {"operations": [o if isinstance(o, dict) else {"type": ("puffish_skills:" + o) if o in EIGENE else o}
                         for o in ops]}
+    # Wahr/Falsch-Ergebnisse in Zahlen umwandeln (Variablen müssen Zahlen liefern)
+    letzte = v["operations"][-1]["type"]
+    if letzte in ("puffish_skills:test", "puffish_skills:is_melee", "puffish_skills:is_projectile",
+                  "puffish_skills:is_magic", "puffish_skills:has_tag"):
+        v["operations"].append({"type": "puffish_skills:switch", "data": {"true": 1, "false": 0}})
     if fallback is not None:
         v["fallback"] = fallback
         v["required"] = False

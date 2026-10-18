@@ -35,6 +35,13 @@
        },
        {
         "type": "puffish_skills:is_melee"
+       },
+       {
+        "type": "puffish_skills:switch",
+        "data": {
+         "true": 1,
+         "false": 0
+        }
        }
       ]
      }

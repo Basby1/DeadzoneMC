@@ -35,6 +35,13 @@
        },
        {
         "type": "puffish_skills:is_projectile"
+       },
+       {
+        "type": "puffish_skills:switch",
+        "data": {
+         "true": 1,
+         "false": 0
+        }
        }
       ]
      },
@@ -47,6 +54,13 @@
         "type": "puffish_skills:test",
         "data": {
          "item": "tacz:modern_kinetic_gun"
+        }
+       },
+       {
+        "type": "puffish_skills:switch",
+        "data": {
+         "true": 1,
+         "false": 0
         }
        }
       ],
@@ -79,6 +93,13 @@
        },
        {
         "type": "puffish_skills:is_projectile"
+       },
+       {
+        "type": "puffish_skills:switch",
+        "data": {
+         "true": 1,
+         "false": 0
+        }
        }
       ]
      }
