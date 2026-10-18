@@ -70,6 +70,12 @@ public final class ModRegistry {
                     .build());
 
     /** Ob ein Spieler schon einmal in der Deadzone angekommen ist. */
+    /** Hinweis zur ersten Nacht schon gezeigt (nur einmal pro Spieler, bleibt über den Tod hinaus). */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> ERSTE_NACHT =
+            ANHAENGE.register("erste_nacht", () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .copyOnDeath()
+                    .build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> GESTARTET =
             ANHAENGE.register("gestartet", () -> AttachmentType.builder(() -> false)
                     .serialize(Codec.BOOL)

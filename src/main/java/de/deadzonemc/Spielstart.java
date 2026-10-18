@@ -118,6 +118,28 @@ public final class Spielstart {
         }
     }
 
+    /** Kurz vor der ersten Nacht ein einziger Hinweis: Unterschlupf, Licht, Türen, Zelt. */
+    public static void ersteNacht(net.neoforged.neoforge.event.tick.PlayerTickEvent.Post event) {
+        if (!(event.getEntity() instanceof ServerPlayer spieler) || spieler.tickCount % 100 != 30
+                || spieler.level().dimension() != net.minecraft.world.level.Level.OVERWORLD
+                || spieler.getData(ModRegistry.ERSTE_NACHT.get())) {
+            return;
+        }
+        long zeit = spieler.level().getDayTime() % 24000L;
+        if (zeit < 11500 || zeit > 13000) {
+            return;
+        }
+        spieler.setData(ModRegistry.ERSTE_NACHT.get(), true);
+        spieler.connection.send(new net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket(20, 60, 30));
+        spieler.connection.send(new net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket(
+                Component.literal("Die Sonne geht unter").withStyle(ChatFormatting.GOLD)));
+        spieler.connection.send(new net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket(
+                Component.literal("Nachts kommen mehr von ihnen.").withStyle(ChatFormatting.GRAY)));
+        spieler.sendSystemMessage(Component.literal("Tipp für die erste Nacht: Such dir ein Haus mit Tür, mach Licht und schließ ab. "
+                + "Dein Notstromaggregator schützt die Umgebung, das kleine Zelt (geduckt benutzen) wird dein Rückkehrpunkt.")
+                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+    }
+
     /** Ein Funkspruch verrät, wo die Zuflucht liegt (grobe Richtung und Entfernung). */
     public static void zufluchtVerraten(ServerPlayer spieler, BlockPos z) {
         if (z == null) {

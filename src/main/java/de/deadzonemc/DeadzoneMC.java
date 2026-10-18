@@ -55,6 +55,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(Spielstart::nachRespawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.basis.Zonenanzeige::tick);
         NeoForge.EVENT_BUS.addListener(Spielstart::peilen);
+        NeoForge.EVENT_BUS.addListener(Spielstart::ersteNacht);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.StadtHorden::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Herden::tick);
