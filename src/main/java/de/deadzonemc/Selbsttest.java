@@ -566,20 +566,31 @@ public final class Selbsttest {
             if (befehl.equals("#station")) {
                 ServerLevel ow = server.overworld();
                 BlockPos sp = ow.getSharedSpawnPos();
-                int x = sp.getX() + 160;
-                int z = sp.getZ() + 40;
-                for (int dx = -2; dx <= 2; dx++) {
-                    for (int dz = -2; dz <= 2; dz++) {
-                        ow.getChunk((x >> 4) + dx, (z >> 4) + dz);
+                int x = 0;
+                int y = 0;
+                int z = 0;
+                int versuche = 0;
+                for (int[] o : new int[][]{{160, 40}, {-160, 60}, {60, 180}, {-80, -170}, {220, -120}, {-240, 200}, {300, 300}}) {
+                    versuche++;
+                    x = sp.getX() + o[0];
+                    z = sp.getZ() + o[1];
+                    for (int dx = -2; dx <= 2; dx++) {
+                        for (int dz = -2; dz <= 2; dz++) {
+                            ow.getChunk((x >> 4) + dx, (z >> 4) + dz);
+                        }
+                    }
+                    y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                    try {
+                        server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),
+                                "place structure deadzonemc:station_null " + x + " " + y + " " + z);
+                    } catch (Exception e) {
+                        LOG.error("[Selbsttest] Station Null nicht platzierbar", e);
+                    }
+                    if (de.deadzonemc.welt.station.StationNull.bei(ow, new BlockPos(x, y - 20, z)) != null) {
+                        break;
                     }
                 }
-                int y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
-                try {
-                    server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),
-                            "place structure deadzonemc:station_null " + x + " " + y + " " + z);
-                } catch (Exception e) {
-                    LOG.error("[Selbsttest] Station Null nicht platzierbar", e);
-                }
+                LOG.info("[Selbsttest] Station Null nach {} Versuchen", versuche);
                 java.util.Map<String, Integer> zahl = new java.util.TreeMap<>();
                 for (BlockPos b : BlockPos.betweenClosed(x - 30, y - 30, z - 30, x + 30, y + 8, z + 30)) {
                     var st = ow.getBlockState(b);
