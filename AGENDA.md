@@ -63,7 +63,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 ## Etappe E – Klang, Musik, Präsentation
 - [x] Eigene gruselige Klänge für alle eigenen Monster (synthetisierte Stimmen: Stöhnen, Kreischen, Knurren, Gurgeln, Brüllen … je Art eigenes Profil)
 - [ ] Musik gruseliger und atmosphärischer; neues Titelstück
-- [ ] Titelbildschirm: bewegter Hintergrund (Ruinenstadt im Nebel)
+- [x] Titelbildschirm: bewegter Hintergrund (Ruinenpanorama, treibende Nebelbänke, Wetterleuchten)
 - [ ] Bosse: eigene Klänge, epische Kampfmusik, Sprachzeilen – Kämpfe auf Leben und Tod
 - [ ] Animationen und Ausrichtung aller Mobs prüfen (nichts läuft rückwärts)
 

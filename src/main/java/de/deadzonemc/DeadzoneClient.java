@@ -32,6 +32,7 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::bild);
         NeoForge.EVENT_BUS.addListener(DeadzoneClient::titelbildschirm);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientTitel::danach);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientMusik::waehlen);
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.ItemTooltipEvent e) -> {
             if (de.deadzonemc.waffen.Waffenpflege.istSchusswaffe(e.getItemStack())) {
