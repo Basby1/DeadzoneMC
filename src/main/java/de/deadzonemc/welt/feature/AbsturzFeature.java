@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG }
 
     private final Art art;
 
@@ -114,6 +114,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case FRACHTER -> frachter(f, r, meer - boden.getY());
             case PANZER -> panzer(f, r, 0, 0, true);
             case KONVOI -> konvoi(f, r);
+            case EVAKUIERUNG -> evakuierung(f, r);
         }
         return true;
     }
@@ -128,6 +129,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case FRACHTER -> frachter(f, r, 1);
             case PANZER -> panzer(f, r, 0, 0, true);
             case KONVOI -> konvoi(f, r);
+            case EVAKUIERUNG -> evakuierung(f, r);
         }
     }
 
@@ -486,6 +488,134 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), Blocks.MUD_BRICK_SLAB.defaultBlockState(), Block.UPDATE_CLIENTS);
         }
         spawnen(f, de.deadzonemc.monster.MonsterTypen.GEFALLENER_SOLDAT::get, 2 + r.nextInt(2), r);
+    }
+
+    // ---- Evakuierungslager -----------------------------------------------------------------
+
+    /**
+     * Ein überrannter Evakuierungspunkt: Bauzaun mit Lücken, zwei Sanitätszelte mit rotem Kreuz, ein Wachturm,
+     * Sandsäcke am Tor, Leichensäcke – und zwischen ihnen liegen nicht alle so still, wie sie aussehen.
+     * Beute: Medizin in den Zelten, Militärkiste oben auf dem Turm, Vorräte an der Feldküche.
+     */
+    private static void evakuierung(Rahmen f, RandomSource r) {
+        int R = 10;
+        java.util.List<BlockPos> zaun = new java.util.ArrayList<>();
+        // Boden: festgetretener Schotter und Erde
+        for (int l = -R; l <= R; l++) {
+            for (int b = -R; b <= R; b++) {
+                BlockPos p = f.pos(l, b, 0);
+                int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ()) - 1;
+                BlockPos u = new BlockPos(p.getX(), y, p.getZ());
+                if (f.w().getBlockState(u).is(Blocks.GRASS_BLOCK) && r.nextInt(3) > 0) {
+                    f.w().setBlock(u, r.nextInt(3) == 0 ? Blocks.GRAVEL.defaultBlockState() : Blocks.COARSE_DIRT.defaultBlockState(),
+                            Block.UPDATE_CLIENTS);
+                }
+                BlockState oben = f.w().getBlockState(u.above());
+                if (!oben.isAir() && oben.canBeReplaced()) {
+                    f.w().setBlock(u.above(), Bau.LUFT, Block.UPDATE_CLIENTS);
+                }
+                // Bauzaun am Rand, mit Lücken und einem Tor
+                boolean rand = Math.abs(l) == R || Math.abs(b) == R;
+                boolean tor = l == -R && Math.abs(b) <= 1;
+                if (rand && !tor && r.nextInt(5) > 0) {
+                    // Der Zaun folgt dem Gelände
+                    f.w().setBlock(u.above(), Blocks.IRON_BARS.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    zaun.add(u.above());
+                    if (r.nextInt(3) > 0) {
+                        f.w().setBlock(u.above(2), Blocks.IRON_BARS.defaultBlockState(), Block.UPDATE_CLIENTS);
+                        zaun.add(u.above(2));
+                    }
+                }
+            }
+        }
+        // Sandsäcke am Tor
+        for (int b = -3; b <= 3; b++) {
+            if (Math.abs(b) >= 2) {
+                f.setzen(-R - 1, b, 0, Blocks.MUD_BRICKS.defaultBlockState());
+                f.setzen(-R - 1, b, 1, Blocks.MUD_BRICK_SLAB.defaultBlockState());
+            }
+        }
+        // Zwei Sanitätszelte
+        sanizelt(f, r, -7, -1, -6);
+        sanizelt(f, r, 1, 6, -6);
+        // Leichensäcke zwischen den Zelten – einer davon lebt noch
+        for (int i = 0; i < 5; i++) {
+            int l = -6 + i * 3;
+            f.setzen(l, 0, 0, Blocks.BLACK_CARPET.defaultBlockState());
+            f.setzen(l + 1, 0, 0, Blocks.BLACK_CARPET.defaultBlockState());
+        }
+        // Wachturm in der Ecke
+        for (int h = 0; h <= 4; h++) {
+            for (int[] e : new int[][]{{6, 6}, {6, 9}, {9, 6}, {9, 9}}) {
+                f.setzen(e[0], e[1], h, Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState());
+                f.stuetzen(e[0], e[1], 0, Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState());
+            }
+        }
+        for (int l = 6; l <= 9; l++) {
+            for (int b = 6; b <= 9; b++) {
+                f.setzen(l, b, 5, Blocks.SPRUCE_PLANKS.defaultBlockState());
+                if (l == 6 || l == 9 || b == 6 || b == 9) {
+                    f.setzen(l, b, 6, Blocks.SPRUCE_FENCE.defaultBlockState());
+                    zaun.add(f.pos(l, b, 6));
+                }
+            }
+        }
+        for (int h = 0; h <= 5; h++) {
+            f.setzen(7, 6, h, Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState()); // Leiterpfosten
+        }
+        f.stuetzen(7, 6, 0, Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState());
+        f.setzen(7, 6, 6, Bau.LUFT); // Einstieg
+        for (int h = 0; h <= 5; h++) {
+            f.setzen(7, 5, h, Blocks.LADDER.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.LadderBlock.FACING, f.quer().getOpposite()));
+        }
+        f.kiste(8, 8, 6, "militaer", r, true);
+        f.setzen(8, 7, 6, Blocks.LANTERN.defaultBlockState());
+        // Feldküche mit erloschenem Feuer
+        f.setzen(-3, 6, 0, Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false));
+        f.setzen(-2, 6, 0, Blocks.WATER_CAULDRON.defaultBlockState());
+        f.kiste(-4, 7, 0, r.nextBoolean() ? "kueche" : "kuehlschrank", r, true);
+        f.setzen(-2, 7, 0, Blocks.SPRUCE_SLAB.defaultBlockState());
+        // Verbindungen von Zaun und Geländer nachziehen
+        for (BlockPos p : zaun) {
+            BlockState s = f.w().getBlockState(p);
+            if (!s.isAir()) {
+                f.w().setBlock(p, Block.updateFromNeighbourShapes(s, f.w(), p), Block.UPDATE_CLIENTS);
+            }
+        }
+        spawnen(f, MonsterTypen.SCHEINTOTER::get, 1, r);
+        spawnen(f, MonsterTypen.WANDERER::get, 3 + r.nextInt(3), r);
+        if (r.nextInt(3) == 0) {
+            spawnen(f, MonsterTypen.SEUCHENTRAEGER::get, 1, r);
+        }
+    }
+
+    /** Sanitätszelt (Satteldach aus weißer Wolle) von l0 bis l1, Firstlinie bei b = c, mit rotem Kreuz. */
+    private static void sanizelt(Rahmen f, RandomSource r, int l0, int l1, int c) {
+        BlockState wolle = Blocks.WHITE_WOOL.defaultBlockState();
+        for (int l = l0; l <= l1; l++) {
+            for (int d = -2; d <= 2; d++) {
+                int h = 2 - Math.abs(d);
+                boolean riss = r.nextInt(9) == 0;
+                f.setzen(l, c + d, h, riss ? Bau.LUFT : wolle);
+                if (Math.abs(d) == 2 && (l == l0 || l == l1)) {
+                    f.setzen(l, c + d, 0, wolle);
+                }
+            }
+            // Pritschen innen
+            if (l != l0 && l != l1 && (l - l0) % 2 == 1) {
+                f.setzen(l, c - 1, 0, Blocks.WHITE_CARPET.defaultBlockState());
+                f.setzen(l, c + 1, 0, Blocks.WHITE_CARPET.defaultBlockState());
+            }
+        }
+        // Rotes Kreuz auf dem Dach
+        int m = (l0 + l1) / 2;
+        f.setzen(m, c, 2, Blocks.RED_WOOL.defaultBlockState());
+        f.setzen(m - 1, c, 2, Blocks.RED_WOOL.defaultBlockState());
+        f.setzen(m + 1, c, 2, Blocks.RED_WOOL.defaultBlockState());
+        f.setzen(m, c - 1, 1, Blocks.RED_WOOL.defaultBlockState());
+        f.setzen(m, c + 1, 1, Blocks.RED_WOOL.defaultBlockState());
+        f.kiste(l1 - 1, c, 0, "apotheke", r, false);
     }
 
     // ---- Hilfen ---------------------------------------------------------------------------

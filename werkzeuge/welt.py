@@ -53,6 +53,7 @@ CONFIGURED = {
     "frachter": {"type": f"{MOD}:frachter", "config": {}},
     "panzer": {"type": f"{MOD}:panzer", "config": {}},
     "konvoi": {"type": f"{MOD}:konvoi", "config": {}},
+    "evakuierung": {"type": f"{MOD}:evakuierung", "config": {}},
     **{f"siedlung_{a}": {"type": f"{MOD}:siedlung_{a}", "config": {}} for a in ("lager", "schrein", "baumhaus", "nomaden", "kuppel", "horst")},
     "strahlenfaesser": {"type": f"{MOD}:strahlenfaesser", "config": {}},
     "versteck": {"type": f"{MOD}:versteck", "config": {}},
@@ -133,6 +134,7 @@ PLACED = {
     "frachter": ("frachter", an_der_oberflaeche(seltenheit=30, wasser_ok=True)),
     "panzer": ("panzer", an_der_oberflaeche(seltenheit=90)),
     "konvoi": ("konvoi", an_der_oberflaeche(seltenheit=220)),
+    "evakuierung": ("evakuierung", an_der_oberflaeche(seltenheit=160)),
     # Siedlungen der Fraktionen
     "siedlung_lager": ("siedlung_lager", an_der_oberflaeche(seltenheit=110)),
     "siedlung_schrein": ("siedlung_schrein", an_der_oberflaeche(seltenheit=40)),

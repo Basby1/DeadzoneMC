@@ -233,6 +233,9 @@ public final class ModRegistry {
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> KONVOI =
             FEATURES.register("konvoi",
                     () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.KONVOI));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> EVAKUIERUNG =
+            FEATURES.register("evakuierung",
+                    () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.EVAKUIERUNG));
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> AUTOWRACK =
             FEATURES.register("autowrack", AutowrackFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STRAHLENFAESSER =

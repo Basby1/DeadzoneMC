@@ -3,7 +3,8 @@
  "biomes": "#deadzonemc:land",
  "features": [
   "deadzonemc:panzer",
-  "deadzonemc:konvoi"
+  "deadzonemc:konvoi",
+  "deadzonemc:evakuierung"
  ],
  "step": "surface_structures"
 }
