@@ -14,11 +14,14 @@ KOPF = {"User-Agent": "Basby1/DeadzoneMC modcheck (github.com/Basby1/DeadzoneMC)
 
 # (Name/Slug, Art) – Art: mod, shader, resourcepack
 KANDIDATEN = [
-    ("lithium", "mod"), ("noisium", "mod"), ("dynamic-fps", "mod"), ("alltheleaks", "mod"), ("clumps", "mod"),
-    ("fastfurnace", "mod"), ("fastworkbench", "mod"), ("let-me-despawn", "mod"), ("moreculling", "mod"),
-    ("badoptimizations", "mod"), ("sodium-extra", "mod"), ("ksyxis", "mod"), ("ai-improvements", "mod"),
-    ("async-locator", "mod"), ("c2me", "mod"), ("radium", "mod"), ("fast-paths", "mod"), ("memoryleakfix", "mod"),
-    ("puffish-skills", "mod"), ("pufferfish-skills", "mod"), ("skills", "mod"), ("parcool", "mod"),
+    ("lootbeams", "mod"), ("loot-beams-refork", "mod"), ("legendary-tooltips", "mod"), ("iceberg", "mod"),
+    ("presence-footsteps", "mod"), ("true-darkness", "mod"), ("darkness", "mod"), ("true-darkness-refabricated", "mod"),
+    ("immersive-melodies", "mod"), ("ambientsounds", "mod"), ("visuality", "mod"), ("falling-leaves", "mod"),
+    ("physics-mod", "mod"), ("immersive-portals", "mod"), ("waystones", "mod"), ("travelersbackpack", "mod"),
+    ("first-aid", "mod"), ("epic-fight", "mod"), ("better-animations-collection", "mod"), ("emotecraft", "mod"),
+    ("guard-villagers", "mod"), ("doors-of-infinity", "mod"), ("cleanview", "mod"), ("enhancedvisuals", "mod"),
+    ("ash-api", "mod"), ("blood-n-particles", "mod"), ("seasonhud", "mod"), ("hardcore-torches", "mod"),
+    ("realistic-torches", "mod"), ("dynamic-surroundings", "mod"), ("sound-physics-remastered", "mod"),
 ]
 
 LADER = {"mod": ["neoforge"], "shader": ["iris"], "resourcepack": ["minecraft"]}
