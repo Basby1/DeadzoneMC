@@ -22,6 +22,8 @@ public class ZufluchtStruktur extends Structure {
 
     public static final MapCodec<ZufluchtStruktur> CODEC = simpleCodec(ZufluchtStruktur::new);
     public static final int GROESSE = 64;
+    /** Statistik für den Selbsttest: [Stadt, Wasser, steil, ok]. */
+    public static final java.util.concurrent.atomic.AtomicIntegerArray GRUENDE = new java.util.concurrent.atomic.AtomicIntegerArray(4);
 
     public ZufluchtStruktur(StructureSettings settings) {
         super(settings);
@@ -39,10 +41,12 @@ public class ZufluchtStruktur extends Structure {
         int meer = ctx.chunkGenerator().getSeaLevel();
         // Erst die billige Prüfung (Stadt), dann Höhen – jede Höhenabfrage kostet eine Geländeberechnung
         if (inStadt(ctx.chunkPos().x, ctx.chunkPos().z)) {
+            GRUENDE.incrementAndGet(0);
             return Optional.empty();
         }
         int mitte = ctx.chunkGenerator().getBaseHeight(mx, mz, Heightmap.Types.OCEAN_FLOOR_WG, ctx.heightAccessor(), ctx.randomState());
         if (mitte <= meer) {
+            GRUENDE.incrementAndGet(1);
             return Optional.empty();
         }
         int[] hoehen = new int[3];
@@ -52,12 +56,14 @@ public class ZufluchtStruktur extends Structure {
             int h = ctx.chunkGenerator().getBaseHeight(mx + d[0], mz + d[1], Heightmap.Types.OCEAN_FLOOR_WG,
                     ctx.heightAccessor(), ctx.randomState());
             if (h <= meer || Math.abs(h - mitte) > 14) {
+                GRUENDE.incrementAndGet(h <= meer ? 1 : 2);
                 return Optional.empty(); // Wasser oder zu steil
             }
             hoehen[i++] = h;
         }
         Arrays.sort(hoehen);
         int y = hoehen[1];
+        GRUENDE.incrementAndGet(3);
         Direction vorne = Direction.from2DDataValue((int) Math.floorMod(ctx.seed() ^ (mx * 31L + mz), 4L));
         long saat = ctx.seed() ^ (mx * 0x9E3779B97F4A7C15L) ^ (mz * 0xC2B2AE3D27D4EB4FL);
         int minX = mx - GROESSE / 2;

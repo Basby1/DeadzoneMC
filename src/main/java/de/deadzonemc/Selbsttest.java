@@ -652,8 +652,9 @@ public final class Selbsttest {
                 var tag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
                         net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "zuflucht"));
                 long t0 = System.currentTimeMillis();
-                BlockPos z = ow.findNearestMapStructure(tag, ow.getSharedSpawnPos(), 40, false);
-                LOG.info("[Selbsttest] Zuflucht-Suche dauerte {} ms", System.currentTimeMillis() - t0);
+                BlockPos z = ow.findNearestMapStructure(tag, ow.getSharedSpawnPos(), 6, false);
+                LOG.info("[Selbsttest] Zuflucht-Suche dauerte {} ms, Gründe [Stadt, Wasser, steil, ok] = {}",
+                        System.currentTimeMillis() - t0, de.deadzonemc.zuflucht.ZufluchtStruktur.GRUENDE);
                 if (z == null) {
                     LOG.info("[Selbsttest] Zuflucht: keine gefunden");
                     return;
@@ -663,7 +664,9 @@ public final class Selbsttest {
                         ow.getChunk((z.getX() >> 4) + dx, (z.getZ() >> 4) + dz);
                     }
                 }
-                var bb = new net.minecraft.world.phys.AABB(z).inflate(40, 60, 40);
+                int boden = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, z.getX(), z.getZ());
+                z = new BlockPos(z.getX(), boden, z.getZ());
+                var bb = new net.minecraft.world.phys.AABB(z).inflate(40, 30, 40);
                 java.util.Map<String, Integer> zahl = new java.util.TreeMap<>();
                 StringBuilder handel = new StringBuilder();
                 for (var e : ow.getEntitiesOfClass(net.minecraft.world.entity.Mob.class, bb)) {
