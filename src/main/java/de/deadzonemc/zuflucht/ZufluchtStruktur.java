@@ -39,10 +39,18 @@ public class ZufluchtStruktur extends Structure {
         int mx = ctx.chunkPos().getMiddleBlockX();
         int mz = ctx.chunkPos().getMiddleBlockZ();
         int meer = ctx.chunkGenerator().getSeaLevel();
-        // Erst die billige Prüfung (Stadt), dann Höhen – jede Höhenabfrage kostet eine Geländeberechnung
-        if (inStadt(ctx.chunkPos().x, ctx.chunkPos().z)) {
+        Direction vorne = Direction.from2DDataValue((int) Math.floorMod(ctx.seed() ^ (mx * 31L + mz), 4L));
+        long saat = ctx.seed() ^ (mx * 0x9E3779B97F4A7C15L) ^ (mz * 0xC2B2AE3D27D4EB4FL);
+        int minX = mx - GROESSE / 2;
+        int minZ = mz - GROESSE / 2;
+        // In Lost-Cities-Welten ist fast alles Land Stadt: dort wird die Zuflucht in die Ruinen gebaut –
+        // ein freigeräumter, ummauerter Block auf Straßenhöhe (wie Woodbury).
+        Integer strasse = strassenhoehe(ctx.chunkPos().x, ctx.chunkPos().z);
+        if (strasse != null) {
             GRUENDE.incrementAndGet(0);
-            return Optional.empty();
+            int ys = strasse;
+            return Optional.of(new GenerationStub(new BlockPos(mx, ys, mz),
+                    b -> b.addPiece(new ZufluchtPiece(minX, minZ, ys, vorne, saat, true))));
         }
         int mitte = ctx.chunkGenerator().getBaseHeight(mx, mz, Heightmap.Types.OCEAN_FLOOR_WG, ctx.heightAccessor(), ctx.randomState());
         if (mitte <= meer) {
@@ -64,28 +72,20 @@ public class ZufluchtStruktur extends Structure {
         Arrays.sort(hoehen);
         int y = hoehen[1];
         GRUENDE.incrementAndGet(3);
-        Direction vorne = Direction.from2DDataValue((int) Math.floorMod(ctx.seed() ^ (mx * 31L + mz), 4L));
-        long saat = ctx.seed() ^ (mx * 0x9E3779B97F4A7C15L) ^ (mz * 0xC2B2AE3D27D4EB4FL);
-        int minX = mx - GROESSE / 2;
-        int minZ = mz - GROESSE / 2;
         return Optional.of(new GenerationStub(new BlockPos(mx, y, mz),
-                b -> b.addPiece(new ZufluchtPiece(minX, minZ, y, vorne, saat))));
+                b -> b.addPiece(new ZufluchtPiece(minX, minZ, y, vorne, saat, false))));
     }
 
-    private static boolean inStadt(int cx, int cz) {
+    /** Straßenhöhe, falls die Mitte in einer Stadt liegt (sonst null). Erst billig schätzen, dann genau fragen. */
+    private static Integer strassenhoehe(int cx, int cz) {
         try {
             var server = ServerLifecycleHooks.getCurrentServer();
-            if (server == null) {
-                return false;
+            if (server == null || !Staedte.vielleichtStadt(server.overworld(), cx, cz)) {
+                return null;
             }
-            // Die Schätzung ist billig, meldet in Lost-Cities-Welten aber fast überall "Stadt" (die echten
-            // Städte entstehen nur, wo auch das Gelände passt). Nur dann fragen wir genau nach – und nur die Mitte.
-            if (!Staedte.vielleichtStadt(server.overworld(), cx, cz)) {
-                return false;
-            }
-            return Staedte.istStadt(server.overworld(), cx, cz);
+            return Staedte.strassenhoehe(server.overworld(), cx, cz);
         } catch (RuntimeException e) {
-            return false;
+            return null;
         }
     }
 }

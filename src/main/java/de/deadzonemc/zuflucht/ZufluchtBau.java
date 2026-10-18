@@ -52,8 +52,8 @@ public final class ZufluchtBau {
         return NAMEN[(int) Math.floorMod(saat, (long) NAMEN.length)];
     }
 
-    public static void bauen(Baukasten b, WorldGenLevel level, BoundingBox bereich, long saat) {
-        gelaende(b);
+    public static void bauen(Baukasten b, WorldGenLevel level, BoundingBox bereich, long saat, boolean stadt) {
+        gelaende(b, stadt);
         mauer(b);
         tor(b, saat);
         for (int[] e : new int[][]{{1, 1}, {58, 1}, {1, 58}, {58, 58}}) {
@@ -73,8 +73,9 @@ public final class ZufluchtBau {
 
     // ---- Gelände ------------------------------------------------------------------------------
 
-    private static void gelaende(Baukasten b) {
-        b.boden(0, 0, 63, 63, Blocks.DIRT.defaultBlockState(), 14);
+    private static void gelaende(Baukasten b, boolean stadt) {
+        // In der Stadt: Ruinen bis weit nach oben abtragen (die Mauer steht dann zwischen den Hochhäusern)
+        b.boden(0, 0, 63, 63, Blocks.DIRT.defaultBlockState(), stadt ? 48 : 14);
         for (int x = 0; x < 64; x++) {
             for (int z = 0; z < 64; z++) {
                 double r = b.zufall(x, 0, z);

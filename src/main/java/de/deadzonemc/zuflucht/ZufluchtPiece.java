@@ -22,8 +22,9 @@ public class ZufluchtPiece extends StructurePiece {
     private final int y;
     private final Direction vorne;
     private final long saat;
+    private final boolean stadt;
 
-    public ZufluchtPiece(int minX, int minZ, int y, Direction vorne, long saat) {
+    public ZufluchtPiece(int minX, int minZ, int y, Direction vorne, long saat, boolean stadt) {
         super(ModRegistry.ZUFLUCHT_TEIL.get(), 0, new BoundingBox(minX - 2, y - 12, minZ - 2,
                 minX + ZufluchtStruktur.GROESSE + 1, y + 16, minZ + ZufluchtStruktur.GROESSE + 1));
         this.minX = minX;
@@ -31,6 +32,7 @@ public class ZufluchtPiece extends StructurePiece {
         this.y = y;
         this.vorne = vorne;
         this.saat = saat;
+        this.stadt = stadt;
     }
 
     public ZufluchtPiece(CompoundTag tag) {
@@ -40,6 +42,7 @@ public class ZufluchtPiece extends StructurePiece {
         this.y = tag.getInt("y");
         this.vorne = Direction.from2DDataValue(tag.getInt("vorne"));
         this.saat = tag.getLong("saat");
+        this.stadt = tag.getBoolean("stadt");
     }
 
     public long saat() {
@@ -53,6 +56,7 @@ public class ZufluchtPiece extends StructurePiece {
         tag.putInt("y", y);
         tag.putInt("vorne", vorne.get2DDataValue());
         tag.putLong("saat", saat);
+        tag.putBoolean("stadt", stadt);
     }
 
     @Override
@@ -60,6 +64,6 @@ public class ZufluchtPiece extends StructurePiece {
                             RandomSource random, BoundingBox bereich, ChunkPos chunkPos, BlockPos pivot) {
         int g = ZufluchtStruktur.GROESSE;
         Baukasten b = new Baukasten(level, bereich, minX, minZ, minX + g - 1, minZ + g - 1, y, vorne, saat);
-        ZufluchtBau.bauen(b, level, bereich, saat);
+        ZufluchtBau.bauen(b, level, bereich, saat, stadt);
     }
 }
