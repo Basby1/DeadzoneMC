@@ -4,91 +4,91 @@
  "spawners": [
   {
    "type": "deadzonemc:wanderer",
-   "weight": 220,
-   "minCount": 3,
-   "maxCount": 6
+   "weight": 34,
+   "minCount": 1,
+   "maxCount": 3
   },
   {
    "type": "deadzonemc:schreier",
-   "weight": 30,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:lauerer",
-   "weight": 40,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:kriecher",
-   "weight": 35,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 2
   },
   {
    "type": "deadzonemc:der_stille",
-   "weight": 8,
+   "weight": 40,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:imitator",
-   "weight": 10,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:nebelwesen",
-   "weight": 25,
+   "weight": 40,
    "minCount": 1,
    "maxCount": 2
   },
   {
    "type": "deadzonemc:schwarm",
-   "weight": 20,
-   "minCount": 6,
-   "maxCount": 12
+   "weight": 12,
+   "minCount": 4,
+   "maxCount": 7
   },
   {
    "type": "deadzonemc:brut",
-   "weight": 20,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:juggernaut",
-   "weight": 5,
+   "weight": 8,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:gefallener_soldat",
-   "weight": 15,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:scheintoter",
-   "weight": 10,
+   "weight": 24,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:wuehler",
-   "weight": 18,
+   "weight": 40,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:spaeherdrohne",
-   "weight": 4,
+   "weight": 30,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:lichtmotte",
-   "weight": 10,
+   "weight": 30,
    "minCount": 1,
    "maxCount": 2
   }

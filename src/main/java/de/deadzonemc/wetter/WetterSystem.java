@@ -114,14 +114,7 @@ public final class WetterSystem {
         BlockPos kopf = BlockPos.containing(spieler.getEyePosition());
         long zeit = level.getGameTime();
         // Saurer Regen macht keinen Schaden mehr (nur Stimmung) – das war zu nervig
-        if (art == WetterArt.ASCHESTURM && level.canSeeSky(kopf)) {
-            if (zeit % 60 == 0 && !helmAbnutzen(spieler, 1)) {
-                spieler.hurt(schaden(level, ASCHE), 1.0F);
-            }
-            if (spieler.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
-                spieler.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0, true, false, true));
-            }
-        }
+        // Aschesturm schadet nicht mehr und bremst nicht (Rückmeldung: Debuffs nerven nur) – nur Sicht und Stimmung
     }
 
     /** Nutzt den Helm statt der Gesundheit ab. Ohne Helm: {@code false}. */

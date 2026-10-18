@@ -499,11 +499,11 @@ def soldat():
         k["kopf"].w((-1.5, 24.5, -5.5), (3, 3, 1.5), metall("3a3d3b", "5a3a22"))
         k["ober"].w((-4, 14, -2), (8, 9, 4), stoff("3a3f2c", loecher=0, blut=0, falten=2), aufblasen=0.5)  # Weste
         k["ober"].w((-3.5, 14, 2.4), (7, 8, 2.5), stoff("4a4630", loecher=0, blut=0, falten=3))
-        gewehr = m.k("gewehr", "arm_rechts", drehpunkt=(5, 13, 0), drehung=(-80, 0, 0))
+        gewehr = m.k("gewehr", "arm_rechts", drehpunkt=(5, 13, 0), drehung=(-62, 0, 0))
         gewehr.w((4.5, 12.5, -10), (1, 2, 12), einfarbig("1e1f1d", 6))
         gewehr.w((4.5, 10.5, -4), (1, 2, 1.5), einfarbig("2a2b28", 6))
     m = _mensch("soldat", "b39a85", gesicht_, p, tarn, stoff("4a5038", loecher=0, blut=0, falten=4),
-                einfarbig("1c1a17", 6), extras, glow="lL", arm_pose=((-40, -10, 0), (-50, 30, 0)))
+                einfarbig("1c1a17", 6), extras, glow="lL", arm_pose=((62, 6, 0), (58, -34, 0)))
     return m, "Soldat der Wacht", "Fraktion · Reste des Militärs, streng und misstrauisch", "1,9 Blöcke"
 
 
@@ -1561,11 +1561,11 @@ def wache():
         k["ober"].w((-3.5, 13, 2.4), (7, 8, 2.5), stoff("4a4630", loecher=0, blut=0, falten=3))
         binde = m.k("armbinde", "arm_rechts", drehpunkt=(5, 20, 0))
         binde.w((4, 18, -1.5), (3, 2, 3), einfarbig("d8c020", 8), aufblasen=0.15)
-        gewehr = m.k("gewehr", "arm_rechts", drehpunkt=(5, 13, 0), drehung=(-80, 0, 0))
+        gewehr = m.k("gewehr", "arm_rechts", drehpunkt=(5, 13, 0), drehung=(-62, 0, 0))
         gewehr.w((4.5, 12.5, -10), (1, 2, 12), einfarbig("2a2018", 6))
         gewehr.w((4.5, 10.5, -4), (1, 2, 1.5), einfarbig("2a2b28", 6))
     m = _mensch("wache", "c4a084", gesicht_, p, jacke, stoff("3a3a32", loecher=0, blut=0, falten=4),
-                einfarbig("1c1a17", 6), extras, arm_pose=((-40, -10, 0), (-50, 30, 0)))
+                einfarbig("1c1a17", 6), extras, arm_pose=((62, 6, 0), (58, -34, 0)))
     return m, "Wache der Zuflucht", "Freundlich · bewacht Mauer und Tor, schießt auf alles Infizierte", "1,9 Blöcke"
 
 
@@ -1593,20 +1593,25 @@ def auftraggeber():
 
     def extras(m, k):
         k["ober"].w((-4.5, 3, -2.5), (9, 10, 5), stoff("3a3a4a", loecher=0, blut=0, falten=3, fransen=True))  # langer Mantel
-        brett = m.k("klemmbrett", "arm_links", drehpunkt=(-5.5, 13, 0), drehung=(-60, 0, 0))
+        brett = m.k("klemmbrett", "arm_links", drehpunkt=(-5.5, 13, 0), drehung=(-30, 0, 0))
         brett.w((-7, 12, -5), (4, 0.5, 5), einfarbig("8a6a4a", 6))
         brett.w((-6.5, 12.5, -4.5), (3, 0.3, 4), einfarbig("e0d8c0", 4))
         k["ober"].w((2, 20, -2.6), (2, 3, 1), metall("2a2a2a", "4a3a2a", nieten=False))  # Funkgerät
         k["ober"].w((3.2, 23, -2.4), (0.4, 3, 0.4), einfarbig("1a1a1a", 4))
     m = _mensch("auftraggeber", "c4a890", gesicht_, p, mantel, stoff("2a2a2a", loecher=0, blut=0, falten=4),
-                einfarbig("2a2018", 6), extras, arm_pose=((-6, 0, 3), (-55, 20, 0)))
+                einfarbig("2a2018", 6), extras, arm_pose=((4, 0, 3), (52, -18, 0)))
     return m, "Auftraggeber", "Freundlich · vergibt Aufträge gegen Militärpatronen", "1,9 Blöcke"
 
 
 ALLE.update({"wache": wache, "bewohner": bewohner, "auftraggeber": auftraggeber})
 
+# Absichtlich nach hinten: der gebrochene Unterarm des Gefallenen Soldaten
+NICHT_SPIEGELN = {"gefallener_soldat": ("unterarm_links",)}
+
+
 def bauen(name):
     modell, titel, unter, groesse = ALLE[name]()
+    modell.vorwaerts_richten(NICHT_SPIEGELN.get(name, ()))
     modell.uv_packen()
     maler = Maler(modell, saat=sum(map(ord, name)))
     maler.alles_malen()

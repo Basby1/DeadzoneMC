@@ -73,43 +73,60 @@ public final class Herden {
     // ---- Zusammensetzung ---------------------------------------------------------------------
 
     /** Welche Art als Nächstes in diese Herde kommt – je nach Gegend, Tageszeit und Wetter. */
+    /**
+     * Wer in einer Gruppe mitläuft. Alle Arten, die in die Gegend passen, kommen etwa gleich oft vor (Rückmeldung:
+     * nicht nur Wanderer); Wanderer zählen doppelt, weil sie das Rückgrat der Horden sind. Bosse nie.
+     */
     static EntityType<? extends DeadzoneMonster> mitglied(ServerLevel w, BlockPos pos, boolean stadt) {
-        int r = w.random.nextInt(100);
         boolean nacht = w.isNight();
         var biom = w.getBiome(pos);
-        if (DeadzoneMonster.dichterNebel(w) && r < 8) {
-            return MonsterTypen.NEBELWESEN.get();
+        java.util.List<EntityType<? extends DeadzoneMonster>> l = new java.util.ArrayList<>();
+        l.add(MonsterTypen.WANDERER.get());
+        l.add(MonsterTypen.WANDERER.get());
+        if (DeadzoneMonster.dichterNebel(w)) {
+            l.add(MonsterTypen.NEBELWESEN.get());
         }
         if (stadt) {
-            if (r < 12) return MonsterTypen.SCHREIER.get();
-            if (r < 24) return MonsterTypen.GEFALLENER_SOLDAT.get();
-            if (r < 34) return MonsterTypen.KRIECHER.get();
-            if (nacht && r < 40) return MonsterTypen.BRUT.get();
-            return MonsterTypen.WANDERER.get();
+            l.add(MonsterTypen.SCHREIER.get());
+            l.add(MonsterTypen.GEFALLENER_SOLDAT.get());
+            l.add(MonsterTypen.KRIECHER.get());
+            l.add(MonsterTypen.LAUERER.get());
+            l.add(MonsterTypen.SCHEINTOTER.get());
+            l.add(MonsterTypen.IMITATOR.get());
+            if (nacht) {
+                l.add(MonsterTypen.BRUT.get());
+                l.add(MonsterTypen.DER_STILLE.get());
+            }
+        } else if (biom.is(VERSEUCHT)) {
+            l.add(MonsterTypen.SEUCHENTRAEGER.get());
+            l.add(MonsterTypen.GLUTLEIB.get());
+            l.add(MonsterTypen.KRIECHER.get());
+            l.add(MonsterTypen.SCHREIER.get());
+        } else if (biom.is(WASSER)) {
+            l.add(MonsterTypen.ERTRUNKENER.get());
+            l.add(MonsterTypen.BRUT.get());
+            l.add(MonsterTypen.SCHEINTOTER.get());
+        } else if (biom.is(WUESTE)) {
+            l.add(MonsterTypen.GLUTLEIB.get());
+            l.add(MonsterTypen.SEUCHENHUND.get());
+            l.add(MonsterTypen.KRIECHER.get());
+        } else if (biom.is(SCHNEE)) {
+            l.add(MonsterTypen.SEUCHENHUND.get());
+            l.add(MonsterTypen.LAUERER.get());
+            l.add(MonsterTypen.IMITATOR.get());
+        } else {
+            l.add(MonsterTypen.SEUCHENHUND.get());
+            l.add(MonsterTypen.SCHREIER.get());
+            l.add(MonsterTypen.LAUERER.get());
+            l.add(MonsterTypen.IMITATOR.get());
+            l.add(MonsterTypen.SCHEINTOTER.get());
+            l.add(MonsterTypen.GEFALLENER_SOLDAT.get());
+            if (nacht) {
+                l.add(MonsterTypen.SAUGER.get());
+                l.add(MonsterTypen.DER_STILLE.get());
+            }
         }
-        if (biom.is(VERSEUCHT)) {
-            if (r < 35) return MonsterTypen.SEUCHENTRAEGER.get();
-            if (r < 55) return MonsterTypen.GLUTLEIB.get();
-            return MonsterTypen.WANDERER.get();
-        }
-        if (biom.is(WASSER)) {
-            if (r < 40) return MonsterTypen.ERTRUNKENER.get();
-            if (r < 52) return MonsterTypen.BRUT.get();
-            return MonsterTypen.WANDERER.get();
-        }
-        if (biom.is(WUESTE)) {
-            if (r < 35) return MonsterTypen.GLUTLEIB.get();
-            if (r < 55) return MonsterTypen.SEUCHENHUND.get();
-            return MonsterTypen.WANDERER.get();
-        }
-        if (biom.is(SCHNEE)) {
-            if (r < 25) return MonsterTypen.SEUCHENHUND.get();
-            return MonsterTypen.WANDERER.get();
-        }
-        if (r < 22) return MonsterTypen.SEUCHENHUND.get();
-        if (nacht && r < 32) return MonsterTypen.SAUGER.get();
-        if (r < 38) return MonsterTypen.SCHREIER.get();
-        return MonsterTypen.WANDERER.get();
+        return l.get(w.random.nextInt(l.size()));
     }
 
     // ---- Takt ---------------------------------------------------------------------------------
@@ -131,19 +148,19 @@ public final class Herden {
             return;
         }
         for (ServerPlayer p : w.players()) {
-            if (!DeadzoneMonster.echterSpieler(p) || ZufluchtSchutz.sicher(w, p.blockPosition())) {
+            if (!DeadzoneMonster.echterSpieler(p) || ZufluchtSchutz.sicher(w, p.blockPosition()) || SpawnSchutz.geschuetzt(p)) {
                 continue;
             }
             long nah = HERDEN.stream().filter(h -> h.ziel.distanceToSqr(p.position()) < 160 * 160).count();
-            double chance = w.isNight() ? 0.7 : 0.5;
+            double chance = w.isNight() ? 0.4 : 0.3;
             if (DeadzoneMonster.dichterNebel(w)) {
-                chance += 0.15;
+                chance += 0.1;
             }
-            if (nah < 4 && w.random.nextDouble() < chance) {
+            if (nah < 2 && w.random.nextDouble() < chance) {
                 herdeSpawnen(w, p.position(), p, false);
             }
             // Zufälliger Überfall: selten, nachts oder im Nebel, direkt auf den Spieler
-            if ((w.isNight() || DeadzoneMonster.dichterNebel(w)) && w.random.nextInt(14) == 0) {
+            if ((w.isNight() || DeadzoneMonster.dichterNebel(w)) && w.random.nextInt(28) == 0) {
                 ueberfall(w, p);
             }
         }
@@ -168,9 +185,10 @@ public final class Herden {
                 continue;
             }
             boolean stadt = Staedte.istStadt(w, x >> 4, z >> 4);
-            int groesse = stadt ? 16 + w.random.nextInt(12) : 10 + w.random.nextInt(9);
+            // Rückmeldung 18.10.: nachts sofort überrannt – Herden kleiner, damit man fliehen oder kämpfen kann
+            int groesse = stadt ? 8 + w.random.nextInt(6) : 5 + w.random.nextInt(5);
             if (ueberfall) {
-                groesse = 8 + w.random.nextInt(7);
+                groesse = 4 + w.random.nextInt(4);
             }
             // Richtung: grob am Spieler vorbei (oder direkt auf ihn beim Überfall)
             Vec3 zumSpieler = ort.subtract(Vec3.atCenterOf(mitte)).multiply(1, 0, 1).normalize();

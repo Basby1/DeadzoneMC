@@ -1,6 +1,6 @@
 [general]
 	consumable_effect_duration = 1200
-	#Temperatur ändert sich langsamer und Schaden kommt seltener als im Original
+	#Temperatur ist abgeschaltet (Rückmeldung: Erfrierschaden nervt nur)
 	temperature_change_delay = 800
 	player_temperature_change_delay = 200
 	temperature_modifier_order = ["player_modifiers", "item_modifier", "armor_modifier", "internal_modifier"]
@@ -28,7 +28,7 @@
 	near_heat_cool_proximity = 8
 
 [toggles]
-	enable_temperature = true
+	enable_temperature = false
 
 [time]
 	night_hot_temperature_change = -2

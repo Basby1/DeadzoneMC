@@ -17,6 +17,14 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Beutestufen für Gebäude: Anzeige beim Betreten, höhere Stufe = gefährlicher + bessere Beute, nachts +1
 - [x] Blutungs-Debuff entfernen
 - [x] Infizierte langsamer (man muss weglaufen können)
+- [x] Absturz „Ticking entity“ (Seuchenhund-Rudelruf endlos) behoben
+- [x] Leere Truhen: Weltbehälter ohne Beute bekommen beim ersten Öffnen eine Tabelle passend zum Ort
+- [x] Wache/Soldat/alle Mobs: Arme und Waffen zeigten nach hinten – gespiegelt (Etappe E teilweise)
+- [x] Nachts nicht mehr sofort überrannt: Deckel, Gruppengröße, Pausen zwischen Gruppen, kleinere Herden
+- [x] Debuffs raus: Temperatur/Erfrieren (Tough As Nails), Knochenbruch, Aschesturm-Schaden
+- [x] Generator-Schutzzone 4× (96 / 160 / 256 Blöcke)
+- [x] Keine Phantome, kein Reiten von Monstern, keine Würfe von Monstern
+- [x] Alle eigenen Monster etwa gleich häufig, Bosse seltener; Wühler nur in Höhlen
 
 ## Etappe B – Welt, Beute, Spannung
 - [~] Weicher Übergang Land → Vorort → Stadt (StadtrandFeature, Vorort-Stil, Profil) – im Spiel prüfen

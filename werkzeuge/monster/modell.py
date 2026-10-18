@@ -50,6 +50,49 @@ class Modell:
             for w in kn.wuerfel:
                 yield kn, w
 
+    # --- Ausrichtung -----------------------------------------------------
+    def vorwaerts_richten(self, ausnahmen=()):
+        """Arme, die mit negativem x nach hinten hängen, nach vorn spiegeln.
+
+        In GeckoLib schwingt ein herabhängendes Glied bei positivem x nach vorn (Norden, -z). Viele Entwürfe
+        hatten die Arme mit negativem x "nach vorn" gestellt – im Spiel zeigten sie (samt Waffe) nach hinten.
+        Gespiegelt wird der ganze Teilbaum an der Ebene durch das Schultergelenk: x- und y-Drehung umgedreht,
+        Würfel und Drehpunkte in z gespiegelt. So bleibt jede Pose erhalten, nur eben nach vorn.
+        """
+        kinder = {}
+        for kn in self.knochen:
+            kinder.setdefault(kn.eltern, []).append(kn)
+        gespiegelt = set()
+
+        def teilbaum(kn):
+            yield kn
+            for c in kinder.get(kn.name, []):
+                yield from teilbaum(c)
+
+        for kn in self.knochen:
+            if kn.name in ausnahmen or kn.name in gespiegelt:
+                continue
+            if not kn.name.startswith(("arm_", "hand_", "unterarm_")) or kn.drehung[0] > -3:
+                continue
+            z0 = kn.drehpunkt[2]
+            for t in teilbaum(kn):
+                if t.name in ausnahmen:
+                    continue
+                gespiegelt.add(t.name)
+                t.drehung = [-t.drehung[0], -t.drehung[1], t.drehung[2]]
+                t.drehpunkt[2] = 2 * z0 - t.drehpunkt[2]
+                for w in t.wuerfel:
+                    w.ursprung[2] = 2 * z0 - (w.ursprung[2] + w.groesse[2])
+                if t.name in self.pose:
+                    pz = self.pose[t.name]
+                    if isinstance(pz, dict):
+                        r = pz.get("rotation")
+                        if r:
+                            pz["rotation"] = (-r[0], -r[1], r[2])
+                    else:
+                        self.pose[t.name] = (-pz[0], -pz[1], pz[2])
+        return sorted(gespiegelt)
+
     # --- Box-UV packen ---------------------------------------------------
     def uv_packen(self):
         """Ordnet jedem Würfel einen Platz im Texturatlas zu (Regalverfahren, größte zuerst)."""

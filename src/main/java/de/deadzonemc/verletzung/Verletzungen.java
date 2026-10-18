@@ -74,12 +74,11 @@ public final class Verletzungen {
         DamageSource quelle = event.getSource();
         float schaden = event.getNewDamage();
         var zufall = p.getRandom();
+        // Knochenbruch nach Stürzen ist entfernt (Rückmeldung 18.10.: Debuffs nerven nur). Alte Brüche heilen sofort.
+        if (p.hasEffect(KNOCHENBRUCH)) {
+            p.removeEffect(KNOCHENBRUCH);
+        }
         if (quelle.is(DamageTypeTags.IS_FALL)) {
-            if (schaden >= 5 && zufall.nextFloat() < Math.min(0.85F, 0.25F + schaden * 0.06F) && !p.hasEffect(KNOCHENBRUCH)) {
-                p.addEffect(new MobEffectInstance(KNOCHENBRUCH, MobEffectInstance.INFINITE_DURATION, 0, false, false, true));
-                p.level().playSound(null, p.blockPosition(), SoundEvents.SKELETON_HURT, SoundSource.PLAYERS, 1.2F, 0.5F);
-                p.displayClientMessage(Component.translatable("verletzung.deadzonemc.bruch").withStyle(ChatFormatting.RED), true);
-            }
             return;
         }
         // Blutung ist entfernt (Rückmeldung: zu nervig). Der Effekt bleibt nur registriert, damit alte Spielstände laden.
@@ -107,10 +106,20 @@ public final class Verletzungen {
         }
     }
 
-    /** Gebrochenes Bein: langsam, kaum springen (Wirkung über Attribute). */
+    /** Gebrochenes Bein – entfernt; bleibt nur registriert, damit alte Spielstände laden, und löst sich sofort auf. */
     static class Bruch extends MobEffect {
         Bruch() {
             super(MobEffectCategory.HARMFUL, 0xd8d0b8);
+        }
+
+        @Override
+        public boolean shouldApplyEffectTickThisTick(int dauer, int staerke) {
+            return true;
+        }
+
+        @Override
+        public boolean applyEffectTick(LivingEntity wer, int staerke) {
+            return false;
         }
 
         @Override

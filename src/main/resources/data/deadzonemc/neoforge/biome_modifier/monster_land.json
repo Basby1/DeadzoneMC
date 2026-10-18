@@ -4,13 +4,13 @@
  "spawners": [
   {
    "type": "deadzonemc:seuchenhund",
-   "weight": 25,
-   "minCount": 3,
-   "maxCount": 5
+   "weight": 24,
+   "minCount": 2,
+   "maxCount": 3
   },
   {
    "type": "deadzonemc:sauger",
-   "weight": 10,
+   "weight": 30,
    "minCount": 1,
    "maxCount": 1
   }

@@ -28,9 +28,10 @@ public final class StadtHorden {
     /** Wie viele Deadzone-Monster höchstens um einen Spieler in der Stadt unterwegs sind. */
     static int deckel(ServerLevel welt) {
         // Tagsüber spielbar, nachts die Hölle (Rückmeldung: Tag leichter, Nacht viel gefährlicher)
-        int d = welt.isNight() ? 110 : 40;
+        // Rückmeldung 18.10.: nachts sofort überrannt – deutlich weniger, aber immer noch bedrohlich
+        int d = welt.isNight() ? 48 : 24;
         if (DeadzoneMonster.dichterNebel(welt)) {
-            d += 20;
+            d += 10;
         }
         if (welt.getDifficulty() == Difficulty.EASY) {
             d = d * 2 / 3;
@@ -62,14 +63,24 @@ public final class StadtHorden {
             if (SpawnSchutz.geschuetzt(p)) {
                 continue;
             }
+            // Zwischen zwei Gruppen vergeht Zeit (tagsüber 40 s, nachts 20 s), damit man Luft holen kann
+            long jetzt = welt.getGameTime();
+            Long naechste = NAECHSTE_GRUPPE.get(p.getUUID());
+            if (naechste != null && jetzt < naechste) {
+                continue;
+            }
             int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(64, 32, 64)).size();
             int frei = deckel(welt) - nah;
             if (frei < 3) {
                 continue;
             }
-            gruppeSpawnen(welt, p.getX(), p.getBlockY(), p.getZ(), p, Math.min(frei, gruppengroesse(welt)));
+            if (gruppeSpawnen(welt, p.getX(), p.getBlockY(), p.getZ(), p, Math.min(frei, gruppengroesse(welt))) > 0) {
+                NAECHSTE_GRUPPE.put(p.getUUID(), jetzt + (welt.isNight() ? 400 : 800) + welt.random.nextInt(200));
+            }
         }
     }
+
+    private static final java.util.Map<java.util.UUID, Long> NAECHSTE_GRUPPE = new java.util.HashMap<>();
 
     private static final java.util.Set<java.util.UUID> IN_DER_METRO = new java.util.HashSet<>();
 
@@ -97,9 +108,11 @@ public final class StadtHorden {
                 continue;
             }
             int w = welt.random.nextInt(100);
-            EntityType<? extends DeadzoneMonster> typ = w < 35 ? MonsterTypen.KRIECHER.get()
-                    : w < 55 ? MonsterTypen.WUEHLER.get() : w < 70 ? MonsterTypen.LAUERER.get()
-                    : w < 80 ? MonsterTypen.BRUT.get() : MonsterTypen.WANDERER.get();
+            // Kein Wühler in der Metro: der lebt nur in natürlichen Höhlen
+            EntityType<? extends DeadzoneMonster> typ = w < 22 ? MonsterTypen.KRIECHER.get()
+                    : w < 40 ? MonsterTypen.LAUERER.get() : w < 55 ? MonsterTypen.BRUT.get()
+                    : w < 68 ? MonsterTypen.SCHEINTOTER.get() : w < 80 ? MonsterTypen.IMITATOR.get()
+                    : MonsterTypen.WANDERER.get();
             DeadzoneMonster e = typ.create(welt);
             if (e == null) {
                 return;
@@ -129,15 +142,15 @@ public final class StadtHorden {
         if (SpawnSchutz.geschuetzt(p)) {
             return;
         }
-        int deckel = welt.isNight() ? 45 : 14;
+        int deckel = welt.isNight() ? 20 : 10;
         if (DeadzoneMonster.dichterNebel(welt)) {
-            deckel += 10;
+            deckel += 6;
         }
         int nah = welt.getEntitiesOfClass(DeadzoneMonster.class, p.getBoundingBox().inflate(64, 32, 64)).size();
         if (nah >= deckel) {
             return;
         }
-        int anzahl = Math.min(deckel - nah, 2 + welt.random.nextInt(welt.isNight() ? 5 : 3));
+        int anzahl = Math.min(deckel - nah, 1 + welt.random.nextInt(welt.isNight() ? 4 : 3));
         for (int versuch = 0; versuch < 8 && anzahl > 0; versuch++) {
             double winkel = welt.random.nextDouble() * Math.PI * 2;
             double abstand = 26 + welt.random.nextDouble() * 26;
@@ -176,28 +189,22 @@ public final class StadtHorden {
     }
 
     static int gruppengroesse(ServerLevel welt) {
-        int n = welt.isNight() ? 8 + welt.random.nextInt(7) : 6 + welt.random.nextInt(5);
+        int n = welt.isNight() ? 4 + welt.random.nextInt(4) : 3 + welt.random.nextInt(3);
         if (DeadzoneMonster.dichterNebel(welt)) {
-            n += 3;
+            n += 2;
         }
         return n;
     }
 
-    private static EntityType<? extends DeadzoneMonster> mitglied(ServerLevel welt, int nr) {
+    private static EntityType<? extends DeadzoneMonster> mitglied(ServerLevel welt, int nr, BlockPos pos) {
         int w = welt.random.nextInt(100);
-        if (nr == 0 && w < 12) {
+        if (nr == 0 && w < 10) {
             return MonsterTypen.SCHREIER.get(); // ruft die ganze Straße zusammen
-        }
-        if (w < 10) {
-            return MonsterTypen.KRIECHER.get();
-        }
-        if (welt.isNight() && w < 15) {
-            return MonsterTypen.BRUT.get();
         }
         if (nr == 0 && welt.getDifficulty() == Difficulty.HARD && w > 98) {
             return MonsterTypen.JUGGERNAUT.get();
         }
-        return MonsterTypen.WANDERER.get();
+        return Herden.mitglied(welt, pos, true);
     }
 
     /** Spawnt eine Gruppe 28–52 Blöcke entfernt in einem Stadt-Chunk, außer Sicht. Gibt die Anzahl zurück. */
@@ -205,7 +212,7 @@ public final class StadtHorden {
         Basen basen = Basen.holen(welt);
         for (int versuch = 0; versuch < 10; versuch++) {
             double winkel = welt.random.nextDouble() * Math.PI * 2;
-            double abstand = 22 + welt.random.nextDouble() * 24;
+            double abstand = 32 + welt.random.nextDouble() * 22;
             int x = Mth.floor(ox + Math.cos(winkel) * abstand);
             int z = Mth.floor(oz + Math.sin(winkel) * abstand);
             if (!welt.hasChunkAt(new BlockPos(x, 0, z))) {
@@ -226,7 +233,7 @@ public final class StadtHorden {
                 if (pos == null) {
                     continue;
                 }
-                DeadzoneMonster e = mitglied(welt, gespawnt).create(welt);
+                DeadzoneMonster e = mitglied(welt, gespawnt, pos).create(welt);
                 if (e == null) {
                     break;
                 }

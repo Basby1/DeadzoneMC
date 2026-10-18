@@ -43,14 +43,14 @@ public final class Zonenanzeige {
             BlockPos mitte = BlockPos.of(e.getKey());
             int r = e.getValue();
             double d = Math.sqrt(p.blockPosition().distSqr(mitte));
-            if (d < r + 48) {
+            if (d < r + 64) {
                 kreis(w, p, mitte, r, RAND);
             }
         }
         if (generator) {
             HitResult blick = p.pick(8.0, 1.0F, false);
             if (blick.getType() == HitResult.Type.BLOCK) {
-                kreis(w, p, ((BlockHitResult) blick).getBlockPos().above(), 24, VORSCHAU);
+                kreis(w, p, ((BlockHitResult) blick).getBlockPos().above(), GeneratorBlock.RADIUS[1], VORSCHAU);
             }
         }
     }

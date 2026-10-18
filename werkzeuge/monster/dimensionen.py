@@ -1039,6 +1039,7 @@ E.ANSICHTEN.update({
 def bauen(name):
     """Wie entwuerfe.bauen, vergrößert die Textur aber selbstständig, wenn der Platz nicht reicht."""
     modell, titel, unter, groesse = E.ALLE[name]()
+    modell.vorwaerts_richten(E.NICHT_SPIEGELN.get(name, ()))
     while True:
         try:
             modell.uv_packen()

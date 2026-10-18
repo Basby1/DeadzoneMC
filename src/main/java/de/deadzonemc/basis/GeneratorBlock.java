@@ -39,7 +39,8 @@ public class GeneratorBlock extends HorizontalDirectionalBlock {
     public static final MapCodec<GeneratorBlock> CODEC = simpleCodec(GeneratorBlock::new);
     public static final IntegerProperty STUFE = IntegerProperty.create("stufe", 1, 3);
     private static final VoxelShape FORM = Block.box(1, 0, 1, 15, 13, 15);
-    private static final int[] RADIUS = {0, 24, 40, 64};
+    /** Schutzradius je Ausbaustufe (Rückmeldung 18.10.: mindestens viermal so groß wie vorher). */
+    public static final int[] RADIUS = {0, 96, 160, 256};
     private static final int[] KOSTEN = {0, 0, 8, 16};
 
     public GeneratorBlock(Properties eigenschaften) {

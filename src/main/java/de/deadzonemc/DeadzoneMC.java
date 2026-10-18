@@ -15,6 +15,7 @@ public class DeadzoneMC {
     public DeadzoneMC(IEventBus modBus, ModContainer container) {
         ModRegistry.registrieren(modBus);
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
+        de.deadzonemc.monster.Verbote.registrieren();
         de.deadzonemc.mensch.MenschTypen.registrieren(modBus);
         de.deadzonemc.zone.Zone.registrieren(modBus);
         de.deadzonemc.verletzung.Verletzungen.registrieren(modBus);

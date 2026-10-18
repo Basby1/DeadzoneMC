@@ -48,6 +48,9 @@ public final class Nachschub extends SavedData {
             return;
         }
         BlockEntity be = level.getBlockEntity(event.getPos());
+        if (be != null) {
+            Truhenfueller.pruefen(level, event.getPos(), be);
+        }
         if (be instanceof RandomizableContainerBlockEntity rc && rc.getLootTable() != null) {
             Nachschub n = von(level.getServer());
             String k = level.dimension().location() + "|" + event.getPos().asLong();

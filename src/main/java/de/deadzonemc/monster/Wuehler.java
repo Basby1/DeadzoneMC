@@ -52,6 +52,8 @@ public class Wuehler extends DeadzoneMonster {
                 || b.is(BlockTags.STONE_ORE_REPLACEABLES) || b.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
     }
 
+    private int unterHimmel;
+
     private boolean aufNatur(BlockPos fuss) {
         return natuerlich(level().getBlockState(fuss.below()));
     }
@@ -106,7 +108,8 @@ public class Wuehler extends DeadzoneMonster {
             getNavigation().stop();
             setDeltaMovement(0, 0, 0);
             if (opfer != null) {
-                if (!opfer.isAlive() || !aufNatur(opfer.blockPosition()) || opfer.distanceToSqr(this) > 16 * 16) {
+                if (!opfer.isAlive() || !aufNatur(opfer.blockPosition()) || opfer.distanceToSqr(this) > 16 * 16
+                        || sl.canSeeSky(opfer.blockPosition())) {
                     opfer = null; // auf gebautem Boden kann er nicht hin
                     return;
                 }
@@ -118,7 +121,7 @@ public class Wuehler extends DeadzoneMonster {
                 }
             } else if (tickCount % 10 == 0) {
                 for (Player p : sl.getEntitiesOfClass(Player.class, getBoundingBox().inflate(10, 6, 10), DeadzoneMonster::echterSpieler)) {
-                    if (aufNatur(p.blockPosition()) && !p.isCrouching()) {
+                    if (aufNatur(p.blockPosition()) && !p.isCrouching() && !sl.canSeeSky(p.blockPosition())) {
                         opfer = p;
                         warnung = 30;
                         playSound(MonsterSounds.holen(art, "graben"), 1.0F, 0.6F);
@@ -127,6 +130,23 @@ public class Wuehler extends DeadzoneMonster {
                 }
             }
             return;
+        }
+        // Ein Höhlenwesen: unter freiem Himmel taucht er sofort wieder ab (oder verschwindet in einer Spalte)
+        if (sl.canSeeSky(blockPosition())) {
+            setTarget(null);
+            if (onGround() && aufNatur(blockPosition())) {
+                eingraben(sl);
+                return;
+            }
+            if (++unterHimmel > 60) {
+                krumen(sl, blockPosition());
+                discard();
+            }
+            return;
+        }
+        unterHimmel = 0;
+        if (getTarget() != null && sl.canSeeSky(getTarget().blockPosition())) {
+            setTarget(null); // nach draußen folgt er niemandem
         }
         if (getTarget() == null) {
             if (++ohneZiel > 200 && onGround() && aufNatur(blockPosition())) {

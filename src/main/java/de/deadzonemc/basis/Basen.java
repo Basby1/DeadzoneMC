@@ -39,7 +39,10 @@ public class Basen extends SavedData {
         ListTag liste = tag.getList("basen", Tag.TAG_COMPOUND);
         for (int i = 0; i < liste.size(); i++) {
             CompoundTag e = liste.getCompound(i);
-            b.radien.put(e.getLong("pos"), e.getInt("radius"));
+            int r = e.getInt("radius");
+            // Alte Spielstände: die Schutzzonen sind seit 18.10. viermal so groß
+            r = r == 24 ? 96 : r == 40 ? 160 : r == 64 ? 256 : r;
+            b.radien.put(e.getLong("pos"), r);
         }
         Sicherheit s = Sicherheit.ausId(tag.getString("stufe"));
         if (s != null) {

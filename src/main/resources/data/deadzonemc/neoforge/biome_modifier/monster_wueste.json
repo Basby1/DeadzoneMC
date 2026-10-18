@@ -4,15 +4,15 @@
  "spawners": [
   {
    "type": "deadzonemc:glutleib",
-   "weight": 20,
+   "weight": 28,
    "minCount": 1,
    "maxCount": 2
   },
   {
    "type": "deadzonemc:seuchenhund",
-   "weight": 10,
+   "weight": 20,
    "minCount": 2,
-   "maxCount": 4
+   "maxCount": 3
   }
  ]
 }

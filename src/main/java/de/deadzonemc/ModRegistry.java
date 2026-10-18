@@ -63,6 +63,12 @@ public final class ModRegistry {
                     .networkSynchronized(ByteBufCodecs.STRING_UTF8)
                     .build());
 
+    /** Ob ein Behälter schon einmal geöffnet oder von einem Spieler gesetzt wurde (dann wird er nicht mehr befüllt). */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> BERUEHRT =
+            ANHAENGE.register("beruehrt", () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .build());
+
     /** Ob ein Spieler schon einmal in der Deadzone angekommen ist. */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> GESTARTET =
             ANHAENGE.register("gestartet", () -> AttachmentType.builder(() -> false)

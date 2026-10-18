@@ -41,13 +41,20 @@ public class Seuchenhund extends DeadzoneMonster {
     public void setTarget(LivingEntity ziel) {
         boolean neu = ziel != null && getTarget() == null;
         super.setTarget(ziel);
-        if (neu && !level().isClientSide) {
+        // Nur wenn das Ziel wirklich übernommen wurde (Ereignisse wie die Spawn-Schonfrist können es verhindern) –
+        // und die anderen Hunde werden ohne erneutes Heulen alarmiert, sonst ruft einer den nächsten endlos auf.
+        if (neu && getTarget() == ziel && !level().isClientSide) {
             triggerAnim("aktion", "special");
             playSound(MonsterSounds.holen(art, "heulen"), 2.0F, 0.9F + random.nextFloat() * 0.2F);
-            for (Seuchenhund h : level().getEntitiesOfClass(Seuchenhund.class, getBoundingBox().inflate(16), h -> h.getTarget() == null)) {
-                h.setTarget(ziel);
+            for (Seuchenhund h : level().getEntitiesOfClass(Seuchenhund.class, getBoundingBox().inflate(16),
+                    h -> h != this && h.getTarget() == null && h.isAlive())) {
+                h.zielOhneAlarm(ziel);
             }
         }
+    }
+
+    private void zielOhneAlarm(LivingEntity ziel) {
+        super.setTarget(ziel);
     }
 
     /** Solange das Opfer herschaut, wird gekreist; dreht es sich weg, wird zugebissen (MeleeAttackGoal übernimmt). */

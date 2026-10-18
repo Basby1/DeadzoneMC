@@ -109,6 +109,7 @@ public final class Beute {
         KLAENGE.register(modBus);
         NeoForge.EVENT_BUS.addListener(Fundmeldung::geoeffnet);
         NeoForge.EVENT_BUS.addListener(Nachschub::angeklickt);
+        NeoForge.EVENT_BUS.addListener(Truhenfueller::gesetzt);
         NeoForge.EVENT_BUS.addListener(Nachschub::tick);
         NeoForge.EVENT_BUS.addListener(NachtsichtItem::tick);
         NeoForge.EVENT_BUS.addListener(Beutestufe::tick);

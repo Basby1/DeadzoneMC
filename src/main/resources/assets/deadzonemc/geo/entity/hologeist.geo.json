@@ -241,8 +241,8 @@
      ],
      "parent": "oberkoerper",
      "rotation": [
-      15.0,
-      -0.0,
+      -15.0,
+      0.0,
       8.0
      ],
      "cubes": [
@@ -273,8 +273,8 @@
      ],
      "parent": "oberkoerper",
      "rotation": [
-      80.0,
-      -0.0,
+      -80.0,
+      0.0,
       -8.0
      ],
      "cubes": [

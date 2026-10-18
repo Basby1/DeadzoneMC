@@ -240,8 +240,8 @@
      ],
      "parent": "oberkoerper",
      "rotation": [
-      40.0,
-      10.0,
+      -62.0,
+      -6.0,
       0.0
      ],
      "cubes": [
@@ -288,8 +288,8 @@
      ],
      "parent": "oberkoerper",
      "rotation": [
-      50.0,
-      -30.0,
+      -58.0,
+      34.0,
       0.0
      ],
      "cubes": [
@@ -336,7 +336,7 @@
      ],
      "parent": "arm_rechts",
      "rotation": [
-      80.0,
+      62.0,
       -0.0,
       0.0
      ],
