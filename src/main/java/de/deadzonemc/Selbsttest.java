@@ -885,6 +885,22 @@ public final class Selbsttest {
                     d.append(art).append(" bei ").append(x).append(" ").append(y).append(" ").append(z)
                             .append(": ").append(kisten).append(" Behälter mit Beute; ");
                 }
+                int j = 0;
+                for (var art : de.deadzonemc.welt.feature.SiedlungFeature.Art.values()) {
+                    int x = sp.getX() - 160 - j * 40;
+                    int z = sp.getZ() + 160;
+                    j++;
+                    for (int cx = -1; cx <= 1; cx++) {
+                        for (int cz = -1; cz <= 1; cz++) {
+                            ow.getChunk((x >> 4) + cx, (z >> 4) + cz);
+                        }
+                    }
+                    int y = ow.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, x, z);
+                    de.deadzonemc.welt.feature.SiedlungFeature.testBauen(ow, ow.random, new BlockPos(x, y, z), art);
+                    long leute = ow.getEntitiesOfClass(de.deadzonemc.fraktion.Fraktionsmitglied.class,
+                            new net.minecraft.world.phys.AABB(x - 20, y - 20, z - 20, x + 20, y + 40, z + 20)).size();
+                    d.append(art).append(": ").append(leute).append(" Bewohner; ");
+                }
                 LOG.info("[Selbsttest] POIs: {}", d);
                 return;
             }

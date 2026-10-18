@@ -71,6 +71,18 @@ public class SiedlungFeature extends Feature<NoneFeatureConfiguration> {
         return true;
     }
 
+    /** Für den Selbsttest: ohne Ortsprüfung bauen (Kuppel auf Land: zur Kontrolle der Blöcke). */
+    public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos m, Art art) {
+        switch (art) {
+            case LAGER -> lager(w, r, m);
+            case SCHREIN -> schrein(w, r, m);
+            case BAUMHAUS -> baumhaus(w, r, m);
+            case NOMADEN -> nomaden(w, r, m);
+            case KUPPEL -> kuppel(w, r, m, m.getY() + 12);
+            case HORST -> horst(w, r, m);
+        }
+    }
+
     private static boolean flach(WorldGenLevel w, int cx, int cz, int toleranz) {
         int min = 999;
         int max = -999;
