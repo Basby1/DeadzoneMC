@@ -29,6 +29,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(WetterSystem::dimensionGewechselt);
         NeoForge.EVENT_BUS.addListener(WetterSystem::befehleRegistrieren);
         NeoForge.EVENT_BUS.addListener(Spielstart::beimBetreten);
+        NeoForge.EVENT_BUS.addListener(Spielstart::peilen);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.NebelSpawner::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.StadtHorden::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Herden::tick);

@@ -78,12 +78,12 @@ public class ZufluchtStruktur extends Structure {
             if (server == null) {
                 return false;
             }
-            // Mitte und zwei Ecken: am Stadtrand darf die Mauer stehen, mitten in der Stadt nicht
-            for (int[] d : new int[][]{{0, 0}, {-2, -2}, {2, 2}}) {
-                if (Staedte.vielleichtStadt(server.overworld(), cx + d[0], cz + d[1])) {
-                    return true;
-                }
+            // Die Schätzung ist billig, meldet in Lost-Cities-Welten aber fast überall "Stadt" (die echten
+            // Städte entstehen nur, wo auch das Gelände passt). Nur dann fragen wir genau nach – und nur die Mitte.
+            if (!Staedte.vielleichtStadt(server.overworld(), cx, cz)) {
+                return false;
             }
+            return Staedte.istStadt(server.overworld(), cx, cz);
         } catch (RuntimeException e) {
             return false;
         }

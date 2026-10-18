@@ -48,14 +48,46 @@ public final class Spielstart {
         spieler.getInventory().add(karte);
         spieler.displayClientMessage(Component.translatable("start.deadzonemc.ankunft")
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC), true);
-        zufluchtVerraten(spieler, oberwelt);
     }
 
-    /** Ein Funkspruch verrät, wo die nächste Zuflucht liegt (grobe Richtung und Entfernung). */
-    public static void zufluchtVerraten(ServerPlayer spieler, ServerLevel oberwelt) {
-        var tag = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
-                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "zuflucht"));
-        BlockPos z = oberwelt.findNearestMapStructure(tag, spieler.blockPosition(), 5, false);
+    private static final java.util.Map<java.util.UUID, java.util.Set<Long>> GEPEILT = new java.util.HashMap<>();
+
+    /**
+     * Funkpeilung: Kommt man in die Nähe einer Zuflucht (ihre Daten liegen schon in den geladenen Chunks),
+     * fängt das Funkgerät ihren Ruf auf und verrät grob Richtung und Entfernung. Kostet fast nichts, weil nur
+     * bereits geladene Chunks gefragt werden.
+     */
+    public static void peilen(net.neoforged.neoforge.event.tick.PlayerTickEvent.Post event) {
+        if (!(event.getEntity() instanceof ServerPlayer spieler) || spieler.tickCount % 200 != 50
+                || spieler.level().dimension() != net.minecraft.world.level.Level.OVERWORLD) {
+            return;
+        }
+        ServerLevel welt = spieler.serverLevel();
+        var reg = welt.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.STRUCTURE);
+        var zuflucht = reg.get(de.deadzonemc.zuflucht.ZufluchtSchutz.STRUKTUR);
+        if (zuflucht == null) {
+            return;
+        }
+        var cp = spieler.chunkPosition();
+        for (int dx = -4; dx <= 4; dx += 2) {
+            for (int dz = -4; dz <= 4; dz += 2) {
+                if (!welt.hasChunk(cp.x + dx, cp.z + dz)) {
+                    continue;
+                }
+                var refs = welt.getChunk(cp.x + dx, cp.z + dz).getReferencesForStructure(zuflucht);
+                for (long ref : refs) {
+                    if (GEPEILT.computeIfAbsent(spieler.getUUID(), k -> new java.util.HashSet<>()).add(ref)) {
+                        var start = new net.minecraft.world.level.ChunkPos(ref);
+                        zufluchtVerraten(spieler, new BlockPos(start.getMiddleBlockX(), 0, start.getMiddleBlockZ()));
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+    /** Ein Funkspruch verrät, wo die Zuflucht liegt (grobe Richtung und Entfernung). */
+    public static void zufluchtVerraten(ServerPlayer spieler, BlockPos z) {
         if (z == null) {
             return;
         }
