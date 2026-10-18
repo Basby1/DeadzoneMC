@@ -1,0 +1,754 @@
+{
+ "variants": {
+  "art=polizei,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/polizei_0"
+  },
+  "art=polizei,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/polizei_0",
+   "y": 90
+  },
+  "art=polizei,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/polizei_0",
+   "y": 180
+  },
+  "art=polizei,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/polizei_0",
+   "y": 270
+  },
+  "art=polizei,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/polizei_1"
+  },
+  "art=polizei,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/polizei_1",
+   "y": 90
+  },
+  "art=polizei,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/polizei_1",
+   "y": 180
+  },
+  "art=polizei,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/polizei_1",
+   "y": 270
+  },
+  "art=polizei,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/polizei_2"
+  },
+  "art=polizei,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/polizei_2",
+   "y": 90
+  },
+  "art=polizei,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/polizei_2",
+   "y": 180
+  },
+  "art=polizei,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/polizei_2",
+   "y": 270
+  },
+  "art=polizei,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/polizei_3"
+  },
+  "art=polizei,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/polizei_3",
+   "y": 90
+  },
+  "art=polizei,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/polizei_3",
+   "y": 180
+  },
+  "art=polizei,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/polizei_3",
+   "y": 270
+  },
+  "art=polizei,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/polizei_4"
+  },
+  "art=polizei,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/polizei_4",
+   "y": 90
+  },
+  "art=polizei,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/polizei_4",
+   "y": 180
+  },
+  "art=polizei,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/polizei_4",
+   "y": 270
+  },
+  "art=waffen,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/waffen_0"
+  },
+  "art=waffen,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/waffen_0",
+   "y": 90
+  },
+  "art=waffen,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/waffen_0",
+   "y": 180
+  },
+  "art=waffen,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/waffen_0",
+   "y": 270
+  },
+  "art=waffen,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/waffen_1"
+  },
+  "art=waffen,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/waffen_1",
+   "y": 90
+  },
+  "art=waffen,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/waffen_1",
+   "y": 180
+  },
+  "art=waffen,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/waffen_1",
+   "y": 270
+  },
+  "art=waffen,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/waffen_2"
+  },
+  "art=waffen,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/waffen_2",
+   "y": 90
+  },
+  "art=waffen,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/waffen_2",
+   "y": 180
+  },
+  "art=waffen,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/waffen_2",
+   "y": 270
+  },
+  "art=waffen,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/waffen_3"
+  },
+  "art=waffen,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/waffen_3",
+   "y": 90
+  },
+  "art=waffen,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/waffen_3",
+   "y": 180
+  },
+  "art=waffen,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/waffen_3",
+   "y": 270
+  },
+  "art=waffen,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/waffen_4"
+  },
+  "art=waffen,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/waffen_4",
+   "y": 90
+  },
+  "art=waffen,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/waffen_4",
+   "y": 180
+  },
+  "art=waffen,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/waffen_4",
+   "y": 270
+  },
+  "art=apotheke,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/apotheke_0"
+  },
+  "art=apotheke,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/apotheke_0",
+   "y": 90
+  },
+  "art=apotheke,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/apotheke_0",
+   "y": 180
+  },
+  "art=apotheke,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/apotheke_0",
+   "y": 270
+  },
+  "art=apotheke,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/apotheke_1"
+  },
+  "art=apotheke,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/apotheke_1",
+   "y": 90
+  },
+  "art=apotheke,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/apotheke_1",
+   "y": 180
+  },
+  "art=apotheke,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/apotheke_1",
+   "y": 270
+  },
+  "art=apotheke,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/apotheke_2"
+  },
+  "art=apotheke,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/apotheke_2",
+   "y": 90
+  },
+  "art=apotheke,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/apotheke_2",
+   "y": 180
+  },
+  "art=apotheke,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/apotheke_2",
+   "y": 270
+  },
+  "art=apotheke,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/apotheke_3"
+  },
+  "art=apotheke,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/apotheke_3",
+   "y": 90
+  },
+  "art=apotheke,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/apotheke_3",
+   "y": 180
+  },
+  "art=apotheke,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/apotheke_3",
+   "y": 270
+  },
+  "art=apotheke,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/apotheke_4"
+  },
+  "art=apotheke,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/apotheke_4",
+   "y": 90
+  },
+  "art=apotheke,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/apotheke_4",
+   "y": 180
+  },
+  "art=apotheke,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/apotheke_4",
+   "y": 270
+  },
+  "art=krankenhaus,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/krankenhaus_0"
+  },
+  "art=krankenhaus,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/krankenhaus_0",
+   "y": 90
+  },
+  "art=krankenhaus,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/krankenhaus_0",
+   "y": 180
+  },
+  "art=krankenhaus,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/krankenhaus_0",
+   "y": 270
+  },
+  "art=krankenhaus,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/krankenhaus_1"
+  },
+  "art=krankenhaus,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/krankenhaus_1",
+   "y": 90
+  },
+  "art=krankenhaus,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/krankenhaus_1",
+   "y": 180
+  },
+  "art=krankenhaus,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/krankenhaus_1",
+   "y": 270
+  },
+  "art=krankenhaus,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/krankenhaus_2"
+  },
+  "art=krankenhaus,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/krankenhaus_2",
+   "y": 90
+  },
+  "art=krankenhaus,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/krankenhaus_2",
+   "y": 180
+  },
+  "art=krankenhaus,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/krankenhaus_2",
+   "y": 270
+  },
+  "art=krankenhaus,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/krankenhaus_3"
+  },
+  "art=krankenhaus,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/krankenhaus_3",
+   "y": 90
+  },
+  "art=krankenhaus,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/krankenhaus_3",
+   "y": 180
+  },
+  "art=krankenhaus,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/krankenhaus_3",
+   "y": 270
+  },
+  "art=krankenhaus,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/krankenhaus_4"
+  },
+  "art=krankenhaus,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/krankenhaus_4",
+   "y": 90
+  },
+  "art=krankenhaus,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/krankenhaus_4",
+   "y": 180
+  },
+  "art=krankenhaus,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/krankenhaus_4",
+   "y": 270
+  },
+  "art=supermarkt,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/supermarkt_0"
+  },
+  "art=supermarkt,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/supermarkt_0",
+   "y": 90
+  },
+  "art=supermarkt,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/supermarkt_0",
+   "y": 180
+  },
+  "art=supermarkt,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/supermarkt_0",
+   "y": 270
+  },
+  "art=supermarkt,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/supermarkt_1"
+  },
+  "art=supermarkt,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/supermarkt_1",
+   "y": 90
+  },
+  "art=supermarkt,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/supermarkt_1",
+   "y": 180
+  },
+  "art=supermarkt,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/supermarkt_1",
+   "y": 270
+  },
+  "art=supermarkt,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/supermarkt_2"
+  },
+  "art=supermarkt,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/supermarkt_2",
+   "y": 90
+  },
+  "art=supermarkt,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/supermarkt_2",
+   "y": 180
+  },
+  "art=supermarkt,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/supermarkt_2",
+   "y": 270
+  },
+  "art=supermarkt,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/supermarkt_3"
+  },
+  "art=supermarkt,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/supermarkt_3",
+   "y": 90
+  },
+  "art=supermarkt,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/supermarkt_3",
+   "y": 180
+  },
+  "art=supermarkt,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/supermarkt_3",
+   "y": 270
+  },
+  "art=supermarkt,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/supermarkt_4"
+  },
+  "art=supermarkt,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/supermarkt_4",
+   "y": 90
+  },
+  "art=supermarkt,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/supermarkt_4",
+   "y": 180
+  },
+  "art=supermarkt,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/supermarkt_4",
+   "y": 270
+  },
+  "art=tankstelle,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/tankstelle_0"
+  },
+  "art=tankstelle,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/tankstelle_0",
+   "y": 90
+  },
+  "art=tankstelle,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/tankstelle_0",
+   "y": 180
+  },
+  "art=tankstelle,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/tankstelle_0",
+   "y": 270
+  },
+  "art=tankstelle,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/tankstelle_1"
+  },
+  "art=tankstelle,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/tankstelle_1",
+   "y": 90
+  },
+  "art=tankstelle,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/tankstelle_1",
+   "y": 180
+  },
+  "art=tankstelle,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/tankstelle_1",
+   "y": 270
+  },
+  "art=tankstelle,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/tankstelle_2"
+  },
+  "art=tankstelle,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/tankstelle_2",
+   "y": 90
+  },
+  "art=tankstelle,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/tankstelle_2",
+   "y": 180
+  },
+  "art=tankstelle,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/tankstelle_2",
+   "y": 270
+  },
+  "art=tankstelle,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/tankstelle_3"
+  },
+  "art=tankstelle,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/tankstelle_3",
+   "y": 90
+  },
+  "art=tankstelle,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/tankstelle_3",
+   "y": 180
+  },
+  "art=tankstelle,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/tankstelle_3",
+   "y": 270
+  },
+  "art=tankstelle,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/tankstelle_4"
+  },
+  "art=tankstelle,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/tankstelle_4",
+   "y": 90
+  },
+  "art=tankstelle,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/tankstelle_4",
+   "y": 180
+  },
+  "art=tankstelle,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/tankstelle_4",
+   "y": 270
+  },
+  "art=werkstatt,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/werkstatt_0"
+  },
+  "art=werkstatt,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/werkstatt_0",
+   "y": 90
+  },
+  "art=werkstatt,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/werkstatt_0",
+   "y": 180
+  },
+  "art=werkstatt,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/werkstatt_0",
+   "y": 270
+  },
+  "art=werkstatt,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/werkstatt_1"
+  },
+  "art=werkstatt,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/werkstatt_1",
+   "y": 90
+  },
+  "art=werkstatt,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/werkstatt_1",
+   "y": 180
+  },
+  "art=werkstatt,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/werkstatt_1",
+   "y": 270
+  },
+  "art=werkstatt,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/werkstatt_2"
+  },
+  "art=werkstatt,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/werkstatt_2",
+   "y": 90
+  },
+  "art=werkstatt,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/werkstatt_2",
+   "y": 180
+  },
+  "art=werkstatt,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/werkstatt_2",
+   "y": 270
+  },
+  "art=werkstatt,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/werkstatt_3"
+  },
+  "art=werkstatt,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/werkstatt_3",
+   "y": 90
+  },
+  "art=werkstatt,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/werkstatt_3",
+   "y": 180
+  },
+  "art=werkstatt,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/werkstatt_3",
+   "y": 270
+  },
+  "art=werkstatt,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/werkstatt_4"
+  },
+  "art=werkstatt,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/werkstatt_4",
+   "y": 90
+  },
+  "art=werkstatt,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/werkstatt_4",
+   "y": 180
+  },
+  "art=werkstatt,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/werkstatt_4",
+   "y": 270
+  },
+  "art=baumarkt,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/baumarkt_0"
+  },
+  "art=baumarkt,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/baumarkt_0",
+   "y": 90
+  },
+  "art=baumarkt,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/baumarkt_0",
+   "y": 180
+  },
+  "art=baumarkt,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/baumarkt_0",
+   "y": 270
+  },
+  "art=baumarkt,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/baumarkt_1"
+  },
+  "art=baumarkt,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/baumarkt_1",
+   "y": 90
+  },
+  "art=baumarkt,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/baumarkt_1",
+   "y": 180
+  },
+  "art=baumarkt,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/baumarkt_1",
+   "y": 270
+  },
+  "art=baumarkt,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/baumarkt_2"
+  },
+  "art=baumarkt,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/baumarkt_2",
+   "y": 90
+  },
+  "art=baumarkt,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/baumarkt_2",
+   "y": 180
+  },
+  "art=baumarkt,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/baumarkt_2",
+   "y": 270
+  },
+  "art=baumarkt,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/baumarkt_3"
+  },
+  "art=baumarkt,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/baumarkt_3",
+   "y": 90
+  },
+  "art=baumarkt,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/baumarkt_3",
+   "y": 180
+  },
+  "art=baumarkt,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/baumarkt_3",
+   "y": 270
+  },
+  "art=baumarkt,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/baumarkt_4"
+  },
+  "art=baumarkt,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/baumarkt_4",
+   "y": 90
+  },
+  "art=baumarkt,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/baumarkt_4",
+   "y": 180
+  },
+  "art=baumarkt,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/baumarkt_4",
+   "y": 270
+  },
+  "art=militaer,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/militaer_0"
+  },
+  "art=militaer,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/militaer_0",
+   "y": 90
+  },
+  "art=militaer,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/militaer_0",
+   "y": 180
+  },
+  "art=militaer,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/militaer_0",
+   "y": 270
+  },
+  "art=militaer,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/militaer_1"
+  },
+  "art=militaer,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/militaer_1",
+   "y": 90
+  },
+  "art=militaer,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/militaer_1",
+   "y": 180
+  },
+  "art=militaer,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/militaer_1",
+   "y": 270
+  },
+  "art=militaer,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/militaer_2"
+  },
+  "art=militaer,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/militaer_2",
+   "y": 90
+  },
+  "art=militaer,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/militaer_2",
+   "y": 180
+  },
+  "art=militaer,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/militaer_2",
+   "y": 270
+  },
+  "art=militaer,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/militaer_3"
+  },
+  "art=militaer,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/militaer_3",
+   "y": 90
+  },
+  "art=militaer,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/militaer_3",
+   "y": 180
+  },
+  "art=militaer,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/militaer_3",
+   "y": 270
+  },
+  "art=militaer,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/militaer_4"
+  },
+  "art=militaer,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/militaer_4",
+   "y": 90
+  },
+  "art=militaer,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/militaer_4",
+   "y": 180
+  },
+  "art=militaer,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/militaer_4",
+   "y": 270
+  },
+  "art=bank,facing=north,teil=0": {
+   "model": "deadzonemc:block/schild/bank_0"
+  },
+  "art=bank,facing=east,teil=0": {
+   "model": "deadzonemc:block/schild/bank_0",
+   "y": 90
+  },
+  "art=bank,facing=south,teil=0": {
+   "model": "deadzonemc:block/schild/bank_0",
+   "y": 180
+  },
+  "art=bank,facing=west,teil=0": {
+   "model": "deadzonemc:block/schild/bank_0",
+   "y": 270
+  },
+  "art=bank,facing=north,teil=1": {
+   "model": "deadzonemc:block/schild/bank_1"
+  },
+  "art=bank,facing=east,teil=1": {
+   "model": "deadzonemc:block/schild/bank_1",
+   "y": 90
+  },
+  "art=bank,facing=south,teil=1": {
+   "model": "deadzonemc:block/schild/bank_1",
+   "y": 180
+  },
+  "art=bank,facing=west,teil=1": {
+   "model": "deadzonemc:block/schild/bank_1",
+   "y": 270
+  },
+  "art=bank,facing=north,teil=2": {
+   "model": "deadzonemc:block/schild/bank_2"
+  },
+  "art=bank,facing=east,teil=2": {
+   "model": "deadzonemc:block/schild/bank_2",
+   "y": 90
+  },
+  "art=bank,facing=south,teil=2": {
+   "model": "deadzonemc:block/schild/bank_2",
+   "y": 180
+  },
+  "art=bank,facing=west,teil=2": {
+   "model": "deadzonemc:block/schild/bank_2",
+   "y": 270
+  },
+  "art=bank,facing=north,teil=3": {
+   "model": "deadzonemc:block/schild/bank_3"
+  },
+  "art=bank,facing=east,teil=3": {
+   "model": "deadzonemc:block/schild/bank_3",
+   "y": 90
+  },
+  "art=bank,facing=south,teil=3": {
+   "model": "deadzonemc:block/schild/bank_3",
+   "y": 180
+  },
+  "art=bank,facing=west,teil=3": {
+   "model": "deadzonemc:block/schild/bank_3",
+   "y": 270
+  },
+  "art=bank,facing=north,teil=4": {
+   "model": "deadzonemc:block/schild/bank_4"
+  },
+  "art=bank,facing=east,teil=4": {
+   "model": "deadzonemc:block/schild/bank_4",
+   "y": 90
+  },
+  "art=bank,facing=south,teil=4": {
+   "model": "deadzonemc:block/schild/bank_4",
+   "y": 180
+  },
+  "art=bank,facing=west,teil=4": {
+   "model": "deadzonemc:block/schild/bank_4",
+   "y": 270
+  }
+ }
+}

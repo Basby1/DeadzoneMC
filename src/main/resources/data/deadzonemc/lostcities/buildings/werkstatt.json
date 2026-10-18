@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:werkstatt"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:werkstatt_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

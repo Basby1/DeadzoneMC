@@ -1,0 +1,190 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:gray_concrete"
+   },
+   {
+    "char": "\u0155",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=3]"
+   },
+   {
+    "char": "\u0156",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0157",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0158",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=0]"
+   },
+   {
+    "char": "\u0159",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=south,teil=0]"
+   },
+   {
+    "char": "\u015a",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=south,teil=1]"
+   },
+   {
+    "char": "\u015b",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=south,teil=2]"
+   },
+   {
+    "char": "\u015c",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=south,teil=3]"
+   },
+   {
+    "char": "\u015d",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=east,teil=3]"
+   },
+   {
+    "char": "\u015e",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=east,teil=2]"
+   },
+   {
+    "char": "\u015f",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=east,teil=1]"
+   },
+   {
+    "char": "\u0160",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=east,teil=0]"
+   },
+   {
+    "char": "\u0161",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=west,teil=0]"
+   },
+   {
+    "char": "\u0162",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=west,teil=1]"
+   },
+   {
+    "char": "\u0163",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=west,teil=2]"
+   },
+   {
+    "char": "\u0164",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=west,teil=3]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "######\u0155\u0156\u0157\u0158######",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "\u0161              \u015d",
+   "\u0162              \u015e",
+   "\u0163              \u015f",
+   "\u0164              \u0160",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "######\u0159\u015a\u015b\u015c######"
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

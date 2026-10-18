@@ -1,10 +1,11 @@
 {
-  "replace": false,
-  "values": [
-    "deadzonemc:notstromgenerator",
-    "deadzonemc:strahlenfass",
-    "deadzonemc:stacheldraht",
-    "deadzonemc:baerenfalle",
-    "deadzonemc:landmine"
-  ]
+ "replace": false,
+ "values": [
+  "deadzonemc:notstromgenerator",
+  "deadzonemc:strahlenfass",
+  "deadzonemc:stacheldraht",
+  "deadzonemc:baerenfalle",
+  "deadzonemc:landmine",
+  "deadzonemc:ladenschild"
+ ]
 }

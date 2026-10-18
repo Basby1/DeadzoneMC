@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:tankstelle"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:tankstelle_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

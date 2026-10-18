@@ -1,0 +1,186 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:bricks"
+   },
+   {
+    "char": "B",
+    "block": "minecraft:red_bed[facing=south,part=foot]"
+   },
+   {
+    "char": "F",
+    "block": "minecraft:spruce_planks"
+   },
+   {
+    "char": "Q",
+    "block": "minecraft:light_blue_bed[facing=south,part=foot]"
+   },
+   {
+    "char": "T",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_kleiderschrank"
+   },
+   {
+    "char": "W",
+    "block": "minecraft:water_cauldron[level=1]"
+   },
+   {
+    "char": "a",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_bad"
+   },
+   {
+    "char": "b",
+    "block": "minecraft:red_bed[facing=south,part=head]"
+   },
+   {
+    "char": "i",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_kinder"
+   },
+   {
+    "char": "l",
+    "block": "minecraft:ladder[facing=south]"
+   },
+   {
+    "char": "n",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_nachttisch"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "x",
+    "block": "minecraft:cobweb"
+   },
+   {
+    "char": "y",
+    "block": "minecraft:light_blue_bed[facing=south,part=head]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##########   ",
+   "   #FFFFFFFF#   ",
+   "   #FFFFFFFF#   ",
+   "   #FFFFFFFF#   ",
+   "   #FFFFFFFF#   ",
+   "   #FFFFFFFF#   ",
+   "   #FFFFFFFF#   ",
+   "   #FFFFFFFl#   ",
+   "   ##########   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##########   ",
+   "   #nbb  yi #   ",
+   "   # BB  Q  #   ",
+   "   #T       #   ",
+   "   #        #   ",
+   "   ### #    #   ",
+   "   #a       #   ",
+   "   #W      l#   ",
+   "   ##########   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##w##w##w#   ",
+   "   #        #   ",
+   "   w      x w   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   w## #    w   ",
+   "   #        #   ",
+   "   #       l#   ",
+   "   ##w##w##w#   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##w##w##w#   ",
+   "   #        #   ",
+   "   w        w   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   w####    w   ",
+   "   #        #   ",
+   "   #       l#   ",
+   "   ##w##w##w#   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##########   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   #    o   #   ",
+   "   #        #   ",
+   "   #####    #   ",
+   "   #        #   ",
+   "   #       l#   ",
+   "   ##########   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFlF   ",
+   "   FFFFFFFFFF   ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

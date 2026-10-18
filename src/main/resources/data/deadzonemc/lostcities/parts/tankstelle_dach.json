@@ -1,0 +1,146 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:white_concrete"
+   },
+   {
+    "char": "\u0150",
+    "block": "deadzonemc:ladenschild[art=tankstelle,facing=north,teil=4]"
+   },
+   {
+    "char": "\u0151",
+    "block": "deadzonemc:ladenschild[art=tankstelle,facing=north,teil=3]"
+   },
+   {
+    "char": "\u0152",
+    "block": "deadzonemc:ladenschild[art=tankstelle,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0153",
+    "block": "deadzonemc:ladenschild[art=tankstelle,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0154",
+    "block": "deadzonemc:ladenschild[art=tankstelle,facing=north,teil=0]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "          \u0150\u0151\u0152\u0153\u0154 ",
+   "        ########",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   " #######        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #######        "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

@@ -1,0 +1,58 @@
+{
+  "style": "standard",
+  "inherit": "citystyle_common",
+  "buildingsettings": {
+    "maxfloors": 2,
+    "maxcellars": 1,
+    "buildingchance": 0.6
+  },
+  "selectors": {
+    "buildings": [
+      {
+        "factor": 0.5,
+        "value": "deadzonemc:haus_rot"
+      },
+      {
+        "factor": 0.45,
+        "value": "deadzonemc:haus_weiss"
+      },
+      {
+        "factor": 0.4,
+        "value": "deadzonemc:haus_gelb"
+      },
+      {
+        "factor": 0.45,
+        "value": "deadzonemc:bungalow"
+      },
+      {
+        "factor": 0.12,
+        "value": "deadzonemc:tankstelle"
+      },
+      {
+        "factor": 0.1,
+        "value": "deadzonemc:werkstatt"
+      },
+      {
+        "factor": 0.07,
+        "value": "deadzonemc:supermarkt"
+      },
+      {
+        "factor": 0.06,
+        "value": "deadzonemc:apotheke"
+      },
+      {
+        "factor": 0.04,
+        "value": "deadzonemc:polizeiwache"
+      },
+      {
+        "factor": 0.06,
+        "value": "deadzonemc:baumarkt"
+      },
+      {
+        "factor": 0.08,
+        "value": "building1"
+      }
+    ],
+    "multibuildings": []
+  }
+}

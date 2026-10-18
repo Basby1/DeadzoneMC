@@ -1,0 +1,175 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:brown_wool"
+   },
+   {
+    "char": "4",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:hardmobs"
+   },
+   {
+    "char": "5",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:militaer"
+   },
+   {
+    "char": "A",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_militaer"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_militaer"
+   },
+   {
+    "char": "W",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_waffenkammer"
+   },
+   {
+    "char": "_",
+    "block": "minecraft:coarse_dirt"
+   },
+   {
+    "char": "d",
+    "block": "deadzonemc:stacheldraht"
+   },
+   {
+    "char": "g",
+    "block": "minecraft:green_wool"
+   },
+   {
+    "char": "h",
+    "block": "minecraft:spruce_planks"
+   },
+   {
+    "char": "l",
+    "block": "minecraft:ladder[facing=north]"
+   },
+   {
+    "char": "s",
+    "block": "minecraft:mud_bricks"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________",
+   "________________"
+  ],
+  [
+   "dddddd    dddddd",
+   " #s#s#    s#s#s ",
+   " s            # ",
+   " #         5  s ",
+   " s WA         # ",
+   " #          K s ",
+   " s      4     # ",
+   " #            s ",
+   " s            # ",
+   " # ggggg      s ",
+   " s g  K    h h# ",
+   " # g  A     l s ",
+   " s ggggg   h h# ",
+   " #            s ",
+   " s#s#s#s#s#s#s# ",
+   "                "
+  ],
+  [
+   "                ",
+   " # ##     # ##  ",
+   "              # ",
+   " #            # ",
+   " #              ",
+   "              # ",
+   " #            # ",
+   " #              ",
+   "              # ",
+   " #            # ",
+   " # ggggg   h h  ",
+   "   ggggg    l # ",
+   " #         h h# ",
+   " #              ",
+   "  ## ## ## ## # ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ggggg   h h  ",
+   "   ggggg    l   ",
+   "           h h  ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "           h h  ",
+   "            l   ",
+   "           h h  ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "          hhhhh ",
+   "          hhhhh ",
+   "          hhhhh ",
+   "          hhhhh ",
+   "          hhhhh ",
+   "                ",
+   "                "
+  ]
+ ]
+}

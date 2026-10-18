@@ -111,13 +111,24 @@ public final class Staedte {
      * eine komplette Geländeberechnung und bremst die Strukturplatzierung extrem aus).
      */
     public static boolean vielleichtStadt(Level level, int chunkX, int chunkZ) {
+        float f = stadtFaktor(level, chunkX, chunkZ);
+        return f > schwelle;
+    }
+
+    private static volatile double schwelle = 0.15;
+
+    /**
+     * Stadtfaktor von Lost Cities an diesem Chunk (0 = Umland; ab der Schwelle Stadt, zur Mitte hin größer).
+     * Billig (nur Stadtzentren und Radien). -1, wenn Lost Cities fehlt.
+     */
+    public static float stadtFaktor(Level level, int chunkX, int chunkZ) {
         if (level.dimension() != Level.OVERWORLD || !bereit() || faktorKaputt) {
-            return false;
+            return -1F;
         }
         try {
             Object info = getLostInfo.invoke(lostCities, level);
             if (info == null) {
-                return false;
+                return -1F;
             }
             if (cityFactor == null) {
                 Class<?> dim = Class.forName("mcjty.lostcities.worldgen.IDimensionInfo");
@@ -149,12 +160,12 @@ public final class Staedte {
             Object profil = profilHolen.invoke(provider);
             Object c = chunkCoord.newInstance(level.dimension(), chunkX, chunkZ);
             float faktor = (Float) cityFactor.invoke(null, c, provider, profil);
-            double schwelle = schwelleFeld == null ? 0.15 : ((Number) schwelleFeld.get(profil)).doubleValue();
-            return faktor > schwelle;
+            schwelle = schwelleFeld == null ? 0.15 : ((Number) schwelleFeld.get(profil)).doubleValue();
+            return faktor;
         } catch (ReflectiveOperationException | RuntimeException e) {
             LOG.warn("Lost-Cities-Stadtschätzung nicht nutzbar: {}", e.toString());
             faktorKaputt = true;
-            return false;
+            return -1F;
         }
     }
 
@@ -166,6 +177,10 @@ public final class Staedte {
     public static void leeren() {
         CACHE.clear();
         NAHE.clear();
+    }
+
+    public static double schwelle() {
+        return schwelle;
     }
 
     /** Die Oberwelt des laufenden Servers – für Weltgenerierungs-Code, der nur den Startwert kennt. */

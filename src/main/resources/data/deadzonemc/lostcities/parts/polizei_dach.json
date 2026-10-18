@@ -22,27 +22,75 @@
    {
     "char": "e",
     "block": "minecraft:iron_block"
+   },
+   {
+    "char": "\u0100",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0101",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0102",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=north,teil=0]"
+   },
+   {
+    "char": "\u0103",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=south,teil=0]"
+   },
+   {
+    "char": "\u0104",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=south,teil=1]"
+   },
+   {
+    "char": "\u0105",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=south,teil=2]"
+   },
+   {
+    "char": "\u0106",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=east,teil=2]"
+   },
+   {
+    "char": "\u0107",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=east,teil=1]"
+   },
+   {
+    "char": "\u0108",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=east,teil=0]"
+   },
+   {
+    "char": "\u0109",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=west,teil=0]"
+   },
+   {
+    "char": "\u010a",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=west,teil=1]"
+   },
+   {
+    "char": "\u010b",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=west,teil=2]"
    }
   ]
  },
  "slices": [
   [
-   "################",
+   "#######\u0100\u0101\u0102######",
    "#              #",
    "#              #",
    "#           I  #",
    "#              #",
    "#              #",
    "#              #",
-   "#      e       #",
+   "\u0109      e       \u0106",
+   "\u010a              \u0107",
+   "\u010b              \u0108",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
-   "#              #",
-   "#              #",
-   "################"
+   "#######\u0103\u0104\u0105######"
   ],
   [
    "                ",

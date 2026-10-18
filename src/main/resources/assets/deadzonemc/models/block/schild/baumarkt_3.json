@@ -1,0 +1,12 @@
+{
+ "parent": "minecraft:block/cube",
+ "textures": {
+  "particle": "deadzonemc:block/schild/rand",
+  "north": "deadzonemc:block/schild/baumarkt_3",
+  "south": "deadzonemc:block/schild/rand",
+  "east": "deadzonemc:block/schild/rand",
+  "west": "deadzonemc:block/schild/rand",
+  "up": "deadzonemc:block/schild/rand",
+  "down": "deadzonemc:block/schild/rand"
+ }
+}

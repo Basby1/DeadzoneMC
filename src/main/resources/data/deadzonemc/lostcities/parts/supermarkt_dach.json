@@ -10,27 +10,107 @@
    {
     "char": "#",
     "block": "minecraft:orange_terracotta"
+   },
+   {
+    "char": "\u013c",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=4]"
+   },
+   {
+    "char": "\u013d",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=3]"
+   },
+   {
+    "char": "\u013e",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=2]"
+   },
+   {
+    "char": "\u013f",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0140",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=0]"
+   },
+   {
+    "char": "\u0141",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=south,teil=0]"
+   },
+   {
+    "char": "\u0142",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=south,teil=1]"
+   },
+   {
+    "char": "\u0143",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=south,teil=2]"
+   },
+   {
+    "char": "\u0144",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=south,teil=3]"
+   },
+   {
+    "char": "\u0145",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=south,teil=4]"
+   },
+   {
+    "char": "\u0146",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=east,teil=4]"
+   },
+   {
+    "char": "\u0147",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=east,teil=3]"
+   },
+   {
+    "char": "\u0148",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=east,teil=2]"
+   },
+   {
+    "char": "\u0149",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=east,teil=1]"
+   },
+   {
+    "char": "\u014a",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=east,teil=0]"
+   },
+   {
+    "char": "\u014b",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=west,teil=0]"
+   },
+   {
+    "char": "\u014c",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=west,teil=1]"
+   },
+   {
+    "char": "\u014d",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=west,teil=2]"
+   },
+   {
+    "char": "\u014e",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=west,teil=3]"
+   },
+   {
+    "char": "\u014f",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=west,teil=4]"
    }
   ]
  },
  "slices": [
   [
-   "################",
+   "######\u013c\u013d\u013e\u013f\u0140#####",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
+   "\u014b              \u0146",
+   "\u014c              \u0147",
+   "\u014d              \u0148",
+   "\u014e              \u0149",
+   "\u014f              \u014a",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
-   "#              #",
-   "#              #",
-   "#              #",
-   "#              #",
-   "#              #",
-   "################"
+   "######\u0141\u0142\u0143\u0144\u0145#####"
   ],
   [
    "                ",

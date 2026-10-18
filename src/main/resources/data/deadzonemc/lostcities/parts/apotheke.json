@@ -45,6 +45,22 @@
    {
     "char": "w",
     "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "\u0118",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=3]"
+   },
+   {
+    "char": "\u0119",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=2]"
+   },
+   {
+    "char": "\u011a",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=1]"
+   },
+   {
+    "char": "\u011b",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=0]"
    }
   ]
  },
@@ -122,7 +138,7 @@
    "##ww#ww#ww#ww###"
   ],
   [
-   "#####G####G#####",
+   "#####G\u0118\u0119\u011a\u011bG#####",
    "#              #",
    "#              #",
    "#              #",

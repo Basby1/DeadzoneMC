@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:bungalow"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:bungalow_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

@@ -19,6 +19,8 @@ public class DeadzoneMC {
         de.deadzonemc.zone.Zone.registrieren(modBus);
         de.deadzonemc.verletzung.Verletzungen.registrieren(modBus);
         de.deadzonemc.falle.Fallen.registrieren(modBus);
+        de.deadzonemc.welt.schild.Ladenschild.registrieren(modBus);
+        de.deadzonemc.beute.Beute.registrieren(modBus);
         de.deadzonemc.waffen.Waffenpflege.registrieren(modBus);
         de.deadzonemc.musik.Musik.registrieren(modBus);
         modBus.addListener(Netz::registrieren);

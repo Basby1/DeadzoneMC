@@ -14,27 +14,91 @@
    {
     "char": "G",
     "block": "minecraft:lime_concrete"
+   },
+   {
+    "char": "\u0118",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=3]"
+   },
+   {
+    "char": "\u0119",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=2]"
+   },
+   {
+    "char": "\u011a",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=1]"
+   },
+   {
+    "char": "\u011b",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=north,teil=0]"
+   },
+   {
+    "char": "\u011c",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=south,teil=0]"
+   },
+   {
+    "char": "\u011d",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=south,teil=1]"
+   },
+   {
+    "char": "\u011e",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=south,teil=2]"
+   },
+   {
+    "char": "\u011f",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=south,teil=3]"
+   },
+   {
+    "char": "\u0120",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=east,teil=3]"
+   },
+   {
+    "char": "\u0121",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=east,teil=2]"
+   },
+   {
+    "char": "\u0122",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=east,teil=1]"
+   },
+   {
+    "char": "\u0123",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=east,teil=0]"
+   },
+   {
+    "char": "\u0124",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=west,teil=0]"
+   },
+   {
+    "char": "\u0125",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=west,teil=1]"
+   },
+   {
+    "char": "\u0126",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=west,teil=2]"
+   },
+   {
+    "char": "\u0127",
+    "block": "deadzonemc:ladenschild[art=apotheke,facing=west,teil=3]"
    }
   ]
  },
  "slices": [
   [
-   "################",
+   "######\u0118\u0119\u011a\u011b######",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
+   "\u0124              \u0120",
+   "\u0125              \u0121",
+   "\u0126              \u0122",
+   "\u0127              \u0123",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
    "#              #",
-   "#              #",
-   "#              #",
-   "#              #",
-   "#              #",
-   "################"
+   "######\u011c\u011d\u011e\u011f######"
   ],
   [
    "      GGGG      ",

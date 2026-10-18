@@ -1,0 +1,12 @@
+{
+ "values": [
+  {
+   "factor": 3,
+   "value": "deadzonemc:kiste/stadt_wohnung"
+  },
+  {
+   "factor": 1,
+   "value": "deadzonemc:kiste/wohnzimmer"
+  }
+ ]
+}

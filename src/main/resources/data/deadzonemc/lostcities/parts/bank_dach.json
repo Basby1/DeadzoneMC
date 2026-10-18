@@ -1,0 +1,158 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:smooth_quartz"
+   },
+   {
+    "char": "\u0178",
+    "block": "deadzonemc:ladenschild[art=bank,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0179",
+    "block": "deadzonemc:ladenschild[art=bank,facing=north,teil=0]"
+   },
+   {
+    "char": "\u017a",
+    "block": "deadzonemc:ladenschild[art=bank,facing=south,teil=0]"
+   },
+   {
+    "char": "\u017b",
+    "block": "deadzonemc:ladenschild[art=bank,facing=south,teil=1]"
+   },
+   {
+    "char": "\u017c",
+    "block": "deadzonemc:ladenschild[art=bank,facing=east,teil=1]"
+   },
+   {
+    "char": "\u017d",
+    "block": "deadzonemc:ladenschild[art=bank,facing=east,teil=0]"
+   },
+   {
+    "char": "\u017e",
+    "block": "deadzonemc:ladenschild[art=bank,facing=west,teil=0]"
+   },
+   {
+    "char": "\u017f",
+    "block": "deadzonemc:ladenschild[art=bank,facing=west,teil=1]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "#######\u0178\u0179#######",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "\u017e              \u017c",
+   "\u017f              \u017d",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#######\u017a\u017b#######"
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

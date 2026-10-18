@@ -1,0 +1,232 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:yellow_terracotta"
+   },
+   {
+    "char": "1",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:easymobs"
+   },
+   {
+    "char": "C",
+    "block": "minecraft:smooth_stone_slab[type=top]"
+   },
+   {
+    "char": "F",
+    "block": "minecraft:spruce_planks"
+   },
+   {
+    "char": "H",
+    "block": "minecraft:spruce_planks"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_wohnung"
+   },
+   {
+    "char": "L",
+    "block": "minecraft:bookshelf"
+   },
+   {
+    "char": "M",
+    "block": "minecraft:oak_door[facing=north,half=upper]"
+   },
+   {
+    "char": "N",
+    "block": "minecraft:oak_door[facing=north,half=lower]"
+   },
+   {
+    "char": "O",
+    "block": "minecraft:smoker[facing=south]"
+   },
+   {
+    "char": "S",
+    "block": "minecraft:spruce_stairs[facing=north]"
+   },
+   {
+    "char": "Y",
+    "block": "minecraft:oak_leaves[persistent=true]"
+   },
+   {
+    "char": "_",
+    "block": "minecraft:grass_block"
+   },
+   {
+    "char": "e",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_werkzeug"
+   },
+   {
+    "char": "h",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_schuppen"
+   },
+   {
+    "char": "j",
+    "block": "minecraft:dead_bush"
+   },
+   {
+    "char": "k",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_kueche"
+   },
+   {
+    "char": "l",
+    "block": "minecraft:ladder[facing=south]"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "p",
+    "block": "minecraft:dirt_path"
+   },
+   {
+    "char": "q",
+    "block": "minecraft:short_grass"
+   },
+   {
+    "char": "r",
+    "block": "minecraft:red_carpet"
+   },
+   {
+    "char": "t",
+    "block": "minecraft:spruce_slab[type=top]"
+   },
+   {
+    "char": "u",
+    "block": "minecraft:barrel[facing=north]",
+    "loot": "deadzonemc:loot_kuehlschrank"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "z",
+    "block": "minecraft:dark_oak_fence"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "_______pp_______",
+   "_______pp_______",
+   "_______pp_______",
+   "_______pp_______",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "___FFFFFFFFFF___",
+   "________________",
+   "________________",
+   "________________"
+  ],
+  [
+   "zzzzzzz  zzzzzzz",
+   "z          q   z",
+   "z q          j z",
+   "z              z",
+   "z  ####N#####  z",
+   "z  #u      L#  z",
+   "z  #O      K#  z",
+   "z  #C       #  z",
+   "zY #k   r   #  z",
+   "z  #    rt  # qz",
+   "z  # 1      #  z",
+   "z  #    SSSl#  z",
+   "z  ##########  z",
+   "z j          hez",
+   "z   q       HHHz",
+   "zzzzzzzzzzzzzzzz"
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##w#Mw##w#   ",
+   "   #       L#   ",
+   "   w        w   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   w        w   ",
+   "   #        #   ",
+   "   #       l#   ",
+   "   ##w##w##w#   ",
+   "                ",
+   "            HHH ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##w##w##w#   ",
+   "   #        #   ",
+   "   w        w   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   w        w   ",
+   "   #        #   ",
+   "   #       l#   ",
+   "   ##w##w##w#   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   ##########   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   #   o    #   ",
+   "   #        #   ",
+   "   #        #   ",
+   "   #       l#   ",
+   "   ##########   ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFFF   ",
+   "   FFFFFFFFlF   ",
+   "   FFFFFFFFFF   ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

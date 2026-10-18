@@ -48,6 +48,26 @@
    {
     "char": "w",
     "block": "minecraft:white_stained_glass_pane"
+   },
+   {
+    "char": "\u0128",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=4]"
+   },
+   {
+    "char": "\u0129",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=3]"
+   },
+   {
+    "char": "\u012a",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=2]"
+   },
+   {
+    "char": "\u012b",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=1]"
+   },
+   {
+    "char": "\u012c",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=0]"
    }
   ]
  },
@@ -125,7 +145,7 @@
    "##ww#ww#ww#ww###"
   ],
   [
-   "################",
+   "######\u0128\u0129\u012a\u012b\u012c#####",
    "#              #",
    "#              #",
    "#              #",

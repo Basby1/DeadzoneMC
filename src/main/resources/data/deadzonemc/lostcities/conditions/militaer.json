@@ -1,0 +1,16 @@
+{
+ "values": [
+  {
+   "factor": 4,
+   "value": "deadzonemc:gefallener_soldat"
+  },
+  {
+   "factor": 2,
+   "value": "deadzonemc:wanderer"
+  },
+  {
+   "factor": 1,
+   "value": "deadzonemc:juggernaut"
+  }
+ ]
+}

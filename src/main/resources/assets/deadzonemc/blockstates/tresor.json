@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "facing=north,offen=false": {
+   "model": "deadzonemc:block/tresor"
+  },
+  "facing=east,offen=false": {
+   "model": "deadzonemc:block/tresor",
+   "y": 90
+  },
+  "facing=south,offen=false": {
+   "model": "deadzonemc:block/tresor",
+   "y": 180
+  },
+  "facing=west,offen=false": {
+   "model": "deadzonemc:block/tresor",
+   "y": 270
+  },
+  "facing=north,offen=true": {
+   "model": "deadzonemc:block/tresor_offen"
+  },
+  "facing=east,offen=true": {
+   "model": "deadzonemc:block/tresor_offen",
+   "y": 90
+  },
+  "facing=south,offen=true": {
+   "model": "deadzonemc:block/tresor_offen",
+   "y": 180
+  },
+  "facing=west,offen=true": {
+   "model": "deadzonemc:block/tresor_offen",
+   "y": 270
+  }
+ }
+}

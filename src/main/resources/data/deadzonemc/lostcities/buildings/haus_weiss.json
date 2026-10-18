@@ -1,0 +1,20 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:haus_weiss_eg",
+   "floor": 0
+  },
+  {
+   "part": "deadzonemc:haus_weiss_og"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:haus_weiss_dach"
+  }
+ ],
+ "minfloors": 2,
+ "maxfloors": 2
+}

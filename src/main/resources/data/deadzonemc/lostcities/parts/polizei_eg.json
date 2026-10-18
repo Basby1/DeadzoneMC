@@ -70,6 +70,18 @@
    {
     "char": "x",
     "block": "minecraft:cobweb"
+   },
+   {
+    "char": "\u0100",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0101",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0102",
+    "block": "deadzonemc:ladenschild[art=polizei,facing=north,teil=0]"
    }
   ]
  },
@@ -147,7 +159,7 @@
    "BBwwBwwBwwBwwBBB"
   ],
   [
-   "################",
+   "#######\u0100\u0101\u0102######",
    "#          I   #",
    "#          I   #",
    "#          I   #",

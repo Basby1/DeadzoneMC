@@ -1,0 +1,197 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:gray_concrete"
+   },
+   {
+    "char": "1",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:easymobs"
+   },
+   {
+    "char": "D",
+    "block": "minecraft:iron_trapdoor[half=top,open=false,facing=north]"
+   },
+   {
+    "char": "E",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_werkzeug"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_werkstatt"
+   },
+   {
+    "char": "P",
+    "block": "minecraft:black_concrete"
+   },
+   {
+    "char": "Q",
+    "block": "minecraft:black_wool"
+   },
+   {
+    "char": "R",
+    "block": "minecraft:red_concrete"
+   },
+   {
+    "char": "T",
+    "block": "minecraft:crafting_table"
+   },
+   {
+    "char": "a",
+    "block": "minecraft:anvil[facing=east]"
+   },
+   {
+    "char": "f",
+    "block": "minecraft:smooth_stone"
+   },
+   {
+    "char": "j",
+    "block": "minecraft:chain"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "\u0155",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=3]"
+   },
+   {
+    "char": "\u0156",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0157",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0158",
+    "block": "deadzonemc:ladenschild[art=werkstatt,facing=north,teil=0]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff"
+  ],
+  [
+   "####        ####",
+   "#              #",
+   "#E             #",
+   "#             a#",
+   "#K             #",
+   "#     PPPP    T#",
+   "#E    QRRQ     #",
+   "#     RRRR     #",
+   "#K    RRRR    E#",
+   "#     QRRQ     #",
+   "#E    PPPP     #",
+   "#              #",
+   "#K            K#",
+   "#           1  #",
+   "#              #",
+   "################"
+  ],
+  [
+   "##ww        w###",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w      ww      w",
+   "#      ww      #",
+   "w      ww      w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "#              #",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "##wwDDDDDDDDw###",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#       j      #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#              #",
+   "w       j      w",
+   "w              w",
+   "#              #",
+   "#              #",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "################",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#       j      #",
+   "#              #",
+   "#              #",
+   "#       o      #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#       j      #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "################"
+  ],
+  [
+   "ffffff\u0155\u0156\u0157\u0158ffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff"
+  ]
+ ]
+}

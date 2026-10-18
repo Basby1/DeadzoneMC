@@ -71,11 +71,11 @@
         "value": "building8"
       },
       {
-        "factor": 0.08,
+        "factor": 0.09,
         "value": "deadzonemc:polizeiwache"
       },
       {
-        "factor": 0.05,
+        "factor": 0.06,
         "value": "deadzonemc:waffenladen"
       },
       {
@@ -89,6 +89,22 @@
       {
         "factor": 0.08,
         "value": "deadzonemc:supermarkt"
+      },
+      {
+        "factor": 0.05,
+        "value": "deadzonemc:baumarkt"
+      },
+      {
+        "factor": 0.05,
+        "value": "deadzonemc:werkstatt"
+      },
+      {
+        "factor": 0.05,
+        "value": "deadzonemc:bank"
+      },
+      {
+        "factor": 0.04,
+        "value": "deadzonemc:militaerposten"
       }
     ],
     "multibuildings": [

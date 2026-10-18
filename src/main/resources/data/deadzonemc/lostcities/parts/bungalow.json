@@ -1,0 +1,238 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:stripped_spruce_wood"
+   },
+   {
+    "char": "1",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:easymobs"
+   },
+   {
+    "char": "=",
+    "block": "minecraft:spruce_slab[type=bottom]"
+   },
+   {
+    "char": "B",
+    "block": "minecraft:red_bed[facing=south,part=foot]"
+   },
+   {
+    "char": "C",
+    "block": "minecraft:smooth_stone_slab[type=top]"
+   },
+   {
+    "char": "F",
+    "block": "minecraft:spruce_planks"
+   },
+   {
+    "char": "H",
+    "block": "minecraft:spruce_planks"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_wohnung"
+   },
+   {
+    "char": "M",
+    "block": "minecraft:oak_door[facing=north,half=upper]"
+   },
+   {
+    "char": "N",
+    "block": "minecraft:oak_door[facing=north,half=lower]"
+   },
+   {
+    "char": "S",
+    "block": "minecraft:spruce_stairs[facing=north]"
+   },
+   {
+    "char": "T",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_kleiderschrank"
+   },
+   {
+    "char": "Y",
+    "block": "minecraft:oak_leaves[persistent=true]"
+   },
+   {
+    "char": "_",
+    "block": "minecraft:grass_block"
+   },
+   {
+    "char": "a",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_bad"
+   },
+   {
+    "char": "b",
+    "block": "minecraft:red_bed[facing=south,part=head]"
+   },
+   {
+    "char": "h",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_schuppen"
+   },
+   {
+    "char": "j",
+    "block": "minecraft:dead_bush"
+   },
+   {
+    "char": "k",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_kueche"
+   },
+   {
+    "char": "n",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_nachttisch"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "p",
+    "block": "minecraft:dirt_path"
+   },
+   {
+    "char": "q",
+    "block": "minecraft:short_grass"
+   },
+   {
+    "char": "t",
+    "block": "minecraft:spruce_slab[type=top]"
+   },
+   {
+    "char": "u",
+    "block": "minecraft:barrel[facing=north]",
+    "loot": "deadzonemc:loot_kuehlschrank"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "z",
+    "block": "minecraft:oak_fence"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "_______pp_______",
+   "_______pp_______",
+   "_______pp_______",
+   "_______pp_______",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "__FFFFFFFFFFFF__",
+   "________________",
+   "________________",
+   "________________",
+   "________________"
+  ],
+  [
+   "zzzzzzz  zzzzzzz",
+   "z          q   z",
+   "z q          j z",
+   "z              z",
+   "z #####N###### z",
+   "z #bn    CCC # z",
+   "z #B         # z",
+   "z #    t  K  # z",
+   "zY#    S     # z",
+   "z #T     1  k#qz",
+   "z #   a     u# z",
+   "z ############ z",
+   "z              z",
+   "z j          h z",
+   "z   q       HHHz",
+   "zzzzzzzzzzzzzzzz"
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  ##w##M##w###  ",
+   "  #          #  ",
+   "  w          w  ",
+   "  #          #  ",
+   "  #          #  ",
+   "  w          w  ",
+   "  #          #  ",
+   "  ##w##w##w###  ",
+   "                ",
+   "                ",
+   "            HHH ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  ##w##w##w###  ",
+   "  #          #  ",
+   "  w          w  ",
+   "  #          #  ",
+   "  #          #  ",
+   "  w          w  ",
+   "  #          #  ",
+   "  ##w##w##w###  ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  ############  ",
+   "  #          #  ",
+   "  #          #  ",
+   "  #    o     #  ",
+   "  #          #  ",
+   "  #          #  ",
+   "  #          #  ",
+   "  ############  ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   " ============== ",
+   "  ============  ",
+   "  ============  ",
+   "  ============  ",
+   "  ============  ",
+   "  ============  ",
+   "  ============  ",
+   "  ============  ",
+   "  ============  ",
+   " ============== ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

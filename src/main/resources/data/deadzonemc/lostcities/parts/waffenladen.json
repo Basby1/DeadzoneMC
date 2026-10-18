@@ -49,6 +49,18 @@
    {
     "char": "x",
     "block": "minecraft:cobweb"
+   },
+   {
+    "char": "\u010c",
+    "block": "deadzonemc:ladenschild[art=waffen,facing=north,teil=2]"
+   },
+   {
+    "char": "\u010d",
+    "block": "deadzonemc:ladenschild[art=waffen,facing=north,teil=1]"
+   },
+   {
+    "char": "\u010e",
+    "block": "deadzonemc:ladenschild[art=waffen,facing=north,teil=0]"
    }
   ]
  },
@@ -126,7 +138,7 @@
    "##ww#ww#ww#ww###"
   ],
   [
-   "################",
+   "#######\u010c\u010d\u010e######",
    "#              #",
    "#              #",
    "#              #",

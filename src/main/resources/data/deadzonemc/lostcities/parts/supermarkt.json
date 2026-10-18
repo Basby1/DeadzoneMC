@@ -54,6 +54,26 @@
    {
     "char": "x",
     "block": "minecraft:cobweb"
+   },
+   {
+    "char": "\u013c",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=4]"
+   },
+   {
+    "char": "\u013d",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=3]"
+   },
+   {
+    "char": "\u013e",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=2]"
+   },
+   {
+    "char": "\u013f",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0140",
+    "block": "deadzonemc:ladenschild[art=supermarkt,facing=north,teil=0]"
    }
   ]
  },
@@ -131,7 +151,7 @@
    "##ww#ww#ww#ww###"
   ],
   [
-   "################",
+   "######\u013c\u013d\u013e\u013f\u0140#####",
    "#              #",
    "#              #",
    "#              #",

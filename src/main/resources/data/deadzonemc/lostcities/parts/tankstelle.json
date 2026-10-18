@@ -1,0 +1,186 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:white_concrete"
+   },
+   {
+    "char": "1",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:easymobs"
+   },
+   {
+    "char": "A",
+    "block": "minecraft:gray_concrete"
+   },
+   {
+    "char": "B",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_tankstelle"
+   },
+   {
+    "char": "D",
+    "block": "minecraft:smooth_quartz_slab[type=bottom]"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_tankstelle"
+   },
+   {
+    "char": "M",
+    "block": "minecraft:iron_door[facing=north,half=upper]"
+   },
+   {
+    "char": "N",
+    "block": "minecraft:iron_door[facing=north,half=lower]"
+   },
+   {
+    "char": "P",
+    "block": "minecraft:red_concrete"
+   },
+   {
+    "char": "Z",
+    "block": "minecraft:white_concrete"
+   },
+   {
+    "char": "a",
+    "block": "minecraft:black_concrete"
+   },
+   {
+    "char": "c",
+    "block": "minecraft:smooth_stone_slab[type=top]"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "u",
+    "block": "minecraft:barrel[facing=north]",
+    "loot": "deadzonemc:loot_kuehl"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "AaaaaaaAaaaaaaAa",
+   "aaaaaaAaaaaaaAaa",
+   "aaaaaAaaaaaaAaaa",
+   "aaaaAaaaaaaAaaaa",
+   "aaaAaaaaaaAaaaaa",
+   "aaAaaaaaaAaaaaaa",
+   "aAaaaaaaAaaaaaaA",
+   "AaaaaaaAaaaaaaAa",
+   "aaaaaaAaaaaaaAaa",
+   "aaaaaAaaaaaaAaaa",
+   "aaaaAaaaaaaAaaaa",
+   "aaaAaaaaaaAaaaaa",
+   "aaAaaaaaaAaaaaaa",
+   "aAaaaaaaAaaaaaaA",
+   "AaaaaaaAaaaaaaAa",
+   "aaaaaaAaaaaaaAaa"
+  ],
+  [
+   "                ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   "           PP   ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   " ###N###        ",
+   " #     #        ",
+   " #cc   #        ",
+   " #K    #        ",
+   " #   1 #        ",
+   " #     #        ",
+   " # BBBu#        ",
+   " #######        "
+  ],
+  [
+   "                ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   "           PP   ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   " #wwMww#        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #######        "
+  ],
+  [
+   "                ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   "                ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   " #ww#ww#        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #######        "
+  ],
+  [
+   "                ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   "                ",
+   "                ",
+   "         Z    Z ",
+   "                ",
+   " #######        ",
+   " #     #        ",
+   " #     #        ",
+   " #  o  #        ",
+   " #     #        ",
+   " #     #        ",
+   " #     #        ",
+   " #######        "
+  ],
+  [
+   "                ",
+   "        DDDDDDDD",
+   "        DDDDDDDD",
+   "        DDDDDDDD",
+   "        DDDDDDDD",
+   "        DDDDDDDD",
+   "        DDDDDDDD",
+   "        DDDDDDDD",
+   " #######        ",
+   " #######        ",
+   " #######        ",
+   " #######        ",
+   " #######        ",
+   " #######        ",
+   " #######        ",
+   " #######        "
+  ]
+ ]
+}

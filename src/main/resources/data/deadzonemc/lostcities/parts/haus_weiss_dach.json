@@ -1,0 +1,142 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "=",
+    "block": "minecraft:deepslate_tile_slab[type=bottom]"
+   },
+   {
+    "char": "G",
+    "block": "minecraft:white_terracotta"
+   },
+   {
+    "char": "X",
+    "block": "minecraft:bricks"
+   },
+   {
+    "char": "^",
+    "block": "minecraft:deepslate_tile_stairs[facing=north]"
+   },
+   {
+    "char": "v",
+    "block": "minecraft:deepslate_tile_stairs[facing=south]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "                ",
+   "                ",
+   "                ",
+   "  vvvvvvvvvvvv  ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G      X G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "  ^^^^^^^^^^^^  ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  vvvvvvvvvvvv  ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G      X G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "  ^^^^^^^^^^^^  ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  vvvvvvvvvvvv  ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G      X G   ",
+   "   G        G   ",
+   "  ^^^^^^^^^^^^  ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  vvvvvvvvvvvv  ",
+   "   G        G   ",
+   "   G        G   ",
+   "   G      X G   ",
+   "  ^^^^^^^^^^^^  ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  vvvvvvvvvvvv  ",
+   "   G        G   ",
+   "  ^^^^^^^^X^^^  ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "  ============  ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

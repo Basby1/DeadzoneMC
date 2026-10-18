@@ -1,0 +1,110 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:antibiotika",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:anti_rad",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:filter",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:gasmaske",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:nachtsichtgeraet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:militaerpatrone",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 3,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:schatzkarte",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_chestplate",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.2,
+                "max": 0.6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_helmet",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.2,
+                "max": 0.6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deadzonemc:bonus/artefakt",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deadzonemc:bonus/legendaer",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deadzonemc:waffen/bonus_mittel",
+          "weight": 23
+        }
+      ]
+    }
+  ]
+}

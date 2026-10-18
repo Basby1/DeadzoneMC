@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:bank"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:bank_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

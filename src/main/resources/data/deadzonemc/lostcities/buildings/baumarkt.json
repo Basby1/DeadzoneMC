@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:baumarkt"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:baumarkt_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

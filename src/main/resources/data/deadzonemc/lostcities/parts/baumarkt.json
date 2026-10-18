@@ -1,0 +1,186 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:orange_concrete"
+   },
+   {
+    "char": "1",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:easymobs"
+   },
+   {
+    "char": "4",
+    "block": "minecraft:spawner",
+    "mob": "deadzonemc:hardmobs"
+   },
+   {
+    "char": "B",
+    "block": "minecraft:barrel[facing=up]",
+    "loot": "deadzonemc:loot_baumarkt"
+   },
+   {
+    "char": "H",
+    "block": "minecraft:stripped_oak_log[axis=y]"
+   },
+   {
+    "char": "K",
+    "block": "minecraft:chest[facing=south]",
+    "loot": "deadzonemc:loot_baumarkt"
+   },
+   {
+    "char": "c",
+    "block": "minecraft:smooth_stone_slab[type=top]"
+   },
+   {
+    "char": "f",
+    "block": "minecraft:smooth_stone"
+   },
+   {
+    "char": "o",
+    "block": "minecraft:lantern[hanging=true]"
+   },
+   {
+    "char": "w",
+    "block": "minecraft:glass_pane"
+   },
+   {
+    "char": "x",
+    "block": "minecraft:cobweb"
+   },
+   {
+    "char": "\u0165",
+    "block": "deadzonemc:ladenschild[art=baumarkt,facing=north,teil=3]"
+   },
+   {
+    "char": "\u0166",
+    "block": "deadzonemc:ladenschild[art=baumarkt,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0167",
+    "block": "deadzonemc:ladenschild[art=baumarkt,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0168",
+    "block": "deadzonemc:ladenschild[art=baumarkt,facing=north,teil=0]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff"
+  ],
+  [
+   "######    ######",
+   "#              #",
+   "# c  c         #",
+   "#              #",
+   "#  H  H  H  H  #",
+   "#  H  H  H  H  #",
+   "#  B  B  B  B  #",
+   "#  H  H  H  H  #",
+   "#  H  H 1H  H  #",
+   "#  B  B  B  B  #",
+   "#  H  H  H  H  #",
+   "#  H  H  H  H  #",
+   "#  B  B  B  B  #",
+   "#          4   #",
+   "#K            K#",
+   "################"
+  ],
+  [
+   "##ww#w    #ww###",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#  H  H  H  H  #",
+   "w  B  B  B  B  w",
+   "w  H  H  H  H  w",
+   "#  H  H  H  H  #",
+   "w  B  B  B  B  w",
+   "w  H  H  H  H  w",
+   "#  H  H  H  H  #",
+   "w  B  B  B  B  w",
+   "w  H  H  H  H  w",
+   "#              #",
+   "#              #",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "##ww#ww#ww#ww###",
+   "#              #",
+   "w              w",
+   "w              w",
+   "#  B  B  B  B  #",
+   "w  H  H  H  H  w",
+   "w  H  H  H  H  w",
+   "#  B  B  B  B  #",
+   "w  H  H  H  H  w",
+   "w  H  H  H  H  w",
+   "#  B  B  B  B  #",
+   "w  H  H  H  H  w",
+   "w  H  H  H  H  w",
+   "#              #",
+   "#              #",
+   "##ww#ww#ww#ww###"
+  ],
+  [
+   "######\u0165\u0166\u0167\u0168######",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#      o       #",
+   "#              #",
+   "#              #",
+   "#   x          #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "#              #",
+   "################"
+  ],
+  [
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff",
+   "ffffffffffffffff"
+  ]
+ ]
+}

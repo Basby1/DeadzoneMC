@@ -18,27 +18,107 @@
    {
     "char": "f",
     "block": "minecraft:white_concrete"
+   },
+   {
+    "char": "\u0128",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=4]"
+   },
+   {
+    "char": "\u0129",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=3]"
+   },
+   {
+    "char": "\u012a",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=2]"
+   },
+   {
+    "char": "\u012b",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=1]"
+   },
+   {
+    "char": "\u012c",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=north,teil=0]"
+   },
+   {
+    "char": "\u012d",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=south,teil=0]"
+   },
+   {
+    "char": "\u012e",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=south,teil=1]"
+   },
+   {
+    "char": "\u012f",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=south,teil=2]"
+   },
+   {
+    "char": "\u0130",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=south,teil=3]"
+   },
+   {
+    "char": "\u0131",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=south,teil=4]"
+   },
+   {
+    "char": "\u0132",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=east,teil=4]"
+   },
+   {
+    "char": "\u0133",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=east,teil=3]"
+   },
+   {
+    "char": "\u0134",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=east,teil=2]"
+   },
+   {
+    "char": "\u0135",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=east,teil=1]"
+   },
+   {
+    "char": "\u0136",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=east,teil=0]"
+   },
+   {
+    "char": "\u0137",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=west,teil=0]"
+   },
+   {
+    "char": "\u0138",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=west,teil=1]"
+   },
+   {
+    "char": "\u0139",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=west,teil=2]"
+   },
+   {
+    "char": "\u013a",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=west,teil=3]"
+   },
+   {
+    "char": "\u013b",
+    "block": "deadzonemc:ladenschild[art=krankenhaus,facing=west,teil=4]"
    }
   ]
  },
  "slices": [
   [
-   "################",
+   "######\u0128\u0129\u012a\u012b\u012c#####",
    "#              #",
    "#              #",
    "#              #",
    "#   ffffffff   #",
    "#   ffYffYff   #",
-   "#   ffYffYff   #",
-   "#   ffYffYff   #",
-   "#   ffYYYYff   #",
-   "#   ffYffYff   #",
-   "#   ffYffYff   #",
+   "\u0137   ffYffYff   \u0132",
+   "\u0138   ffYffYff   \u0133",
+   "\u0139   ffYYYYff   \u0134",
+   "\u013a   ffYffYff   \u0135",
+   "\u013b   ffYffYff   \u0136",
    "#   ffffffff   #",
    "#              #",
    "#              #",
    "#              #",
-   "################"
+   "######\u012d\u012e\u012f\u0130\u0131#####"
   ],
   [
    "                ",

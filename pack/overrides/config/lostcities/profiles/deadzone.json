@@ -6,7 +6,9 @@
     "cityMinRadius": 100,
     "cityMaxRadius": 230,
     "cityThreshold": 0.18,
-    "cityMaxHeight": 100
+    "cityMaxHeight": 100,
+    "cityStyleThreshold": 0.4,
+    "cityStyleAlternative": "deadzonemc:citystyle_vorort"
   },
   "explosions": {
     "explosionChance": 0.004,

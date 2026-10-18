@@ -1659,6 +1659,106 @@
    }
   ]
  },
+ "monster.fund.selten": {
+  "subtitle": "subtitles.deadzonemc.fund.selten",
+  "sounds": [
+   {
+    "name": "minecraft:block/amethyst/shimmer",
+    "pitch": 1.1,
+    "volume": 0.9
+   },
+   {
+    "name": "minecraft:block/amethyst/resonate1",
+    "pitch": 1.2,
+    "volume": 0.8
+   },
+   {
+    "name": "minecraft:block/amethyst/resonate2",
+    "pitch": 1.2,
+    "volume": 0.8
+   },
+   {
+    "name": "minecraft:block/amethyst/resonate3",
+    "pitch": 1.2,
+    "volume": 0.8
+   },
+   {
+    "name": "minecraft:block/amethyst/resonate4",
+    "pitch": 1.2,
+    "volume": 0.8
+   }
+  ]
+ },
+ "monster.fund.episch": {
+  "subtitle": "subtitles.deadzonemc.fund.episch",
+  "sounds": [
+   {
+    "name": "minecraft:random/levelup",
+    "pitch": 0.6,
+    "volume": 0.7
+   },
+   {
+    "name": "minecraft:block/beacon/activate",
+    "pitch": 1.5,
+    "volume": 0.8
+   }
+  ]
+ },
+ "monster.tresor.knacken": {
+  "subtitle": "subtitles.deadzonemc.tresor.knacken",
+  "sounds": [
+   {
+    "name": "minecraft:random/anvil_land",
+    "pitch": 1.6,
+    "volume": 0.45
+   },
+   {
+    "name": "minecraft:block/chain/hit1",
+    "pitch": 0.7,
+    "volume": 0.8
+   },
+   {
+    "name": "minecraft:block/chain/hit2",
+    "pitch": 0.7,
+    "volume": 0.8
+   },
+   {
+    "name": "minecraft:block/chain/hit3",
+    "pitch": 0.7,
+    "volume": 0.8
+   },
+   {
+    "name": "minecraft:block/chain/hit4",
+    "pitch": 0.7,
+    "volume": 0.8
+   }
+  ]
+ },
+ "monster.tresor.auf": {
+  "subtitle": "subtitles.deadzonemc.tresor.auf",
+  "sounds": [
+   {
+    "name": "minecraft:block/iron_door/open1",
+    "pitch": 0.7,
+    "volume": 1.0
+   },
+   {
+    "name": "minecraft:block/iron_door/open2",
+    "pitch": 0.7,
+    "volume": 1.0
+   },
+   {
+    "name": "minecraft:block/iron_door/open3",
+    "pitch": 0.7,
+    "volume": 1.0
+   },
+   {
+    "name": "minecraft:block/iron_door/open4",
+    "pitch": 0.7,
+    "volume": 1.0
+   }
+  ]
+ },
  "monster.verschmolzener.ambient": {
   "subtitle": "subtitles.deadzonemc.verschmolzener.ambient",
   "sounds": [

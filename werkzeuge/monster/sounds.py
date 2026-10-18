@@ -107,6 +107,11 @@ SOUNDS = {
     "scheintoter.hurt": reihe("mob/zombie/hurt", 2, 0.9),
     "scheintoter.death": eins("mob/zombie/death", 0.8),
     "scheintoter.packen": reihe("mob/zombie/say", 3, 1.2),
+    # ---- Beute ----
+    "fund.selten": eins("block/amethyst/shimmer", 1.1, 0.9) + reihe("block/amethyst/resonate", 4, 1.2, 0.8),
+    "fund.episch": eins("random/levelup", 0.6, 0.7) + eins("block/beacon/activate", 1.5, 0.8),
+    "tresor.knacken": eins("random/anvil_land", 1.6, 0.45) + reihe("block/chain/hit", 4, 0.7, 0.8),
+    "tresor.auf": reihe("block/iron_door/open", 4, 0.7),
     # ---- Bosse ----
     "verschmolzener.ambient": reihe("mob/ravager/idle", 4, 0.45) + reihe("mob/zombie/say", 3, 0.5),
     "verschmolzener.hurt": reihe("mob/zombie/hurt", 2, 0.5),

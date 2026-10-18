@@ -1,0 +1,146 @@
+{
+ "xsize": 16,
+ "zsize": 16,
+ "palette": {
+  "palette": [
+   {
+    "char": " ",
+    "block": "minecraft:air"
+   },
+   {
+    "char": "#",
+    "block": "minecraft:brown_wool"
+   },
+   {
+    "char": "R",
+    "block": "minecraft:redstone_lamp"
+   },
+   {
+    "char": "e",
+    "block": "minecraft:iron_bars"
+   },
+   {
+    "char": "\u0175",
+    "block": "deadzonemc:ladenschild[art=militaer,facing=north,teil=2]"
+   },
+   {
+    "char": "\u0176",
+    "block": "deadzonemc:ladenschild[art=militaer,facing=north,teil=1]"
+   },
+   {
+    "char": "\u0177",
+    "block": "deadzonemc:ladenschild[art=militaer,facing=north,teil=0]"
+   }
+  ]
+ },
+ "slices": [
+  [
+   "           \u0175\u0176\u0177  ",
+   " ###            ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "          eeeee ",
+   "          e   e ",
+   "          e   e ",
+   "          e   e ",
+   "          eeeee ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "            R   ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ],
+  [
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                ",
+   "                "
+  ]
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "filler": "#",
+ "rubble": "#",
+ "allowDoors": false,
+ "parts": [
+  {
+   "part": "deadzonemc:militaerposten"
+  },
+  {
+   "top": true,
+   "part": "deadzonemc:militaerposten_dach"
+  }
+ ],
+ "minfloors": 1,
+ "maxfloors": 1
+}

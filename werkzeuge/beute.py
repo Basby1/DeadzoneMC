@@ -80,6 +80,26 @@ def munition(art, gewicht, minimum, maximum):
                            "count": {"type": "minecraft:uniform", "min": minimum, "max": maximum}}]}
 
 
+def besonders(eintrag, name=None, lore=None, seltenheit=None, verzauberungen=None, farbe="gold"):
+    """Ein Eintrag als besonderes Stück: eigener Name, Beschreibung, Seltenheit, Verzauberungen."""
+    f = eintrag.setdefault("functions", [])
+    if name:
+        f.append({"function": "minecraft:set_name", "target": "custom_name",
+                  "name": {"text": name, "italic": False, "color": farbe}})
+    if lore:
+        f.append({"function": "minecraft:set_lore", "mode": "append",
+                  "lore": [{"text": z, "italic": True, "color": "gray"} for z in lore]})
+    if seltenheit:
+        f.append({"function": "minecraft:set_components", "components": {"minecraft:rarity": seltenheit}})
+    if verzauberungen:
+        f.append({"function": "minecraft:set_enchantments", "enchantments": verzauberungen})
+    return eintrag
+
+
+def tabelle(name, gewicht):
+    return {"type": "minecraft:loot_table", "value": f"{MOD}:{name}", "weight": gewicht}
+
+
 ESSEN_KLEIN = [
     item(m("konservendose"), 10, 1, 2),
     item("minecraft:bread", 3),
@@ -90,6 +110,44 @@ ESSEN_KLEIN = [
 ]
 
 TABELLEN = {
+
+    # ---- neue Stadtgebäude ----
+    "baumarkt": [pool(2, 5, [
+        item("minecraft:oak_planks", 8, 4, 16), item("minecraft:spruce_planks", 6, 4, 16),
+        item("minecraft:iron_ingot", 5, 1, 4), item("minecraft:iron_nugget", 6, 4, 12),
+        item("minecraft:glass_pane", 5, 4, 12), item("minecraft:iron_bars", 4, 2, 8),
+        item("minecraft:chain", 3, 2, 6), item("minecraft:lantern", 3, 1, 2), item("minecraft:torch", 5, 4, 12),
+        item("minecraft:oak_door", 3), item("minecraft:iron_door", 1), item("minecraft:oak_fence", 4, 4, 10),
+        item("minecraft:bricks", 3, 4, 16), item("minecraft:smooth_stone", 3, 4, 16),
+        item(m("schrott"), 6, 2, 6), item(m("elektronik"), 3, 1, 2), item(m("brecheisen"), 2, schaden=(0.1, 0.5)),
+        item("minecraft:shears", 2, schaden=(0.1, 0.5)), item("minecraft:iron_axe", 2, schaden=(0.2, 0.6)),
+        item("minecraft:iron_shovel", 2, schaden=(0.2, 0.6)), item(m("stacheldraht"), 3, 2, 6),
+        leer(4),
+    ])],
+    "militaer": [pool(2, 5, [
+        waffe("g36k", 3), waffe("hk416d", 2), waffe("m4a1", 2), waffe("ak47", 2), waffe("hk_g3", 1), waffe("mk14", 1),
+        waffe("m1014", 2), waffe("glock_17", 3),
+        munition("556x45", 8, 15, 40), munition("762x39", 5, 15, 30), munition("308", 4, 8, 20), munition("12g", 4, 6, 16),
+        munition("9mm", 5, 15, 30),
+        item(m("verband"), 5, 2, 4), item(m("antibiotika"), 2), item(m("filter"), 3, 1, 2), item(m("gasmaske"), 2),
+        item(m("nachtsichtgeraet"), 2), item(m("militaerpatrone"), 6, 5, 15), item(m("landmine"), 2, 1, 3),
+        item("minecraft:iron_helmet", 2, schaden=(0.1, 0.4)), item("minecraft:iron_chestplate", 2, schaden=(0.1, 0.4)),
+        tabelle("bonus/legendaer", 1),
+    ]), notizen(25, ["funkspruch", "evakuierung"])],
+    "bank": [pool(2, 4, [
+        item("minecraft:gold_ingot", 8, 1, 4), item("minecraft:gold_nugget", 8, 3, 12), item("minecraft:emerald", 3, 1, 3),
+        item("minecraft:diamond", 2), item(m("militaerpatrone"), 8, 4, 12), item(m("schatzkarte"), 4),
+        item("minecraft:paper", 6, 4, 12), item("minecraft:clock", 2), item("minecraft:compass", 2),
+        leer(3),
+    ]), notizen(30, ["halden_flyer", "evakuierung", "brief"])],
+    # Tresor: nur mit Brecheisen zu knacken – lohnt sich immer
+    "tresor": [pool(3, 6, [
+        item("minecraft:gold_ingot", 6, 2, 6), item("minecraft:diamond", 4, 1, 3), item("minecraft:emerald", 4, 2, 5),
+        item(m("militaerpatrone"), 8, 10, 30), item(m("schatzkarte"), 4), item(m("antibiotika"), 3, 1, 3),
+        item(m("nachtsichtgeraet"), 3), waffe("deagle", 2, voll=True), waffe("rhino357", 2, voll=True),
+        munition("50ae", 3, 6, 14), munition("357mag", 3, 6, 14),
+        tabelle("bonus/legendaer", 3),
+    ])],
     # ---- Wohnhaus ----
     "kuehlschrank": [pool(1, 3, [
         item("minecraft:rotten_flesh", 14, 1, 3),
@@ -491,9 +549,55 @@ TABELLEN = {
 }
 
 
+# ---- Bonus nach Gefahrenstufe (GefahrenBonus.java) und legendäre Stücke --------------------------
+BONUS = {
+    "gering": [{"rolls": 1, "entries": [
+        item(m("konservendose"), 10, 1, 2), item(m("verband"), 8, 1, 2), item(m("batterie"), 6),
+        item(m("schrott"), 8, 1, 3), item(m("elektronik"), 5), item(m("schmerzmittel"), 4),
+        item(m("militaerpatrone"), 5, 1, 4), item(m("brecheisen"), 2, schaden=(0.2, 0.7)),
+        item(m("stoffreste"), 6, 1, 3), munition("9mm", 4, 4, 12), munition("12g", 3, 2, 6),
+    ]}],
+    "mittel": [{"rolls": 1, "entries": [
+        item(m("antibiotika"), 6), item(m("anti_rad"), 5), item(m("filter"), 5, 1, 2), item(m("gasmaske"), 2),
+        item(m("nachtsichtgeraet"), 2), item(m("militaerpatrone"), 8, 3, 10), item(m("schatzkarte"), 3),
+        waffe("glock_17", 3), waffe("m1911", 2), waffe("m870", 2), waffe("hk_mp5a5", 1),
+        munition("9mm", 6, 10, 24), munition("45acp", 4, 6, 16), munition("12g", 5, 4, 12),
+        item("minecraft:iron_chestplate", 2, schaden=(0.2, 0.6)), item("minecraft:iron_helmet", 2, schaden=(0.2, 0.6)),
+        tabelle("bonus/artefakt", 2), tabelle("bonus/legendaer", 1),
+    ]}],
+    "hoch": [{"rolls": 1, "entries": [
+        waffe("g36k", 3, voll=True), waffe("ak47", 3, voll=True), waffe("hk416d", 2, voll=True), waffe("m1014", 2, voll=True),
+        waffe("kar98", 2, voll=True), munition("556x45", 6, 20, 45), munition("762x39", 5, 20, 40),
+        munition("308", 3, 10, 20), item(m("nachtsichtgeraet"), 6), item("minecraft:diamond", 3, 1, 2),
+        item(m("militaerpatrone"), 8, 8, 20), item(m("antibiotika"), 4, 1, 3), item(m("schatzkarte"), 4),
+        tabelle("bonus/artefakt", 4), tabelle("bonus/legendaer", 6),
+    ]}],
+    "artefakt": [{"rolls": 1, "entries": [{"type": "minecraft:tag", "name": f"{MOD}:artefakte", "expand": True, "weight": 1}]}],
+    "legendaer": [{"rolls": 1, "entries": [
+        besonders(item("minecraft:diamond_chestplate", 3), "Panzerweste der Wacht",
+                  ["Ein Einschussloch über dem Herzen.", "Der Träger hat es trotzdem nicht geschafft."], "epic",
+                  {"minecraft:protection": 3, "minecraft:unbreaking": 3}),
+        besonders(item("minecraft:iron_helmet", 3), "Stahlhelm der Wacht",
+                  ["Innen eingeritzt: 23 Striche."], "epic", {"minecraft:protection": 4, "minecraft:unbreaking": 2}),
+        besonders(item("minecraft:iron_sword", 3), "Letzter Ausweg",
+                  ["Ein Kampfmesser. Die Klinge ist nie stumpf geworden."], "epic",
+                  {"minecraft:sharpness": 4, "minecraft:looting": 2, "minecraft:unbreaking": 2}),
+        besonders(item("minecraft:iron_axe", 2), "Feuerwehraxt von Löschzug 4",
+                  ["Rote Farbe, die nicht nur Farbe ist."], "epic", {"minecraft:sharpness": 3, "minecraft:efficiency": 3}),
+        besonders(item("minecraft:crossbow", 2), "Stille Nacht",
+                  ["Kein Schuss, kein Lärm, kein Zeuge."], "epic", {"minecraft:quick_charge": 2, "minecraft:piercing": 3}),
+        besonders(item("minecraft:leather_boots", 2), "Leise Sohlen",
+                  ["Wer nicht gehört wird, wird nicht gejagt."], "epic", {"minecraft:feather_falling": 4, "minecraft:swift_sneak": 3}),
+        besonders(item(m("nachtsichtgeraet"), 2), "Eule",
+                  ["Militärisches Nachtsichtgerät, Restlicht-Verstärker der zweiten Generation."], "epic",
+                  {"minecraft:unbreaking": 3}),
+    ]}],
+}
+
+
 # Großzügiger als zu Beginn: Plündern soll sich lohnen (Rückmeldung nach dem ersten Testspiel).
 GROSSZUEGIG = {"rolls_plus": 1, "rolls_faktor": 1.5, "leer_faktor": 0.4}
-NICHT_ANHEBEN = {"luftabwurf", "station_null"}
+NICHT_ANHEBEN = {"luftabwurf", "station_null", "tresor"}
 
 
 def anheben(name, pools):
@@ -534,7 +638,36 @@ def main():
         with open(os.path.join(ZIEL, f"{name}.json"), "w", encoding="utf-8") as f:
             json.dump({"type": "minecraft:chest", "pools": pools}, f, indent=2, ensure_ascii=False)
             f.write("\n")
-    print(f"{len(TABELLEN)} Beutetabellen geschrieben.")
+    bonus_ziel = os.path.join(os.path.dirname(ZIEL), "bonus")
+    if os.path.isdir(bonus_ziel):
+        shutil.rmtree(bonus_ziel)
+    os.makedirs(bonus_ziel)
+    for name, pools in BONUS.items():
+        for pl in pools:
+            tacz = [e for e in pl["entries"] if e.get("name", "").startswith("tacz:")]
+            if tacz:
+                pl["entries"] = [e for e in pl["entries"] if e not in tacz]
+                pl["entries"].append({"type": "minecraft:loot_table", "value": f"{MOD}:waffen/bonus_{name}",
+                                      "weight": sum(e["weight"] for e in tacz)})
+                with open(os.path.join(waffen_ziel, f"bonus_{name}.json"), "w", encoding="utf-8") as f:
+                    json.dump({"neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "tacz"}],
+                               "type": "minecraft:chest", "pools": [{"rolls": 1, "entries": tacz}]}, f, indent=2)
+        with open(os.path.join(bonus_ziel, f"{name}.json"), "w", encoding="utf-8") as f:
+            json.dump({"type": "minecraft:chest", "pools": pools}, f, indent=2, ensure_ascii=False)
+    # Beute-Modifikator und Fund-Tag
+    daten = os.path.dirname(os.path.dirname(ZIEL))
+    os.makedirs(os.path.join(daten, "loot_modifiers"), exist_ok=True)
+    with open(os.path.join(daten, "loot_modifiers", "gefahrenbonus.json"), "w") as f:
+        json.dump({"type": f"{MOD}:gefahrenbonus", "conditions": []}, f, indent=1)
+    neo = os.path.join(daten, "..", "neoforge", "loot_modifiers")
+    os.makedirs(neo, exist_ok=True)
+    with open(os.path.join(neo, "global_loot_modifiers.json"), "w") as f:
+        json.dump({"replace": False, "entries": [f"{MOD}:gefahrenbonus"]}, f, indent=1)
+    os.makedirs(os.path.join(daten, "tags", "item"), exist_ok=True)
+    with open(os.path.join(daten, "tags", "item", "fund.json"), "w") as f:
+        json.dump({"values": [f"#{MOD}:artefakte", "minecraft:diamond", f"{MOD}:schatzkarte",
+                              {"id": "tacz:modern_kinetic_gun", "required": False}]}, f, indent=1)
+    print(f"{len(TABELLEN)} Beutetabellen, {len(BONUS)} Bonustabellen geschrieben.")
 
 
 if __name__ == "__main__":

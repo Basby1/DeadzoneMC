@@ -1,0 +1,80 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:nachtsichtgeraet",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:militaerpatrone",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 8,
+                "max": 20
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:antibiotika",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:schatzkarte",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deadzonemc:bonus/artefakt",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deadzonemc:bonus/legendaer",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deadzonemc:waffen/bonus_hoch",
+          "weight": 26
+        }
+      ]
+    }
+  ]
+}
