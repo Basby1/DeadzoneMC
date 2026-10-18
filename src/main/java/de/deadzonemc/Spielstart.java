@@ -27,6 +27,9 @@ public final class Spielstart {
         if (!(event.getEntity() instanceof ServerPlayer spieler)) {
             return;
         }
+        // Xaero's Minimap in den Fair-Play-Modus schalten (kein Mob-Radar, keine Höhlenansicht) – der Horror
+        // lebt davon, dass man nicht weiß, was hinter der nächsten Ecke wartet. Der Code ist unsichtbar.
+        spieler.sendSystemMessage(Component.literal("§f§a§i§r§x§a§e§r§o"));
         if (spieler.getData(ModRegistry.GESTARTET.get())) {
             return;
         }
