@@ -26,6 +26,7 @@ public class DeadzoneMC {
 
         NeoForge.EVENT_BUS.addListener(WetterSystem::serverGestartet);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.welt.StartGebiet::serverGestartet);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.welt.Staedte::weltGeladen);
         NeoForge.EVENT_BUS.addListener(WetterSystem::serverTick);
         NeoForge.EVENT_BUS.addListener(WetterSystem::spielerBetritt);
         NeoForge.EVENT_BUS.addListener(WetterSystem::dimensionGewechselt);

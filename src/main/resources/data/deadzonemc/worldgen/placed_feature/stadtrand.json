@@ -1,0 +1,8 @@
+{
+  "feature": "deadzonemc:stadtrand",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

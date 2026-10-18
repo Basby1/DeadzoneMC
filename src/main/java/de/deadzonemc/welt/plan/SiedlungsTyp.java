@@ -47,10 +47,10 @@ public enum SiedlungsTyp {
 
     /** Ob diese Größe schon gebaut wird (Kleinstädte und Großstädte folgen in den nächsten Schritten). */
     /**
-     * Eigene Dörfer sind im Modpack vorerst aus – dort baut Lost Cities die Siedlungen.
-     * Mit -Ddeadzonemc.doerfer=true (Testserver der Mod) bleiben sie an.
+     * Eigene, verlassene Dörfer im Umland (statt der Dorfbewohner-Dörfer). Die großen Städte baut Lost Cities;
+     * Dörfer halten Abstand zu ihnen. Mit -Ddeadzonemc.doerfer=false abschaltbar.
      */
-    public static final boolean EIGENE_DOERFER = Boolean.getBoolean("deadzonemc.doerfer");
+    public static final boolean EIGENE_DOERFER = !"false".equals(System.getProperty("deadzonemc.doerfer"));
 
     public boolean wirdGebaut() {
         return EIGENE_DOERFER && this == DORF;

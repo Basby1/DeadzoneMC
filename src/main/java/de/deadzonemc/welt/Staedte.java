@@ -165,5 +165,48 @@ public final class Staedte {
     /** Wird beim Serverstart geleert (andere Welt, anderer Seed). */
     public static void leeren() {
         CACHE.clear();
+        NAHE.clear();
+    }
+
+    /** Die Oberwelt des laufenden Servers – für Weltgenerierungs-Code, der nur den Startwert kennt. */
+    private static volatile Level oberwelt;
+
+    public static void weltGeladen(net.neoforged.neoforge.event.level.LevelEvent.Load event) {
+        if (event.getLevel() instanceof net.minecraft.server.level.ServerLevel w && w.dimension() == Level.OVERWORLD) {
+            oberwelt = w;
+            leeren();
+        }
+    }
+
+    private static final ConcurrentHashMap<Long, Boolean> NAHE = new ConcurrentHashMap<>();
+
+    /**
+     * Ob im Umkreis (Blöcke) um den Punkt wahrscheinlich eine Stadt liegt – nur Schätzung, billig.
+     * Für eigene Dörfer: Sie entstehen nur im Umland, nie in oder direkt an einer Stadt.
+     */
+    public static boolean stadtImUmkreis(int x, int z, int radius) {
+        Level w = oberwelt;
+        if (w == null) {
+            return false;
+        }
+        long k = ((long) (x >> 4) << 32) ^ ((z >> 4) & 0xffffffffL) ^ ((long) radius << 56);
+        Boolean b = NAHE.get(k);
+        if (b != null) {
+            return b;
+        }
+        boolean nah = false;
+        int r = (radius >> 4) + 1;
+        for (int dx = -r; dx <= r && !nah; dx += 2) {
+            for (int dz = -r; dz <= r && !nah; dz += 2) {
+                if (dx * dx + dz * dz <= r * r) {
+                    nah = vielleichtStadt(w, (x >> 4) + dx, (z >> 4) + dz);
+                }
+            }
+        }
+        if (NAHE.size() > 50000) {
+            NAHE.clear();
+        }
+        NAHE.put(k, nah);
+        return nah;
     }
 }

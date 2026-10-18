@@ -38,6 +38,10 @@ public final class Siedlungen {
         if (s == null) {
             return null;
         }
+        // Eigene Dörfer nur im Umland: nie in oder direkt an einer Stadt von Lost Cities
+        if (typ.wirdGebaut() && de.deadzonemc.welt.Staedte.stadtImUmkreis(s.x(), s.z(), s.radius() + 64)) {
+            return null;
+        }
         for (SiedlungsTyp groesser : SiedlungsTyp.values()) {
             if (groesser.ordinal() <= typ.ordinal()) {
                 continue;

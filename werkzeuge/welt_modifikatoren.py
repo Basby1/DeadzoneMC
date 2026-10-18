@@ -48,6 +48,9 @@ MODIFIKATOREN = {
                      "features": ["deadzonemc:tote_baeume_selten"], "step": "vegetal_decoration"},
     "metro": {"type": "neoforge:add_features", "biomes": "#minecraft:is_overworld",
               "features": ["deadzonemc:metro"], "step": "underground_decoration"},
+    # Weicher Übergang am Stadtrand: vor Bäumen und Bauten
+    "stadtrand": {"type": "neoforge:add_features", "biomes": "#minecraft:is_overworld",
+                  "features": ["deadzonemc:stadtrand"], "step": "raw_generation"},
     "weniger_vanilla": {"type": "neoforge:remove_spawns", "biomes": "#minecraft:is_overworld",
                         "entity_types": ["minecraft:creeper", "minecraft:skeleton", "minecraft:enderman",
                                          "minecraft:witch", "minecraft:spider", "minecraft:slime"]},

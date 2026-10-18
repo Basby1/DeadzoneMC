@@ -202,6 +202,8 @@ public final class ModRegistry {
             FEATURES.register("schutt", SchuttFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> METRO =
             FEATURES.register("metro", de.deadzonemc.welt.feature.MetroFeature::new);
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STADTRAND =
+            FEATURES.register("stadtrand", de.deadzonemc.welt.feature.StadtrandFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STROMMAST =
             FEATURES.register("strommast", StrommastFeature::new);
 

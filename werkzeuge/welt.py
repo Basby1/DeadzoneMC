@@ -54,6 +54,7 @@ CONFIGURED = {
     "strommast": {"type": f"{MOD}:strommast", "config": {}},
     "anomalie": {"type": f"{MOD}:anomalie", "config": {}},
     "metro": {"type": f"{MOD}:metro", "config": {}},
+    "stadtrand": {"type": f"{MOD}:stadtrand", "config": {}},
     # Mit Minecraft-Mitteln: Flecken toter Erde auf dem Boden
     "boden_tot": {
         "type": "minecraft:disk",
@@ -128,6 +129,7 @@ PLACED = {
     "strommast": ("strommast", an_der_oberflaeche(seltenheit=10)),
     "anomalie": ("anomalie", an_der_oberflaeche(seltenheit=9)),
     "metro": ("metro", [{"type": "minecraft:biome"}]),
+    "stadtrand": ("stadtrand", [{"type": "minecraft:biome"}]),
     "anomalie_selten": ("anomalie", an_der_oberflaeche(seltenheit=70)),
     "boden_tot": ("boden_tot", an_der_oberflaeche(anzahl=zwischen(1, 3))),
     "boden_oede": ("boden_oede", an_der_oberflaeche(anzahl=zwischen(2, 4))),
