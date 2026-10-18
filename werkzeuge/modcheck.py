@@ -14,14 +14,9 @@ KOPF = {"User-Agent": "Basby1/DeadzoneMC modcheck (github.com/Basby1/DeadzoneMC)
 
 # (Name/Slug, Art) – Art: mod, shader, resourcepack
 KANDIDATEN = [
-    ("lootbeams", "mod"), ("loot-beams-refork", "mod"), ("legendary-tooltips", "mod"), ("iceberg", "mod"),
-    ("presence-footsteps", "mod"), ("true-darkness", "mod"), ("darkness", "mod"), ("true-darkness-refabricated", "mod"),
-    ("immersive-melodies", "mod"), ("ambientsounds", "mod"), ("visuality", "mod"), ("falling-leaves", "mod"),
-    ("physics-mod", "mod"), ("immersive-portals", "mod"), ("waystones", "mod"), ("travelersbackpack", "mod"),
-    ("first-aid", "mod"), ("epic-fight", "mod"), ("better-animations-collection", "mod"), ("emotecraft", "mod"),
-    ("guard-villagers", "mod"), ("doors-of-infinity", "mod"), ("cleanview", "mod"), ("enhancedvisuals", "mod"),
-    ("ash-api", "mod"), ("blood-n-particles", "mod"), ("seasonhud", "mod"), ("hardcore-torches", "mod"),
-    ("realistic-torches", "mod"), ("dynamic-surroundings", "mod"), ("sound-physics-remastered", "mod"),
+    ("ultimate-car-mod", "mod"), ("ultimate-car", "mod"), ("immersive-machinery", "mod"), ("small-ships", "mod"),
+    ("simple-planes", "mod"), ("create", "mod"), ("vehicle-mod", "mod"), ("automobility", "mod"),
+    ("mrcrayfishs-vehicle-mod", "mod"), ("car-mod", "mod"), ("immersive-vehicles", "mod"), ("drivebywire", "mod"),
 ]
 
 LADER = {"mod": ["neoforge"], "shader": ["iris"], "resourcepack": ["minecraft"]}
