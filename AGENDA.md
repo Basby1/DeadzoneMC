@@ -62,16 +62,16 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 
 ## Etappe E – Klang, Musik, Präsentation
 - [x] Eigene gruselige Klänge für alle eigenen Monster (synthetisierte Stimmen: Stöhnen, Kreischen, Knurren, Gurgeln, Brüllen … je Art eigenes Profil)
-- [ ] Musik gruseliger und atmosphärischer; neues Titelstück
+- [x] Musik gruseliger und atmosphärischer; neues Titelstück (Spieluhr, Herzschlag, Sirene, Funkrauschen)
 - [x] Titelbildschirm: bewegter Hintergrund (Ruinenpanorama, treibende Nebelbänke, Wetterleuchten)
 - [x] Bosse: eigene Klänge (synthetisierte Stimmen), epische Kampfmusik „Endkampf“, Sprachzeilen (Auftritt, Spott, Raserei, Tod)
-- [ ] Animationen und Ausrichtung aller Mobs prüfen (nichts läuft rückwärts)
+- [x] Animationen und Ausrichtung aller Mobs prüfen (Arme/Waffen gespiegelt, Prüfskript)
 
 ## Etappe F – Dimensionen & Endgame
 - [~] Herz der Zone (Nether) + 10 Mobs [x eingebaut: eigene Fähigkeiten, Stimmen, Beute, Spawns im Nether] + Nether-Endboss „Das Herz der Zone“ [x eingebaut: Glutsäulen, Hitzewelle, Glutleiber, Schwachstelle vorn, Story-Spawn]
 - [~] Orbitalstation (End): Station auf der Hauptinsel, Questreihe (Lebenserhaltung, 4 Energieknoten, KI MUTTER, Logbücher) [x]; 10 Orbit-Mobs [x eingebaut: eigene Fähigkeiten, Stimmen, Beute, Spawns im End]
 - [x] Der Ursprung: riesig (3x), epische Erwachen-Sequenz (Beben, Blitze, KI-Stimme, Aufstieg aus dem Reaktorring), Raid: Kristallschild, Leerepuls mit Deckung, Tentakelschläge, Brut, zweiter Schild; Enderdrache entfernt (Rückkehrportal offen)
-- [ ] Endlos weiterspielbar nach dem Finale
+- [x] Endlos weiterspielbar nach dem Finale (Nachschub, Herden, Ereignisse, Epilog)
 
 ## Laufend
 - [ ] Nach jeder Etappe: Build + Pack-Test grün, Release-Zip aktualisiert, kurze Zusammenfassung an Lina

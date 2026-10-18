@@ -231,16 +231,42 @@ DM = [["D3", "F3", "A3", "D4"], ["Bb2", "D3", "F3", "Bb3"], ["G2", "Bb2", "D3", 
 
 
 def titel():
-    """Sektor 4 – Titelmusik: Dröhnen, Flächen, einsames Klavier, Metall, Wind."""
-    s = Stueck(160, 404)
-    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.5), (hz("D2"), 0.35)], 0.11)
-    s.flaechen(DM, 20.0, 0.06)
-    motiv = [("D4", 0.0), ("F4", 1.6), ("E4", 3.2), ("A3", 4.8), ("D4", 8.5), ("C4", 10.1), ("Bb3", 11.7), ("A3", 13.3)]
-    antwort = [("A4", 0.0), ("G4", 1.6), ("F4", 3.2), ("E4", 4.8), ("D4", 6.4), ("C#4", 9.0), ("D4", 12.0)]
-    s.melodie([(24.0, motiv), (44.0, antwort), (84.0, motiv), (104.0, antwort), (128.0, motiv[:4])], "klavier", 0.2)
-    s.metall([16.0, 51.0, 77.0, 113.0, 139.0], 0.06)
-    s.wind(0.018)
-    s.speichern("titel")
+    """Sektor 4 – Titelmusik (gruseliger): verstimmte Spieluhr, tiefes Dröhnen, Chorhauch, Funkrauschen,
+    ein Herzschlag in der Ferne und eine Sirene, die irgendwo anschwillt."""
+    s = Stueck(170, 913)
+    s.droehnen([(hz("C1"), 1.0), (hz("G1"), 0.45), (hz("C#2"), 0.2)], 0.12, periode=23.0)
+    chor = [["C3", "Eb3", "G3"], ["Ab2", "C3", "Eb3"], ["F2", "Ab2", "C3"], ["G2", "B2", "D3"]]
+    s.flaechen(chor, 18.0, 0.05, start=6.0, hell=900, tremolo=0.15)
+    # Spieluhr: hohe, leicht verstimmte Glöckchen, immer langsamer
+    def spieluhr(note, laenge=3.5):
+        n = int(laenge * SR)
+        tt = np.arange(n) / SR
+        f = hz(note) * (1 + 0.006 * np.sin(2 * np.pi * 0.3 * tt))
+        x = np.zeros(n)
+        for r, a in ((1.0, 1.0), (3.0, 0.25), (5.1, 0.12)):
+            x += a * np.sin(2 * np.pi * f * r * tt) * np.exp(-tt * (2.2 + r * 0.6))
+        return x * np.minimum(1, tt * 900)
+    motiv = ["C6", "Eb6", "G5", "C6", "D6", "Eb6", "D6", "B5", "C6", "G5"]
+    t0 = 14.0
+    for wdh in range(4):
+        schritt = 0.55 + wdh * 0.12
+        for i, note in enumerate(motiv):
+            s.dazu(t0 + i * schritt + s.rng.normal(0, 0.02), spieluhr(note), 0.09 * (1 - wdh * 0.15))
+        t0 += len(motiv) * schritt + 18.0
+    s.herzschlag(46, 0.05, von=40.0, bis=150.0)
+    # ferne Sirene
+    n = int(16 * SR)
+    tt = np.arange(n) / SR
+    f = 330 + 260 * (0.5 - 0.5 * np.cos(2 * np.pi * tt / 8.0))
+    sir = np.sin(2 * np.pi * np.cumsum(f) / SR) * huellkurve(16, 5, 6)
+    s.dazu(96.0, tiefpass(sir, 1200), 0.035)
+    # Funkrauschen
+    for st in (30.0, 72.0, 124.0):
+        m = int(3 * SR)
+        s.dazu(st, bandpass(s.rng.normal(0, 1, m), 400, 3000) * huellkurve(3, 0.4, 1.2), 0.02)
+    s.metall([22.0, 61.0, 108.0, 146.0], 0.05)
+    s.wind(0.02)
+    s.speichern("titel", hall=5.0, nass=0.65)
 
 
 def morgen():
