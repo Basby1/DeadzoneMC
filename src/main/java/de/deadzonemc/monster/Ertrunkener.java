@@ -50,11 +50,6 @@ public class Ertrunkener extends DeadzoneMonster {
     }
 
     @Override
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
-
-    @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
         LivingEntity z = getTarget();
