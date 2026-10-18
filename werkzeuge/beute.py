@@ -403,6 +403,28 @@ TABELLEN = {
         waffe("m1911", 2), waffe("m870", 2), waffe("sks_tactical", 1), waffe("hk_mp5a5", 1),
         munition("45acp", 3, 8, 20), munition("12g", 3, 6, 14), munition("762x39", 2, 10, 20), munition("9mm", 3, 10, 30),
     ]), notizen(40, ["tagebuch_2", "funkspruch", "abschied", "brief"])],
+    # Versorgungsabwurf: lohnt sich, zieht aber eine Herde an
+    "luftabwurf": [pool(2, 3, [
+        waffe("g36k", 2, voll=True), waffe("hk416d", 2, voll=True), waffe("m4a1", 2, voll=True),
+        waffe("mk14", 1, voll=True), waffe("m249", 1, voll=True), waffe("m1014", 2, voll=True),
+        waffe("hk_mp5a5", 2, voll=True),
+    ]), pool(3, 5, [
+        munition("556x45", 6, 30, 60), munition("308", 4, 20, 40), munition("12g", 4, 12, 24),
+        munition("9mm", 4, 30, 60), munition("762x39", 3, 30, 60),
+    ]), pool(3, 6, [
+        item(m("verband"), 8, 2, 5),
+        item(m("antibiotika"), 5, 1, 2),
+        item(m("schmerzmittel"), 5, 2, 4),
+        item(m("anti_rad"), 5, 1, 3),
+        item(m("filter"), 5, 1, 3),
+        item(m("konservendose"), 8, 3, 6),
+        item(m("militaerpatrone"), 6, 10, 25),
+        item(m("bolzen"), 3, 4, 10),
+        item(m("anomaliedetektor"), 1),
+        item(m("gasmaske"), 2),
+        item("minecraft:iron_chestplate", 2),
+        item("minecraft:iron_helmet", 2),
+    ])],
     "autowrack": [pool(1, 3, [
         item(m("schrott"), 10, 1, 3),
         item(m("batterie"), 4),

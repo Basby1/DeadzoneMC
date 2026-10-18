@@ -52,6 +52,7 @@ CONFIGURED = {
     "versteck": {"type": f"{MOD}:versteck", "config": {}},
     "schutt": {"type": f"{MOD}:schutt", "config": {}},
     "strommast": {"type": f"{MOD}:strommast", "config": {}},
+    "anomalie": {"type": f"{MOD}:anomalie", "config": {}},
     # Mit Minecraft-Mitteln: Flecken toter Erde auf dem Boden
     "boden_tot": {
         "type": "minecraft:disk",
@@ -124,6 +125,8 @@ PLACED = {
     "schutt": ("schutt", an_der_oberflaeche(seltenheit=3)),
     "schutt_selten": ("schutt", an_der_oberflaeche(seltenheit=8)),
     "strommast": ("strommast", an_der_oberflaeche(seltenheit=10)),
+    "anomalie": ("anomalie", an_der_oberflaeche(seltenheit=9)),
+    "anomalie_selten": ("anomalie", an_der_oberflaeche(seltenheit=70)),
     "boden_tot": ("boden_tot", an_der_oberflaeche(anzahl=zwischen(1, 3))),
     "boden_oede": ("boden_oede", an_der_oberflaeche(anzahl=zwischen(2, 4))),
     "boden_moor": ("boden_moor", an_der_oberflaeche(anzahl=zwischen(2, 4), wasser_ok=True)),
@@ -366,6 +369,7 @@ BIOM_TAGS = {
 SCHADENSARTEN = {
     "saurer_regen": {"message_id": f"{MOD}.saurer_regen", "exhaustion": 0.0, "scaling": "never"},
     "asche": {"message_id": f"{MOD}.asche", "exhaustion": 0.1, "scaling": "never"},
+    "emission": {"message_id": f"{MOD}.emission", "exhaustion": 0.0, "scaling": "never", "effects": "burning"},
 }
 
 

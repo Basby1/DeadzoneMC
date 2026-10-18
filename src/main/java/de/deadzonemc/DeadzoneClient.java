@@ -42,6 +42,13 @@ public class DeadzoneClient {
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.WACHE.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "wache", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.BEWOHNER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "bewohner", false));
         e.registerEntityRenderer(de.deadzonemc.mensch.MenschTypen.AUFTRAGGEBER.get(), c -> new de.deadzonemc.client.MenschRenderer<>(c, "auftraggeber", false));
+        e.registerEntityRenderer(de.deadzonemc.zone.Zone.BOLZEN_TYP.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        e.registerEntityRenderer(de.deadzonemc.zone.Zone.ABWURFKISTE.get(), c -> {
+            var r = new software.bernie.geckolib.renderer.GeoEntityRenderer<de.deadzonemc.zone.Abwurfkiste>(c,
+                    new software.bernie.geckolib.model.DefaultedEntityGeoModel<>(
+                            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "abwurfkiste")));
+            return r;
+        });
         e.registerEntityRenderer(MonsterTypen.GEFALLENER_SOLDAT.get(), c -> new MonsterRenderer<>(c, "gefallener_soldat", false, false, 0.5F));
         e.registerEntityRenderer(MonsterTypen.GLUTLEIB.get(), c -> new MonsterRenderer<>(c, "glutleib", true, false, 0.6F));
         e.registerEntityRenderer(MonsterTypen.SEUCHENHUND.get(), c -> new MonsterRenderer<>(c, "seuchenhund", true, false, 0.4F));

@@ -5,7 +5,8 @@
   "deadzonemc:autowrack_selten",
   "deadzonemc:schutt_selten",
   "deadzonemc:strahlenfaesser_selten",
-  "deadzonemc:versteck"
+  "deadzonemc:versteck",
+  "deadzonemc:anomalie_selten"
  ],
  "step": "vegetal_decoration"
 }

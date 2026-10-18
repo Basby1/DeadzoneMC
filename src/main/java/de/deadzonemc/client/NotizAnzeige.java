@@ -23,7 +23,7 @@ public final class NotizAnzeige {
         List<Component> seiten = seitenLesen("handbuch.deadzonemc.");
         // Monsterseiten: nur, was man schon gesehen hat
         List<String> bekannt = ClientDaten.entdeckt();
-        seiten.add(Component.translatable("handbuch.deadzonemc.monster_titel", bekannt.size(), 10));
+        seiten.add(Component.translatable("handbuch.deadzonemc.monster_titel", bekannt.size(), de.deadzonemc.monster.MonsterTypen.ALLE.size()));
         for (String art : bekannt) {
             seiten.addAll(seitenLesen("monster.deadzonemc." + art + "."));
         }

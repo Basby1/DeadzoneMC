@@ -1623,6 +1623,46 @@ def bauen(name):
     return pfad
 
 
+
+# ---------------------------------------------------------------------------
+# Gegenstände der Zone
+
+def abwurfkiste():
+    """Versorgungskiste am Fallschirm (Luftabwurf)."""
+    m = Modell("abwurfkiste", 256, 256)
+    holz = kombi(stoff("6a5a3a", loecher=0, blut=0, falten=7),
+                 lambda mm, r, f, w: mm.streifen(r, farbe("4a3e28"), abstand=4, senkrecht=False, staerke=0.5))
+    band = metall("3a3e3a", "5a3a1a")
+    schirm = kombi(stoff("6a7048", loecher=0, blut=0, falten=6),
+                   lambda mm, r, f, w: mm.streifen(r, farbe("c86a2a"), abstand=10, senkrecht=True, staerke=0.0)
+                   if f in ("oben", "unten") else None)
+    seil = einfarbig("c9c0a0", 6)
+    rot = leuchtend("ff4a2a", 15)
+    kiste = m.k("kiste", drehpunkt=(0, 12, 0))
+    kiste.w((-6, 0, -6), (12, 12, 12), holz)
+    for y in (2, 9):
+        kiste.w((-6.2, y, -6.2), (12.4, 1.2, 12.4), band)
+    kiste.w((-1.5, 12, -1.5), (3, 1, 3), band)
+    kiste.w((5.6, 9, -1), (0.8, 2, 2), rot)  # Blinklicht
+    fs = m.k("fallschirm", "kiste", drehpunkt=(0, 13, 0))
+    for sx in (1, -1):
+        for sz in (1, -1):
+            s = m.k(f"seil_{'v' if sz < 0 else 'h'}{'r' if sx > 0 else 'l'}", "fallschirm", drehpunkt=(sx * 5, 12, sz * 5),
+                    drehung=(sz * 24, 0, -sx * 24))
+            s.w((sx * 5 - 0.25, 12, sz * 5 - 0.25), (0.5, 32, 0.5), seil)
+    fs.w((-20, 40, -20), (40, 2, 40), schirm)
+    fs.w((-16, 42, -16), (32, 2, 32), stoff("c8642a", loecher=0, blut=0, falten=5))
+    fs.w((-10, 44, -10), (20, 1.5, 20), schirm)
+    for sx in (1, -1):
+        fs.w((19 if sx > 0 else -20, 36, -20), (1, 4, 40), schirm)
+    for sz in (1, -1):
+        fs.w((-20, 36, 19 if sz > 0 else -20), (40, 4, 1), schirm)
+    return m, "Versorgungskiste", "Luftabwurf · schwebt am Fallschirm, rote Rauchsäule", "2,5 Blöcke Schirm"
+
+
+ALLE.update({"abwurfkiste": abwurfkiste})
+ANSICHTEN["abwurfkiste"] = ((-30, 20), (45, 10), (200, 30))
+
 if __name__ == "__main__":
     for n in (sys.argv[1:] or ALLE):
         print(bauen(n))

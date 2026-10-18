@@ -3,7 +3,8 @@
  "biomes": "#deadzonemc:verseucht",
  "features": [
   "deadzonemc:strahlenfaesser",
-  "deadzonemc:strommast"
+  "deadzonemc:strommast",
+  "deadzonemc:anomalie"
  ],
  "step": "vegetal_decoration"
 }

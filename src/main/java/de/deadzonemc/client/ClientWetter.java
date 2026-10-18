@@ -48,6 +48,14 @@ public final class ClientWetter {
         nebelAn = nebel;
     }
 
+    /** 0 = ruhig, 1 = Emission droht, 2 = Emission tobt. */
+    private static int emission;
+    private static float emissionAnteil;
+
+    public static void emissionSetzen(int stufe) {
+        emission = stufe;
+    }
+
     public static WetterArt art() {
         return art;
     }
@@ -78,6 +86,7 @@ public final class ClientWetter {
         gruen = Mth.lerp(a, gruen, art.gruen());
         blau = Mth.lerp(a, blau, art.blau());
         hoehle = Mth.lerp(bereit ? 0.03F : 1F, hoehle, hoehleZiel);
+        emissionAnteil = Mth.lerp(0.01F, emissionAnteil, emission == 2 ? 1F : emission == 1 ? 0.45F : 0F);
         bereit = true;
 
         if (art == WetterArt.ASCHESTURM && draussen && !mc.isPaused()) {
@@ -112,6 +121,7 @@ public final class ClientWetter {
         float licht = tageslicht(level, (float) event.getPartialTick());
         float weite = sicht * (0.75F + 0.25F * licht) * ("spaeher".equals(ClientKlasse.klasse()) ? 1.5F : 1.0F);
         weite = Mth.lerp(hoehle, weite, 26F);
+        weite = Mth.lerp(emissionAnteil * 0.5F, weite, 40F);
         float anfang = Mth.lerp(hoehle, nah, 0F);
 
         event.setFarPlaneDistance(Math.min(event.getFarPlaneDistance(), weite));
@@ -133,8 +143,10 @@ public final class ClientWetter {
             hell *= 0.85F;
         }
         hell = Mth.lerp(hoehle, hell, 0.03F);
-        event.setRed(rot * hell);
-        event.setGreen(gruen * hell);
-        event.setBlue(blau * hell);
+        // Emission: der Himmel färbt sich blutrot und wird heller
+        float e = emissionAnteil * (1F - hoehle);
+        event.setRed(Mth.lerp(e, rot * hell, 0.62F));
+        event.setGreen(Mth.lerp(e, gruen * hell, 0.07F));
+        event.setBlue(Mth.lerp(e, blau * hell, 0.05F));
     }
 }

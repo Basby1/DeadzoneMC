@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "deadzonemc:artefakt_qualle",
+    "deadzonemc:artefakt_feuerkugel",
+    "deadzonemc:artefakt_blitzkern",
+    "deadzonemc:artefakt_steinblut",
+    "deadzonemc:artefakt_seelenkristall"
+  ]
+}

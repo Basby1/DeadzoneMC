@@ -95,6 +95,18 @@ public final class Selbsttest {
             "kill @e[type=deadzonemc:wache]",
             "kill @e[type=deadzonemc:bewohner]",
             "kill @e[type=deadzonemc:auftraggeber]",
+            "#feature anomalie 30 -40",
+            "deadzone anomalie strudel",
+            "summon deadzonemc:wanderer ~2 ~1 ~5",
+            "deadzone abwurf",
+            "deadzone emission start",
+            "#emission_schnell",
+            "#warten", "#warten", "#warten",
+            "#zone",
+            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
+            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
+            "#zone",
+            "kill @e[type=#deadzonemc:monster]",
             "#herde",
             "#warten", "#warten",
             "kill @e[type=#deadzonemc:monster]",
@@ -126,6 +138,18 @@ public final class Selbsttest {
             "#feature schutt 40 -60",
             "#feature strommast 50 -60",
             "#feature strahlenfaesser 60 -60",
+            "#feature anomalie 30 -40",
+            "deadzone anomalie strudel",
+            "summon deadzonemc:wanderer ~2 ~1 ~5",
+            "deadzone abwurf",
+            "deadzone emission start",
+            "#emission_schnell",
+            "#warten", "#warten", "#warten",
+            "#zone",
+            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
+            "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten", "#warten",
+            "#zone",
+            "kill @e[type=#deadzonemc:monster]",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/kuehlschrank",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/keller",
             "loot spawn ~ ~20 ~ loot deadzonemc:kiste/feuerwehr",
@@ -497,6 +521,40 @@ public final class Selbsttest {
                     d.append(h == null ? "keine" : de.deadzonemc.monster.Herden.beschreiben(ow, h)).append(" | ");
                 }
                 LOG.info("[Selbsttest] Herden: {} (aktiv {})", d, de.deadzonemc.monster.Herden.anzahl());
+                return;
+            }
+            if (befehl.equals("#emission_schnell")) {
+                de.deadzonemc.zone.Emission.holen(server.overworld()).restSetzen(40);
+                return;
+            }
+            if (befehl.equals("#zone")) {
+                ServerLevel ow = server.overworld();
+                BlockPos sp = ow.getSharedSpawnPos();
+                var e = de.deadzonemc.zone.Emission.holen(ow);
+                java.util.Map<String, Integer> anomalien = new java.util.TreeMap<>();
+                for (int cx = -5; cx <= 5; cx++) {
+                    for (int cz = -5; cz <= 5; cz++) {
+                        var ch = ow.getChunk((sp.getX() >> 4) + cx, (sp.getZ() >> 4) + cz);
+                        for (var be : ch.getBlockEntities().values()) {
+                            if (be instanceof de.deadzonemc.zone.AnomalieBlockEntity a) {
+                                anomalien.merge(a.art().id(), 1, Integer::sum);
+                            }
+                        }
+                    }
+                }
+                var bb = new net.minecraft.world.phys.AABB(sp).inflate(80, 200, 80);
+                int kisten = ow.getEntitiesOfClass(de.deadzonemc.zone.Abwurfkiste.class, bb).size();
+                int artefakte = ow.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, bb,
+                        i -> i.getItem().getItem() instanceof de.deadzonemc.zone.ArtefaktItem).size();
+                int faesser = 0;
+                for (BlockPos b : BlockPos.betweenClosed(sp.offset(0, -10, 0), sp.offset(16, 40, 16))) {
+                    if (ow.getBlockState(b).is(net.minecraft.world.level.block.Blocks.BARREL)) {
+                        faesser++;
+                    }
+                }
+                LOG.info("[Selbsttest] Zone: Anomalien {}, Emission Stufe {} (Rest {}, Nummer {}), Abwurfkisten in der Luft {}, "
+                        + "gelandete Fässer {}, Artefakte am Boden {}, Herden {}", anomalien, e.stufe(), e.rest(),
+                        de.deadzonemc.zone.Emission.nummer(ow), kisten, faesser, artefakte, de.deadzonemc.monster.Herden.anzahl());
                 return;
             }
             if (befehl.equals("#zuflucht")) {

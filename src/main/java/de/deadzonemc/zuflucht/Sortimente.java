@@ -99,6 +99,14 @@ public final class Sortimente {
                 ankauf(o, ModRegistry.BATTERIE.get(), 2, 2, 12);
                 ankauf(o, Items.IRON_INGOT, 8, 4, 12);
                 ankauf(o, Items.GOLD_INGOT, 4, 3, 12);
+                // Zone: Ausrüstung für Anomalienfelder, Artefakte werden gut bezahlt
+                kauf(o, 2, de.deadzonemc.zone.Zone.BOLZEN.get(), 8, 8);
+                kauf(o, 25, de.deadzonemc.zone.Zone.DETEKTOR.get(), 1, 1);
+                ankauf(o, de.deadzonemc.zone.Zone.artefakt(de.deadzonemc.zone.ArtefaktItem.Art.QUALLE), 1, 22, 4);
+                ankauf(o, de.deadzonemc.zone.Zone.artefakt(de.deadzonemc.zone.ArtefaktItem.Art.FEUERKUGEL), 1, 24, 4);
+                ankauf(o, de.deadzonemc.zone.Zone.artefakt(de.deadzonemc.zone.ArtefaktItem.Art.BLITZKERN), 1, 30, 4);
+                ankauf(o, de.deadzonemc.zone.Zone.artefakt(de.deadzonemc.zone.ArtefaktItem.Art.STEINBLUT), 1, 28, 4);
+                ankauf(o, de.deadzonemc.zone.Zone.artefakt(de.deadzonemc.zone.ArtefaktItem.Art.SEELENKRISTALL), 1, 60, 2);
             }
             case ARZT -> {
                 kauf(o, 3, ModRegistry.VERBAND.get(), 2, 12);

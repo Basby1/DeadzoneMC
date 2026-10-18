@@ -20,6 +20,8 @@ public final class Netz {
                 new net.neoforged.neoforge.network.handling.DirectionalPayloadHandler<>(
                         (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientKlasse.empfangen(n)),
                         de.deadzonemc.klasse.Klassen::empfangen));
+        registrar.playToClient(de.deadzonemc.zone.EmissionPayload.TYPE, de.deadzonemc.zone.EmissionPayload.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> ClientWetter.emissionSetzen(n.stufe())));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientDaten.entdecktSetzen(n.monster())));
     }

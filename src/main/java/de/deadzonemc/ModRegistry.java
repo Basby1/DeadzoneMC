@@ -243,6 +243,7 @@ public final class ModRegistry {
                         ausgabe.accept(BATTERIE.get());
                         ausgabe.accept(ELEKTRONIK.get());
                         ausgabe.accept(MILITAERPATRONE.get());
+                        de.deadzonemc.zone.Zone.tabFuellen(ausgabe);
                         de.deadzonemc.monster.MonsterTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         de.deadzonemc.mensch.MenschTypen.EIER.forEach(ei -> ausgabe.accept(ei.get()));
                         for (String id : NotizItem.ALLE) {

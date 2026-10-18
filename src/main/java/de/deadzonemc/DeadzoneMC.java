@@ -16,6 +16,7 @@ public class DeadzoneMC {
         ModRegistry.registrieren(modBus);
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
         de.deadzonemc.mensch.MenschTypen.registrieren(modBus);
+        de.deadzonemc.zone.Zone.registrieren(modBus);
         modBus.addListener(Netz::registrieren);
         modBus.addListener(de.deadzonemc.welt.Staedte::imc);
 

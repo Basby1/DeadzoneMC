@@ -834,6 +834,20 @@ ALLE.update({n: globals()[n] for n in (
     "spaeherdrohne", "lichtmotte", "scheintoter", "verschmolzener", "nebelmutter", "strahlende", "brutkoenigin",
     "schlaechter", "kommandant", "hirte", "schlund", "pilzvater", "erfrorene")})
 
+
+def abwurfkiste():
+    """Versorgungskiste: pendelt am Fallschirm, der Schirm atmet im Wind."""
+    a = Anim("schweben", 4.0, schritte=16)
+    a.welle("kiste", "z", 6)
+    a.welle("kiste", "x", 4, phase=0.25)
+    a.welle("fallschirm", "z", -3, phase=0.1)
+    a.welle("fallschirm", "y", 0.04, art="scale", frequenz=2)
+    return [a]
+
+
+ALLE["abwurfkiste"] = abwurfkiste
+
+
 def schreiben(name):
     anims = ALLE[name]()
     daten = {"format_version": "1.8.0",
