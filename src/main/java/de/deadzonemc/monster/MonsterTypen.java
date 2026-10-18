@@ -63,6 +63,8 @@ public final class MonsterTypen {
     // ---- Bosse ----
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Verschmolzener>> VERSCHMOLZENER = typ("verschmolzener", de.deadzonemc.monster.boss.Verschmolzener::new, 2.4F, 4.0F, 0x8e9883, 0xff3a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Nebelmutter>> NEBELMUTTER = typ("nebelmutter", de.deadzonemc.monster.boss.Nebelmutter::new, 1.2F, 6.8F, 0xd8dcd6, 0xd8fbff);
+    public static final DeferredHolder<EntityType<?>, EntityType<Mimik>> MIMIK = typ("mimik", Mimik::new, 0.6F, 1.8F, 0x3a8fa8, 0x8a2a2a);
+
     // ---- Dimensionswesen (Herz der Zone / Orbitalstation) ----
     public static final java.util.Map<de.deadzonemc.monster.dimension.DimArt,
             DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.dimension.Dimensionswesen>>> DIMENSION =
@@ -145,6 +147,7 @@ public final class MonsterTypen {
         e.put(DAS_HERZ.get(), de.deadzonemc.monster.boss.DasHerz.attribute().build());
         e.put(DER_URSPRUNG.get(), de.deadzonemc.monster.boss.DerUrsprung.attribute().build());
         DIMENSION.forEach((d, h) -> e.put(h.get(), de.deadzonemc.monster.dimension.Dimensionswesen.attribute(d).build()));
+        e.put(MIMIK.get(), Mimik.attribute().build());
         e.put(BRUTKOENIGIN.get(), de.deadzonemc.monster.boss.Brutkoenigin.attribute().build());
         e.put(SCHLAECHTER.get(), de.deadzonemc.monster.boss.Schlaechter.attribute().build());
         e.put(KOMMANDANT.get(), de.deadzonemc.monster.boss.Kommandant.attribute().build());

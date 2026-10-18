@@ -58,7 +58,7 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [~] Intro beim ersten Betreten mit Spielernamen (Titel + Text) – echte Kamerafahrt fehlt noch
 - [ ] (freigegeben 18.10.; WICHTIG: Nether/End-Zugang NICHT von Fraktionen abhängig – normale Portale) Fraktionen mit Questreihen, Ansehen, Vorteilen: Banditen, Totenflüsterer (arbeiten mit Infizierten),
       Kinder des Waldes (Baumhäuser), Sandwanderer, Unterwasservolk, Hüter des Himmels (Lategame, schwer erreichbar)
-- [ ] Mimik: übernimmt Skin/Name eines Mitspielers, greift schreiend an, wenn man allein ist (Entwurf der Enthüllung gezeigt 18.10.)
+- [x] Mimik: übernimmt Skin/Name eines Mitspielers (allein: deine eigene), folgt still, enthüllt sich schreiend, wenn man allein ist
 
 ## Etappe E – Klang, Musik, Präsentation
 - [x] Eigene gruselige Klänge für alle eigenen Monster (synthetisierte Stimmen: Stöhnen, Kreischen, Knurren, Gurgeln, Brüllen … je Art eigenes Profil)
