@@ -281,6 +281,8 @@ def zutat(v):
 
 
 def geformt(name, muster, schluessel, ergebnis, anzahl=1):
+    # Nur Zeichen, die im Muster vorkommen (sonst lehnt Minecraft das Rezept ab)
+    schluessel = {k: v for k, v in schluessel.items() if any(k in zeile for zeile in muster)}
     with open(os.path.join(D, "recipe", name + ".json"), "w") as f:
         json.dump({"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": muster,
                    "key": {k: zutat(v) for k, v in schluessel.items()},

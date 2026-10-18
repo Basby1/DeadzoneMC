@@ -54,6 +54,9 @@ public class Wurfkoerper extends ThrowableItemProjectile {
     }
 
     public Wurfart art() {
+        if (entityData == null) {
+            return Wurfart.values()[0]; // während des Aufbaus (andere Mods erzeugen Probe-Exemplare)
+        }
         return Wurfart.values()[entityData.get(ART)];
     }
 
