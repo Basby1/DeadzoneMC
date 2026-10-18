@@ -70,6 +70,27 @@ public class GefahrenBonus extends LootModifier {
         return Math.min(4, stufe);
     }
 
+    private static final String[][] TANKSTELLE = {{"canister", "0.55"}, {"bio_diesel_bucket", "0.35"}, {"repair_kit", "0.25"},
+            {"wheel", "0.2"}, {"battery", "0.15"}, {"key", "0.1"}};
+    private static final String[][] WERKSTATT = {{"wrench", "0.35"}, {"hammer", "0.3"}, {"screw_driver", "0.3"},
+            {"engine_piston", "0.35"}, {"wheel", "0.3"}, {"battery", "0.2"}, {"repair_kit", "0.3"}, {"canister", "0.2"},
+            {"engine_3_cylinder", "0.06"}, {"cable_insulator", "0.25"}};
+
+    private static void fahrzeugteile(String pfad, LootContext ctx, ObjectArrayList<ItemStack> beute) {
+        String[][] liste = pfad.equals("kiste/tankstelle") ? TANKSTELLE
+                : pfad.equals("kiste/werkstatt") || pfad.equals("kiste/autowrack") ? WERKSTATT : null;
+        if (liste == null || !net.neoforged.fml.ModList.get().isLoaded("car")) {
+            return;
+        }
+        for (String[] e : liste) {
+            if (ctx.getRandom().nextFloat() < Float.parseFloat(e[1])) {
+                net.minecraft.core.registries.BuiltInRegistries.ITEM
+                        .getOptional(ResourceLocation.fromNamespaceAndPath("car", e[0]))
+                        .ifPresent(i -> beute.add(new ItemStack(i, e[0].equals("engine_piston") ? 1 + ctx.getRandom().nextInt(3) : 1)));
+            }
+        }
+    }
+
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> beute, LootContext ctx) {
         ResourceLocation id = ctx.getQueriedLootTableId();
@@ -116,6 +137,9 @@ public class GefahrenBonus extends LootModifier {
                 }
             }
         }
+        // Fahrzeugteile (Ultimate Car Mod), nur wenn die Mod da ist: Tankstellen haben Kanister und Biodiesel,
+        // Werkstätten Werkzeug und Motorteile – so kommt man an ein eigenes Auto mit Kofferraum.
+        fahrzeugteile(id.getPath(), ctx, beute);
         // Verzauberung Glückspilz (Kopf): je Stufe ein Extra-Wurf mit 40 % Chance
         if (ctx.getParamOrNull(LootContextParams.THIS_ENTITY) instanceof net.minecraft.world.entity.player.Player sp) {
             int glueck = de.deadzonemc.verzauberung.Zonenverzauberung.stufe(
