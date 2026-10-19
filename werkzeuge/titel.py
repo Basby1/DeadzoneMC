@@ -299,6 +299,189 @@ def panorama():
     return seiten + [oben, unten]
 
 
+# ---- Panorama 2: Sperrzone bei blutroter Dämmerung ------------------------------------------------
+
+def himmel2(b, h, rng):
+    """Blutrote Dämmerung unter schwerer Wolkendecke, oben fahles Grün, ein bleicher Mond im Dunst."""
+    y = np.linspace(0, 1, h)[:, None]
+    oben = np.array([18, 26, 24], dtype=np.float32)
+    mitte = np.array([58, 44, 40], dtype=np.float32)
+    glut = np.array([178, 74, 38], dtype=np.float32)
+    t = np.clip(y * 1.8, 0, 1) ** 1.3
+    c = oben * (1 - t[..., None]) + mitte * t[..., None]
+    g = np.exp(-((y - 0.42) / 0.11) ** 2)[..., None]
+    c = c * (1 - g * 0.9) + glut * g * 0.9
+    bild = np.repeat(c, b, axis=1).astype(np.float32)
+    wolken = rauschen(b, h, 260, rng) * 0.55 + rauschen(b, h, 80, rng) * 0.3 + rauschen(b, h, 25, rng) * 0.15
+    band = np.clip(1.2 - np.abs(y - 0.33) * 4, 0, 1)
+    bild *= (0.72 + 0.45 * wolken[..., None] * band[..., None] + 0.12 * (1 - band[..., None]))
+    return bild
+
+
+def rauchsaeule(bild, x, boden, hoehe, breite, rng, glut=True):
+    """Dunkle, sich ausbreitende Rauchsäule; unten glüht es orange."""
+    H, B = bild.shape[:2]
+    for yy in range(max(0, boden - hoehe), min(H, boden)):
+        k = (boden - yy) / hoehe
+        w = breite * (0.3 + 1.7 * k)
+        drift = int(math.sin(k * 3 + x) * 40 * k) + int(k * k * 160)
+        x0, x1 = int(x + drift - w), int(x + drift + w)
+        x0, x1 = max(0, x0), min(B, x1)
+        if x1 <= x0:
+            continue
+        xs = np.arange(x0, x1)
+        rand = 1 - np.abs((xs - (x + drift)) / max(w, 1))
+        dichte = np.clip(rand * 1.6, 0, 1) * (0.95 - 0.5 * k) * (0.8 + 0.4 * rng.random(len(xs)))
+        farbe = np.array([28, 25, 24], dtype=np.float32)
+        if glut and k < 0.12:
+            farbe = np.array([200, 90, 40], dtype=np.float32) * (1 - k / 0.12) + farbe * (k / 0.12)
+        bild[yy, x0:x1] = bild[yy, x0:x1] * (1 - dichte[:, None]) + farbe * dichte[:, None]
+
+
+def silhouette_mensch(z, x, boden, groesse, r, schief=0):
+    """Ein Infizierter als Scherenschnitt: schief, hängende Arme."""
+    k = groesse / 60.0
+    kx = x + schief * k * 6
+    z.ellipse((kx - 6 * k, boden - 60 * k, kx + 6 * k, boden - 48 * k), fill=255)
+    z.polygon([(kx - 8 * k, boden - 48 * k), (kx + 8 * k, boden - 48 * k), (x + 7 * k, boden - 24 * k), (x - 7 * k, boden - 24 * k)], fill=255)
+    z.line([(kx - 8 * k, boden - 46 * k), (kx - 14 * k, boden - 22 * k + r.randint(-4, 4) * k)], fill=255, width=max(1, int(4 * k)))
+    z.line([(kx + 8 * k, boden - 46 * k), (kx + 12 * k + r.randint(0, 6) * k, boden - 30 * k)], fill=255, width=max(1, int(4 * k)))
+    z.line([(x - 4 * k, boden - 24 * k), (x - 7 * k, boden)], fill=255, width=max(1, int(5 * k)))
+    z.line([(x + 4 * k, boden - 24 * k), (x + 6 * k, boden - 2 * k)], fill=255, width=max(1, int(5 * k)))
+
+
+def auto(z, x, boden, laenge, kopf=False):
+    h = laenge * 0.32
+    z.polygon([(x, boden - h * 0.15), (x + laenge * 0.05, boden - h * 0.55), (x + laenge * 0.28, boden - h * 0.6),
+               (x + laenge * 0.38, boden - h), (x + laenge * 0.72, boden - h), (x + laenge * 0.85, boden - h * 0.6),
+               (x + laenge, boden - h * 0.5), (x + laenge, boden - h * 0.12)], fill=255)
+    for rx in (0.2, 0.78):
+        z.ellipse((x + laenge * rx - h * 0.22, boden - h * 0.3, x + laenge * rx + h * 0.22, boden + h * 0.12), fill=255)
+
+
+def hubschrauber(z, x, boden, laenge):
+    h = laenge * 0.28
+    z.polygon([(x, boden - h * 0.2), (x + laenge * 0.1, boden - h), (x + laenge * 0.45, boden - h * 1.05),
+               (x + laenge * 0.55, boden - h * 0.4), (x + laenge, boden - h * 0.75), (x + laenge, boden - h * 0.6),
+               (x + laenge * 0.55, boden - h * 0.1), (x + laenge * 0.1, boden)], fill=255)
+    z.line([(x + laenge * 0.25, boden - h * 1.05), (x - laenge * 0.2, boden - h * 1.6)], fill=255, width=max(2, int(laenge / 60)))
+    z.line([(x + laenge * 0.25, boden - h * 1.05), (x + laenge * 0.75, boden - h * 1.3)], fill=255, width=max(2, int(laenge / 60)))
+    z.line([(x + laenge * 0.98, boden - h * 0.7), (x + laenge * 1.02, boden - h * 1.2)], fill=255, width=max(2, int(laenge / 80)))
+
+
+def zaun(z, x0, x1, boden, hoehe, r):
+    for x in range(int(x0), int(x1), 46):
+        z.line([(x, boden), (x + r.randint(-3, 3), boden - hoehe)], fill=255, width=4)
+    for k in range(4):
+        y = boden - hoehe * (0.25 + 0.22 * k)
+        z.line([(x0, y), (x1, y + r.randint(-4, 4))], fill=255, width=1)
+    # Stacheldrahtrolle oben
+    for x in range(int(x0), int(x1), 9):
+        z.ellipse((x, boden - hoehe - 9, x + 11, boden - hoehe + 2), outline=255, width=1)
+
+
+def schild(z, x, boden, text):
+    z.line([(x + 50, boden), (x + 50, boden - 150)], fill=255, width=6)
+    z.rectangle((x - 30, boden - 230, x + 130, boden - 140), fill=200)
+    return (x - 30, boden - 230, x + 130, boden - 140, text)
+
+
+def strommast(z, x, boden, hoehe):
+    z.polygon([(x - 14, boden), (x - 3, boden - hoehe), (x + 3, boden - hoehe), (x + 14, boden)], outline=255, width=3)
+    for k in (0.75, 0.9):
+        z.line([(x - 40, boden - hoehe * k), (x + 40, boden - hoehe * k)], fill=255, width=3)
+
+
+def panorama2():
+    rng = np.random.default_rng(4242)
+    r = random.Random(4242)
+    n = 1024
+    B, H = 4 * n, n
+    horizont = 610
+    bild = himmel2(B, H, rng)
+    # Mond im Dunst
+    yy, xx = np.mgrid[0:H, 0:B]
+    for mx, my, rad in ((int(n * 1.72), 150, 52),):
+        d = np.sqrt((xx - mx) ** 2 + (yy - my) ** 2)
+        hof = np.clip(1 - d / (rad * 4), 0, 1) ** 2 * 0.35
+        scheibe = (d < rad).astype(np.float32) * 0.85
+        bild = bild * (1 - (hof + scheibe)[..., None]) + np.array([214, 206, 188], dtype=np.float32) * (hof + scheibe)[..., None]
+    # Ruinenstadt in drei Schichten (wie bisher, aber mit Brandherden)
+    for nr, (farbe, minh, maxh, nebel) in enumerate([((66, 54, 50), 200, 380, 0.55), ((40, 34, 32), 120, 280, 0.45),
+                                                     ((20, 18, 17), 50, 170, 0.25)]):
+        maske = Image.new("L", (B, H), 0)
+        z = ImageDraw.Draw(maske)
+        x = -r.randint(0, 60)
+        while x < B + 60:
+            bw = int(r.randint(30, 90) * (1 + nr * 0.4))
+            bh = r.randint(minh, maxh)
+            gebaeude(z, x, horizont + 30 * nr, bw, bh, r, 0.06 if nr > 0 else 0.0)
+            x += bw + r.randint(-8, 26)
+        m = np.asarray(maske, dtype=np.float32)
+        f = np.array(farbe, dtype=np.float32)
+        bild = np.where((m >= 200)[..., None], f, bild)
+        bild = np.where(((m > 60) & (m < 110))[..., None], f * 0.45, bild)
+        bild = np.where(((m > 130) & (m < 170))[..., None], np.array([210, 110, 40], dtype=np.float32), bild)
+        dichte = np.clip((np.linspace(0, 1, H)[:, None, None] - (horizont - 260 + 60 * nr) / H) * 2.2, 0, 1) * nebel
+        bild = bild * (1 - dichte) + np.array([96, 70, 60]) * dichte
+    # Rauchsäulen über der Stadt
+    for x in (int(n * 0.35), int(n * 1.15), int(n * 2.4), int(n * 3.3)):
+        rauchsaeule(bild, x, horizont - 120, r.randint(420, 520), r.randint(26, 40), rng)
+    # Vordergrund (Scherenschnitte): Straße mit Wracks, Hubschrauber, Infizierte, Zaun, Strommasten
+    vg = Image.new("L", (B, H), 0)
+    z = ImageDraw.Draw(vg)
+    boden = horizont + 150
+    z.rectangle((0, boden, B, H), fill=255)
+    z.polygon([(0, boden), (B, boden), (B, boden - 6), (0, boden - 10)], fill=255)
+    # Gesicht 0: Straßensperre mit Autos und Warnschild
+    for i, x in enumerate((20, 330, 690)):
+        auto(z, x, boden + 6, 280 + i * 20)
+    tafel = schild(z, 560, boden, "SPERRZONE")
+    # Gesicht 1: abgestürzter Hubschrauber mit Rauch
+    hubschrauber(z, n + 280, boden + 8, 520)
+    # Gesicht 2: Strommasten, tote Bäume und eine Herde Infizierter
+    for x in (2 * n + 80, 2 * n + 520, 2 * n + 940):
+        strommast(z, x, boden, 330)
+    for i in range(11):
+        silhouette_mensch(z, 2 * n + 120 + i * 78 + r.randint(-18, 18), boden + r.randint(-2, 10), r.randint(90, 130), r,
+                          schief=r.choice([-1, 0, 1]))
+    # Gesicht 3: Zaun mit Stacheldraht und Wachturm
+    zaun(z, 3 * n, 4 * n, boden, 120, r)
+    tx = 3 * n + 600
+    z.polygon([(tx - 50, boden), (tx - 22, boden - 280), (tx + 22, boden - 280), (tx + 50, boden)], outline=255, width=6)
+    z.rectangle((tx - 46, boden - 330, tx + 46, boden - 280), fill=255)
+    z.polygon([(tx - 56, boden - 330), (tx, boden - 360), (tx + 56, boden - 330)], fill=255)
+    # ein paar Gestalten an der Straßensperre
+    for i in range(3):
+        silhouette_mensch(z, 250 + i * 160 + r.randint(-20, 20), boden + 4, r.randint(100, 125), r, schief=r.choice([-1, 1]))
+    m = np.asarray(vg, dtype=np.float32)
+    dunkel = np.array([10, 9, 9], dtype=np.float32)
+    bild = np.where((m >= 250)[..., None], dunkel, bild)
+    bild = np.where(((m > 150) & (m < 250))[..., None], np.array([150, 120, 30], dtype=np.float32), bild)  # Warntafel
+    # Rauch aus dem Hubschrauber
+    rauchsaeule(bild, n + 470, boden - 60, 520, 22, rng, glut=True)
+    # Bodennebel und Glutschimmer am Horizont
+    y = np.linspace(0, 1, H)[:, None, None]
+    nebelband = np.exp(-((y - (horizont + 40) / H) / 0.05) ** 2) * 0.45
+    bild = bild * (1 - nebelband) + np.array([120, 88, 70]) * nebelband
+    img = Image.fromarray(np.clip(bild, 0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.8))
+    # Text auf der Warntafel
+    d = ImageDraw.Draw(img)
+    try:
+        font = ImageFont.truetype("DejaVuSans-Bold.ttf", 22)
+    except OSError:
+        font = ImageFont.load_default()
+    x0, y0, x1, y1, text = tafel
+    d.text((x0 + 10, y0 + 8), text, fill=(30, 20, 10), font=font)
+    d.text((x0 + 10, y0 + 36), "BETRETEN", fill=(30, 20, 10), font=font)
+    d.text((x0 + 10, y0 + 60), "VERBOTEN", fill=(30, 20, 10), font=font)
+    seiten = [img.crop((i * n, 0, (i + 1) * n, n)) for i in range(4)]
+    oben = Image.fromarray(np.clip(himmel2(n, n, rng)[:200].mean(axis=0, keepdims=True).repeat(n, 0) * 0.6, 0, 255).astype(np.uint8))
+    oben = oben.filter(ImageFilter.GaussianBlur(8))
+    unten = Image.new("RGB", (n, n), (10, 9, 9))
+    return seiten + [oben, unten]
+
+
 SPRUECHE = [
     "Bleib nicht allein!", "Der Nebel hört zu.", "Antworte nicht, wenn er deinen Namen ruft.",
     "Station Null wartet.", "Hast du Bolzen dabei?", "Emission in 90 Sekunden!", "Kein Signal.",
@@ -325,7 +508,7 @@ def main():
     speichern(ed, os.path.join(t, "edition.png"))
     ll, breit = ladelogo()
     speichern(ll, os.path.join(t, "mojangstudios.png"))
-    pano = panorama()
+    pano = panorama2()
     for i, p in enumerate(pano):
         speichern(p, os.path.join(t, "background", f"panorama_{i}.png"))
     os.makedirs(os.path.join(ZIEL, "texts"), exist_ok=True)

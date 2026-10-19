@@ -40,6 +40,19 @@ public final class ClientTitel {
                 }
             }
         }
+        // Glutfunken aus der brennenden Stadt steigen langsam auf
+        for (int i = 0; i < 40; i++) {
+            double saat = i * 12.9898;
+            double tempo = 9 + (i % 7) * 3;
+            double phase = (t * tempo + saat * 37) % (h * 0.7);
+            int fx = (int) ((Math.sin(saat) * 0.5 + 0.5) * b + Math.sin(t * 0.7 + i) * 12);
+            int fy = (int) (h - phase);
+            int alpha = (int) (Math.max(0, 1 - phase / (h * 0.7)) * 200);
+            if (alpha > 8) {
+                int farbe = (i % 3 == 0) ? 0xFFD06A : 0xE8601A;
+                g.fill(fx, fy, fx + 2, fy + 2, (alpha << 24) | farbe);
+            }
+        }
         // Rand abdunkeln
         for (int r = 0; r < 24; r++) {
             int a = (int) (Mth.square(1 - r / 24.0) * 90);

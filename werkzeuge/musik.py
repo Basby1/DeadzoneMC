@@ -457,6 +457,48 @@ def endkampf():
     s.speichern("endkampf", hall=3.0, nass=0.45, einblenden=1.0, ausblenden=4.0, pegel=0.85)
 
 
+def titel_lobby():
+    """Neue Titelmusik (Lobby): melancholisches Klavier über tiefen Streichern in d-Moll, fernes Funkrauschen mit
+    Notruftönen, Wind und ein langsamer, schwerer Puls – Ruhe vor dem Sturm, nicht Schockeffekt."""
+    s = Stueck(180, 2026)
+    bpm = 64
+    takt = 4 * 60.0 / bpm
+    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.4)], 0.10, periode=30.0, hell=240)
+    streicher = [["D2", "A2", "F3", "D3"], ["Bb1", "F2", "D3", "Bb2"], ["G1", "D2", "Bb2", "G2"], ["A1", "E2", "C#3", "A2"]]
+    s.flaechen(streicher, takt * 2, 0.07, start=2.0, hell=1100, tremolo=0.05)
+    # Klavier: einfaches, trauriges Thema, das wiederkehrt und sich verdichtet
+    thema = [("D4", 0.0), ("F4", 0.75), ("A4", 1.5), ("G4", 2.6), ("F4", 3.3), ("E4", 4.0), ("D4", 5.4), ("A3", 6.2)]
+    antwort = [("Bb3", 0.0), ("D4", 0.75), ("F4", 1.5), ("E4", 2.6), ("D4", 3.3), ("C#4", 4.0), ("A3", 5.4)]
+    einsaetze = []
+    t0 = takt * 2
+    i = 0
+    while t0 < 160:
+        einsaetze.append((t0, thema if i % 2 == 0 else antwort))
+        t0 += takt * 2
+        i += 1
+    s.melodie(einsaetze, "klavier", 0.10)
+    # Bassnoten auf der Eins
+    bass = ["D2", "Bb1", "G1", "A1"]
+    t0 = takt * 2
+    i = 0
+    while t0 < 168:
+        s.dazu(t0, s.klavier(bass[i % 4], 6.0), 0.08)
+        t0 += takt * 2
+        i += 1
+    # schwerer, langsamer Puls ab der Mitte
+    s.herzschlag(54, 0.045, von=70.0, bis=165.0)
+    # ferner Notruf: zwei Töne im Rauschen
+    for st in (40.0, 112.0):
+        m = int(4 * SR)
+        rausch = bandpass(s.rng.normal(0, 1, m), 500, 3200) * huellkurve(4, 0.5, 1.5) * 0.6
+        tt = np.arange(m) / SR
+        ton = (np.sin(2 * np.pi * 853 * tt) + np.sin(2 * np.pi * 960 * tt)) * 0.25 * ((tt % 1.0) < 0.6) * huellkurve(4, 0.3, 1.0)
+        s.dazu(st, rausch + tiefpass(ton, 2500), 0.025)
+    s.metall([30.0, 95.0, 150.0], 0.035)
+    s.wind(0.03)
+    s.speichern("titel", hall=5.5, nass=0.7, einblenden=4.0, ausblenden=8.0, pegel=0.75)
+
+
 def _schlaege(s, bpm, von, bis, alle=8, lautst=1.2):
     """Große Schläge alle `alle` Takte mit Rauschanstieg davor."""
     takt = 4 * 60.0 / bpm
@@ -547,7 +589,7 @@ def boss_marsch():
 ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf,
             "boss_frost": boss_frost, "boss_fleisch": boss_fleisch, "boss_marsch": boss_marsch}
 
-ALLE = {"titel": titel, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
+ALLE = {"titel": titel_lobby, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
 ALLE.update(ALLE_NEU)
 
 if __name__ == "__main__":
