@@ -348,6 +348,12 @@ ARTEN = {
                   "herzschlag": ("herzschlag", 2)}),
     "erfrorene": (P(280, rau=0.5, formanten=(900, 1800, 3500), hall=0.55, stimmen=2),
                   {"ambient": ("stoehnen", 3), "hurt": ("schmerz", 2), "death": ("kreischen", 1), "brullen": ("kreischen", 2)}),
+    "tarnfresser": (P(70, rau=0.95, formanten=(380, 850, 1900), hall=0.2),
+                    {"hurt": ("schmerz", 2), "death": ("tod", 1), "schreck": ("kreischen", 2)}),
+    "schwarmmutter": (P(230, rau=0.65, fry=0.3, formanten=(750, 1600, 3500), gurgeln=0.7, stimmen=3),
+                      {"ambient": ("zirpen", 3), "hurt": ("schmerz", 2), "death": ("kreischen", 1), "brullen": ("kreischen", 2)}),
+    "pilot": (P(88, rau=0.6, fry=0.5, formanten=(470, 980, 2200), hall=0.25),
+              {"ambient": ("keuchen", 3), "hurt": ("schmerz", 2), "death": ("tod", 1), "brullen": ("bruellen", 2)})
 }
 
 

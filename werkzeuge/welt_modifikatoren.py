@@ -96,6 +96,7 @@ MODIFIKATOREN = {
         "spawners": [
             {"type": "deadzonemc:seuchenhund", "weight": 24, "minCount": 2, "maxCount": 3},
             {"type": "deadzonemc:sauger", "weight": 30, "minCount": 1, "maxCount": 1},
+            {"type": "deadzonemc:tarnfresser", "weight": 22, "minCount": 1, "maxCount": 1},
         ]},
     "monster_wasser": {"type": "neoforge:add_spawns", "biomes": "#deadzonemc:wasser",
         "spawners": [{"type": "deadzonemc:ertrunkener", "weight": 30, "minCount": 1, "maxCount": 2}]},

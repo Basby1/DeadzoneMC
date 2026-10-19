@@ -58,6 +58,7 @@ public final class MonsterTypen {
     public static final DeferredHolder<EntityType<?>, EntityType<Ertrunkener>> ERTRUNKENER = typ("ertrunkener", Ertrunkener::new, 0.9F, 2.0F, 0x7a8a8e, 0x2e4a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<Spaeherdrohne>> SPAEHERDROHNE = typ("spaeherdrohne", Spaeherdrohne::new, 0.9F, 0.6F, 0x4a5238, 0xff2a1a);
     public static final DeferredHolder<EntityType<?>, EntityType<Lichtmotte>> LICHTMOTTE = typ("lichtmotte", Lichtmotte::new, 1.2F, 0.8F, 0xa8987a, 0xd8ffd0);
+    public static final DeferredHolder<EntityType<?>, EntityType<Tarnfresser>> TARNFRESSER = typ("tarnfresser", Tarnfresser::new, 0.9F, 1.4F, 0x5e4e38, 0x4a6a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<Scheintoter>> SCHEINTOTER = typ("scheintoter", Scheintoter::new, 0.6F, 1.9F, 0x9a9a88, 0x6a1414);
 
     // ---- Bosse ----
@@ -87,6 +88,8 @@ public final class MonsterTypen {
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Strahlende>> STRAHLENDE = typ("strahlende", de.deadzonemc.monster.boss.Strahlende::new, 2.0F, 3.8F, 0x7a8460, 0x9cff4a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Brutkoenigin>> BRUTKOENIGIN = typ("brutkoenigin", de.deadzonemc.monster.boss.Brutkoenigin::new, 2.6F, 2.2F, 0x3a2a26, 0xd8c8a0);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Schlaechter>> SCHLAECHTER = typ("schlaechter", de.deadzonemc.monster.boss.Schlaechter::new, 1.4F, 2.9F, 0xb89a88, 0x5a0a0a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Schwarmmutter>> SCHWARMMUTTER = typ("schwarmmutter", de.deadzonemc.monster.boss.Schwarmmutter::new, 2.4F, 2.0F, 0x6a5a52, 0xffb84a);
+    public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Pilot>> PILOT = typ("pilot", de.deadzonemc.monster.boss.Pilot::new, 1.0F, 2.6F, 0x4a5230, 0xff8a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Kommandant>> KOMMANDANT = typ("kommandant", de.deadzonemc.monster.boss.Kommandant::new, 1.2F, 2.7F, 0x4a5238, 0xff8a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Hirte>> HIRTE = typ("hirte", de.deadzonemc.monster.boss.Hirte::new, 0.8F, 3.3F, 0x3a3428, 0xb08a3a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Schlund>> SCHLUND = typ("schlund", de.deadzonemc.monster.boss.Schlund::new, 2.0F, 5.0F, 0xb08a78, 0x6a5440);
@@ -146,6 +149,9 @@ public final class MonsterTypen {
         e.put(SPAEHERDROHNE.get(), Spaeherdrohne.attribute().build());
         e.put(LICHTMOTTE.get(), Lichtmotte.attribute().build());
         e.put(SCHEINTOTER.get(), Scheintoter.attribute().build());
+        e.put(TARNFRESSER.get(), Tarnfresser.attribute().build());
+        e.put(SCHWARMMUTTER.get(), de.deadzonemc.monster.boss.Schwarmmutter.attribute().build());
+        e.put(PILOT.get(), de.deadzonemc.monster.boss.Pilot.attribute().build());
         e.put(VERSCHMOLZENER.get(), de.deadzonemc.monster.boss.Verschmolzener.attribute().build());
         e.put(NEBELMUTTER.get(), de.deadzonemc.monster.boss.Nebelmutter.attribute().build());
         e.put(STRAHLENDE.get(), de.deadzonemc.monster.boss.Strahlende.attribute().build());
@@ -184,6 +190,14 @@ public final class MonsterTypen {
         normal(e, SAUGER.get());
         normal(e, SEUCHENTRAEGER.get());
         normal(e, SCHEINTOTER.get());
+        // Tarnfresser: auch tagsüber, aber nur auf natürlichem Boden (Gras, Erde, Moos, Laub)
+        e.register(TARNFRESSER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (typ, level, grund, pos, zufall) -> Monster.checkAnyLightMonsterSpawnRules(typ, level, grund, pos, zufall)
+                        && (grund == net.minecraft.world.entity.MobSpawnType.SPAWNER
+                        || level.getBlockState(pos.below()).is(net.minecraft.tags.BlockTags.DIRT)
+                        || level.getBlockState(pos.below()).is(net.minecraft.tags.BlockTags.LEAVES))
+                        && zufall.nextInt(2) == 0,
+                RegisterSpawnPlacementsEvent.Operation.REPLACE);
         e.register(WUEHLER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (typ, level, grund, pos, zufall) -> Monster.checkMonsterSpawnRules(typ, level, grund, pos, zufall)
                         && (grund == net.minecraft.world.entity.MobSpawnType.SPAWNER

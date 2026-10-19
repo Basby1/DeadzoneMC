@@ -44,5 +44,11 @@
  "bossmod.deadzonemc.das_herz.ruestung": "Feuerschaden halbiert, ab 2 Teilen immun",
  "item.deadzonemc.trophaee_der_ursprung": "Leerenkern",
  "bossmod.deadzonemc.der_ursprung.waffe": "+25 % Schaden gegen alles",
- "bossmod.deadzonemc.der_ursprung.ruestung": "Fallschaden halbiert, ab 2 Teilen keiner"
+ "bossmod.deadzonemc.der_ursprung.ruestung": "Fallschaden halbiert, ab 2 Teilen keiner",
+ "item.deadzonemc.trophaee_schwarmmutter": "Brutkern",
+ "bossmod.deadzonemc.schwarmmutter.waffe": "Schwarmbiss: 30 % des Schadens trifft auch Gegner daneben",
+ "bossmod.deadzonemc.schwarmmutter.ruestung": "Augen der Tiefe: Nachtsicht im Dunkeln",
+ "item.deadzonemc.trophaee_pilot": "Flugschreiber",
+ "bossmod.deadzonemc.pilot.waffe": "Bordgeschütz: +15 % Schaden mit Schusswaffen",
+ "bossmod.deadzonemc.pilot.ruestung": "Notabsprung: im Fall schleichen öffnet einen Fallschirm"
 }

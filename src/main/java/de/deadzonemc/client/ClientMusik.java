@@ -69,8 +69,8 @@ public final class ClientMusik {
         String art = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(naechster.getType()).getPath();
         return switch (art) {
             case "erfrorene", "nebelmutter" -> frost;
-            case "schlaechter", "verschmolzener", "brutkoenigin", "schlund", "pilzvater" -> fleisch;
-            case "kommandant", "strahlende", "hirte" -> marsch;
+            case "schlaechter", "verschmolzener", "brutkoenigin", "schlund", "pilzvater", "schwarmmutter" -> fleisch;
+            case "kommandant", "strahlende", "hirte", "pilot" -> marsch;
             default -> endkampf;
         };
     }

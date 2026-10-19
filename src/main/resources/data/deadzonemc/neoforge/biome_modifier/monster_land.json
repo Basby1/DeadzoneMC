@@ -13,6 +13,12 @@
    "weight": 30,
    "minCount": 1,
    "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:tarnfresser",
+   "weight": 22,
+   "minCount": 1,
+   "maxCount": 1
   }
  ]
 }

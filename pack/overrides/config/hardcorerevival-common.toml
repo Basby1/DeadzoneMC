@@ -1,0 +1,26 @@
+# Deadzone MC: Wer am Boden liegt, kann von Mitspielern gerettet werden – steht aber geschwächt wieder auf.
+# Allein (Einzelspieler oder als Einzige auf dem Server) gibt es kein Liegenbleiben: niemand könnte helfen.
+consecutiveKnockoutThresholdSeconds = 40
+enderPearlsVanishOnKnockout = true
+rescueActionTicks = 60
+continueTimerWhileOffline = false
+allowUnarmedMelee = false
+rescueRespawnEffects = ["minecraft:hunger|600|0", "minecraft:weakness|2400|0", "minecraft:slowness|600|0", "minecraft:mining_fatigue|1200|0"]
+instantDeathEntityTypes = []
+rescueRespawnHealth = 4
+allowTeleports = true
+disableInLonelyMultiplayer = true
+secondsUntilDeath = 90
+instantDeathSources = ["minecraft:lava", "minecraft:out_of_world"]
+multiplyTimerOnConsecutiveKnockout = 0.5
+resumeTimerOnConsecutiveKnockout = false
+allowBows = false
+rescueRespawnFoodLevel = 5
+rescueDistance = 3.0
+disableInSingleplayer = true
+glowOnKnockout = true
+allowPistols = true
+allowCommands = true
+disableInNonHardcore = false
+allowAcceptingFate = true
+rescueRespawnFoodLevelDecrease = 0

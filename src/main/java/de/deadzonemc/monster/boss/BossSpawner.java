@@ -98,6 +98,30 @@ public final class BossSpawner {
             }
             return;
         }
+        // Metro: in den U-Bahn-Tunneln unter der Stadt nistet die Schwarmmutter
+        if (!w.canSeeSky(pos) && Staedte.istStadt(w, pos.getX() >> 4, pos.getZ() >> 4)) {
+            Integer strasse = Staedte.strassenhoehe(w, pos.getX() >> 4, pos.getZ() >> 4);
+            if (strasse != null && pos.getY() < strasse - 5) {
+                if (r < 12) {
+                    BlockPos platz = tunnelPlatz(w, p);
+                    if (platz != null) {
+                        erscheinenBei(w, p, "schwarmmutter", MonsterTypen.SCHWARMMUTTER::get, platz);
+                    }
+                }
+                return;
+            }
+        }
+        // Abgestürzter Transporthubschrauber: der Pilot steigt aus dem Feuer, das Signalfeuer erlischt
+        if (w.canSeeSky(pos) && r < 350) {
+            BlockPos feuer = hubschrauberFeuer(w, pos);
+            if (feuer != null && darf(w, p, "pilot")) {
+                BlockPos platz = neben(w, feuer, 4);
+                if (platz != null && erscheinenBei(w, p, "pilot", MonsterTypen.PILOT::get, platz) != null) {
+                    w.setBlock(feuer, w.getBlockState(feuer).setValue(net.minecraft.world.level.block.CampfireBlock.LIT, false), 3);
+                }
+                return;
+            }
+        }
         if (nebel && nacht && (biom.is(tag(DeadzoneMC.MODID, "verseucht")) || biom.is(tag(DeadzoneMC.MODID, "totwald"))
                 || biom.is(tag(DeadzoneMC.MODID, "sumpfwald"))) && r < 7) {
             erscheinen(w, p, "nebelmutter", MonsterTypen.NEBELMUTTER::get, 30);
@@ -148,6 +172,75 @@ public final class BossSpawner {
             w.addFreshEntity(b);
             vermerken(w, p, art);
             return b;
+        }
+        return null;
+    }
+
+    /** Ein freier Platz im Tunnel, 14–26 Blöcke vom Spieler entfernt in einer der vier Himmelsrichtungen. */
+    private static BlockPos tunnelPlatz(ServerLevel w, ServerPlayer p) {
+        var richtungen = new java.util.ArrayList<>(net.minecraft.core.Direction.Plane.HORIZONTAL.stream().toList());
+        java.util.Collections.shuffle(richtungen, new java.util.Random(w.random.nextLong()));
+        for (var richtung : richtungen) {
+            for (int d = 26; d >= 14; d -= 3) {
+                for (int dy = -1; dy <= 1; dy++) {
+                    BlockPos q = p.blockPosition().relative(richtung, d).above(dy);
+                    if (w.getBlockState(q.below()).isSolid() && raum(w, q, 2, 2)) {
+                        return q;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /** Ist um {@code q} herum Platz (Breite in jede Richtung, Höhe)? */
+    private static boolean raum(ServerLevel w, BlockPos q, int halb, int hoehe) {
+        for (int dx = -halb + 1; dx < halb; dx++) {
+            for (int dz = -halb + 1; dz < halb; dz++) {
+                for (int dy = 0; dy < hoehe; dy++) {
+                    if (!w.getBlockState(q.offset(dx, dy, dz)).getCollisionShape(w, q.offset(dx, dy, dz)).isEmpty()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /** Sucht das brennende Signalfeuer eines abgestürzten Hubschraubers (Lagerfeuer auf Heu, Rotormast daneben). */
+    private static BlockPos hubschrauberFeuer(ServerLevel w, BlockPos um) {
+        BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
+        for (int dx = -20; dx <= 20; dx++) {
+            for (int dz = -20; dz <= 20; dz++) {
+                int boden = w.getHeight(Heightmap.Types.MOTION_BLOCKING, um.getX() + dx, um.getZ() + dz) - 1;
+                m.set(um.getX() + dx, boden, um.getZ() + dz);
+                var zustand = w.getBlockState(m);
+                if (!zustand.is(net.minecraft.world.level.block.Blocks.CAMPFIRE)
+                        || !zustand.getValue(net.minecraft.world.level.block.CampfireBlock.LIT)
+                        || !zustand.getValue(net.minecraft.world.level.block.CampfireBlock.SIGNAL_FIRE)
+                        || !w.getBlockState(m.below()).is(net.minecraft.world.level.block.Blocks.HAY_BLOCK)) {
+                    continue;
+                }
+                BlockPos f = m.immutable();
+                for (BlockPos q : BlockPos.betweenClosed(f.offset(-3, 0, -3), f.offset(3, 0, 3))) {
+                    if (w.getBlockState(q).is(net.minecraft.world.level.block.Blocks.IRON_BLOCK)) {
+                        return f;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /** Ein freier Platz auf dem Boden in der Nähe. */
+    private static BlockPos neben(ServerLevel w, BlockPos zentrum, int radius) {
+        for (int versuch = 0; versuch < 20; versuch++) {
+            int x = zentrum.getX() + w.random.nextInt(radius * 2 + 1) - radius;
+            int z = zentrum.getZ() + w.random.nextInt(radius * 2 + 1) - radius;
+            BlockPos q = new BlockPos(x, w.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
+            if (Math.abs(q.getY() - zentrum.getY()) < 6 && w.getBlockState(q.below()).isSolid() && raum(w, q, 1, 3)) {
+                return q;
+            }
         }
         return null;
     }

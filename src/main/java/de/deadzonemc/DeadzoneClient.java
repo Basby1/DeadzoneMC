@@ -139,6 +139,9 @@ public class DeadzoneClient {
         e.registerEntityRenderer(MonsterTypen.STRAHLENDE.get(), c -> new MonsterRenderer<>(c, "strahlende", true, false, 1.3F));
         e.registerEntityRenderer(MonsterTypen.BRUTKOENIGIN.get(), c -> new MonsterRenderer<>(c, "brutkoenigin", true, false, 1.6F));
         e.registerEntityRenderer(MonsterTypen.SCHLAECHTER.get(), c -> new MonsterRenderer<>(c, "schlaechter", true, false, 1.0F));
+        e.registerEntityRenderer(MonsterTypen.TARNFRESSER.get(), c -> new MonsterRenderer<>(c, "tarnfresser", true, false, 0.7F));
+        e.registerEntityRenderer(MonsterTypen.SCHWARMMUTTER.get(), c -> new MonsterRenderer<>(c, "schwarmmutter", true, false, 1.6F));
+        e.registerEntityRenderer(MonsterTypen.PILOT.get(), c -> new MonsterRenderer<>(c, "pilot", true, false, 0.8F));
         e.registerEntityRenderer(MonsterTypen.KOMMANDANT.get(), c -> new MonsterRenderer<>(c, "kommandant", true, false, 0.9F));
         e.registerEntityRenderer(MonsterTypen.HIRTE.get(), c -> new MonsterRenderer<>(c, "hirte", true, false, 0.6F));
         e.registerEntityRenderer(MonsterTypen.SCHLUND.get(), c -> new MonsterRenderer<>(c, "schlund", false, false, 1.6F));

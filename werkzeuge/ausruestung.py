@@ -380,10 +380,12 @@ DROPS = {
     "spaeherdrohne": [("drohnenteile", 0.8, 1, 2), ("elektronik", 0.4), ("batterie", 0.3)],
     "lichtmotte": [("mottenstaub", 0.8, 1, 2)],
     "scheintoter": [("stoffreste", 0.4), ("knochensplitter", 0.4), ("militaerpatrone", 0.1, 1, 2)],
+    "tarnfresser": [("sehne", 0.5), ("mutantenhaut", 0.3), ("knochensplitter", 0.3, 1, 2)],
 }
 BOSSE = {"verschmolzener": "mutantenhaut", "nebelmutter": "mottenstaub", "strahlende": "strahlenkristall",
          "brutkoenigin": "chitinplatte", "schlaechter": "sehne", "kommandant": "panzerplatte", "hirte": "knochensplitter",
-         "schlund": "chitinplatte", "pilzvater": "sporenbeutel", "erfrorene": "mutantenhaut"}
+         "schlund": "chitinplatte", "pilzvater": "sporenbeutel", "erfrorene": "mutantenhaut",
+         "schwarmmutter": "chitinplatte", "pilot": "drohnenteile"}
 
 
 def drops():

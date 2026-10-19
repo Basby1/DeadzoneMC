@@ -10,11 +10,12 @@ import shutil
 W = os.path.dirname(os.path.abspath(__file__))
 A = os.path.join(W, "..", "src", "main", "resources", "assets", "deadzonemc")
 BOSSE = ["schlaechter", "erfrorene", "pilzvater", "nebelmutter", "schlund", "brutkoenigin", "strahlende", "hirte",
-         "kommandant", "verschmolzener", "das_herz", "der_ursprung"]
+         "kommandant", "verschmolzener", "das_herz", "der_ursprung", "schwarmmutter", "pilot"]
 NAMEN = {"schlaechter": "Kopf des Schlächters", "erfrorene": "Kopf des Erfrorenen", "pilzvater": "Kopf des Pilzvaters",
          "nebelmutter": "Kopf der Nebelmutter", "schlund": "Maul des Schlunds", "brutkoenigin": "Kopf der Brutkönigin",
          "strahlende": "Kopf des Strahlenden", "hirte": "Kopf des Hirten", "kommandant": "Helm des Kommandanten",
-         "verschmolzener": "Köpfe des Verschmolzenen", "das_herz": "Haupt des Herzens der Zone", "der_ursprung": "Haupt des Ursprungs"}
+         "verschmolzener": "Köpfe des Verschmolzenen", "das_herz": "Haupt des Herzens der Zone", "der_ursprung": "Haupt des Ursprungs",
+         "schwarmmutter": "Kopf der Schwarmmutter", "pilot": "Helm des Piloten"}
 ERLAUBT = [-45, -22.5, 0, 22.5, 45]
 
 

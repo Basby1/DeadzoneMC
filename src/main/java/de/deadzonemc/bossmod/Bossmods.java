@@ -44,7 +44,7 @@ public final class Bossmods {
 
     /** Alle Bosse mit Trophäe (Reihenfolge = Kreativ-Tab). */
     public static final List<String> BOSSE = List.of("schlaechter", "erfrorene", "pilzvater", "nebelmutter", "schlund",
-            "brutkoenigin", "strahlende", "hirte", "kommandant", "verschmolzener", "das_herz", "der_ursprung");
+            "brutkoenigin", "strahlende", "hirte", "kommandant", "verschmolzener", "das_herz", "der_ursprung", "schwarmmutter", "pilot");
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(DeadzoneMC.MODID);
     public static final DeferredRegister<DataComponentType<?>> KOMPONENTEN =
@@ -161,6 +161,24 @@ public final class Bossmods {
                     case "kommandant" -> event.setAmount(menge * 1.1F);
                     case "das_herz" -> ziel.igniteForSeconds(4);
                     case "der_ursprung" -> event.setAmount(menge * 1.25F);
+                    case "schwarmmutter" -> {
+                        if (!splitter) {
+                            splitter = true;
+                            try {
+                                for (LivingEntity daneben : ziel.level().getEntitiesOfClass(LivingEntity.class,
+                                        ziel.getBoundingBox().inflate(2.5), e -> e != ziel && e != p && e instanceof net.minecraft.world.entity.monster.Enemy)) {
+                                    daneben.hurt(p.damageSources().playerAttack(p), menge * 0.3F);
+                                }
+                            } finally {
+                                splitter = false;
+                            }
+                        }
+                    }
+                    case "pilot" -> {
+                        if (p.getMainHandItem().getItem() instanceof de.deadzonemc.waffen.feuer.SchusswaffeItem) {
+                            event.setAmount(menge * 1.15F);
+                        }
+                    }
                     default -> {
                     }
                 }
@@ -192,6 +210,9 @@ public final class Bossmods {
         }
     }
 
+    /** Schutz gegen Kettenreaktionen beim Schwarmbiss (Folgeschaden löst sonst wieder Folgeschaden aus). */
+    private static boolean splitter;
+
     private static void tod(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player p && event.getEntity() != p) {
             if ("verschmolzener".equals(mod(p.getMainHandItem()))) {
@@ -205,7 +226,15 @@ public final class Bossmods {
 
     private static void tick(PlayerTickEvent.Post event) {
         Player p = event.getEntity();
-        if (p.level().isClientSide || p.tickCount % 20 != 3) {
+        if (p.level().isClientSide) {
+            return;
+        }
+        // Notabsprung: wer im freien Fall schleicht, schwebt am Fallschirm
+        if (p.fallDistance > 4 && p.isShiftKeyDown() && !p.onGround() && ruestung(p, "pilot") > 0) {
+            p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 30, 0, true, false, true));
+            p.fallDistance = 0;
+        }
+        if (p.tickCount % 20 != 3) {
             return;
         }
         if (ruestung(p, "erfrorene") > 0) {
@@ -213,6 +242,9 @@ public final class Bossmods {
         }
         if (ruestung(p, "pilzvater") > 0) {
             p.removeEffect(MobEffects.POISON);
+        }
+        if (ruestung(p, "schwarmmutter") > 0 && p.level().getMaxLocalRawBrightness(p.blockPosition()) < 6) {
+            p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 260, 0, true, false, true));
         }
         if (ruestung(p, "nebelmutter") > 0 && p.isShiftKeyDown()
                 && p.level().getMaxLocalRawBrightness(p.blockPosition()) < 8) {

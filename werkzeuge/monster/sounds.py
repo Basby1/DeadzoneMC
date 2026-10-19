@@ -167,6 +167,22 @@ SOUNDS = {
     "erfrorene.step": reihe("mob/stray/step", 4, 0.6),
     "erfrorene.brullen": warden("roar", 5, 1.3),
     "erfrorene.atem": reihe("mob/blaze/breathe", 4, 1.6) + reihe("random/glass", 3, 0.7),
+    "tarnfresser.hurt": reihe("dig/wood", 4, 0.6),
+    "tarnfresser.death": reihe("dig/wood", 4, 0.45),
+    "tarnfresser.knacken": reihe("step/wood", 6, 0.5, 0.6),
+    "tarnfresser.schreck": eins("mob/endermen/scream1", 0.6) + eins("mob/ravager/roar1", 1.4),
+    "schwarmmutter.ambient": reihe("mob/silverfish/say", 4, 0.4),
+    "schwarmmutter.hurt": reihe("mob/silverfish/hit", 3, 0.3),
+    "schwarmmutter.death": eins("mob/spider/death", 0.25),
+    "schwarmmutter.step": reihe("mob/spider/step", 4, 0.4),
+    "schwarmmutter.brullen": reihe("mob/ravager/roar", 4, 1.0),
+    "schwarmmutter.legen": reihe("mob/slime/big", 4, 0.35) + reihe("mob/silverfish/say", 4, 0.9),
+    "pilot.ambient": reihe("mob/zombie/say", 3, 0.55),
+    "pilot.hurt": reihe("mob/irongolem/hit", 4, 0.9),
+    "pilot.death": eins("mob/irongolem/death", 0.7),
+    "pilot.step": reihe("mob/irongolem/walk", 4, 1.1),
+    "pilot.brullen": reihe("mob/ravager/roar", 4, 0.7),
+    "pilot.wirbel": eins("item/trident/riptide1", 0.6) + eins("item/trident/riptide2", 0.6),
 }
 
 

@@ -829,10 +829,95 @@ def erfrorene():
         "koerper", "scale", {0: (1, 1, 1), 3.0: (1, 1, 1)}))]
 
 
+
+
+def tarnfresser():
+    idle = Anim("idle", 4.0)  # hockt reglos, nur die Zweige wiegen sich
+    atmen(idle, "oberkoerper", 0.8)
+    for i in range(3):
+        idle.welle(f"zweig_{i}", "z", 4, phase=i * 0.3)
+    gang = Anim("walk", 1.2)  # krabbelt auf Händen und Füßen
+    gang.welle("arm_rechts", "x", 24)
+    gang.welle("arm_links", "x", 24, phase=0.5)
+    gang.welle("bein_rechts", "x", 16, phase=0.5)
+    gang.welle("bein_links", "x", 16)
+    gang.welle("kopf", "y", 8, phase=0.25)
+    gang.welle("koerper", "y", 0.8, art="position", frequenz=2, form="abs")
+    lauf = Anim("run", 0.55)
+    lauf.welle("arm_rechts", "x", 36)
+    lauf.welle("arm_links", "x", 36, phase=0.5)
+    lauf.welle("bein_rechts", "x", 24, phase=0.5)
+    lauf.welle("bein_links", "x", 24)
+    lauf.welle("koerper", "y", 1.6, art="position", frequenz=2, form="abs")
+    angriff = Anim("attack", 0.6, schleife=False)  # beide Hakenarme reißen nach unten
+    for arm, t0 in (("arm_rechts", 0.0), ("arm_links", 0.08)):
+        angriff.tasten(arm, "rotation", {0: (0, 0, 0), 0.15 + t0: (60, 0, 0), 0.32 + t0: (-45, 0, 0), 0.6: (0, 0, 0)})
+    angriff.tasten("kopf", "rotation", {0: (0, 0, 0), 0.2: (-15, 0, 0), 0.6: (0, 0, 0)})
+    sprung = Anim("special", 1.0, schleife=False)  # aus der Tarnung hervorschnellen
+    sprung.tasten("koerper", "position", {0: (0, -3, 0), 0.18: (0, 5, -6), 0.55: (0, 0, -2), 1.0: (0, 0, 0)})
+    sprung.tasten("oberkoerper", "rotation", {0: (-15, 0, 0), 0.18: (40, 0, 0), 0.55: (10, 0, 0), 1.0: (0, 0, 0)})
+    sprung.tasten("kopf", "rotation", {0: (0, 0, 0), 0.18: (-30, 0, 0), 0.4: (-10, 0, 20), 1.0: (0, 0, 0)})
+    for arm, s in (("arm_rechts", 1), ("arm_links", -1)):
+        sprung.tasten(arm, "rotation", {0: (0, 0, 0), 0.18: (70, 0, s * 45), 0.6: (30, 0, s * 20), 1.0: (0, 0, 0)})
+    return [idle, gang, lauf, angriff, sprung]
+
+
+def schwarmmutter():
+    idle = Anim("idle", 2.6)
+    idle.tasten("brutsack", "scale", {0: (1, 1, 1), 1.3: (1.05, 1.07, 1.04), 2.6: (1, 1, 1)})
+    for i in range(5):
+        idle.welle(f"schwanz_{i}", "y", 6 + i * 2, phase=i * 0.12)
+        idle.welle(f"junges_{i}", "y", 25, phase=i * 0.2, frequenz=2)
+    idle.welle("kopf", "x", 4)
+    gang = Anim("walk", 1.3)
+    for i in range(3):
+        for s, ph in (("r", 0), ("l", 0.5)):
+            gang.welle(f"bein_{i}_{s}", "y", 16, phase=ph + i * 0.33)
+            gang.welle(f"bein_{i}_{s}", "z", 10, phase=ph + i * 0.33 + 0.25)
+    for i in range(5):
+        gang.welle(f"schwanz_{i}", "y", 10 + i * 3, phase=i * 0.12)
+    gang.welle("brutsack", "z", 3)
+    biss = Anim("attack", 0.7, schleife=False)
+    biss.tasten("kopf", "rotation", {0: (0, 0, 0), 0.25: (-20, 0, 0), 0.4: (25, 0, 0), 0.7: (0, 0, 0)})
+    biss.tasten("kopf", "position", {0: (0, 0, 0), 0.4: (0, 0, -3), 0.7: (0, 0, 0)})
+    legen = Anim("special", 2.0, schleife=False)  # Brutsack zieht sich zusammen, Brut quillt heraus
+    legen.tasten("brutsack", "scale", {0: (1, 1, 1), 0.8: (1.14, 0.88, 1.14), 1.2: (0.94, 1.08, 0.94), 2.0: (1, 1, 1)})
+    legen.tasten("hinterleib", "rotation", {0: (0, 0, 0), 0.8: (-15, 0, 0), 2.0: (0, 0, 0)})
+    for i in range(5):
+        legen.tasten(f"junges_{i}", "position", {0: (0, 0, 0), 0.8: (0, 2, 0), 1.2: (0, -1, 0), 2.0: (0, 0, 0)})
+    return [idle, gang, biss, legen, boss_auftritt("schwarmmutter", tiefe=-20)]
+
+
+def pilot():
+    idle = Anim("idle", 3.0)
+    atmen(idle, "oberkoerper", 1.5)
+    idle.welle("kopf", "y", 16)
+    for i in range(3):
+        idle.welle(f"kabel_{i}", "x", 6, phase=i * 0.3)
+    idle.welle("patronengurt", "x", 8)
+    gang = Anim("walk", 1.6)  # schwerer, schleppender Gang, das Rotorblatt schleift mit
+    gehen(gang, ["bein_rechts", "bein_links"], ["arm_rechts"], 20, 8, wippen=("koerper", 1.0))
+    gang.welle("oberkoerper", "z", 4)
+    for i in range(3):
+        gang.welle(f"kabel_{i}", "x", 10, phase=i * 0.3)
+    lauf = Anim("run", 0.9)
+    gehen(lauf, ["bein_rechts", "bein_links"], ["arm_rechts"], 32, 16, wippen=("koerper", 1.8))
+    lauf.welle("oberkoerper", "x", 3, mitte=-8)
+    feuer = Anim("attack", 0.5, schleife=False)  # Feuerstoß aus dem Bordgeschütz
+    feuer.tasten("arm_links", "rotation", {0: (0, 0, 0), 0.05: (6, 0, 0), 0.12: (0, 0, 0), 0.2: (6, 0, 0), 0.28: (0, 0, 0),
+                                          0.36: (6, 0, 0), 0.5: (0, 0, 0)})
+    feuer.tasten("patronengurt", "rotation", {0: (0, 0, 0), 0.1: (20, 0, 0), 0.3: (-15, 0, 0), 0.5: (0, 0, 0)})
+    wirbel = Anim("special", 1.2, schleife=False)  # Rotorblatt: wirbelt einmal um sich selbst
+    wirbel.tasten("koerper", "rotation", {0: (0, 0, 0), 0.25: (0, 30, 0), 0.6: (0, -180, 0), 0.95: (0, -360, 0), 1.2: (0, -360, 0)})
+    wirbel.tasten("arm_rechts", "rotation", {0: (0, 0, 0), 0.25: (40, 0, 70), 0.95: (40, 0, 70), 1.2: (0, 0, 0)})
+    return [idle, gang, lauf, feuer, wirbel, boss_auftritt("pilot", tiefe=-30, laenge=3.0)]
+
+
 ALLE.update({n: globals()[n] for n in (
     "gefallener_soldat", "glutleib", "seuchenhund", "wuehler", "sauger", "seuchentraeger", "ertrunkener",
     "spaeherdrohne", "lichtmotte", "scheintoter", "verschmolzener", "nebelmutter", "strahlende", "brutkoenigin",
-    "schlaechter", "kommandant", "hirte", "schlund", "pilzvater", "erfrorene")})
+    "schlaechter", "kommandant", "hirte", "schlund", "pilzvater", "erfrorene", "tarnfresser", "schwarmmutter",
+    "pilot")})
 
 
 def abwurfkiste():
@@ -854,7 +939,7 @@ ALLE["abwurfkiste"] = abwurfkiste
 # Werden aus den Knochen des jeweiligen Modells gebaut.
 
 BOSSE = ("verschmolzener", "nebelmutter", "strahlende", "brutkoenigin", "schlaechter", "kommandant", "hirte",
-         "schlund", "pilzvater", "erfrorene")
+         "schlund", "pilzvater", "erfrorene", "schwarmmutter", "pilot")
 
 
 def _knochen(name):

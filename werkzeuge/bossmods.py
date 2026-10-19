@@ -24,6 +24,9 @@ T = {  # id: (Name, Waffe, Rüstung)
     "verschmolzener": ("Verschmolzenes Herz", "Jeder Kill heilt 2 Herzen", "+1 Herz je Teil"),
     "das_herz": ("Glutherz", "Treffer setzen Gegner in Brand", "Feuerschaden halbiert, ab 2 Teilen immun"),
     "der_ursprung": ("Leerenkern", "+25 % Schaden gegen alles", "Fallschaden halbiert, ab 2 Teilen keiner"),
+    "schwarmmutter": ("Brutkern", "Schwarmbiss: 30 % des Schadens trifft auch Gegner daneben", "Augen der Tiefe: Nachtsicht im Dunkeln"),
+    "pilot": ("Flugschreiber", "Bordgeschütz: +15 % Schaden mit Schusswaffen",
+              "Notabsprung: im Fall schleichen öffnet einen Fallschirm"),
 }
 
 
@@ -85,6 +88,17 @@ def bild(art):
         d.ellipse((3, 3, 13, 13), fill=c("3a1a4a"), outline=c("c060ff"))
         d.ellipse((6, 6, 10, 10), fill=c("c060ff"))
         d.point([(7, 7)], fill=c("f0d8ff"))
+    elif art == "schwarmmutter":  # glühender Brutkern mit Larven
+        d.ellipse((2, 3, 14, 14), fill=c("c8b090"), outline=c("6a4a30"))
+        d.ellipse((5, 6, 11, 12), fill=c("ffb84a"))
+        d.ellipse((7, 8, 9, 10), fill=c("fff0a0"))
+        d.point([(4, 5), (12, 6), (3, 10), (12, 11)], fill=c("8a3a3a"))
+    elif art == "pilot":  # Flugschreiber: orange Kiste mit Streifen
+        d.rectangle((2, 4, 13, 13), fill=c("e8701a"), outline=c("5a2a0a"))
+        d.line([(2, 7), (13, 7)], fill=c("f0e8d0"))
+        d.line([(2, 10), (13, 10)], fill=c("f0e8d0"))
+        d.rectangle((6, 2, 9, 4), fill=c("3a3a3a"))
+        d.point([(11, 12)], fill=c("ff3a2a"))
     return b
 
 
