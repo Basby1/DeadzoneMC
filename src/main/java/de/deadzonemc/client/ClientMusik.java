@@ -16,8 +16,6 @@ import net.neoforged.neoforge.client.event.SelectMusicEvent;
  */
 public final class ClientMusik {
 
-    private static final int RUHE_MIN = 60 * 20;
-    private static final int RUHE_MAX = 3 * 60 * 20;
 
     private static Music gefecht;
     private static Music endkampf;
@@ -104,6 +102,8 @@ public final class ClientMusik {
 
     private static void anlegen() {
         if (gefecht == null) {
+            final int RUHE_MAX = ClientEinstellungen.musikPauseTicks();
+            final int RUHE_MIN = RUHE_MAX / 3;
             gefecht = new Music(Musik.GEFECHT, 0, 0, true);
             endkampf = new Music(Musik.ENDKAMPF, 0, 0, true);
             tief = new Music(Musik.TIEF, RUHE_MIN, RUHE_MAX, false);

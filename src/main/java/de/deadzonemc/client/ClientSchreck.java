@@ -41,6 +41,9 @@ public final class ClientSchreck {
     }
 
     public static void kamera(ViewportEvent.ComputeCameraAngles event) {
+        if (!ClientEinstellungen.an(ClientEinstellungen.SCHRECK_EFFEKTE)) {
+            return;
+        }
         float a = anteil(event.getPartialTick());
         if (a <= 0) {
             return;
@@ -52,6 +55,9 @@ public final class ClientSchreck {
     }
 
     public static void bild(RenderGuiEvent.Post event) {
+        if (!ClientEinstellungen.an(ClientEinstellungen.SCHRECK_EFFEKTE)) {
+            return;
+        }
         float a = anteil(event.getPartialTick().getGameTimeDeltaPartialTick(true));
         if (a <= 0 || !blitz) {
             return;

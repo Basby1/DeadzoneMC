@@ -42,6 +42,10 @@ public final class ClientAtmosphaere {
         if (--warten > 0) {
             return;
         }
+        if (!ClientEinstellungen.an(ClientEinstellungen.FERNE_GERAEUSCHE)) {
+            warten = 600;
+            return;
+        }
         long zeit = mc.level.getDayTime() % 24000L;
         boolean nacht = zeit > 13000 && zeit < 23000;
         boolean nebel = ClientWetter.art().sicht() < 20; // dichter Nebel, Aschesturm

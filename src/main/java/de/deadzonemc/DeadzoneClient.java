@@ -13,7 +13,10 @@ import de.deadzonemc.monster.MonsterTypen;
 @Mod(value = DeadzoneMC.MODID, dist = Dist.CLIENT)
 public class DeadzoneClient {
 
-    public DeadzoneClient(IEventBus modBus) {
+    public DeadzoneClient(IEventBus modBus, net.neoforged.fml.ModContainer container) {
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.CLIENT, de.deadzonemc.client.ClientEinstellungen.SPEC);
+        container.registerExtensionPoint(net.neoforged.neoforge.client.gui.IConfigScreenFactory.class,
+                net.neoforged.neoforge.client.gui.ConfigurationScreen::new);
         NeoForge.EVENT_BUS.addListener(ClientWetter::tick);
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebel);
         NeoForge.EVENT_BUS.addListener(ClientWetter::nebelFarbe);

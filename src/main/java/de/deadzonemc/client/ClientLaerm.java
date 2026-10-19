@@ -44,6 +44,9 @@ public final class ClientLaerm {
     }
 
     private static void zeichnen(GuiGraphics g) {
+        if (!ClientEinstellungen.an(ClientEinstellungen.LAERM_ANZEIGE)) {
+            return;
+        }
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null || mc.player == null || mc.options.hideGui) {
             return;

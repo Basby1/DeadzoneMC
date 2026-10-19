@@ -1,0 +1,15 @@
+{
+ "deadzonemc.configuration.title": "Deadzone MC – Einstellungen",
+ "deadzonemc.configuration.section.deadzonemc.client.toml": "Darstellung und Klang",
+ "deadzonemc.configuration.section.deadzonemc.client.toml.title": "Darstellung und Klang",
+ "deadzonemc.configuration.laermAnzeige": "Lärm-Leiste anzeigen",
+ "deadzonemc.configuration.laermAnzeige.tooltip": "Zeigt neben der Schnellleiste, wie weit dein Lärm zu hören ist.",
+ "deadzonemc.configuration.ferneGeraeusche": "Ferne Geräusche",
+ "deadzonemc.configuration.ferneGeraeusche.tooltip": "Schüsse, Schreie, Sirenen, Flüstern und andere Klänge aus der Umgebung.",
+ "deadzonemc.configuration.schreckEffekte": "Schreckeffekte",
+ "deadzonemc.configuration.schreckEffekte.tooltip": "Bildschirmwackeln und Aufblitzen bei Schreckmomenten.",
+ "deadzonemc.configuration.musikPause": "Musikpause (Minuten)",
+ "deadzonemc.configuration.musikPause.tooltip": "Längste Pause zwischen zwei Musikstücken. Gilt nach einem Neustart des Spiels.",
+ "subtitles.deadzonemc.mutation": "Mutierter Infizierter",
+ "monster.deadzonemc.mutation.hinweis": "Je länger die Welt besteht, desto öfter mutieren die Infizierten: größer, zäher, schneller. Hochmutierte erkennt man am dunkelroten Dunst."
+}

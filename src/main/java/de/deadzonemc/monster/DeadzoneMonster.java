@@ -71,6 +71,7 @@ public abstract class DeadzoneMonster extends Monster implements GeoEntity {
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
+        Mutation.tick(this);
         if (laermZiel != null) {
             if (--laermRest <= 0 || getTarget() != null || position().distanceToSqr(laermZiel) < 4) {
                 laermZiel = null;
