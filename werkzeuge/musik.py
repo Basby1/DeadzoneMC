@@ -210,8 +210,13 @@ class Stueck:
         ir /= np.sqrt(np.sum(ir ** 2))
         return fftconvolve(x, ir)[:len(x)]
 
-    def speichern(self, name, hall=4.5, nass=0.6, einblenden=5.0, ausblenden=8.0, pegel=0.7):
+    def speichern(self, name, hall=4.5, nass=0.6, einblenden=5.0, ausblenden=8.0, pegel=0.7, verdichten=0.0):
         trocken = hochpass(self.spur, 32)
+        if verdichten:
+            # leise Stellen anheben, Spitzen zähmen (Hüllkurve über ~0,4 s)
+            huelle = np.sqrt(tiefpass(trocken ** 2, 2.5, 1)).clip(1e-6)
+            ziel = np.max(huelle)
+            trocken = trocken * (huelle / ziel) ** -verdichten
         links = 0.55 * trocken + nass * self.hall(trocken, hall, 1)
         rechts = 0.55 * trocken + nass * self.hall(trocken, hall, 2)
         stereo = np.stack([links, rechts], axis=1) * huellkurve(self.dauer, einblenden, ausblenden)[:self.n, None]
@@ -457,46 +462,173 @@ def endkampf():
     s.speichern("endkampf", hall=3.0, nass=0.45, einblenden=1.0, ausblenden=4.0, pegel=0.85)
 
 
+def _saege(f, tt, obertoene=28):
+    """Bandbegrenzte Sägezahnwelle (blechern, wie tiefe Hörner/Bässe)."""
+    x = np.zeros(len(tt))
+    for k in range(1, obertoene + 1):
+        if f * k > 9000:
+            break
+        x += np.sin(2 * np.pi * f * k * tt) / k
+    return x
+
+
+def _braam(s, start, noten, laenge=7.0, hell=1800, lautst=1.0):
+    """Schweres, verzerrtes Blech wie ein Nebelhorn der Apokalypse: Sägezähne, die sich öffnen und wieder schließen."""
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    x = np.zeros(n)
+    for note in noten:
+        for verst in (-0.006, 0.0, 0.007):
+            x += _saege(hz(note) * (1 + verst), tt + s.rng.random())
+    zu = tiefpass(x, 260)
+    auf = tiefpass(x, hell)
+    offen = np.minimum(1, tt / 0.6) * np.exp(-tt / (laenge * 0.35))
+    x = zu * (1 - offen) + auf * offen
+    x = np.tanh(x * 0.5)
+    s.dazu(start, x * huellkurve(laenge, 0.12, laenge * 0.6), lautst)
+
+
+def _shepard(s, von, bis, lautst, tempo=-0.018, f_min=40.0, lagen=7):
+    """Endlos fallender Ton (Shepard-Glissando): man hat das Gefühl, immer tiefer zu sinken."""
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    x = np.zeros(j - i)
+    for k in range(lagen):
+        lage = (k + tempo * tt) % lagen
+        f = f_min * 2 ** lage
+        gew = np.exp(-0.5 * ((lage - lagen / 2) / (lagen / 5)) ** 2)
+        x += gew * np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.3 * gew * np.sin(4 * np.pi * np.cumsum(f * 1.003) / SR)
+    x *= huellkurve(bis - von, 6.0, 4.0)[:len(x)]
+    s.spur[i:j] += tiefpass(x, 2200) * lautst
+
+
+def _stoehnen(s, start, lautst, tief=1.0):
+    """Eine ferne, stöhnende Stimme der Horde: gleitender Grundton durch Vokalformanten."""
+    laenge = s.rng.uniform(1.6, 4.5)
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    f0 = s.rng.uniform(85, 150) * tief
+    f = f0 * (1 + 0.35 * np.exp(-tt * 1.5) - 0.25 * tt / laenge) * (1 + 0.025 * np.sin(2 * np.pi * s.rng.uniform(4, 7) * tt))
+    phase = 2 * np.pi * np.cumsum(f) / SR
+    roh = sum(np.sin(k * phase) / k ** 0.9 for k in range(1, 26))
+    roh += bandpass(s.rng.normal(0, 1, n), 300, 3000) * 0.6
+    vokal = s.rng.choice([(350, 700, 2400), (600, 1000, 2500), (450, 850, 2600)])
+    x = sum(bandpass(roh, v * 0.85, v * 1.15) * a for v, a in zip(vokal, (1.0, 0.6, 0.15)))
+    x = np.tanh(x * 2.5) * huellkurve(laenge, laenge * 0.3, laenge * 0.5)
+    s.dazu(start, tiefpass(x, 1600), lautst * s.rng.uniform(0.5, 1.0))
+
+
+def _horde(s, von, bis, dichte, lautst):
+    t0 = von
+    while t0 < bis:
+        _stoehnen(s, t0, lautst, tief=s.rng.uniform(0.8, 1.2))
+        t0 += s.rng.exponential(1.0 / dichte)
+
+
+def _schrei(s, start, lautst):
+    """Ein Schreier in der Ferne: kreischender, abfallender Laut."""
+    laenge = 2.4
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    f = 1250 * np.exp(-tt * 0.45) * (1 + 0.04 * np.sin(2 * np.pi * 11 * tt))
+    phase = 2 * np.pi * np.cumsum(f) / SR
+    x = sum(np.sin(k * phase) / k for k in range(1, 9)) + bandpass(s.rng.normal(0, 1, n), 1500, 6000) * 0.8
+    x = np.tanh(bandpass(x, 900, 4200) * 3) * huellkurve(laenge, 0.08, 1.6)
+    s.dazu(start, tiefpass(x, 3500), lautst)
+
+
+def _sirene(s, start, laenge, lautst):
+    """Luftschutzsirene weit weg: langsam auf- und abschwellend."""
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    hub = 0.5 - 0.5 * np.cos(2 * np.pi * tt / laenge)
+    f = 180 + 420 * hub ** 0.7 + 6 * np.sin(2 * np.pi * 0.7 * tt)
+    phase = 2 * np.pi * np.cumsum(f) / SR
+    x = np.sin(phase) + 0.5 * np.sin(2 * phase) + 0.25 * np.sin(3 * phase) + 0.15 * np.sin(5 * phase)
+    x = tiefpass(x, 1400) * (0.3 + 0.7 * hub) * (0.85 + 0.15 * np.sin(2 * np.pi * 0.23 * tt))
+    s.dazu(start, x * huellkurve(laenge, 2.0, 3.0), lautst)
+
+
+def _geiger(s, von, bis, rate, lautst):
+    t0 = von
+    while t0 < bis:
+        n = int(0.004 * SR)
+        s.dazu(t0, s.rng.normal(0, 1, n) * np.exp(-np.arange(n) / SR * 1500), lautst)
+        t0 += s.rng.exponential(1.0 / rate)
+
+
+def _funk(s, start, laenge, lautst):
+    """Kaputter Funkkanal: Rauschen, Knacken und ein Notrufton, der abreißt."""
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    rausch = bandpass(s.rng.normal(0, 1, n), 600, 3400) * (0.6 + 0.4 * (s.rng.random(n) > 0.997))
+    ton = np.sin(2 * np.pi * 1020 * tt) * ((tt % 0.9) < 0.45) * (tt < laenge * 0.6)
+    x = (rausch * 0.7 + ton * 0.35) * huellkurve(laenge, 0.05, 0.4)
+    s.dazu(start, x, lautst)
+
+
 def titel_lobby():
-    """Neue Titelmusik (Lobby): melancholisches Klavier über tiefen Streichern in d-Moll, fernes Funkrauschen mit
-    Notruftönen, Wind und ein langsamer, schwerer Puls – Ruhe vor dem Sturm, nicht Schockeffekt."""
-    s = Stueck(180, 2026)
-    bpm = 64
-    takt = 4 * 60.0 / bpm
-    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.4)], 0.10, periode=30.0, hell=240)
-    streicher = [["D2", "A2", "F3", "D3"], ["Bb1", "F2", "D3", "Bb2"], ["G1", "D2", "Bb2", "G2"], ["A1", "E2", "C#3", "A2"]]
-    s.flaechen(streicher, takt * 2, 0.07, start=2.0, hell=1100, tremolo=0.05)
-    # Klavier: einfaches, trauriges Thema, das wiederkehrt und sich verdichtet
-    thema = [("D4", 0.0), ("F4", 0.75), ("A4", 1.5), ("G4", 2.6), ("F4", 3.3), ("E4", 4.0), ("D4", 5.4), ("A3", 6.2)]
-    antwort = [("Bb3", 0.0), ("D4", 0.75), ("F4", 1.5), ("E4", 2.6), ("D4", 3.3), ("C#4", 4.0), ("A3", 5.4)]
-    einsaetze = []
-    t0 = takt * 2
+    """Titelmusik (Lobby): ultimativ bedrohlich. Ein endlos fallender Ton, schweres verzerrtes Blech wie Nebelhörner,
+    eine Luftschutzsirene weit weg und – immer näher – das Stöhnen einer riesigen Horde. Ein Herzschlag, der schneller
+    wird, Kriegstrommeln, ein Schreier in der Ferne. Dann bricht alles ab: nur Rauschen, ein Geigerzähler und ein
+    Funkspruch, der nicht mehr durchkommt. Läuft nahtlos in Schleife."""
+    s = Stueck(180, 6660)
+    bpm = 60
+    takt = 4.0
+    # Fundament: Subbass mit Reibung (D gegen Es), schwillt langsam
+    s.droehnen([(hz("D1"), 1.0), (hz("Eb1"), 0.55), (hz("A1"), 0.35)], 0.16, periode=24.0, hell=200)
+    s.wind(0.035)
+    # Teil 1 (0–40 s): Stille vor dem Sturm – Sirene weit weg, tiefe Glocke, die Totengeläut schlägt
+    _sirene(s, 3.0, 26.0, 0.05)
+    for t in np.arange(8.0, 150.0, 8.0):
+        s.dazu(t, s.klavier("D1", 7.0) + 0.6 * s.klavier("D2", 7.0) + 0.3 * s.klavier("Ab2", 7.0), 0.11)
+    s.metall([18.0, 36.0], 0.05)
+    _horde(s, 22.0, 60.0, 0.6, 0.018)
+    # Teil 2 (32–120 s): das Blech, der fallende Ton, die Horde kommt näher
+    for i, t in enumerate(np.arange(32.0, 120.0, 16.0)):
+        noten = ["D1", "D2", "A2", "Eb3"] if i % 2 == 0 else ["Bb0", "Bb1", "F2", "B2"]
+        _braam(s, t, noten, laenge=9.0, hell=900 + i * 250, lautst=0.22 + i * 0.03)
+    _shepard(s, 40.0, 146.0, 0.05)
+    _horde(s, 60.0, 100.0, 2.0, 0.03)
+    _horde(s, 100.0, 144.0, 6.0, 0.045)
+    streicher = [["D3", "Eb3", "A3"], ["C#3", "D3", "G#3"], ["D3", "Eb3", "Bb3"], ["C3", "C#3", "G3"]]
     i = 0
-    while t0 < 160:
-        einsaetze.append((t0, thema if i % 2 == 0 else antwort))
-        t0 += takt * 2
+    for t in np.arange(56.0, 144.0, 8.0):
+        s.dazu(t, s.flaeche(streicher[i % 4], 10.0, hell=2600, tremolo=0.7), 0.04 + 0.002 * i)
         i += 1
-    s.melodie(einsaetze, "klavier", 0.10)
-    # Bassnoten auf der Eins
-    bass = ["D2", "Bb1", "G1", "A1"]
-    t0 = takt * 2
-    i = 0
-    while t0 < 168:
-        s.dazu(t0, s.klavier(bass[i % 4], 6.0), 0.08)
-        t0 += takt * 2
-        i += 1
-    # schwerer, langsamer Puls ab der Mitte
-    s.herzschlag(54, 0.045, von=70.0, bis=165.0)
-    # ferner Notruf: zwei Töne im Rauschen
-    for st in (40.0, 112.0):
-        m = int(4 * SR)
-        rausch = bandpass(s.rng.normal(0, 1, m), 500, 3200) * huellkurve(4, 0.5, 1.5) * 0.6
-        tt = np.arange(m) / SR
-        ton = (np.sin(2 * np.pi * 853 * tt) + np.sin(2 * np.pi * 960 * tt)) * 0.25 * ((tt % 1.0) < 0.6) * huellkurve(4, 0.3, 1.0)
-        s.dazu(st, rausch + tiefpass(ton, 2500), 0.025)
-    s.metall([30.0, 95.0, 150.0], 0.035)
-    s.wind(0.03)
-    s.speichern("titel", hall=5.5, nass=0.7, einblenden=4.0, ausblenden=8.0, pegel=0.75)
+    _sirene(s, 64.0, 30.0, 0.07)
+    # Herzschlag, der immer schneller wird
+    t = 70.0
+    while t < 144.0:
+        n = int(0.35 * SR)
+        tt = np.arange(n) / SR
+        schlag = np.sin(2 * np.pi * (46 + 30 * np.exp(-tt * 30)) * tt) * np.exp(-tt * 14)
+        st = 0.06 + 0.06 * (t - 70) / 74
+        s.dazu(t, schlag, st)
+        s.dazu(t + 0.26, schlag, st * 0.6)
+        t += 60.0 / (52 + 70 * ((t - 70) / 74) ** 1.5)
+    # Teil 3 (96–144 s): Kriegstrommeln, Sirene ganz nah, Schreier, alles türmt sich
+    muster = [(0, 0.45, 1.0), (3, 0.5, 0.5), (4, 0.45, 0.8), (6, 0.6, 0.45), (7, 0.6, 0.6)]
+    s.rhythmus(bpm, muster, 0.22, 96.0, 112.0)
+    s.rhythmus(bpm * 1.5, muster, 0.28, 112.0, 144.0)
+    _schlaege(s, bpm, 112.0, 144.0, alle=2, lautst=1.0)
+    _sirene(s, 110.0, 34.0, 0.10)
+    for t in (88.0, 118.0, 131.0, 139.0):
+        _schrei(s, t, 0.05)
+    for t, noten in ((128.0, ["D1", "D2", "A2", "Eb3", "A3"]), (136.0, ["Bb0", "Bb1", "E2", "B2", "F3"])):
+        _braam(s, t, noten, laenge=8.0, hell=2600, lautst=0.42)
+    s.ostinato(["D2", "Eb2", "D2", "Eb2", "D2", "A1", "D2", "Bb1"], bpm * 2, 0.10, 112.0, 144.0)
+    # Abbruch (144 s): ein letzter Schlag, dann Leere
+    _braam(s, 144.0, ["D1", "D1", "A1", "D2", "Eb2"], laenge=12.0, hell=3200, lautst=0.6)
+    s.trommel(144.0, tief=0.35, lautst=1.6)
+    s.metall([144.2], 0.12)
+    # Teil 4 (148–180 s): Nachhall – Geigerzähler, Funk, vereinzeltes Stöhnen, zurück zum Anfang
+    _geiger(s, 146.0, 176.0, 3.5, 0.06)
+    _geiger(s, 4.0, 30.0, 1.2, 0.04)
+    _funk(s, 152.0, 6.0, 0.035)
+    _funk(s, 166.0, 4.0, 0.03)
+    _horde(s, 150.0, 176.0, 0.4, 0.02)
+    s.speichern("titel", hall=6.5, nass=0.75, einblenden=3.0, ausblenden=6.0, pegel=0.8, verdichten=0.45)
 
 
 def _schlaege(s, bpm, von, bis, alle=8, lautst=1.2):
