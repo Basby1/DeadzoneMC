@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE }
 
     private final Art art;
 
@@ -115,8 +115,140 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case PANZER -> panzer(f, r, 0, 0, true);
             case KONVOI -> konvoi(f, r);
             case EVAKUIERUNG -> evakuierung(f, r);
+            case RASTSTAETTE -> raststaette(f, r);
         }
         return true;
+    }
+
+    /**
+     * Raststätte an der Landstraße: Asphalt-Vorplatz, Tankdach mit Zapfsäulen (halb eingestürzt), Shop mit
+     * Regalen, Kühlregal und Kasse, angebaute Werkstatt, hohes Schild, liegengebliebene Autos und Plakate.
+     */
+    private static void raststaette(Rahmen f, RandomSource r) {
+        BlockState asphalt = Blocks.GRAY_CONCRETE.defaultBlockState();
+        BlockState riss = Blocks.COBBLESTONE.defaultBlockState();
+        BlockState linie = Blocks.WHITE_CONCRETE.defaultBlockState();
+        BlockState wand = Blocks.WHITE_TERRACOTTA.defaultBlockState();
+        BlockState sockel = Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState();
+        BlockState rot = Blocks.RED_CONCRETE.defaultBlockState();
+        BlockState stahl = Blocks.IRON_BLOCK.defaultBlockState();
+        BlockState dach = Blocks.SMOOTH_STONE_SLAB.defaultBlockState();
+        BlockState scheibe = Blocks.GLASS_PANE.defaultBlockState();
+        // Gelände einebnen: Boden bei h -1, darüber frei
+        for (int l = -12; l <= 12; l++) {
+            for (int b = -10; b <= 10; b++) {
+                boolean platz = b <= 3;
+                f.setzen(l, b, -1, platz ? (r.nextInt(9) == 0 ? riss : asphalt) : sockel);
+                f.stuetzen(l, b, -1, Blocks.DIRT.defaultBlockState());
+                for (int h = 0; h <= 7; h++) {
+                    f.setzen(l, b, h, Bau.LUFT);
+                }
+            }
+        }
+        // Parkmarkierungen
+        for (int l = -10; l <= 10; l += 4) {
+            for (int b = 0; b <= 2; b++) {
+                f.setzen(l, b, -1, linie);
+            }
+        }
+        // Tankdach: vier Stützen, Dach mit rotem Rand, eine Ecke eingestürzt
+        int[][] stuetzen = {{-5, -8}, {5, -8}, {-5, -2}, {5, -2}};
+        for (int[] st : stuetzen) {
+            for (int h = 0; h <= 4; h++) {
+                f.setzen(st[0], st[1], h, sockel);
+            }
+        }
+        for (int l = -7; l <= 7; l++) {
+            for (int b = -10; b <= 0; b++) {
+                boolean eingestuerzt = l > 3 && b < -6;
+                if (eingestuerzt) {
+                    if (r.nextInt(3) == 0) {
+                        f.setzen(l, b, 0, r.nextBoolean() ? dach : riss); // Trümmer am Boden
+                    }
+                    continue;
+                }
+                boolean rand = Math.abs(l) == 7 || b == -10 || b == 0;
+                f.setzen(l, b, 5, rand ? rot : (r.nextInt(12) == 0 ? Bau.LUFT : dach));
+            }
+        }
+        // Zapfsäulen
+        for (int l : new int[]{-2, 2}) {
+            for (int b : new int[]{-7, -3}) {
+                f.setzen(l, b, 0, rot);
+                f.setzen(l, b, 1, Blocks.WHITE_CONCRETE.defaultBlockState());
+                f.setzen(l, b, 2, Blocks.SMOOTH_STONE_SLAB.defaultBlockState());
+                f.setzen(l + 1, b, 0, Blocks.STONE_SLAB.defaultBlockState());
+            }
+        }
+        f.setzen(0, -5, 0, Blocks.CHAIN.defaultBlockState()); // abgerissener Schlauch
+        // Shop: l -10..2, b 4..10
+        for (int l = -10; l <= 2; l++) {
+            for (int b = 4; b <= 10; b++) {
+                boolean aussen = l == -10 || l == 2 || b == 4 || b == 10;
+                for (int h = 0; h <= 3; h++) {
+                    if (!aussen) {
+                        continue;
+                    }
+                    boolean fenster = b == 4 && h >= 1 && h <= 2 && l > -9 && l < 1;
+                    boolean tuer = b == 4 && (l == 1) && h <= 1;
+                    if (tuer) {
+                        continue;
+                    }
+                    f.setzen(l, b, h, fenster ? (r.nextInt(3) == 0 ? Bau.LUFT : scheibe) : wand);
+                }
+                f.setzen(l, b, 4, r.nextInt(10) == 0 ? Bau.LUFT : Blocks.GRAY_CONCRETE.defaultBlockState());
+                if (b == 4) {
+                    f.setzen(l, 3, 4, rot); // rotes Band über den Fenstern
+                }
+            }
+        }
+        // Inneneinrichtung: Regalreihen, Kühlregal an der Rückwand, Kasse
+        for (int l = -8; l <= -2; l += 3) {
+            f.kiste(l, 7, 0, "laden_regal", r, true);
+            f.setzen(l, 7, 1, Blocks.OAK_SLAB.defaultBlockState());
+        }
+        f.kiste(-9, 9, 0, "laden_kuehlregal", r, false);
+        f.kiste(-6, 9, 0, "kuehlschrank", r, false);
+        f.kiste(0, 6, 0, "tankstelle", r, false);
+        f.setzen(0, 7, 0, Blocks.POLISHED_ANDESITE.defaultBlockState()); // Kassentresen
+        f.setzen(-1, 7, 0, Blocks.POLISHED_ANDESITE.defaultBlockState());
+        // Werkstatt: l 4..10, b 5..10, offenes Rolltor zum Vorplatz
+        for (int l = 4; l <= 10; l++) {
+            for (int b = 5; b <= 10; b++) {
+                boolean aussen = l == 4 || l == 10 || b == 5 || b == 10;
+                boolean tor = b == 5 && l >= 6 && l <= 8;
+                for (int h = 0; h <= 3; h++) {
+                    if (aussen && !(tor && h <= 2)) {
+                        f.setzen(l, b, h, Blocks.STONE_BRICKS.defaultBlockState());
+                    }
+                }
+                f.setzen(l, b, 4, Blocks.GRAY_CONCRETE.defaultBlockState());
+            }
+        }
+        f.kiste(9, 9, 0, "werkstatt", r, true);
+        f.kiste(5, 9, 0, "werkzeug", r, false);
+        f.setzen(7, 8, 0, Blocks.ANVIL.defaultBlockState());
+        // Schild an hohem Mast
+        for (int h = 0; h <= 8; h++) {
+            f.setzen(11, -9, h, Blocks.IRON_BARS.defaultBlockState());
+        }
+        for (int b = -10; b <= -8; b++) {
+            f.setzen(11, b, 9, Blocks.YELLOW_CONCRETE.defaultBlockState());
+            f.setzen(11, b, 10, rot);
+        }
+        // Plakate an der Shopfront, Kreidezeichen an der Werkstatt
+        f.setzen(-9, 3, 1, de.deadzonemc.welt.deko.Wanddeko.PLAKAT.get().defaultBlockState()
+                .setValue(net.minecraft.world.level.block.LadderBlock.FACING, f.quer().getOpposite())
+                .setValue(de.deadzonemc.welt.deko.Wanddeko.Bild.MOTIV, r.nextInt(4)));
+        f.setzen(5, 4, 1, de.deadzonemc.welt.deko.Wanddeko.KREIDEZEICHEN.get().defaultBlockState()
+                .setValue(net.minecraft.world.level.block.LadderBlock.FACING, f.quer().getOpposite())
+                .setValue(de.deadzonemc.welt.deko.Wanddeko.Bild.MOTIV, 2));
+        // Liegengebliebene Autos auf dem Vorplatz
+        for (int i = 0; i < 2; i++) {
+            BlockPos p = f.pos(-9 + i * 10 + r.nextInt(3), -1 + r.nextInt(2), 0);
+            AutowrackFeature.bauen(f.w(), r, p, null);
+        }
+        spawnen(f, MonsterTypen.WANDERER::get, 2 + r.nextInt(2), r);
     }
 
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
@@ -130,6 +262,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case PANZER -> panzer(f, r, 0, 0, true);
             case KONVOI -> konvoi(f, r);
             case EVAKUIERUNG -> evakuierung(f, r);
+            case RASTSTAETTE -> raststaette(f, r);
         }
     }
 

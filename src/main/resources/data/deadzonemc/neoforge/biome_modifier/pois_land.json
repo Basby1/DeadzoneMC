@@ -4,7 +4,8 @@
  "features": [
   "deadzonemc:panzer",
   "deadzonemc:konvoi",
-  "deadzonemc:evakuierung"
+  "deadzonemc:evakuierung",
+  "deadzonemc:raststaette"
  ],
  "step": "surface_structures"
 }
