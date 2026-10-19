@@ -28,7 +28,7 @@ public final class ClientTooltips {
             }
         }
         if (liebling != null) {
-            boolean meine = ClientKlasse.klasse().equals(liebling.id());
+            boolean meine = ClientKlasse.hat(liebling.id());
             String eigen = "klassenvorteil.deadzonemc.item." + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(s.getItem()).getPath();
             String schluessel = net.minecraft.client.resources.language.I18n.exists(eigen) ? eigen
                     : art.equals("waffe") ? "klassenvorteil.deadzonemc.waffe." + liebling.id() : "klassenvorteil.deadzonemc." + art;

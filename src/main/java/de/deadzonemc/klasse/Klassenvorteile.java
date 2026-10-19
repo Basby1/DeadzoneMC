@@ -71,13 +71,13 @@ public final class Klassenvorteile {
     /** Hat der Spieler die passende Klasse für diesen Gegenstand? (nur serverseitig zuverlässig) */
     public static boolean passt(Player p, ItemStack s) {
         Klasse l = liebling(s.getItem());
-        return l != null && l == Klassen.klasse(p);
+        return Klassen.hat(p, l);
     }
 
     /** Hat der Spieler die Lieblingsklasse des Satzes und trägt ihn vollständig? */
     public static boolean satz(Player p, Satz s) {
         Klasse l = liebling(s);
-        return l != null && l == Klassen.klasse(p) && Ausruestung.traegt(p, s) >= 4;
+        return Klassen.hat(p, l) && Ausruestung.traegt(p, s) >= 4;
     }
 
     /** Schadensfaktor für Schusswaffen. */
@@ -85,17 +85,21 @@ public final class Klassenvorteile {
         if (!passt(p, waffe)) {
             return 1F;
         }
-        return Klassen.klasse(p) == Klasse.TECHNIKER ? 1.2F : 1.15F;
+        return liebling(waffe.getItem()) == Klasse.TECHNIKER ? 1.2F : 1.15F;
     }
 
     /** Streuungsfaktor (Schütze mit Gewehr: −20 %). */
     public static float streuung(Player p, ItemStack waffe) {
-        return passt(p, waffe) && Klassen.klasse(p) == Klasse.SCHUETZE ? 0.8F : 1F;
+        float f = passt(p, waffe) && liebling(waffe.getItem()) == Klasse.SCHUETZE ? 0.8F : 1F;
+        return Klassen.kombi(p, Klasse.SCHUETZE, Klasse.SPAEHER) ? f * 0.8F : f; // Scharfschütze
     }
 
     /** Nachladefaktor: Sanitäter mit Pistole −35 %, Schütze im vollen Taktisch-Satz −20 %. */
     public static float nachladen(Player p, ItemStack waffe) {
-        float f = passt(p, waffe) && Klassen.klasse(p) == Klasse.SANITAETER ? 0.65F : 1F;
+        float f = passt(p, waffe) && liebling(waffe.getItem()) == Klasse.SANITAETER ? 0.65F : 1F;
+        if (Klassen.kombi(p, Klasse.SCHUETZE, Klasse.TECHNIKER)) {
+            f *= 0.85F; // Waffenschmied
+        }
         if (satz(p, Satz.TAKTISCH)) {
             f *= 0.8F;
         }
@@ -104,14 +108,15 @@ public final class Klassenvorteile {
 
     /** Lärmfaktor: Späher mit seinen Waffen halb so laut. */
     public static float laerm(Player p, ItemStack waffe) {
-        return passt(p, waffe) && Klassen.klasse(p) == Klasse.SPAEHER ? 0.5F : 1F;
+        float f = passt(p, waffe) && liebling(waffe.getItem()) == Klasse.SPAEHER ? 0.5F : 1F;
+        return Klassen.kombi(p, Klasse.TECHNIKER, Klasse.SPAEHER) ? f * 0.7F : f; // Saboteur
     }
 
     private static void nahkampf(LivingIncomingDamageEvent event) {
         if (event.getSource().getDirectEntity() instanceof Player p && event.getSource().getEntity() == p) {
             ItemStack s = p.getMainHandItem();
             if (passt(p, s) && !(s.getItem() instanceof de.deadzonemc.waffen.feuer.SchusswaffeItem)) {
-                event.setAmount(event.getAmount() * (Klassen.klasse(p) == Klasse.BRECHER ? 1.25F : 1.15F));
+                event.setAmount(event.getAmount() * (liebling(s.getItem()) == Klasse.BRECHER ? 1.25F : 1.15F));
             }
         }
         if (event.getEntity() instanceof Player p && event.getSource().getEntity() instanceof net.minecraft.world.entity.monster.Enemy

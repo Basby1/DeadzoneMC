@@ -144,7 +144,7 @@ public class Wurfkoerper extends ThrowableItemProjectile {
         if (art() == Wurfart.WURFMESSER) {
             if (!level().isClientSide && t.getEntity() instanceof LivingEntity ziel && t.getEntity() != getOwner()) {
                 float schaden = 8F;
-                if (getOwner() instanceof Player werfer && de.deadzonemc.klasse.Klassen.klasse(werfer) == de.deadzonemc.klasse.Klasse.SPAEHER) {
+                if (getOwner() instanceof Player werfer && de.deadzonemc.klasse.Klassen.hat(werfer, de.deadzonemc.klasse.Klasse.SPAEHER)) {
                     schaden *= 1.5F;
                 }
                 ziel.hurt(level().damageSources().thrown(this, getOwner()), schaden);

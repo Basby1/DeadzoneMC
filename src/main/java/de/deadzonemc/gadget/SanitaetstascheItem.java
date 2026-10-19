@@ -71,7 +71,7 @@ public class SanitaetstascheItem extends Item {
             p.displayClientMessage(Component.translatable("item.deadzonemc.sanitaetstasche.kein_verband").withStyle(ChatFormatting.RED), true);
             return;
         }
-        boolean sani = Klassen.klasse(p) == Klasse.SANITAETER;
+        boolean sani = Klassen.hat(p, Klasse.SANITAETER);
         ziel.heal(sani ? 12F : 8F);
         ziel.removeEffect(MobEffects.POISON);
         ziel.removeEffect(MobEffects.WITHER);

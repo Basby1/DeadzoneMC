@@ -45,7 +45,7 @@ public class GluehhammerItem extends SwordItem {
         if (!p.isShiftKeyDown()) {
             return InteractionResultHolder.pass(s);
         }
-        boolean brecher = !level.isClientSide && Klassen.klasse(p) == Klasse.BRECHER;
+        boolean brecher = !level.isClientSide && Klassen.hat(p, Klasse.BRECHER);
         if (level instanceof ServerLevel sl) {
             double radius = brecher ? 5.5 : 4.0;
             float schaden = brecher ? 9F : 6F;

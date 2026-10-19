@@ -29,7 +29,7 @@ public class AdrenalinItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand) {
         ItemStack s = p.getItemInHand(hand);
         if (!level.isClientSide) {
-            boolean brecher = Klassen.klasse(p) == Klasse.BRECHER;
+            boolean brecher = Klassen.hat(p, Klasse.BRECHER);
             int dauer = brecher ? 900 : 600;
             p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, dauer, 0));
             p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, dauer, 0));

@@ -67,7 +67,7 @@ public class FernglasItem extends Item {
         if (t == null || !(t.getEntity() instanceof LivingEntity ziel)) {
             return;
         }
-        boolean spaeher = Klassen.klasse(p) == Klasse.SPAEHER;
+        boolean spaeher = Klassen.hat(p, Klasse.SPAEHER);
         int ticks = spaeher ? 600 : 300;
         ziel.addEffect(new MobEffectInstance(MobEffects.GLOWING, ticks, 0, false, false));
         if (spaeher) {

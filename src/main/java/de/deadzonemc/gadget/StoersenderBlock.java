@@ -70,7 +70,7 @@ public class StoersenderBlock extends BaseEntityBlock {
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState s, net.minecraft.world.entity.LivingEntity wer, ItemStack stack) {
         if (!level.isClientSide && wer instanceof Player p && level.getBlockEntity(pos) instanceof StoersenderBlockEntity be) {
-            be.techniker = de.deadzonemc.klasse.Klassen.klasse(p) == de.deadzonemc.klasse.Klasse.TECHNIKER;
+            be.techniker = de.deadzonemc.klasse.Klassen.hat(p, de.deadzonemc.klasse.Klasse.TECHNIKER);
         }
     }
 

@@ -168,7 +168,7 @@ public final class Schiessen {
             }
             if (a == WaffenArt.BETAEUBUNGSPISTOLE) {
                 // Betäubungspfeil: Mitspieler werden geheilt, alles andere betäubt (fast kein Schaden)
-                boolean sani = de.deadzonemc.klasse.Klassen.klasse(p) == de.deadzonemc.klasse.Klasse.SANITAETER;
+                boolean sani = de.deadzonemc.klasse.Klassen.hat(p, de.deadzonemc.klasse.Klasse.SANITAETER);
                 if (ziel instanceof net.minecraft.world.entity.player.Player freund) {
                     freund.heal(sani ? 6F : 4F);
                     freund.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, sani ? 160 : 100, 0));

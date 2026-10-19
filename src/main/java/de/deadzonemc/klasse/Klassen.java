@@ -49,12 +49,80 @@ public final class Klassen {
     private static final ResourceLocation MOD_RUESTUNG = ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "klasse_ruestung");
     private static final ResourceLocation MOD_TEMPO = ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "klasse_tempo");
 
-    private static final Map<UUID, Long> ABKLINGEN = new HashMap<>();
+    private static final Map<String, Long> ABKLINGEN = new HashMap<>();
     /** Aktive Lärmköder: Position und Ende (Spielzeit). */
     private static final List<long[]> KOEDER = new ArrayList<>();
 
+    private static final ResourceLocation MOD_RUECKSTOSS = ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, "klasse_rueckstoss");
+    /** Welche der eigenen Klassen gerade die Fähigkeit auf V liefert (Index in den aktiven Klassen). */
+    private static final Map<UUID, Integer> GEWAEHLT = new HashMap<>();
+
+    // ---- Mehrfachklassen ------------------------------------------------------------------------
+    // Allein spielt man 3 Klassen, zu zweit 2, ab drei Spielern 1. Wer mehr Klassen gewählt hat, als gerade
+    // Plätze frei sind, behält sie – die hinteren ruhen nur, bis wieder weniger Spieler online sind.
+
+    /** Alle gewählten Klassen in der gewählten Reihenfolge. */
+    public static List<Klasse> gewaehlt(Player p) {
+        List<Klasse> l = new ArrayList<>();
+        for (String id : p.getData(ModRegistry.KLASSE).split(",")) {
+            Klasse k = Klasse.ausId(id.trim());
+            if (k != null && !l.contains(k)) {
+                l.add(k);
+            }
+        }
+        return l;
+    }
+
+    /** Wie viele Klassen gerade gleichzeitig wirken dürfen. */
+    public static int plaetze(net.minecraft.server.MinecraftServer server) {
+        if (server == null) {
+            return 1;
+        }
+        long n = server.getPlayerList().getPlayers().stream().filter(x -> !x.isSpectator()).count();
+        return n <= 1 ? 3 : n == 2 ? 2 : 1;
+    }
+
+    /** Die gerade wirkenden Klassen. */
+    public static List<Klasse> aktiv(Player p) {
+        List<Klasse> l = gewaehlt(p);
+        int n = p.getServer() != null ? plaetze(p.getServer()) : 3;
+        return l.size() > n ? l.subList(0, n) : l;
+    }
+
+    public static boolean hat(Player p, Klasse k) {
+        return k != null && aktiv(p).contains(k);
+    }
+
+    /** Wirken beide Klassen gerade bei diesem Spieler (Kombination)? */
+    public static boolean kombi(Player p, Klasse a, Klasse b) {
+        List<Klasse> l = aktiv(p);
+        return l.contains(a) && l.contains(b);
+    }
+
+    /** Hauptklasse (die erste der wirkenden) – für Stellen, die nur eine Klasse kennen. */
     public static Klasse klasse(Player p) {
-        return Klasse.ausId(p.getData(ModRegistry.KLASSE));
+        List<Klasse> l = aktiv(p);
+        return l.isEmpty() ? null : l.get(0);
+    }
+
+    /** Für den Client: "brecher,schuetze;2" (gewählte Klassen; Plätze). */
+    private static String kodieren(ServerPlayer p) {
+        return p.getData(ModRegistry.KLASSE) + ";" + plaetze(p.getServer());
+    }
+
+    /** Spielerzahl hat sich geändert: Werte neu setzen und allen Bescheid geben. */
+    public static void allenNeu(net.minecraft.server.MinecraftServer server) {
+        for (ServerPlayer x : server.getPlayerList().getPlayers()) {
+            anwenden(x);
+            PacketDistributor.sendToPlayer(x, new KlassePayload(kodieren(x), false));
+        }
+    }
+
+    public static void verlassen(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getEntity() instanceof ServerPlayer p && p.getServer() != null) {
+            var server = p.getServer();
+            server.execute(() -> allenNeu(server));
+        }
     }
 
     // ---- Wahl -------------------------------------------------------------------------------
@@ -65,23 +133,44 @@ public final class Klassen {
                 return;
             }
             if (n.klasse().equals("!")) {
-                faehigkeit(p);
+                if (p.isShiftKeyDown()) {
+                    wechseln(p);
+                } else {
+                    faehigkeit(p);
+                }
                 return;
             }
-            Klasse neu = Klasse.ausId(n.klasse());
-            if (neu == null) {
+            List<Klasse> neu = new ArrayList<>();
+            for (String id : n.klasse().split(",")) {
+                Klasse k = Klasse.ausId(id.trim());
+                if (k != null && !neu.contains(k)) {
+                    neu.add(k);
+                }
+            }
+            int frei = plaetze(p.getServer());
+            if (neu.isEmpty()) {
                 return;
             }
-            Klasse alt = klasse(p);
-            if (alt != null && !inEigenerBasis(p) && !p.isCreative()) {
+            if (neu.size() > frei) {
+                p.displayClientMessage(Component.translatable("klasse.deadzonemc.zu_viele", frei).withStyle(ChatFormatting.RED), false);
+                return;
+            }
+            if (!gewaehlt(p).isEmpty() && !inEigenerBasis(p) && !p.isCreative()) {
                 p.displayClientMessage(Component.translatable("klasse.deadzonemc.nur_basis").withStyle(ChatFormatting.RED), false);
                 return;
             }
-            p.setData(ModRegistry.KLASSE, neu.id());
+            p.setData(ModRegistry.KLASSE, String.join(",", neu.stream().map(Klasse::id).toList()));
+            GEWAEHLT.remove(p.getUUID());
             anwenden(p);
-            p.displayClientMessage(Component.translatable("klasse.deadzonemc.gewaehlt",
-                    Component.translatable("klasse.deadzonemc." + neu.id())).withStyle(ChatFormatting.GOLD), false);
-            PacketDistributor.sendToPlayer(p, new KlassePayload(neu.id(), false));
+            Component namen = Component.empty();
+            for (int i = 0; i < neu.size(); i++) {
+                if (i > 0) {
+                    namen = namen.copy().append(" + ");
+                }
+                namen = namen.copy().append(Component.translatable("klasse.deadzonemc." + neu.get(i).id()));
+            }
+            p.displayClientMessage(Component.translatable("klasse.deadzonemc.gewaehlt", namen).withStyle(ChatFormatting.GOLD), false);
+            PacketDistributor.sendToPlayer(p, new KlassePayload(kodieren(p), false));
         });
     }
 
@@ -90,18 +179,17 @@ public final class Klassen {
     }
 
     public static void oeffnen(ServerPlayer p) {
-        String k = p.getData(ModRegistry.KLASSE);
-        PacketDistributor.sendToPlayer(p, new KlassePayload(k, true));
+        PacketDistributor.sendToPlayer(p, new KlassePayload(kodieren(p), true));
     }
 
     public static void betreten(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer p) {
             anwenden(p);
-            if (klasse(p) == null) {
+            if (gewaehlt(p).isEmpty()) {
                 oeffnen(p);
-            } else {
-                PacketDistributor.sendToPlayer(p, new KlassePayload(p.getData(ModRegistry.KLASSE), false));
             }
+            // Ein Spieler mehr: bei allen ändert sich womöglich die Zahl der wirkenden Klassen
+            allenNeu(p.getServer());
         }
     }
 
@@ -125,25 +213,41 @@ public final class Klassen {
     }
 
     public static void anwenden(ServerPlayer p) {
-        Klasse k = klasse(p);
+        List<Klasse> aktiv = aktiv(p);
         double leben = 0;
         double ruestung = 0;
         double tempo = 0;
-        if (k != null) {
-            switch (k) {
-                case BRECHER -> {
-                    leben = 4;
-                    ruestung = 2;
-                }
-                case SCHUETZE, SPAEHER -> leben = -4;
-                case TECHNIKER -> tempo = -0.06;
+        double rueckstoss = 0;
+        if (aktiv.contains(Klasse.BRECHER)) {
+            leben += 4;
+            ruestung += 2;
+        }
+        // Schwächen nur mit einer einzigen Klasse – wer wenige ist, kann sich keine Schwächen leisten
+        if (aktiv.size() == 1) {
+            switch (aktiv.get(0)) {
+                case SCHUETZE, SPAEHER -> leben -= 4;
+                case TECHNIKER -> tempo -= 0.06;
                 default -> {
                 }
             }
         }
+        // Kombinationen
+        if (kombi(p, Klasse.BRECHER, Klasse.TECHNIKER)) {
+            ruestung += 2; // Bollwerk
+        }
+        if (kombi(p, Klasse.SANITAETER, Klasse.TECHNIKER)) {
+            leben += 4; // Feldlazarett
+        }
+        if (kombi(p, Klasse.BRECHER, Klasse.SPAEHER)) {
+            tempo += 0.05; // Raubtier
+        }
+        if (kombi(p, Klasse.BRECHER, Klasse.SCHUETZE)) {
+            rueckstoss += 0.25; // Sturmtruppe
+        }
         setze(p.getAttribute(Attributes.MAX_HEALTH), MOD_LEBEN, leben, AttributeModifier.Operation.ADD_VALUE);
         setze(p.getAttribute(Attributes.ARMOR), MOD_RUESTUNG, ruestung, AttributeModifier.Operation.ADD_VALUE);
         setze(p.getAttribute(Attributes.MOVEMENT_SPEED), MOD_TEMPO, tempo, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        setze(p.getAttribute(Attributes.KNOCKBACK_RESISTANCE), MOD_RUECKSTOSS, rueckstoss, AttributeModifier.Operation.ADD_VALUE);
         if (p.getHealth() > p.getMaxHealth()) {
             p.setHealth(p.getMaxHealth());
         }
@@ -155,34 +259,63 @@ public final class Klassen {
         if (!(quelle instanceof Player p)) {
             return;
         }
-        Klasse k = klasse(p);
-        if (k == null) {
+        List<Klasse> aktiv = aktiv(p);
+        if (aktiv.isEmpty()) {
             return;
         }
         boolean nahkampf = event.getSource().getDirectEntity() == p;
-        float f = switch (k) {
-            case BRECHER -> nahkampf ? 1.3F : 0.8F;
-            case SCHUETZE -> nahkampf ? 0.75F : 1.25F;
-            case SANITAETER -> 0.9F;
-            default -> 1.0F;
-        };
+        // Mit mehreren Klassen zählt jeweils die stärkste – Schwächen fallen weg
+        float f = 0F;
+        for (Klasse k : aktiv) {
+            f = Math.max(f, switch (k) {
+                case BRECHER -> nahkampf ? 1.3F : 0.8F;
+                case SCHUETZE -> nahkampf ? 0.75F : 1.25F;
+                case SANITAETER -> 0.9F;
+                default -> 1.0F;
+            });
+        }
+        if (aktiv.size() > 1) {
+            f = Math.max(f, 1.0F);
+        }
         event.setAmount(event.getAmount() * f);
     }
 
     /** Wie stark Heilung bei diesem Spieler wirkt (Sanitäter: 1,5-fach). */
     public static float heilfaktor(Player p) {
-        return (klasse(p) == Klasse.SANITAETER ? 1.5F : 1.0F) * Talente.heilfaktor(p);
+        return (hat(p, Klasse.SANITAETER) ? 1.5F : 1.0F) * Talente.heilfaktor(p);
     }
 
     // ---- Aktive Fähigkeiten ------------------------------------------------------------------
 
+    /** Die Klasse, deren Fähigkeit gerade auf V liegt. */
+    public static Klasse faehigkeitKlasse(Player p) {
+        List<Klasse> l = aktiv(p);
+        if (l.isEmpty()) {
+            return null;
+        }
+        return l.get(Math.floorMod(GEWAEHLT.getOrDefault(p.getUUID(), 0), l.size()));
+    }
+
+    private static void wechseln(ServerPlayer p) {
+        List<Klasse> l = aktiv(p);
+        if (l.size() < 2) {
+            faehigkeit(p);
+            return;
+        }
+        GEWAEHLT.put(p.getUUID(), Math.floorMod(GEWAEHLT.getOrDefault(p.getUUID(), 0) + 1, l.size()));
+        Klasse k = faehigkeitKlasse(p);
+        p.displayClientMessage(Component.translatable("klasse.deadzonemc.faehigkeit_gewechselt",
+                Component.translatable("klasse.deadzonemc." + k.id() + ".faehigkeit_name")).withStyle(ChatFormatting.YELLOW), true);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 0.5F, 1.4F);
+    }
+
     private static void faehigkeit(ServerPlayer p) {
-        Klasse k = klasse(p);
+        Klasse k = faehigkeitKlasse(p);
         if (k == null || p.isSpectator()) {
             return;
         }
         long jetzt = p.serverLevel().getGameTime();
-        long frei = ABKLINGEN.getOrDefault(p.getUUID(), 0L);
+        long frei = ABKLINGEN.getOrDefault(p.getUUID() + k.id(), 0L);
         if (jetzt < frei) {
             p.displayClientMessage(Component.translatable("klasse.deadzonemc.abklingen", (frei - jetzt) / 20 + 1)
                     .withStyle(ChatFormatting.GRAY), true);
@@ -196,7 +329,7 @@ public final class Klassen {
             case SPAEHER -> leuchtsignal(p);
         };
         if (ok) {
-            ABKLINGEN.put(p.getUUID(), jetzt + k.abklingzeit());
+            ABKLINGEN.put(p.getUUID() + k.id(), jetzt + k.abklingzeit());
         }
     }
 

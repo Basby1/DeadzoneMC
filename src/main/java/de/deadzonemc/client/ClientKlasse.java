@@ -9,27 +9,62 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
-/** Die eigene Klasse auf dem Client, die Taste für die Fähigkeit und die Klassenwahl. */
+import java.util.ArrayList;
+import java.util.List;
+
+/** Die eigenen Klassen auf dem Client, die Taste für die Fähigkeit und die Klassenwahl. */
 public final class ClientKlasse {
 
     private ClientKlasse() {
     }
 
-    private static String klasse = "";
+    /** Gewählte Klassen (Reihenfolge = Wahl). */
+    private static List<String> gewaehlt = new ArrayList<>();
+    /** Wie viele davon gerade wirken (allein 3, zu zweit 2, sonst 1). */
+    private static int plaetze = 1;
 
     public static final KeyMapping FAEHIGKEIT = new KeyMapping("key.deadzonemc.faehigkeit",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.categories.deadzonemc");
     public static final KeyMapping KLASSENWAHL = new KeyMapping("key.deadzonemc.klassenwahl",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, "key.categories.deadzonemc");
 
+    /** Hauptklasse (erste gewählte) oder "". */
     public static String klasse() {
-        return klasse;
+        return gewaehlt.isEmpty() ? "" : gewaehlt.get(0);
+    }
+
+    public static List<String> gewaehlt() {
+        return gewaehlt;
+    }
+
+    public static int plaetze() {
+        return plaetze;
+    }
+
+    /** Wirkt diese Klasse gerade? */
+    public static boolean hat(String id) {
+        int i = gewaehlt.indexOf(id);
+        return i >= 0 && i < plaetze;
     }
 
     public static void empfangen(KlassePayload n) {
-        klasse = n.klasse();
+        String[] teile = n.klasse().split(";", 2);
+        List<String> neu = new ArrayList<>();
+        for (String id : teile[0].split(",")) {
+            if (!id.isBlank()) {
+                neu.add(id.trim());
+            }
+        }
+        gewaehlt = neu;
+        if (teile.length > 1) {
+            try {
+                plaetze = Integer.parseInt(teile[1].trim());
+            } catch (NumberFormatException e) {
+                plaetze = 1;
+            }
+        }
         if (n.oeffnen()) {
-            Minecraft.getInstance().setScreen(new KlassenScreen(klasse));
+            Minecraft.getInstance().setScreen(new KlassenScreen());
         }
     }
 
@@ -43,7 +78,7 @@ public final class ClientKlasse {
             PacketDistributor.sendToServer(new KlassePayload("!", false));
         }
         while (KLASSENWAHL.consumeClick()) {
-            Minecraft.getInstance().setScreen(new KlassenScreen(klasse));
+            Minecraft.getInstance().setScreen(new KlassenScreen());
         }
     }
 }
