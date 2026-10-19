@@ -1,0 +1,26 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "GEG",
+  "IMI"
+ ],
+ "key": {
+  "G": {
+   "item": "minecraft:glass"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  },
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "M": {
+   "item": "deadzonemc:mottenstaub"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:fernglas",
+  "count": 1
+ }
+}

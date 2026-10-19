@@ -133,6 +133,10 @@ public final class ClientWaffen {
 
     public static void fov(ComputeFovModifierEvent event) {
         LocalPlayer p = Minecraft.getInstance().player;
+        if (p != null && p.isUsingItem() && p.getUseItem().is(de.deadzonemc.gadget.Gadgets.FERNGLAS.get())) {
+            event.setNewFovModifier(event.getNewFovModifier() * 0.2F);
+            return;
+        }
         if (!zielen || waffe(p) == null) {
             return;
         }

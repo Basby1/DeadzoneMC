@@ -1,0 +1,26 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "DED",
+  "KBK"
+ ],
+ "key": {
+  "D": {
+   "item": "deadzonemc:drohnenteile"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  },
+  "K": {
+   "item": "deadzonemc:klebeband"
+  },
+  "B": {
+   "item": "deadzonemc:batterie"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:stoersender",
+  "count": 1
+ }
+}

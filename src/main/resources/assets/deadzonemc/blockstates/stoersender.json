@@ -1,0 +1,10 @@
+{
+ "variants": {
+  "an=false": {
+   "model": "deadzonemc:block/stoersender"
+  },
+  "an=true": {
+   "model": "deadzonemc:block/stoersender_an"
+  }
+ }
+}

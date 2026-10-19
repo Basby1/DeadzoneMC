@@ -76,7 +76,8 @@ public final class Nachladen {
     private static int dauer(ServerPlayer p, ItemStack s, WaffenArt a) {
         return Math.max(4, Math.round(a.laden * (1 - 0.15F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(
                 p.level().registryAccess(), s, "schnellladen")) * de.deadzonemc.klasse.Klassenvorteile.nachladen(p, s)
-                * de.deadzonemc.bossmod.Bossmods.nachladen(s)));
+                * de.deadzonemc.bossmod.Bossmods.nachladen(s)
+                * (de.deadzonemc.gadget.Gadgets.hatGurt(p) ? (de.deadzonemc.klasse.Klassen.klasse(p) == de.deadzonemc.klasse.Klasse.SCHUETZE ? 0.65F : 0.8F) : 1F)));
     }
 
     public static void starten(ServerPlayer p) {

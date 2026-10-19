@@ -1,0 +1,24 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "SDS",
+  "DXD",
+  "SDS"
+ ],
+ "key": {
+  "S": {
+   "item": "deadzonemc:strahlenkristall"
+  },
+  "D": {
+   "item": "deadzonemc:drohnenteile"
+  },
+  "X": {
+   "item": "minecraft:end_crystal"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:leerensignal",
+  "count": 1
+ }
+}
