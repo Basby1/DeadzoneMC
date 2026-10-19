@@ -63,6 +63,10 @@ public final class Beute {
             () -> new TresorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(25.0F, 1200.0F)
                     .sound(SoundType.NETHERITE_BLOCK).requiresCorrectToolForDrops().noOcclusion()));
     public static final DeferredItem<BlockItem> TRESOR_ITEM = ITEMS.registerSimpleBlockItem(TRESOR);
+    public static final DeferredBlock<MotorraumBlock> MOTORRAUM = BLOECKE.register("motorraum",
+            () -> new MotorraumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F, 6.0F)
+                    .sound(net.minecraft.world.level.block.SoundType.METAL).noOcclusion().requiresCorrectToolForDrops()));
+    public static final DeferredItem<BlockItem> MOTORRAUM_ITEM = ITEMS.registerSimpleBlockItem(MOTORRAUM);
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TresorBlockEntity>> TRESOR_BE = BE.register("tresor",
             () -> BlockEntityType.Builder.of(TresorBlockEntity::new, TRESOR.get()).build(null));
 

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "K K",
+    "CKC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "K": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "result": {
+    "id": "deadzonemc:brandgraben",
+    "count": 2
+  }
+}

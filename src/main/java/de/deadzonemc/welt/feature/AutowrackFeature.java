@@ -113,6 +113,8 @@ public class AutowrackFeature extends Feature<NoneFeatureConfiguration> {
                 }
             }
         }
+        // Motorhaube in der Mitte vorn: mit dem Brecheisen aufzuhebeln (Fahrzeugteile)
+        setzen(level, versetzt(boden, entlangX, 0, 1, 1), de.deadzonemc.beute.Beute.MOTORRAUM.get().defaultBlockState());
         // Hintere Dachsäulen in Lackfarbe, damit das Dach nicht schwebt
         setzen(level, versetzt(boden, entlangX, 3, 0, 1), voll);
         setzen(level, versetzt(boden, entlangX, 3, 2, 1), voll);

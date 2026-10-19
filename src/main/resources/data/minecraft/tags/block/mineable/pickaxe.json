@@ -1,13 +1,15 @@
 {
- "replace": false,
- "values": [
-  "deadzonemc:notstromgenerator",
-  "deadzonemc:strahlenfass",
-  "deadzonemc:stacheldraht",
-  "deadzonemc:baerenfalle",
-  "deadzonemc:landmine",
-  "deadzonemc:ladenschild",
-  "deadzonemc:zonenwerkbank",
-  "deadzonemc:geschuetzturm"
- ]
+  "replace": false,
+  "values": [
+    "deadzonemc:notstromgenerator",
+    "deadzonemc:strahlenfass",
+    "deadzonemc:stacheldraht",
+    "deadzonemc:baerenfalle",
+    "deadzonemc:landmine",
+    "deadzonemc:ladenschild",
+    "deadzonemc:zonenwerkbank",
+    "deadzonemc:geschuetzturm",
+    "deadzonemc:brandgraben",
+    "deadzonemc:motorraum"
+  ]
 }

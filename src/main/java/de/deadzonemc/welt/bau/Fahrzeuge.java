@@ -77,6 +77,8 @@ public final class Fahrzeuge {
                 }
             }
         }
+        // Motorhaube vorn in der Mitte (mit dem Brecheisen aufzuhebeln)
+        b.setze(1, 1, umgedreht ? 4 : 0, de.deadzonemc.beute.Beute.MOTORRAUM.get().defaultBlockState());
         if (r.nextInt(5) < 2) {
             b.fass(1, 1, umgedreht ? 1 : 3, Baukasten.H, "autowrack");
         }

@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** Fallen zur Verteidigung der Basis: Stacheldraht, Bärenfalle, Landmine. */
+/** Fallen zur Verteidigung der Basis: Stacheldraht, Bärenfalle, Landmine, Glasscherben, Spießgrube, Brandgraben. */
 public final class Fallen {
 
     private Fallen() {
@@ -29,6 +29,20 @@ public final class Fallen {
     public static final DeferredBlock<LandmineBlock> LANDMINE = BLOECKE.register("landmine",
             () -> new LandmineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).noCollission()
                     .noOcclusion().strength(0.8F, 0.0F).sound(SoundType.METAL)));
+
+    public static final DeferredBlock<GlasscherbenBlock> GLASSCHERBEN = BLOECKE.register("glasscherben",
+            () -> new GlasscherbenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE).noCollission()
+                    .noOcclusion().instabreak().sound(SoundType.GLASS)));
+    public static final DeferredBlock<SpiessfalleBlock> SPIESSFALLE = BLOECKE.register("spiessfalle",
+            () -> new SpiessfalleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission()
+                    .noOcclusion().strength(1.0F, 2.0F).sound(SoundType.WOOD)));
+    public static final DeferredBlock<BrandgrabenBlock> BRANDGRABEN = BLOECKE.register("brandgraben",
+            () -> new BrandgrabenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion()
+                    .strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()
+                    .lightLevel(s -> s.getValue(BrandgrabenBlock.BRENNT) ? 13 : 0)));
+    public static final DeferredItem<BlockItem> GLASSCHERBEN_ITEM = ITEMS.registerSimpleBlockItem(GLASSCHERBEN);
+    public static final DeferredItem<BlockItem> SPIESSFALLE_ITEM = ITEMS.registerSimpleBlockItem(SPIESSFALLE);
+    public static final DeferredItem<BlockItem> BRANDGRABEN_ITEM = ITEMS.registerSimpleBlockItem(BRANDGRABEN);
 
     public static final DeferredRegister<net.minecraft.world.level.block.entity.BlockEntityType<?>> BE =
             DeferredRegister.create(net.minecraft.core.registries.Registries.BLOCK_ENTITY_TYPE, DeadzoneMC.MODID);
@@ -61,5 +75,8 @@ public final class Fallen {
         ausgabe.accept(BAERENFALLE_ITEM.get());
         ausgabe.accept(LANDMINE_ITEM.get());
         ausgabe.accept(GESCHUETZTURM_ITEM.get());
+        ausgabe.accept(GLASSCHERBEN_ITEM.get());
+        ausgabe.accept(SPIESSFALLE_ITEM.get());
+        ausgabe.accept(BRANDGRABEN_ITEM.get());
     }
 }

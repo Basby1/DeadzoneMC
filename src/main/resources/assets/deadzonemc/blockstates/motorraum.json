@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "offen=false": {
+      "model": "deadzonemc:block/motorraum"
+    },
+    "offen=true": {
+      "model": "deadzonemc:block/motorraum_offen"
+    }
+  }
+}

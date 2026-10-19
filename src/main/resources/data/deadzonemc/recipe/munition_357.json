@@ -1,0 +1,23 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "NNN",
+  "GCG"
+ ],
+ "key": {
+  "N": {
+   "item": "minecraft:iron_nugget"
+  },
+  "G": {
+   "item": "minecraft:gunpowder"
+  },
+  "C": {
+   "item": "minecraft:copper_ingot"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:munition_357",
+  "count": 4
+ }
+}

@@ -18,6 +18,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -28,7 +29,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Brecheisen: knackt Tresore (5 Sekunden festhalten, laut!), taugt notfalls als Schlagwaffe.
+ * Brecheisen: knackt Tresore (5 Sekunden festhalten, laut!), hebelt Motorhauben von Autowracks auf,
+ * taugt notfalls als Schlagwaffe.
  */
 public class BrecheisenItem extends SwordItem {
 
@@ -43,7 +45,7 @@ public class BrecheisenItem extends SwordItem {
     public InteractionResult useOn(UseOnContext ctx) {
         Level level = ctx.getLevel();
         Player spieler = ctx.getPlayer();
-        if (spieler == null || !(level.getBlockEntity(ctx.getClickedPos()) instanceof TresorBlockEntity t) || t.istGeknackt()) {
+        if (spieler == null || !ziel(level, ctx.getClickedPos())) {
             return InteractionResult.PASS;
         }
         if (!level.isClientSide) {
@@ -51,6 +53,15 @@ public class BrecheisenItem extends SwordItem {
         }
         spieler.startUsingItem(ctx.getHand());
         return InteractionResult.CONSUME;
+    }
+
+    /** Tresore, die noch zu sind, und Motorhauben, die noch nicht aufgehebelt wurden. */
+    private static boolean ziel(Level level, BlockPos pos) {
+        BlockState s = level.getBlockState(pos);
+        if (s.getBlock() instanceof MotorraumBlock) {
+            return !s.getValue(MotorraumBlock.OFFEN);
+        }
+        return level.getBlockEntity(pos) instanceof TresorBlockEntity t && !t.istGeknackt();
     }
 
     @Override
@@ -71,11 +82,32 @@ public class BrecheisenItem extends SwordItem {
         BlockPos ziel = ZIEL.get(spieler.getUUID());
         HitResult blick = spieler.pick(5.0, 1.0F, false);
         if (ziel == null || blick.getType() != HitResult.Type.BLOCK || !((BlockHitResult) blick).getBlockPos().equals(ziel)
-                || !(level.getBlockEntity(ziel) instanceof TresorBlockEntity t) || t.istGeknackt()) {
+                || !ziel(level, ziel)) {
             spieler.stopUsingItem();
             return;
         }
         int dauer = getUseDuration(stack, wer) - rest;
+        if (level.getBlockState(ziel).getBlock() instanceof MotorraumBlock) {
+            // Motorhaube aufhebeln: kürzer und leiser als ein Tresor
+            if (dauer % 10 == 0) {
+                sl.playSound(null, ziel, net.minecraft.sounds.SoundEvents.CHAIN_HIT, SoundSource.BLOCKS, 0.9F, 0.7F + sl.random.nextFloat() * 0.3F);
+            }
+            if (dauer % 20 == 0) {
+                Laerm.machen(sl, Vec3.atCenterOf(ziel), 16);
+                spieler.displayClientMessage(Component.translatable("item.deadzonemc.brecheisen.fortschritt",
+                        Math.min(100, dauer * 100 / 50)).withStyle(ChatFormatting.GOLD), true);
+            }
+            if (dauer >= 50) {
+                MotorraumBlock.ausschlachten(sl, ziel, spieler);
+                stack.hurtAndBreak(1, spieler, EquipmentSlot.MAINHAND);
+                spieler.stopUsingItem();
+                ZIEL.remove(spieler.getUUID());
+            }
+            return;
+        }
+        if (!(level.getBlockEntity(ziel) instanceof TresorBlockEntity t)) {
+            return;
+        }
         Vec3 mitte = Vec3.atCenterOf(ziel);
         if (dauer % 12 == 0) {
             sl.playSound(null, ziel, Beute.TRESOR_KNACKEN.get(), SoundSource.BLOCKS, 1.0F, 0.85F + sl.random.nextFloat() * 0.3F);

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "deadzonemc:block/brandgraben"
+    },
+    "lit=true": {
+      "model": "deadzonemc:block/brandgraben_an"
+    }
+  }
+}

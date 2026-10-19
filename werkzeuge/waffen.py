@@ -348,6 +348,19 @@ def rezepte():
             "deadzonemc:munition_9mm", 6)
     geformt("munition_schrot", ["P", "G", "N"], {"P": "minecraft:paper", "G": "minecraft:gunpowder", "N": "minecraft:iron_nugget"},
             "deadzonemc:munition_schrot", 3)
+    # Gewehr- und Revolvermunition: Hülse aus Kupfer, Geschoss aus Eisen, viel Pulver
+    N, G, C = "minecraft:iron_nugget", "minecraft:gunpowder", "minecraft:copper_ingot"
+    geformt("munition_357", ["NNN", "GCG"], {"N": N, "G": G, "C": C}, "deadzonemc:munition_357", 4)
+    geformt("munition_556", ["NGN", "GCG"], {"N": N, "G": G, "C": C}, "deadzonemc:munition_556", 6)
+    geformt("munition_762", ["NGN", "GCG", "NCN"], {"N": N, "G": G, "C": C}, "deadzonemc:munition_762", 5)
+    # Hülsen notfalls aus Schrott statt Kupfer (etwas weniger Ausbeute)
+    geformt("munition_9mm_schrott", ["NGN", " S "], {"N": N, "G": G, "S": S}, "deadzonemc:munition_9mm", 4)
+    geformt("munition_556_schrott", ["NGN", "GSG"], {"N": N, "G": G, "S": S}, "deadzonemc:munition_556", 4)
+    # Schwarzpulver selbst mischen: Kohle, Knochenmehl (Salpeter), Feuerstein
+    with open(os.path.join(D, "recipe", "schwarzpulver.json"), "w") as f:
+        json.dump({"type": "minecraft:crafting_shapeless", "category": "misc",
+                   "ingredients": [{"tag": "minecraft:coals"}, {"item": "minecraft:bone_meal"}, {"item": "minecraft:flint"}],
+                   "result": {"id": "minecraft:gunpowder", "count": 2}}, f, indent=1)
     geformt("rohrpistole", ["SSS", " PT"], {"S": S, "P": "#minecraft:planks", "T": "minecraft:tripwire_hook"}, "deadzonemc:rohrpistole")
     geformt("rohrgewehr", ["SSS", "SST", "PP "], {"S": S, "P": "#minecraft:planks", "T": "minecraft:tripwire_hook"}, "deadzonemc:rohrgewehr")
     geformt("armbrust", ["IPI", "SPS", " P "], {"I": "minecraft:iron_ingot", "P": "#minecraft:planks", "S": "minecraft:string"},
