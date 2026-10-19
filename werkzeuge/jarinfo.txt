@@ -1,2 +1,4 @@
-ultimate-car-mod:assets/[a-z_]+/lang/en_us\.json@en_us\.json
-immersive-machinery:assets/[a-z_]+/lang/en_us\.json@en_us\.json
+hardcore-revival:api/|event/|HardcoreRevival[A-Za-z]*\.class
+drippy-loading-screen:\.txt$|\.json$|customization|layout
+dynamic-crosshair:fabric\.mod\.json|mods\.toml
+xaeros-minimap:WaypointSharingHandler|WaypointsIngameRenderer@WaypointSharingHandler

@@ -101,5 +101,7 @@ mc-mods/ai-improvements                 both
 mc-mods/dynamic-fps                     client
 mc-mods/moreculling                     client
 mc-mods/badoptimizations                client
+mc-mods/dynamic-crosshair               client
+mc-mods/drippy-loading-screen           client
 mc-mods/xaeros-minimap                  both
 mc-mods/xaeros-world-map                both
