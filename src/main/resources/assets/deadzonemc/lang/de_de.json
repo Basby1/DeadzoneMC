@@ -1437,5 +1437,9 @@
   "verzauberung.deadzonemc.kosten": "%s Stufen · %sx %s",
   "verzauberung.deadzonemc.voll": "Höchste Stufe",
   "verzauberung.deadzonemc.unvertraeglich": "Verträgt sich nicht",
-  "verzauberung.deadzonemc.fertig": "%s verbessert"
+  "verzauberung.deadzonemc.fertig": "%s verbessert",
+  "block.deadzonemc.plakat": "Plakat",
+  "block.deadzonemc.kreidezeichen": "Kreidezeichen",
+  "item.deadzonemc.plakat": "Plakat",
+  "item.deadzonemc.kreidezeichen": "Kreidezeichen"
 }

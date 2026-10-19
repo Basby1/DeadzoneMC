@@ -1,0 +1,64 @@
+{
+ "variants": {
+  "facing=north,motiv=0": {
+   "model": "deadzonemc:block/plakat_0"
+  },
+  "facing=east,motiv=0": {
+   "model": "deadzonemc:block/plakat_0",
+   "y": 90
+  },
+  "facing=south,motiv=0": {
+   "model": "deadzonemc:block/plakat_0",
+   "y": 180
+  },
+  "facing=west,motiv=0": {
+   "model": "deadzonemc:block/plakat_0",
+   "y": 270
+  },
+  "facing=north,motiv=1": {
+   "model": "deadzonemc:block/plakat_1"
+  },
+  "facing=east,motiv=1": {
+   "model": "deadzonemc:block/plakat_1",
+   "y": 90
+  },
+  "facing=south,motiv=1": {
+   "model": "deadzonemc:block/plakat_1",
+   "y": 180
+  },
+  "facing=west,motiv=1": {
+   "model": "deadzonemc:block/plakat_1",
+   "y": 270
+  },
+  "facing=north,motiv=2": {
+   "model": "deadzonemc:block/plakat_2"
+  },
+  "facing=east,motiv=2": {
+   "model": "deadzonemc:block/plakat_2",
+   "y": 90
+  },
+  "facing=south,motiv=2": {
+   "model": "deadzonemc:block/plakat_2",
+   "y": 180
+  },
+  "facing=west,motiv=2": {
+   "model": "deadzonemc:block/plakat_2",
+   "y": 270
+  },
+  "facing=north,motiv=3": {
+   "model": "deadzonemc:block/plakat_3"
+  },
+  "facing=east,motiv=3": {
+   "model": "deadzonemc:block/plakat_3",
+   "y": 90
+  },
+  "facing=south,motiv=3": {
+   "model": "deadzonemc:block/plakat_3",
+   "y": 180
+  },
+  "facing=west,motiv=3": {
+   "model": "deadzonemc:block/plakat_3",
+   "y": 270
+  }
+ }
+}

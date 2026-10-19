@@ -38,6 +38,9 @@ TAGS = {
 }
 
 MODIFIKATOREN = {
+    # Plakate und Kreidezeichen an Hauswänden – nach allen Bauten, damit die Wände schon stehen
+    "deko_waende": {"type": "neoforge:add_features", "biomes": "#minecraft:is_overworld",
+                    "features": ["deadzonemc:wanddeko"], "step": "top_layer_modification"},
     "deko_ueberall": {"type": "neoforge:add_features", "biomes": "#minecraft:is_overworld",
                       "features": ["deadzonemc:autowrack_selten", "deadzonemc:schutt_selten",
                                    "deadzonemc:strahlenfaesser_selten", "deadzonemc:versteck",

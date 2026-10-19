@@ -29,6 +29,7 @@ public class DeadzoneMC {
         de.deadzonemc.verletzung.Verletzungen.registrieren(modBus);
         de.deadzonemc.falle.Fallen.registrieren(modBus);
         de.deadzonemc.bossmod.Bossmods.registrieren(modBus);
+        de.deadzonemc.welt.deko.Wanddeko.registrieren(modBus);
         de.deadzonemc.gadget.Gadgets.registrieren(modBus);
         de.deadzonemc.gadget.Nachwirkung.registrieren();
         de.deadzonemc.welt.schild.Ladenschild.registrieren(modBus);

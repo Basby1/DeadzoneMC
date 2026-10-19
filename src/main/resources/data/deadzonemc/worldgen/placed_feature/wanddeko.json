@@ -1,0 +1,8 @@
+{
+  "feature": "deadzonemc:wanddeko",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

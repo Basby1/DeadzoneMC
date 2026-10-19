@@ -48,6 +48,7 @@ CONFIGURED = {
     # In Java gebaute Features
     "toter_baum": {"type": f"{MOD}:toter_baum", "config": {}},
     "autowrack": {"type": f"{MOD}:autowrack", "config": {}},
+    "wanddeko": {"type": f"{MOD}:wanddeko", "config": {}},
     "absturz_hubschrauber": {"type": f"{MOD}:absturz_hubschrauber", "config": {}},
     "absturz_flugzeug": {"type": f"{MOD}:absturz_flugzeug", "config": {}},
     "frachter": {"type": f"{MOD}:frachter", "config": {}},
@@ -128,6 +129,7 @@ PLACED = {
     "tote_baeume_moor": ("toter_baum", an_der_oberflaeche(anzahl=zwischen(1, 3))),
     "tote_baeume_selten": ("toter_baum", an_der_oberflaeche(seltenheit=3)),
     "autowrack_selten": ("autowrack", an_der_oberflaeche(seltenheit=24)),
+    "wanddeko": ("wanddeko", [{"type": "minecraft:biome"}]),
     # POIs: selten, aber mit Rauchsäule weithin sichtbar
     "absturz_hubschrauber": ("absturz_hubschrauber", an_der_oberflaeche(seltenheit=140)),
     "absturz_flugzeug": ("absturz_flugzeug", an_der_oberflaeche(seltenheit=260)),

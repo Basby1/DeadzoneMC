@@ -1,0 +1,8 @@
+{
+ "parent": "minecraft:block/ladder",
+ "render_type": "minecraft:cutout",
+ "textures": {
+  "particle": "deadzonemc:block/kreidezeichen_2",
+  "texture": "deadzonemc:block/kreidezeichen_2"
+ }
+}
