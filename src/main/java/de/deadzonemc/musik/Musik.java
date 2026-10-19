@@ -29,6 +29,8 @@ public final class Musik {
     public static final DeferredHolder<SoundEvent, SoundEvent> BOSS_MARSCH = stueck("boss_marsch");
     public static final DeferredHolder<SoundEvent, SoundEvent> WILDNIS = stueck("wildnis");
     public static final DeferredHolder<SoundEvent, SoundEvent> ZUFLUCHT = stueck("zuflucht");
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER = stueck("nether");
+    public static final DeferredHolder<SoundEvent, SoundEvent> END = stueck("end");
 
     private static DeferredHolder<SoundEvent, SoundEvent> stueck(String name) {
         return KLAENGE.register("musik." + name, () -> SoundEvent.createVariableRangeEvent(

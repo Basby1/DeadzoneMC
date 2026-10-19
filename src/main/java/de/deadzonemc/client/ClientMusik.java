@@ -29,6 +29,8 @@ public final class ClientMusik {
     private static Music stadt;
     private static Music wildnis;
     private static Music zuflucht;
+    private static Music netherMusik;
+    private static Music endMusik;
     /** 0 = Land, 1 = Stadt, 2 = Zuflucht (vom Server gemeldet). */
     private static int ort;
 
@@ -105,6 +107,8 @@ public final class ClientMusik {
             wildnis = new Music(Musik.WILDNIS, RUHE_MIN, RUHE_MAX, false);
             // In der Zuflucht darf es gemütlich sein: kürzere Pausen, ersetzt die Stimmung von draußen
             zuflucht = new Music(Musik.ZUFLUCHT, 600, 2400, true);
+            netherMusik = new Music(Musik.NETHER, 400, 1600, true);
+            endMusik = new Music(Musik.END, 400, 1600, true);
         }
     }
 
@@ -122,6 +126,15 @@ public final class ClientMusik {
         // Große Gefechte (Horde, Rudel, Überfall): treibende Kampfmusik, die nach dem Kampf noch etwas nachklingt
         if (gefechtLage(mc)) {
             e.setMusic(gefecht);
+            return;
+        }
+        // Herz der Zone und Orbitalstation: eigene, sehr bedrohliche Musik statt der von Minecraft
+        if (mc.level.dimension() == Level.NETHER) {
+            e.setMusic(netherMusik);
+            return;
+        }
+        if (mc.level.dimension() == Level.END) {
+            e.setMusic(endMusik);
             return;
         }
         if (mc.level.dimension() != Level.OVERWORLD) {

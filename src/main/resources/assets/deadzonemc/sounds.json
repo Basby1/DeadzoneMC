@@ -3775,6 +3775,10 @@
     "stream": true
    },
    {
+    "name": "deadzonemc:musik/nebelstimmen",
+    "stream": true
+   },
+   {
     "name": "deadzonemc:musik/sektor4",
     "stream": true
    }
@@ -3787,7 +3791,7 @@
     "stream": true
    },
    {
-    "name": "deadzonemc:musik/sektor4",
+    "name": "deadzonemc:musik/jagd",
     "stream": true
    },
    {
@@ -3800,6 +3804,10 @@
   "sounds": [
    {
     "name": "deadzonemc:musik/tief",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/schacht",
     "stream": true
    }
   ]
@@ -3816,6 +3824,10 @@
   "sounds": [
    {
     "name": "deadzonemc:musik/stadt",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/betonwueste",
     "stream": true
    },
    {
@@ -3837,6 +3849,18 @@
    {
     "name": "deadzonemc:musik/sektor4",
     "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/asche",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/sperrzone",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/verlassen",
+    "stream": true
    }
   ]
  },
@@ -3844,6 +3868,10 @@
   "sounds": [
    {
     "name": "deadzonemc:musik/zuflucht",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/glut",
     "stream": true
    }
   ]
@@ -3876,6 +3904,30 @@
   "sounds": [
    {
     "name": "deadzonemc:musik/boss_marsch",
+    "stream": true
+   }
+  ]
+ },
+ "musik.nether": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/herzkammer",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/glutfeld",
+    "stream": true
+   }
+  ]
+ },
+ "musik.end": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/leere",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/orbit",
     "stream": true
    }
   ]

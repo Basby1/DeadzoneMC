@@ -208,10 +208,12 @@ def schreiben():
         daten[f"monster.{name}"] = eintrag
     # Musik (werkzeuge/musik.py)
     # Jede Lage zieht zufällig aus einem Pool (wie die Musik im normalen Minecraft)
-    pools = {"wildnis": ["wildnis", "morgen", "sektor4"], "nacht": ["nacht", "sektor4", "titel"],
-             "stadt": ["stadt", "sektor4"], "nebel": ["nebel", "sektor4"]}
+    pools = {"wildnis": ["wildnis", "morgen", "sektor4", "asche", "sperrzone", "verlassen"],
+             "nacht": ["nacht", "jagd", "titel"], "stadt": ["stadt", "betonwueste", "sektor4"],
+             "nebel": ["nebel", "nebelstimmen", "sektor4"], "tief": ["tief", "schacht"], "zuflucht": ["zuflucht", "glut"],
+             "nether": ["herzkammer", "glutfeld"], "end": ["leere", "orbit"]}
     for stueck in ("titel", "morgen", "nebel", "nacht", "tief", "gefecht", "stadt", "wildnis", "zuflucht", "endkampf",
-                   "boss_frost", "boss_fleisch", "boss_marsch"):
+                   "boss_frost", "boss_fleisch", "boss_marsch", "nether", "end"):
         daten[f"musik.{stueck}"] = {"sounds": [{"name": f"deadzonemc:musik/{t}", "stream": True}
                                                for t in pools.get(stueck, [stueck])]}
     with open(ZIEL, "w") as f:
