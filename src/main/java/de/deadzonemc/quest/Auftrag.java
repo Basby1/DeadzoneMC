@@ -73,7 +73,40 @@ public record Auftrag(String id, Art art, String titel, String text, String ziel
                     "versteck", 1, 12, "bewegung", 150, 5)
     );
 
+    /** Kopfgelder auf Bosse – jeden Tag hängt bei jedem Auftraggeber eines aus, mit Hinweis, wo und wann er auftaucht. */
+    public static final List<Auftrag> KOPFGELDER = List.of(
+            new Auftrag("kopfgeld_schlaechter", Art.JAGEN, "Kopfgeld: Der Schlächter",
+                    "Bei Neumond zieht er durch die Städte und hängt seine Opfer an Haken. Wer ihn erledigt, bekommt alles, was wir haben.",
+                    "deadzonemc:schlaechter", 1, 80, "kampf", 700, 20),
+            new Auftrag("kopfgeld_nebelmutter", Art.JAGEN, "Kopfgeld: Die Nebelmutter",
+                    "In nebligen Nächten, in verseuchten und toten Wäldern, gebiert sie ihre Kinder. Beende es.",
+                    "deadzonemc:nebelmutter", 1, 80, "kampf", 700, 20),
+            new Auftrag("kopfgeld_pilzvater", Art.JAGEN, "Kopfgeld: Der Pilzvater",
+                    "Wenn es in den Sumpfwäldern regnet, wächst er aus dem Boden. Seine Sporen verderben unsere Ernte.",
+                    "deadzonemc:pilzvater", 1, 70, "kampf", 600, 18),
+            new Auftrag("kopfgeld_erfrorene", Art.JAGEN, "Kopfgeld: Der Erfrorene",
+                    "Im Schneesturm, oben im Eis, wandert etwas, das nicht mehr friert. Zwei unserer Jäger kamen nicht zurück.",
+                    "deadzonemc:erfrorene", 1, 70, "kampf", 600, 18),
+            new Auftrag("kopfgeld_schlund", Art.JAGEN, "Kopfgeld: Der Schlund",
+                    "In der Wüste hört er jeden, der rennt. Dann bricht er aus dem Sand. Lock ihn heraus und töte ihn.",
+                    "deadzonemc:schlund", 1, 75, "schusswaffen", 650, 18),
+            new Auftrag("kopfgeld_brutkoenigin", Art.JAGEN, "Kopfgeld: Die Brutkönigin",
+                    "Tief unter der Erde, unter Meereshöhe, legt sie ihre Eier. Steig hinab und bring es zu Ende.",
+                    "deadzonemc:brutkoenigin", 1, 75, "kampf", 650, 18),
+            new Auftrag("kopfgeld_strahlende", Art.JAGEN, "Kopfgeld: Der Strahlende",
+                    "Wer sich in der Strahlenzone schwer verstrahlen lässt, dem erscheint er. Nimm Anti-Rad mit.",
+                    "deadzonemc:strahlende", 1, 85, "ueberleben", 750, 20),
+            new Auftrag("kopfgeld_hirte", Art.JAGEN, "Kopfgeld: Der Hirte",
+                    "Er führt die großen Herden übers Land. Fällt er, zerstreut sich die Herde. Halte nach ihm Ausschau.",
+                    "deadzonemc:hirte", 1, 70, "kampf", 600, 18)
+    );
+
     public static Auftrag holen(String id) {
+        for (Auftrag a : KOPFGELDER) {
+            if (a.id.equals(id)) {
+                return a;
+            }
+        }
         for (Auftrag a : ALLE) {
             if (a.id.equals(id)) {
                 return a;

@@ -25,6 +25,8 @@ public final class ClientGeschichte {
     public static final KeyMapping TAGEBUCH = new KeyMapping("key.deadzonemc.tagebuch", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_J, "key.categories.deadzonemc");
 
+    /** Gelesene Notizen (Archiv). */
+    public static java.util.List<String> archiv = java.util.List.of();
     static int schritt;
     static int zielX;
     static int zielZ;

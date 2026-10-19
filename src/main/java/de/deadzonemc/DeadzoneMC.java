@@ -18,6 +18,7 @@ public class DeadzoneMC {
         de.deadzonemc.monster.Verbote.registrieren();
         Lebensbilanz.registrieren();
         Schlafen.registrieren();
+        de.deadzonemc.geschichte.Archiv.registrieren();
         de.deadzonemc.monster.Rudel.registrieren();
         de.deadzonemc.fraktion.Fraktionen.registrieren();
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.Mimik::erscheinen);

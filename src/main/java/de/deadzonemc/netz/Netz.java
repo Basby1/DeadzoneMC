@@ -35,6 +35,8 @@ public final class Netz {
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientGeschichte.empfangen(n)));
         registrar.playToClient(de.deadzonemc.geschichte.IntroPayload.TYPE, de.deadzonemc.geschichte.IntroPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.IntroScreen.starten(n.namen())));
+        registrar.playToClient(ArchivPayload.TYPE, ArchivPayload.STREAM_CODEC,
+                (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientGeschichte.archiv = n.notizen()));
         registrar.playToClient(LaermPayload.TYPE, LaermPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientLaerm.empfangen(n.radius())));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,

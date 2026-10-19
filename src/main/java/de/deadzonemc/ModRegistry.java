@@ -70,6 +70,12 @@ public final class ModRegistry {
                     .build());
 
     /** Ob ein Spieler schon einmal in der Deadzone angekommen ist. */
+    /** Gelesene Notizen, Funkprotokolle und Logbücher (Archiv im Tagebuch). */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<java.util.List<String>>> ARCHIV =
+            ANHAENGE.register("archiv", () -> AttachmentType.<java.util.List<String>>builder(() -> java.util.List.of())
+                    .serialize(Codec.STRING.listOf())
+                    .copyOnDeath()
+                    .build());
     /** Hinweis zur ersten Nacht schon gezeigt (nur einmal pro Spieler, bleibt über den Tod hinaus). */
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> ERSTE_NACHT =
             ANHAENGE.register("erste_nacht", () -> AttachmentType.builder(() -> false)

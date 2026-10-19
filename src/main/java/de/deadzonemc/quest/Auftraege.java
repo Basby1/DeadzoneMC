@@ -66,7 +66,7 @@ public final class Auftraege {
         return p.getData(ModRegistry.AUFTRAEGE).getInt("erledigt");
     }
 
-    /** Die drei Angebote dieses Auftraggebers heute (wechseln jeden Spieltag). */
+    /** Die drei Angebote dieses Auftraggebers heute plus ein Kopfgeld auf einen Boss (wechseln jeden Spieltag). */
     public static List<Auftrag> angebote(Auftraggeber a) {
         long tag = a.level().getDayTime() / 24000L;
         Random r = new Random(a.getUUID().getLeastSignificantBits() ^ (tag * 0x9E3779B97F4A7C15L));
@@ -75,6 +75,8 @@ public final class Auftraege {
         while (wahl.size() < 3 && !pool.isEmpty()) {
             wahl.add(pool.remove(r.nextInt(pool.size())));
         }
+        // Dazu jeden Tag ein Kopfgeld auf einen Boss
+        wahl.add(Auftrag.KOPFGELDER.get(r.nextInt(Auftrag.KOPFGELDER.size())));
         return wahl;
     }
 

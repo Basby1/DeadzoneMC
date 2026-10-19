@@ -58,6 +58,8 @@ public class NotizItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
         if (level.isClientSide) {
             NotizAnzeige.oeffnen(id(stack));
+        } else if (player instanceof net.minecraft.server.level.ServerPlayer sp) {
+            de.deadzonemc.geschichte.Archiv.gelesen(sp, id(stack));
         }
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
     }

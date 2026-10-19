@@ -131,6 +131,40 @@ public class Haendler extends WanderingTrader implements GeoEntity {
         alle.stream().limit(6).forEach(angebote::add);
     }
 
+    /**
+     * Ruf bei Händlern: Stammkunden zahlen weniger (ab 25 Ansehen −10 %, ab 60 −25 %), Diebe und Mörder mehr
+     * (unter −20: +25 %). Ab 50 Ansehen holt der Händler seine Ware „unter der Theke“ hervor.
+     */
+    @Override
+    public void setTradingPlayer(Player p) {
+        super.setTradingPlayer(p);
+        if (p == null || level().isClientSide) {
+            return;
+        }
+        int ruf = Ansehen.holen(p, sortiment.isEmpty() ? Fraktion.KARAWANE : Fraktion.ZUFLUCHT);
+        float faktor = ruf >= 60 ? -0.25F : ruf >= 25 ? -0.10F : ruf <= -20 ? 0.25F : 0F;
+        MerchantOffers angebote = getOffers();
+        if (ruf >= 50 && angebote.stream().noneMatch(o -> o.getResult().is(de.deadzonemc.beute.Beute.NACHTSICHT.get()))) {
+            angebote.add(angebot(ModRegistry.ELEKTRONIK.get(), 10, ModRegistry.BATTERIE.get(), 4,
+                    new ItemStack(de.deadzonemc.beute.Beute.NACHTSICHT.get()), 1));
+        }
+        for (MerchantOffer o : angebote) {
+            int basis = o.getBaseCostA().getCount();
+            int diff = faktor < 0 ? -Math.max(1, Math.round(basis * -faktor)) : faktor > 0 ? Math.max(1, Math.round(basis * faktor)) : 0;
+            if (basis <= 1 && diff < 0) {
+                diff = 0;
+            }
+            o.resetSpecialPriceDiff();
+            o.addToSpecialPriceDiff(diff);
+        }
+        String stufe = ruf >= 60 ? "haendler.deadzonemc.ruf.freund" : ruf >= 25 ? "haendler.deadzonemc.ruf.stamm"
+                : ruf <= -20 ? "haendler.deadzonemc.ruf.dieb" : null;
+        if (stufe != null) {
+            p.displayClientMessage(net.minecraft.network.chat.Component.translatable(stufe)
+                    .withStyle(ruf > 0 ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.RED), true);
+        }
+    }
+
     @Override
     protected void rewardTradeXp(MerchantOffer angebot) {
         super.rewardTradeXp(angebot);
