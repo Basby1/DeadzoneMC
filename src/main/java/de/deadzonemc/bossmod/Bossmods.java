@@ -53,11 +53,26 @@ public final class Bossmods {
             KOMPONENTEN.register("bossmod", () -> DataComponentType.<String>builder()
                     .persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
     public static final Map<String, DeferredItem<TrophaeeItem>> TROPHAEE = new LinkedHashMap<>();
+    /** Boss-Köpfe zum Aufhängen am Trophäenbrett – nur Bosse lassen Köpfe fallen. */
+    public static final Map<String, DeferredItem<Item>> KOPF = new LinkedHashMap<>();
+
+    public static final DeferredRegister.Blocks BLOECKE = DeferredRegister.createBlocks(DeadzoneMC.MODID);
+    public static final DeferredRegister<net.minecraft.world.level.block.entity.BlockEntityType<?>> BE =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, DeadzoneMC.MODID);
+    public static final net.neoforged.neoforge.registries.DeferredBlock<TrophaeenbrettBlock> BRETT = BLOECKE.register("trophaeenbrett",
+            () -> new TrophaeenbrettBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.WOOD).strength(1.5F).noOcclusion()
+                    .sound(net.minecraft.world.level.block.SoundType.WOOD)));
+    public static final DeferredItem<net.minecraft.world.item.BlockItem> BRETT_ITEM = ITEMS.registerSimpleBlockItem(BRETT);
+    public static final DeferredHolder<net.minecraft.world.level.block.entity.BlockEntityType<?>,
+            net.minecraft.world.level.block.entity.BlockEntityType<TrophaeenbrettBlockEntity>> BRETT_BE = BE.register("trophaeenbrett",
+            () -> net.minecraft.world.level.block.entity.BlockEntityType.Builder.of(TrophaeenbrettBlockEntity::new, BRETT.get()).build(null));
 
     static {
         for (String b : BOSSE) {
             TROPHAEE.put(b, ITEMS.register("trophaee_" + b, () -> new TrophaeeItem(b,
                     new Item.Properties().rarity(Rarity.EPIC).stacksTo(16))));
+            KOPF.put(b, ITEMS.register("kopf_" + b, () -> new Item(new Item.Properties().rarity(Rarity.EPIC).stacksTo(1))));
         }
     }
 
@@ -67,6 +82,8 @@ public final class Bossmods {
     public static void registrieren(IEventBus modBus) {
         ITEMS.register(modBus);
         KOMPONENTEN.register(modBus);
+        BLOECKE.register(modBus);
+        BE.register(modBus);
         NeoForge.EVENT_BUS.addListener(Bossmods::schaden);
         NeoForge.EVENT_BUS.addListener(Bossmods::tod);
         NeoForge.EVENT_BUS.addListener(Bossmods::tick);
@@ -75,6 +92,8 @@ public final class Bossmods {
 
     public static void tabFuellen(net.minecraft.world.item.CreativeModeTab.Output ausgabe) {
         TROPHAEE.values().forEach(t -> ausgabe.accept(t.get()));
+        ausgabe.accept(BRETT_ITEM.get());
+        KOPF.values().forEach(t -> ausgabe.accept(t.get()));
     }
 
     // ---- Abfragen -----------------------------------------------------------------------------

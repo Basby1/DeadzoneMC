@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "deadzonemc:spiessfalle"
+    "deadzonemc:spiessfalle",
+    "deadzonemc:trophaeenbrett"
   ]
 }

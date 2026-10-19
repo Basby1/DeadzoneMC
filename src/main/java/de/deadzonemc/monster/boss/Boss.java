@@ -630,6 +630,11 @@ public abstract class Boss extends DeadzoneMonster {
             if (trophaee != null) {
                 spawnAtLocation(new ItemStack(trophaee.get(), random.nextInt(4) == 0 ? 2 : 1));
             }
+            var kopf = de.deadzonemc.bossmod.Bossmods.KOPF.get(art);
+            boolean endboss = art.equals("das_herz") || art.equals("der_ursprung");
+            if (kopf != null && (endboss || random.nextFloat() < 0.4F)) {
+                spawnAtLocation(new ItemStack(kopf.get()));
+            }
             sprechen(sl, "tod");
             Component name = getDisplayName();
             // Finale: Blitz (nur Optik), Explosionen, Lichtsäule über der Beute, Fanfare und Titel

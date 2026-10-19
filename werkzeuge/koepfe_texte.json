@@ -1,0 +1,16 @@
+{
+ "block.deadzonemc.trophaeenbrett": "Trophäenbrett",
+ "block.deadzonemc.trophaeenbrett.info": "Rechtsklick mit einem Boss-Kopf (oder etwas anderem) zum Aufhängen",
+ "item.deadzonemc.kopf_schlaechter": "Kopf des Schlächters",
+ "item.deadzonemc.kopf_erfrorene": "Kopf des Erfrorenen",
+ "item.deadzonemc.kopf_pilzvater": "Kopf des Pilzvaters",
+ "item.deadzonemc.kopf_nebelmutter": "Kopf der Nebelmutter",
+ "item.deadzonemc.kopf_schlund": "Maul des Schlunds",
+ "item.deadzonemc.kopf_brutkoenigin": "Kopf der Brutkönigin",
+ "item.deadzonemc.kopf_strahlende": "Kopf des Strahlenden",
+ "item.deadzonemc.kopf_hirte": "Kopf des Hirten",
+ "item.deadzonemc.kopf_kommandant": "Helm des Kommandanten",
+ "item.deadzonemc.kopf_verschmolzener": "Köpfe des Verschmolzenen",
+ "item.deadzonemc.kopf_das_herz": "Haupt des Herzens der Zone",
+ "item.deadzonemc.kopf_der_ursprung": "Haupt des Ursprungs"
+}

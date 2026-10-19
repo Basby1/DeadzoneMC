@@ -120,6 +120,7 @@ public class DeadzoneClient {
         e.registerEntityRenderer(MonsterTypen.VERSCHMOLZENER.get(), c -> new MonsterRenderer<>(c, "verschmolzener", true, false, 1.6F));
         e.registerEntityRenderer(MonsterTypen.NEBELMUTTER.get(), c -> new MonsterRenderer<>(c, "nebelmutter", true, true, 0.8F));
         e.registerEntityRenderer(MonsterTypen.MIMIK.get(), de.deadzonemc.client.MimikRenderer::new);
+        e.registerBlockEntityRenderer(de.deadzonemc.bossmod.Bossmods.BRETT_BE.get(), de.deadzonemc.client.TrophaeenbrettRenderer::new);
         MonsterTypen.DIMENSION.forEach((d, h) -> e.registerEntityRenderer(h.get(),
                 c -> new MonsterRenderer<de.deadzonemc.monster.dimension.Dimensionswesen>(c, d.id, true,
                         d == de.deadzonemc.monster.dimension.DimArt.HOLOGEIST || d == de.deadzonemc.monster.dimension.DimArt.SPUK,
