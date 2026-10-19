@@ -97,7 +97,14 @@ public class Wurfkoerper extends ThrowableItemProjectile {
     protected void onHitBlock(BlockHitResult t) {
         super.onHitBlock(t);
         Wurfart a = art();
-        if (a == Wurfart.BRANDSATZ) {
+        if (a == Wurfart.WURFMESSER) {
+            if (!level().isClientSide) {
+                level().playSound(null, getX(), getY(), getZ(), SoundEvents.TRIDENT_HIT_GROUND, SoundSource.NEUTRAL, 0.6F, 1.6F);
+                messerZurueck();
+            }
+            return;
+        }
+        if (a == Wurfart.BRANDSATZ || a == Wurfart.SPORENBOMBE) {
             if (!level().isClientSide) {
                 zuenden();
             }
@@ -123,9 +130,30 @@ public class Wurfkoerper extends ThrowableItemProjectile {
         }
     }
 
+    /** Das Wurfmesser bleibt liegen und kann wieder aufgehoben werden. */
+    private void messerZurueck() {
+        net.minecraft.world.entity.item.ItemEntity i = new net.minecraft.world.entity.item.ItemEntity(level(), getX(), getY(), getZ(),
+                new net.minecraft.world.item.ItemStack(Wurfwaffen.WURF.get(Wurfart.WURFMESSER).get()));
+        i.setDeltaMovement(Vec3.ZERO);
+        level().addFreshEntity(i);
+        discard();
+    }
+
     @Override
     protected void onHitEntity(EntityHitResult t) {
-        if (art() == Wurfart.BRANDSATZ && !level().isClientSide) {
+        if (art() == Wurfart.WURFMESSER) {
+            if (!level().isClientSide && t.getEntity() instanceof LivingEntity ziel && t.getEntity() != getOwner()) {
+                float schaden = 8F;
+                if (getOwner() instanceof Player werfer && de.deadzonemc.klasse.Klassen.klasse(werfer) == de.deadzonemc.klasse.Klasse.SPAEHER) {
+                    schaden *= 1.5F;
+                }
+                ziel.hurt(level().damageSources().thrown(this, getOwner()), schaden);
+                level().playSound(null, getX(), getY(), getZ(), SoundEvents.TRIDENT_HIT, SoundSource.NEUTRAL, 0.8F, 1.4F);
+                messerZurueck();
+            }
+            return;
+        }
+        if ((art() == Wurfart.BRANDSATZ || art() == Wurfart.SPORENBOMBE) && !level().isClientSide) {
             zuenden();
             return;
         }
@@ -196,6 +224,23 @@ public class Wurfkoerper extends ThrowableItemProjectile {
                 wirkung = 320;
             }
             case LAERMKOEDER -> wirkung = 240;
+            case SPORENBOMBE -> {
+                sl.playSound(null, p.x, p.y, p.z, SoundEvents.SLIME_SQUISH, SoundSource.NEUTRAL, 1.4F, 0.6F);
+                net.minecraft.world.entity.AreaEffectCloud wolke = new net.minecraft.world.entity.AreaEffectCloud(sl, p.x, p.y, p.z);
+                wolke.setRadius(3.5F);
+                wolke.setRadiusPerTick(-0.004F);
+                wolke.setDuration(200);
+                wolke.setParticle(ParticleTypes.SPORE_BLOSSOM_AIR);
+                wolke.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, 1)); // wirkt auch auf Untote
+                wolke.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
+                if (getOwner() instanceof LivingEntity besitzer) {
+                    wolke.setOwner(besitzer);
+                }
+                sl.addFreshEntity(wolke);
+                discard();
+            }
+            case WURFMESSER -> {
+            }
         }
     }
 

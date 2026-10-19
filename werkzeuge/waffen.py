@@ -99,6 +99,16 @@ W["armbrust"] = [q(-2, 16, 8.0, 9.6, 7.3, 8.7, "holz"), q(12.4, 13.6, 8.8, 9.6, 
                  q(7.2, 12.6, 9.25, 9.45, 1.0, 1.4, "weiss", ("y", 45, (12.6, 9.3, 1.2))),
                  q(7.2, 12.6, 9.25, 9.45, 14.6, 15.0, "weiss", ("y", -45, (12.6, 9.3, 14.8))),
                  q(6, 18, 9.6, 10.0, 7.85, 8.15, "hell"), q(2.6, 4.4, 4.8, 8, 7.4, 8.6, "holz", ("z", -22.5, (3.5, 8, 8)))]
+W["karabiner"] = [q(-7, 3, 7.2, 10.6, 7.3, 8.7, "oliv"), q(3, 13, 8.2, 11, 7.2, 8.8, "metall"), q(13, 23, 9.4, 10.3, 7.6, 8.4, "stahl"),
+                  q(4, 11, 11, 12.2, 7.5, 8.5, "metall"), q(5, 10, 12.2, 13.0, 7.4, 8.6, "glas"),
+                  q(7.6, 9.6, 4.2, 8.2, 7.35, 8.65, "kunst", ("z", 22.5, (8.6, 8.2, 8))),
+                  q(3.2, 5.0, 4.6, 8.2, 7.35, 8.65, "oliv", ("z", -22.5, (4.1, 8, 8))), q(22.4, 23.2, 9.0, 10.6, 7.5, 8.5, "metall")]
+W["nagelpistole"] = [q(4, 14, 8.6, 11.2, 7.1, 8.9, "rot"), q(14, 17, 9.4, 10.4, 7.6, 8.4, "metall"), q(6, 13, 7.6, 8.6, 7.4, 8.6, "metall"),
+                     q(4.6, 7, 3.6, 8.6, 7.3, 8.7, "kunst", ("z", -22.5, (5.8, 8.6, 8))), q(10, 12.6, 4.4, 7.6, 7.45, 8.55, "messing"),
+                     q(2.5, 4, 9, 10.8, 7.5, 8.5, "kunst")]
+W["betaeubungspistole"] = [q(6, 15, 9.2, 10.6, 7.3, 8.7, "weiss"), q(15, 19, 9.6, 10.2, 7.7, 8.3, "chrom"), q(8, 12, 10.6, 11.6, 7.45, 8.55, "glas"),
+                           q(4.6, 7.2, 4.2, 9.2, 7.3, 8.7, "kunst", ("z", -22.5, (5.9, 9, 8))), q(8.6, 10, 8.2, 9.2, 7.6, 8.4, "rot"),
+                           q(4.2, 6, 10.2, 11.0, 7.6, 8.4, "chrom")]
 
 
 def element(k):
@@ -279,6 +289,9 @@ SCHUSSKLANG = {
     "mg": (0.8, 3800, 0.05, 75, 0.5, 0.72),
     "rohrpistole": (0.9, 1800, 0.07, 65, 0.4, 0.5),
     "rohrgewehr": (1.1, 1600, 0.09, 55, 0.6, 0.5),
+    "karabiner": (1.0, 4000, 0.055, 75, 0.7, 0.75),
+    "nagelpistole": (0.25, 5200, 0.012, 160, 0.08, 0.9),
+    "betaeubungspistole": (0.3, 1200, 0.02, 120, 0.1, 0.25),
 }
 
 
@@ -361,6 +374,21 @@ def rezepte():
         json.dump({"type": "minecraft:crafting_shapeless", "category": "misc",
                    "ingredients": [{"tag": "minecraft:coals"}, {"item": "minecraft:bone_meal"}, {"item": "minecraft:flint"}],
                    "result": {"id": "minecraft:gunpowder", "count": 2}}, f, indent=1)
+    # Klassenwaffen und ihre Munition
+    D_, P_ = "deadzonemc:drohnenteile", "#minecraft:planks"
+    geformt("karabiner", ["IID", "PE "], {"I": "minecraft:iron_ingot", "D": D_, "P": P_, "E": E}, "deadzonemc:karabiner")
+    geformt("nagelpistole", ["SSD", " B "], {"S": S, "D": D_, "B": B}, "deadzonemc:nagelpistole")
+    geformt("betaeubungspistole", ["IGI", " H "], {"I": "minecraft:iron_ingot", "G": "minecraft:glass_bottle", "H": "deadzonemc:sehne"},
+            "deadzonemc:betaeubungspistole")
+    with open(os.path.join(D, "recipe", "munition_nagel.json"), "w") as f:
+        json.dump({"type": "minecraft:crafting_shapeless", "category": "equipment",
+                   "ingredients": [{"item": "deadzonemc:naegel"}, {"item": "deadzonemc:naegel"}, {"item": "deadzonemc:klebeband"}],
+                   "result": {"id": "deadzonemc:munition_nagel", "count": 24}}, f, indent=1)
+    with open(os.path.join(D, "recipe", "munition_spritze.json"), "w") as f:
+        json.dump({"type": "minecraft:crafting_shapeless", "category": "equipment",
+                   "ingredients": [{"item": "minecraft:glass_bottle"}, {"item": "deadzonemc:verseuchtes_gewebe"},
+                                   {"item": "deadzonemc:heilkraut"}, {"item": "minecraft:iron_nugget"}],
+                   "result": {"id": "deadzonemc:munition_spritze", "count": 4}}, f, indent=1)
     geformt("rohrpistole", ["SSS", " PT"], {"S": S, "P": "#minecraft:planks", "T": "minecraft:tripwire_hook"}, "deadzonemc:rohrpistole")
     geformt("rohrgewehr", ["SSS", "SST", "PP "], {"S": S, "P": "#minecraft:planks", "T": "minecraft:tripwire_hook"}, "deadzonemc:rohrgewehr")
     geformt("armbrust", ["IPI", "SPS", " P "], {"I": "minecraft:iron_ingot", "P": "#minecraft:planks", "S": "minecraft:string"},
@@ -396,6 +424,14 @@ WURF_BILDER = {
                      "...kmkGgGkmk....", "...kmkkkkkmk....", "...kmmmmmmmk....", "...kmooomoomk...", "...kmmmmmmmk....", "....kkkkkkk.....",
                      "....k.....k.....", "................", "................", "................"],
                     {"k": "1a1a1a", "m": "5a5e62", "r": "e82a2a", "G": "6aff6a", "g": "2a8a2a", "o": "c8c8c0"}),
+    "wurfmesser": (["................", "..............k.", ".............kM.", "............kMm.", "...........kMmk.", "..........kMmk..",
+                    ".........kMmk...", "........kMmk....", ".......kMmk.....", "......kbkk......", ".....kbbk.......", "....kbbk........",
+                    "...kbbk.........", "..kbbk..........", "..kkk...........", "................"],
+                   {"k": "1a1a1a", "m": "9aa0a6", "M": "e0e4e8", "b": "4a3a2a"}),
+    "sporenbombe": (["................", ".......kk.......", "......kwwk......", ".......kk.......", ".....kssssk.....", "....ksSssssk....",
+                     "...ksssDsssDk...", "...kssssssssk...", "...ksDsssSssk...", "...kssssssssk...", "....ksssDssk....", ".....kssssk.....",
+                     "......kkkk......", "................", "................", "................"],
+                    {"k": "1a2014", "w": "d8d0c0", "s": "6a7a4a", "S": "a8c07a", "D": "d8f0a0"}),
 }
 
 
@@ -411,6 +447,14 @@ def wurf_rezepte():
     geformt("blendgranate", [" I ", "GSG", " I "], {"I": "minecraft:iron_nugget", "G": "minecraft:glowstone_dust", "S": "minecraft:gunpowder"},
             "deadzonemc:blendgranate", 2)
     geformt("laermkoeder", ["NEN", "NBN"], {"N": "minecraft:iron_nugget", "E": E, "B": B}, "deadzonemc:laermkoeder", 1)
+    with open(os.path.join(D, "recipe", "wurfmesser.json"), "w") as f:
+        json.dump({"type": "minecraft:crafting_shapeless", "category": "equipment",
+                   "ingredients": [{"item": "minecraft:iron_ingot"}, {"item": "deadzonemc:sehne"}, {"item": "deadzonemc:knochensplitter"}],
+                   "result": {"id": "deadzonemc:wurfmesser", "count": 3}}, f, indent=1)
+    with open(os.path.join(D, "recipe", "sporenbombe.json"), "w") as f:
+        json.dump({"type": "minecraft:crafting_shapeless", "category": "equipment",
+                   "ingredients": [{"item": "deadzonemc:sporenbeutel"}, {"item": "minecraft:glass_bottle"}, {"item": "minecraft:string"}],
+                   "result": {"id": "deadzonemc:sporenbombe", "count": 2}}, f, indent=1)
 
 
 def main():
@@ -425,6 +469,15 @@ def main():
     bild("munition_schrot", patronen("c8a03a", "b82a2a", 3, schrot=True))
     bild("munition_556", patronen("c8a03a", "b87a3a", 3))
     bild("munition_762", patronen("a8902a", "6a5a2a", 3))
+    bild("munition_nagel", zeichne(["................", "................", "................", "..kkkkkkkkkkkk..", "..kmmmmmmmmmmk..",
+                                    "..kbbbbbbbbbbk..", "...m.m.m.m.m....", "...m.m.m.m.m....", "...m.m.m.m.m....", "...m.m.m.m.m....",
+                                    "...M.M.M.M.M....", "................", "................", "................", "................",
+                                    "................"], {"k": "2a2a2a", "m": "a8acb0", "M": "e0e4e8", "b": "c8a03a"}))
+    bild("munition_spritze", zeichne(["................", "..............k.", ".............kr.", "............krk.", "...........kgk..",
+                                      "..........kggk..", ".........kggk...", "........kggk....", ".......kGgk.....", "......kmmk......",
+                                      ".....kmmk.......", "....kssk........", "...kssk.........", "..kkkk..........", ".k..............",
+                                      "................"], {"k": "2a2a2a", "r": "c83a3a", "g": "8adaea", "G": "e8f8ff", "m": "a8acb0",
+                                                           "s": "e0e0e0"}))
     bild("munition_rohr", zeichne(["................", "................", "................", "....kkk.........", "...kRRRk..kkk...",
                                    "...kRRRk.kRRRk..", "...kRrRk.kRRRk..", "...kRRRk.kRrRk..", "...kSSSk.kRRRk..", "...kSSSk.kSSSk..",
                                    "....kkk..kSSSk..", ".........kkkk...", "................", "................", "................",

@@ -1,0 +1,23 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "equipment",
+ "pattern": [
+  "IGI",
+  " H "
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "G": {
+   "item": "minecraft:glass_bottle"
+  },
+  "H": {
+   "item": "deadzonemc:sehne"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:betaeubungspistole",
+  "count": 1
+ }
+}

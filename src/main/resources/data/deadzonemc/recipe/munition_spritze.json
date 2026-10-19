@@ -1,0 +1,22 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "equipment",
+ "ingredients": [
+  {
+   "item": "minecraft:glass_bottle"
+  },
+  {
+   "item": "deadzonemc:verseuchtes_gewebe"
+  },
+  {
+   "item": "deadzonemc:heilkraut"
+  },
+  {
+   "item": "minecraft:iron_nugget"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:munition_spritze",
+  "count": 4
+ }
+}

@@ -21,7 +21,11 @@ public enum WaffenArt {
     MG("mg", Kaliber.F762, 7.0F, 1.8F, 2, true, 80, 110, false, 5.5F, 2.6F, 1.5F, 96, 88, 1, Set.of("griff", "taschenlampe")),
     ROHRPISTOLE("rohrpistole", Kaliber.ROHR, 7.0F, 1.8F, 6, false, 1, 34, false, 5.0F, 2.5F, 6F, 28, 56, 1, Set.of()),
     ROHRGEWEHR("rohrgewehr", Kaliber.ROHR, 12F, 2.0F, 6, false, 1, 44, false, 4.0F, 1.5F, 7F, 48, 64, 1, Set.of()),
-    ARMBRUST("armbrust", Kaliber.BOLZEN, 11F, 2.2F, 6, false, 1, 36, false, 2.0F, 0.5F, 2F, 64, 6, 1, Set.of("zielfernrohr"));
+    ARMBRUST("armbrust", Kaliber.BOLZEN, 11F, 2.2F, 6, false, 1, 36, false, 2.0F, 0.5F, 2F, 64, 6, 1, Set.of("zielfernrohr")),
+    // Klassenwaffen (jeder darf sie benutzen, die Lieblingsklasse hat Vorteile)
+    KARABINER("karabiner", Kaliber.F556, 9F, 2.3F, 7, false, 20, 40, false, 2.4F, 0.25F, 2.2F, 128, 80, 1, Set.of("schalldaempfer", "zielfernrohr", "magazin", "griff")),
+    NAGELPISTOLE("nagelpistole", Kaliber.NAGEL, 3.5F, 1.6F, 3, true, 40, 50, false, 4.5F, 2.0F, 0.6F, 24, 14, 1, Set.of()),
+    BETAEUBUNGSPISTOLE("betaeubungspistole", Kaliber.SPRITZE, 2F, 1.5F, 14, false, 4, 36, false, 2.5F, 0.6F, 1.0F, 40, 8, 1, Set.of("zielfernrohr"));
 
     public final String id;
     public final Kaliber kaliber;

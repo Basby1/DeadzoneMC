@@ -1,0 +1,19 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "equipment",
+ "ingredients": [
+  {
+   "item": "minecraft:iron_ingot"
+  },
+  {
+   "item": "deadzonemc:sehne"
+  },
+  {
+   "item": "deadzonemc:knochensplitter"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:wurfmesser",
+  "count": 3
+ }
+}

@@ -8,7 +8,9 @@ public enum Kaliber {
     F556("556"),
     F762("762"),
     ROHR("rohr"),
-    BOLZEN("bolzen");
+    BOLZEN("bolzen"),
+    NAGEL("nagel"),
+    SPRITZE("spritze");
 
     public final String id;
 

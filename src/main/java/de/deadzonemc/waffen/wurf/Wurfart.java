@@ -6,7 +6,9 @@ public enum Wurfart {
     BRANDSATZ("brandsatz", 0, 28, 0.9F),
     RAUCHGRANATE("rauchgranate", 30, 12, 1.0F),
     BLENDGRANATE("blendgranate", 40, 40, 1.0F),
-    LAERMKOEDER("laermkoeder", 20, 0, 0.85F);
+    LAERMKOEDER("laermkoeder", 20, 0, 0.85F),
+    WURFMESSER("wurfmesser", 0, 0, 1.7F),
+    SPORENBOMBE("sporenbombe", 0, 10, 1.0F);
 
     public final String id;
     public final int zuender;

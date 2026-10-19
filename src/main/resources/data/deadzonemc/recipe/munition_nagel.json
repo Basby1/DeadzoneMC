@@ -1,0 +1,19 @@
+{
+ "type": "minecraft:crafting_shapeless",
+ "category": "equipment",
+ "ingredients": [
+  {
+   "item": "deadzonemc:naegel"
+  },
+  {
+   "item": "deadzonemc:naegel"
+  },
+  {
+   "item": "deadzonemc:klebeband"
+  }
+ ],
+ "result": {
+  "id": "deadzonemc:munition_nagel",
+  "count": 24
+ }
+}

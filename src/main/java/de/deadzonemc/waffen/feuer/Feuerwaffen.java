@@ -61,7 +61,8 @@ public final class Feuerwaffen {
         for (WaffenArt a : WaffenArt.values()) {
             Rarity r = switch (a) {
                 case ROHRPISTOLE, ROHRGEWEHR, ARMBRUST, DOPPELFLINTE -> Rarity.COMMON;
-                case P9, REVOLVER, PUMPGUN, MP9 -> Rarity.UNCOMMON;
+                case P9, REVOLVER, PUMPGUN, MP9, NAGELPISTOLE, BETAEUBUNGSPISTOLE -> Rarity.UNCOMMON;
+                case KARABINER -> Rarity.RARE;
                 case STURMGEWEHR, KALASCHNIKOW, JAGDGEWEHR -> Rarity.RARE;
                 case PRAEZISIONSGEWEHR, MG -> Rarity.EPIC;
             };

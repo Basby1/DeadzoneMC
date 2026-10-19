@@ -95,7 +95,7 @@ public final class Schiessen {
         Vec3 auge = p.getEyePosition();
         Vec3 rechts = blick.cross(new Vec3(0, 1, 0)).normalize();
         Vec3 muendung = auge.add(blick.scale(0.9)).add(rechts.scale(0.25)).add(0, -0.15, 0);
-        if (!leise && a.kaliber != Kaliber.BOLZEN) {
+        if (!leise && a.kaliber != Kaliber.BOLZEN && a.kaliber != Kaliber.NAGEL && a.kaliber != Kaliber.SPRITZE) {
             lv.sendParticles(ParticleTypes.FLAME, muendung.x, muendung.y, muendung.z, 2, 0.02, 0.02, 0.02, 0.01);
         }
         lv.sendParticles(ParticleTypes.SMOKE, muendung.x, muendung.y, muendung.z, 3, 0.03, 0.03, 0.03, 0.01);
@@ -165,6 +165,21 @@ public final class Schiessen {
             schaden *= de.deadzonemc.klasse.Klassenvorteile.schussSchaden(p, p.getMainHandItem());
             if (schonGetroffen != null) {
                 schaden *= 0.65F; // nach dem Durchschlagen
+            }
+            if (a == WaffenArt.BETAEUBUNGSPISTOLE) {
+                // Betäubungspfeil: Mitspieler werden geheilt, alles andere betäubt (fast kein Schaden)
+                boolean sani = de.deadzonemc.klasse.Klassen.klasse(p) == de.deadzonemc.klasse.Klasse.SANITAETER;
+                if (ziel instanceof net.minecraft.world.entity.player.Player freund) {
+                    freund.heal(sani ? 6F : 4F);
+                    freund.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.REGENERATION, sani ? 160 : 100, 0));
+                    lv.sendParticles(ParticleTypes.HEART, ziel.getX(), ziel.getEyeY() + 0.3, ziel.getZ(), 3, 0.3, 0.2, 0.3, 0);
+                    return 1;
+                }
+                ziel.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN, sani ? 200 : 140, 3));
+                ziel.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.WEAKNESS, sani ? 200 : 140, 1));
+                if (ziel instanceof net.minecraft.world.entity.Mob mob && lv.random.nextFloat() < (sani ? 0.5F : 0.3F)) {
+                    mob.setTarget(null);
+                }
             }
             ziel.invulnerableTime = 0;
             boolean getroffen = ziel.hurt(new net.minecraft.world.damagesource.DamageSource(lv.registryAccess()
