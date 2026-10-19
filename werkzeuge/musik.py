@@ -235,8 +235,8 @@ class Stueck:
 DM = [["D3", "F3", "A3", "D4"], ["Bb2", "D3", "F3", "Bb3"], ["G2", "Bb2", "D3", "G3"], ["A2", "C#3", "E3", "A3"]]
 
 
-def titel():
-    """Sektor 4 – Titelmusik (gruseliger): verstimmte Spieluhr, tiefes Dröhnen, Chorhauch, Funkrauschen,
+def sektor4():
+    """Sektor 4 – (früher Titelmusik, jetzt draußen auf dem Land und in der Stadt): verstimmte Spieluhr, tiefes Dröhnen, Chorhauch, Funkrauschen,
     ein Herzschlag in der Ferne und eine Sirene, die irgendwo anschwillt."""
     s = Stueck(170, 913)
     s.droehnen([(hz("C1"), 1.0), (hz("G1"), 0.45), (hz("C#2"), 0.2)], 0.12, periode=23.0)
@@ -271,7 +271,7 @@ def titel():
         s.dazu(st, bandpass(s.rng.normal(0, 1, m), 400, 3000) * huellkurve(3, 0.4, 1.2), 0.02)
     s.metall([22.0, 61.0, 108.0, 146.0], 0.05)
     s.wind(0.02)
-    s.speichern("titel", hall=5.0, nass=0.65)
+    s.speichern("sektor4", hall=5.0, nass=0.65)
 
 
 def morgen():
@@ -718,11 +718,228 @@ def boss_marsch():
     s.speichern("boss_marsch", hall=3.0, nass=0.45, einblenden=1.0, ausblenden=4.0, pegel=0.85)
 
 
+# ---- Hintergrundmusik, zweite Reihe (19.10.): im Geist der Lobby-Musik, aber ruhiger --------------------------
+def _spieluhr(note, laenge=3.5, verstimmt=0.006):
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    f = hz(note) * (1 + verstimmt * np.sin(2 * np.pi * 0.3 * tt))
+    x = np.zeros(n)
+    for r, a in ((1.0, 1.0), (3.0, 0.25), (5.1, 0.12)):
+        x += a * np.sin(2 * np.pi * np.cumsum(f * r) / SR) * np.exp(-tt * (2.2 + r * 0.6))
+    return x * np.minimum(1, tt * 900)
+
+
+def _fluestern(s, start, lautst):
+    """Ein Flüstern ohne Worte: gehauchte Silben aus gefiltertem Rauschen."""
+    laenge = s.rng.uniform(1.2, 2.6)
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    roh = s.rng.normal(0, 1, n)
+    v = s.rng.choice([(700, 1200), (500, 900), (800, 1500)])
+    x = bandpass(roh, v[0] * 0.8, v[0] * 1.2) + 0.7 * bandpass(roh, v[1] * 0.85, v[1] * 1.15) + 0.5 * bandpass(roh, 3500, 7000)
+    silben = 0.5 + 0.5 * np.sin(2 * np.pi * s.rng.uniform(3.5, 6.0) * tt + s.rng.random() * 6)
+    s.dazu(start, x * silben ** 2 * huellkurve(laenge, 0.3, 0.6), lautst)
+
+
+def _kratzen(s, start, lautst):
+    """Metall schabt über Metall, irgendwo weit hinten im Tunnel."""
+    laenge = s.rng.uniform(2.0, 3.5)
+    n = int(laenge * SR)
+    tt = np.arange(n) / SR
+    f = s.rng.uniform(380, 520) * (1 - 0.35 * tt / laenge)
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * (0.6 + 0.4 * s.rng.random(n))
+    x += bandpass(s.rng.normal(0, 1, n), 1500, 4500) * 0.5
+    s.dazu(start, tiefpass(x, 3000) * huellkurve(laenge, 0.4, 1.0), lautst)
+
+
+def _klopfen(s, start, lautst, anzahl=3, abstand=0.45):
+    """Jemand klopft auf ein Rohr – drei kurze, metallische Schläge."""
+    n = int(0.5 * SR)
+    tt = np.arange(n) / SR
+    x = (np.sin(2 * np.pi * 880 * tt) + 0.6 * np.sin(2 * np.pi * 1390 * tt) + 0.3 * np.sin(2 * np.pi * 2210 * tt)) * np.exp(-tt * 18)
+    x += s.rng.normal(0, 1, n) * np.exp(-tt * 120) * 0.3
+    for i in range(anzahl):
+        s.dazu(start + i * abstand + s.rng.normal(0, 0.02), x, lautst * s.rng.uniform(0.7, 1.0))
+
+
+def _feuer(s, dichte=900):
+    for _ in range(dichte):
+        st = s.rng.uniform(0, s.dauer - 1)
+        n = int(0.01 * SR)
+        s.dazu(st, hochpass(s.rng.normal(0, 1, n), 2000) * np.exp(-np.arange(n) / SR * 400), s.rng.uniform(0.01, 0.05))
+    s.spur += tiefpass(s.rng.normal(0, 1, s.n), 300) * 0.006
+
+
+def asche():
+    """Asche – Land: gezupfte Gitarre in e-Phrygisch, ferne Kirchenglocke, Wind über totem Gras."""
+    s = Stueck(170, 1701)
+    s.droehnen([(hz("E1"), 0.8), (hz("B1"), 0.35)], 0.05, periode=37.0, hell=420)
+    s.flaechen([["E3", "G3", "B3"], ["F3", "A3", "C4"], ["E3", "G3", "B3"], ["D3", "F3", "A3"]], 20.0, 0.035,
+               start=2.0, hell=1600)
+    figuren = [[("E3", 0.0), ("B3", 0.8), ("G3", 1.6), ("E4", 2.4), ("B3", 3.4)],
+               [("F3", 0.0), ("C4", 0.8), ("A3", 1.6), ("F4", 2.4), ("C4", 3.4)],
+               [("E3", 0.0), ("B3", 0.8), ("G3", 1.6), ("E4", 2.4), ("B3", 3.4)],
+               [("D3", 0.0), ("A3", 0.8), ("F3", 1.6), ("D4", 2.4), ("A3", 3.4)]]
+    einsaetze = []
+    t0, i = 8.0, 0
+    while t0 < 152:
+        einsaetze.append((t0, figuren[(i // 2) % 4]))
+        t0 += 5.0
+        i += 1
+    s.melodie(einsaetze, "zupf", 0.13)
+    for t in np.arange(16.0, 160.0, 22.0):
+        s.dazu(t + s.rng.normal(0, 2), s.glocke(s.rng.choice(["E4", "B3", "E4"]), 9.0), 0.035)
+    lied = [("B4", 0.0), ("C5", 2.5), ("B4", 5.0), ("G4", 7.5), ("E4", 10.0)]
+    s.melodie([(60.0, lied), (118.0, lied)], "klavier", 0.09)
+    s.wind(0.025)
+    s.speichern("asche", hall=5.0, nass=0.6, verdichten=0.3)
+
+
+def sperrzone():
+    """Sperrzone – Land: Dröhnen mit Reibung, ein langsam fallender Ton, Geigerzähler, Funkfetzen, ferne Sirene."""
+    s = Stueck(160, 1702)
+    s.droehnen([(hz("C#1"), 1.0), (hz("D1"), 0.4), (hz("G#1"), 0.3)], 0.11, periode=27.0, hell=240)
+    _shepard(s, 10.0, 152.0, 0.022, tempo=-0.012)
+    _geiger(s, 5.0, 155.0, 1.5, 0.03)
+    _geiger(s, 70.0, 82.0, 9.0, 0.035)
+    for t in (20.0, 48.0, 76.0, 104.0, 132.0):
+        s.dazu(t, s.klavier("C#2", 7.0) + 0.7 * s.klavier("D2", 7.0) + 0.4 * s.klavier("G#2", 7.0), 0.07)
+    s.flaechen([["C#3", "G#3", "D4"], ["B2", "F#3", "C4"]], 24.0, 0.028, start=6.0, hell=900, tremolo=0.2)
+    _sirene(s, 85.0, 24.0, 0.03)
+    _funk(s, 40.0, 5.0, 0.022)
+    _funk(s, 121.0, 4.0, 0.018)
+    s.metall([30.0, 95.0, 140.0], 0.04)
+    s.wind(0.03)
+    s.speichern("sperrzone", hall=6.0, nass=0.7, verdichten=0.35)
+
+
+def verlassen():
+    """Verlassen – Land: einsames Klavier in a-Moll über Streichern; am Ende spielt eine verstimmte Spieluhr."""
+    s = Stueck(165, 1703)
+    s.droehnen([(hz("A1"), 0.7), (hz("E2"), 0.3)], 0.05, periode=31.0, hell=450)
+    s.flaechen([["A2", "C3", "E3", "A3"], ["F2", "A2", "C3", "F3"], ["C3", "E3", "G3", "C4"], ["G2", "B2", "D3", "G3"]],
+               14.0, 0.04, start=4.0, hell=1300)
+    eins = [("A4", 0.0), ("C5", 1.2), ("B4", 2.4), ("E4", 3.6), ("A4", 6.0), ("G4", 7.2), ("F4", 8.4), ("E4", 9.6)]
+    zwei = [("F4", 0.0), ("A4", 1.2), ("G4", 2.4), ("C4", 3.6), ("D4", 6.0), ("E4", 7.2), ("C4", 8.4), ("B3", 9.6)]
+    s.melodie([(t, eins if i % 2 == 0 else zwei) for i, t in enumerate(np.arange(12.0, 128.0, 14.0))], "klavier", 0.1)
+    bass = ["A2", "F2", "C3", "G2"]
+    for i, t in enumerate(np.arange(4.0, 134.0, 7.0)):
+        s.dazu(t, s.klavier(bass[i % 4], 6.0), 0.06)
+    motiv = ["A5", "C6", "E6", "B5", "A5", "E5", "G5", "A5"]
+    t0 = 136.0
+    for i, note in enumerate(motiv):
+        s.dazu(t0, _spieluhr(note, verstimmt=0.014), 0.06)
+        t0 += 0.6 + i * 0.12
+    s.wind(0.015)
+    s.speichern("verlassen", hall=5.0, nass=0.6, verdichten=0.3)
+
+
+def jagd():
+    """Jagd – Nacht: dumpfer Puls, Herzschlag, stöhnende Horde weit weg, dunkles Blech. Wie die Lobby – nur ohne Ausbruch."""
+    s = Stueck(170, 1704)
+    s.droehnen([(hz("D1"), 1.0), (hz("Eb1"), 0.5)], 0.13, periode=20.0, hell=210)
+    t = 20.0
+    n = int(0.35 * SR)
+    tt = np.arange(n) / SR
+    schlag = np.sin(2 * np.pi * (46 + 30 * np.exp(-tt * 30)) * tt) * np.exp(-tt * 14)
+    while t < 160.0:
+        s.dazu(t, schlag, 0.07)
+        s.dazu(t + 0.27, schlag, 0.045)
+        t += 60.0 / (50 + 18 * (t - 20) / 140)
+    s.ostinato(["D2", "D2", "Eb2", "D2"], 50, 0.05, 30.0, 160.0)
+    _horde(s, 40.0, 162.0, 0.5, 0.012)
+    cluster = [["D3", "Eb3", "A3"], ["C#3", "D3", "G#3"]]
+    for i, t in enumerate(np.arange(24.0, 160.0, 12.0)):
+        s.dazu(t, s.flaeche(cluster[i % 2], 12.0, hell=2000, tremolo=0.5), 0.03)
+    for t in (60.0, 108.0, 150.0):
+        _braam(s, t, ["D1", "D2", "A2"], laenge=9.0, hell=700, lautst=0.12)
+    _schrei(s, 95.0, 0.02)
+    s.melodie([(45.0, [("A5", 0.0), ("Bb5", 3.0)]), (126.0, [("A5", 0.0), ("Bb5", 3.0), ("A5", 6.0)])], "klavier", 0.06)
+    s.wind(0.02)
+    s.speichern("jagd", hall=6.0, nass=0.7, verdichten=0.35)
+
+
+def betonwueste():
+    """Betonwüste – Stadt: hohles Dröhnen, Klopfen auf Rohren, verstimmte Spieluhr, ferne Horde und Sirene."""
+    s = Stueck(160, 1705)
+    s.droehnen([(hz("F1"), 1.0), (hz("C2"), 0.45), (hz("F#2"), 0.2)], 0.08, periode=19.0, hell=380)
+    s.flaechen([["F2", "Ab2", "C3"], ["Db3", "F3", "Ab3"], ["Eb3", "G3", "Bb3"], ["C3", "E3", "G3"]], 20.0, 0.035,
+               start=3.0, hell=1000)
+    for t in (24.0, 26.5, 71.0, 112.0, 113.8, 146.0):
+        _klopfen(s, t, 0.05)
+    s.metall([14.0, 52.0, 88.0, 131.0], 0.06)
+    motiv = ["C6", "Db6", "Ab5", "F5", "G5", "Ab5", "F5"]
+    for t0, verst in ((34.0, 0.008), (92.0, 0.012), (138.0, 0.02)):
+        for i, note in enumerate(motiv):
+            s.dazu(t0 + i * 0.7, _spieluhr(note, verstimmt=verst), 0.05)
+    _horde(s, 60.0, 150.0, 0.4, 0.012)
+    _sirene(s, 118.0, 22.0, 0.03)
+    s.wind(0.02)
+    s.speichern("betonwueste", hall=5.5, nass=0.65, verdichten=0.3)
+
+
+def schacht():
+    """Schacht – unter Tage: tiefstes Dröhnen, Tropfen, schabendes Metall, entfernte Maschinen, ein Stöhnen im Dunkeln."""
+    s = Stueck(160, 1706)
+    s.droehnen([(hz("B0"), 1.0), (hz("C1"), 0.6), (hz("F1"), 0.3)], 0.14, periode=33.0, hell=220)
+    s.tropfen(60, 0.05)
+    for t in (25.0, 70.0, 118.0):
+        _kratzen(s, t, 0.03)
+    for t in np.arange(15.0, 150.0, 9.0):
+        s.trommel(t, tief=0.4, lautst=0.22)
+    s.flaechen([["B2", "F3"], ["C3", "F#3"]], 26.0, 0.025, start=5.0, hell=600)
+    s.metall([40.0, 88.0, 133.0], 0.06)
+    for t in (60.0, 101.0, 143.0):
+        _stoehnen(s, t, 0.015, tief=0.8)
+    for t in (55.0, 130.0):
+        s.dazu(t, s.glocke("B3", 9.0), 0.03)
+    s.speichern("schacht", hall=7.0, nass=0.8, verdichten=0.3)
+
+
+def glut():
+    """Glut – in der Zuflucht: Fingerpicking in d-Moll, warmes Feuer, eine leise Melodie. Kurz durchatmen."""
+    s = Stueck(150, 1707)
+    akk = {"Dm": ["D3", "A3", "D4", "F4", "A3", "D4"], "F": ["F2", "C3", "F3", "A3", "C3", "F3"],
+           "C": ["C3", "G3", "C4", "E4", "G3", "C4"], "Bb": ["Bb2", "F3", "Bb3", "D4", "F3", "Bb3"]}
+    folge = ["Dm", "Dm", "F", "F", "C", "C", "Bb", "Bb"]
+    t0, i = 3.0, 0
+    while t0 < 140.0:
+        for k, note in enumerate(akk[folge[i % 8]]):
+            s.dazu(t0 + k * 0.5 + s.rng.normal(0, 0.01), s.zupf(note, 3.0, 0.995), 0.11)
+        t0 += 3.0
+        i += 1
+    s.flaechen([["D3", "F3", "A3"], ["F3", "A3", "C4"], ["C3", "E3", "G3"], ["Bb2", "D3", "F3"]], 6.0, 0.025,
+               start=3.0, hell=1400)
+    eins = [("A4", 0.0), ("F4", 1.5), ("G4", 3.0), ("A4", 4.5), ("C5", 6.0), ("A4", 9.0)]
+    zwei = [("D5", 0.0), ("C5", 1.5), ("A4", 3.0), ("G4", 4.5), ("F4", 6.0), ("D4", 9.0)]
+    s.melodie([(30.0, eins), (54.0, zwei), (78.0, eins), (102.0, zwei)], "klavier", 0.09)
+    _feuer(s)
+    s.speichern("glut", hall=2.5, nass=0.4)
+
+
+def nebelstimmen():
+    """Nebelstimmen – dichter Nebel: Glasflächen, ein Ton, der langsam steigt, und Flüstern von überall."""
+    s = Stueck(150, 1708)
+    s.droehnen([(hz("E1"), 0.8), (hz("F1"), 0.4)], 0.09, periode=25.0, hell=280)
+    s.flaechen([["E5", "F5", "B5"], ["D5", "Eb5", "A5"]], 20.0, 0.015, start=4.0, hell=5000, tremolo=0.3)
+    _shepard(s, 20.0, 140.0, 0.02, tempo=0.01, f_min=60.0)
+    for _ in range(22):
+        _fluestern(s, s.rng.uniform(8, 140), s.rng.uniform(0.015, 0.03))
+    for t in (30.0, 77.0, 118.0):
+        s.dazu(t, s.glocke(s.rng.choice(["E5", "Bb4"]), 8.0), 0.04)
+    s.wind(0.035)
+    s.speichern("nebelstimmen", hall=6.5, nass=0.8, verdichten=0.3)
+
+
+
 ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf,
             "boss_frost": boss_frost, "boss_fleisch": boss_fleisch, "boss_marsch": boss_marsch}
 
 ALLE = {"titel": titel_lobby, "morgen": morgen, "nebel": nebel, "nacht": nacht, "tief": tief, "gefecht": gefecht}
 ALLE.update(ALLE_NEU)
+ALLE["sektor4"] = sektor4
+ALLE.update({"sektor4": sektor4, "asche": asche, "sperrzone": sperrzone, "verlassen": verlassen, "jagd": jagd,
+             "betonwueste": betonwueste, "schacht": schacht, "glut": glut, "nebelstimmen": nebelstimmen})
 
 if __name__ == "__main__":
     for name in (sys.argv[1:] or ALLE):

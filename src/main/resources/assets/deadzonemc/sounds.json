@@ -3773,6 +3773,10 @@
    {
     "name": "deadzonemc:musik/nebel",
     "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/sektor4",
+    "stream": true
    }
   ]
  },
@@ -3780,6 +3784,14 @@
   "sounds": [
    {
     "name": "deadzonemc:musik/nacht",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/sektor4",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/titel",
     "stream": true
    }
   ]
@@ -3805,6 +3817,10 @@
    {
     "name": "deadzonemc:musik/stadt",
     "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/sektor4",
+    "stream": true
    }
   ]
  },
@@ -3812,6 +3828,14 @@
   "sounds": [
    {
     "name": "deadzonemc:musik/wildnis",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/morgen",
+    "stream": true
+   },
+   {
+    "name": "deadzonemc:musik/sektor4",
     "stream": true
    }
   ]

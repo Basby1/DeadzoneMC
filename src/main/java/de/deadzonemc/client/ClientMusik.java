@@ -16,8 +16,8 @@ import net.neoforged.neoforge.client.event.SelectMusicEvent;
  */
 public final class ClientMusik {
 
-    private static final int RUHE_MIN = 3 * 60 * 20;
-    private static final int RUHE_MAX = 8 * 60 * 20;
+    private static final int RUHE_MIN = 60 * 20;
+    private static final int RUHE_MAX = 3 * 60 * 20;
 
     private static Music gefecht;
     private static Music endkampf;
@@ -154,11 +154,6 @@ public final class ClientMusik {
             e.setMusic(stadt);
             return;
         }
-        long tag = mc.level.getDayTime() / 24000L;
-        e.setMusic(switch ((int) (tag % 3)) {
-            case 0 -> wildnis;
-            case 1 -> morgen;
-            default -> titel;
-        });
+        e.setMusic(wildnis); // Pool: Weites Land, Grauer Morgen, Sektor 4
     }
 }
