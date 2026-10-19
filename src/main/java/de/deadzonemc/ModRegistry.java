@@ -305,6 +305,7 @@ public final class ModRegistry {
                         de.deadzonemc.zone.Zone.tabFuellen(ausgabe);
                         ausgabe.accept(de.deadzonemc.verletzung.Verletzungen.SCHIENE.get());
                         de.deadzonemc.falle.Fallen.tabFuellen(ausgabe);
+                        de.deadzonemc.bossmod.Bossmods.tabFuellen(ausgabe);
                         de.deadzonemc.beute.Beute.tabFuellen(ausgabe);
                         de.deadzonemc.waffen.feuer.Feuerwaffen.tabFuellen(ausgabe);
                         de.deadzonemc.waffen.wurf.Wurfwaffen.tabFuellen(ausgabe);

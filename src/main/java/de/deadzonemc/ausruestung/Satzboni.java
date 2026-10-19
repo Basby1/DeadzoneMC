@@ -36,7 +36,8 @@ public final class Satzboni {
     public static void zielen(LivingChangeTargetEvent event) {
         if (event.getNewAboutToBeSetTarget() instanceof Player p && event.getEntity() instanceof Enemy
                 && p.isShiftKeyDown() && Ausruestung.traegt(p, Satz.TARNANZUG) >= 4
-                && event.getEntity().distanceToSqr(p) > 7 * 7 && event.getEntity().getLastHurtByMob() != p) {
+                && event.getEntity().distanceToSqr(p) > (de.deadzonemc.klasse.Klassenvorteile.satz(p, Satz.TARNANZUG) ? 4 * 4 : 7 * 7)
+                && event.getEntity().getLastHurtByMob() != p) {
             event.setCanceled(true);
         }
     }

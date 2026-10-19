@@ -72,8 +72,13 @@ public class ZonenwerkbankScreen extends AbstractContainerScreen<ZonenwerkbankMe
         super.render(g, mx, my, delta);
         int x = leftPos + LX;
         int y = topPos + LY;
-        List<Holder<Enchantment>> l = liste();
         ItemStack s = menu.gegenstand();
+        if (menu.material().getItem() instanceof de.deadzonemc.bossmod.TrophaeeItem t) {
+            bossmodZeichnen(g, x, y, mx, my, s, t);
+            renderTooltip(g, mx, my);
+            return;
+        }
+        List<Holder<Enchantment>> l = liste();
         if (s.isEmpty()) {
             g.drawWordWrap(font, Component.translatable("verzauberung.deadzonemc.hinweis"), x + 6, y + 8, LB - 12, 0xFF9A9A90);
         } else if (l.isEmpty()) {
@@ -114,10 +119,35 @@ public class ZonenwerkbankScreen extends AbstractContainerScreen<ZonenwerkbankMe
         }
     }
 
+    /** Mit einer Boss-Trophäe im Materialfeld: eine einzige Zeile „Boss-Modifikation einbauen“. */
+    private void bossmodZeichnen(GuiGraphics g, int x, int y, int mx, int my, ItemStack s, de.deadzonemc.bossmod.TrophaeeItem t) {
+        Component grund = ZonenwerkbankMenu.bossmodHindernis(minecraft.player, s, menu.material());
+        boolean ueber = mx >= x && mx < x + LB && my >= y && my < y + ZEILE * 2;
+        int hinter = grund == null ? (ueber ? 0xFF5A3E6A : 0xFF3E2E4A) : 0xFF262824;
+        g.fill(x, y, x + LB, y + ZEILE * 2 - 1, hinter);
+        g.drawString(font, Component.translatable("bossmod.deadzonemc.einbauen"), x + 4, y + 3, grund == null ? 0xFFE0B8F0 : 0xFFC8C8C0, false);
+        boolean ruestung = s.getItem() instanceof net.minecraft.world.item.ArmorItem;
+        g.drawWordWrap(font, Component.translatable("bossmod.deadzonemc." + t.boss + (ruestung ? ".ruestung" : ".waffe")),
+                x + 4, y + 14, LB - 8, 0xFFB898C8);
+        Component unten = grund != null ? grund : Component.translatable("bossmod.deadzonemc.kosten", ZonenwerkbankMenu.KOSTEN_BOSSMOD);
+        g.drawWordWrap(font, unten, x + 4, y + ZEILE * 2 + 6, LB - 8, grund == null ? 0xFF8AD08A : 0xFFB06A5A);
+        String alt = de.deadzonemc.bossmod.Bossmods.mod(s);
+        if (alt != null) {
+            g.drawWordWrap(font, Component.translatable("bossmod.deadzonemc.ersetzt", Component.translatable("item.deadzonemc.trophaee_" + alt)),
+                    x + 4, y + ZEILE * 2 + 28, LB - 8, 0xFFB0A060);
+        }
+    }
+
     @Override
     public boolean mouseClicked(double mx, double my, int knopf) {
         int x = leftPos + LX;
         int y = topPos + LY;
+        if (menu.material().getItem() instanceof de.deadzonemc.bossmod.TrophaeeItem && minecraft != null && minecraft.gameMode != null
+                && mx >= x && mx < x + LB && my >= y && my < y + ZEILE * 2
+                && ZonenwerkbankMenu.bossmodHindernis(minecraft.player, menu.gegenstand(), menu.material()) == null) {
+            minecraft.gameMode.handleInventoryButtonClick(menu.containerId, ZonenwerkbankMenu.KNOPF_BOSSMOD);
+            return true;
+        }
         if (mx >= x && mx < x + LB && my >= y && my < y + ZEILE * ZEILEN && minecraft != null && minecraft.gameMode != null) {
             int i = (int) ((my - y) / ZEILE) + versatz;
             List<Holder<Enchantment>> l = liste();

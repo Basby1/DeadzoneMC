@@ -18,6 +18,7 @@ public class DeadzoneMC {
         de.deadzonemc.monster.Verbote.registrieren();
         Lebensbilanz.registrieren();
         Schlafen.registrieren();
+        de.deadzonemc.klasse.Klassenvorteile.registrieren();
         de.deadzonemc.geschichte.Archiv.registrieren();
         de.deadzonemc.monster.Rudel.registrieren();
         de.deadzonemc.fraktion.Fraktionen.registrieren();
@@ -26,6 +27,7 @@ public class DeadzoneMC {
         de.deadzonemc.zone.Zone.registrieren(modBus);
         de.deadzonemc.verletzung.Verletzungen.registrieren(modBus);
         de.deadzonemc.falle.Fallen.registrieren(modBus);
+        de.deadzonemc.bossmod.Bossmods.registrieren(modBus);
         de.deadzonemc.welt.schild.Ladenschild.registrieren(modBus);
         de.deadzonemc.beute.Beute.registrieren(modBus);
         de.deadzonemc.waffen.feuer.Feuerwaffen.registrieren(modBus);

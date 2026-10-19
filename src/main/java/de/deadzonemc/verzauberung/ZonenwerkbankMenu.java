@@ -120,9 +120,45 @@ public class ZonenwerkbankMenu extends AbstractContainerMenu {
         return null;
     }
 
+    /** Knopf für „Boss-Modifikation einbauen“. */
+    public static final int KNOPF_BOSSMOD = 999;
+    public static final int KOSTEN_BOSSMOD = 8;
+
+    /** Grund, warum die Boss-Modifikation nicht geht (null = geht). */
+    public static Component bossmodHindernis(Player p, ItemStack s, ItemStack mat) {
+        if (!(mat.getItem() instanceof de.deadzonemc.bossmod.TrophaeeItem)) {
+            return Component.translatable("bossmod.deadzonemc.keine_trophaee");
+        }
+        if (s.isEmpty() || !de.deadzonemc.bossmod.Bossmods.modbar(s)) {
+            return Component.translatable("bossmod.deadzonemc.nicht_modbar");
+        }
+        if (!p.getAbilities().instabuild && p.experienceLevel < KOSTEN_BOSSMOD) {
+            return Component.translatable("bossmod.deadzonemc.kosten", KOSTEN_BOSSMOD);
+        }
+        return null;
+    }
+
     @Override
     public boolean clickMenuButton(Player p, int knopf) {
         ItemStack s = gegenstand();
+        if (knopf == KNOPF_BOSSMOD) {
+            if (bossmodHindernis(p, s, material()) != null) {
+                return false;
+            }
+            if (!p.level().isClientSide) {
+                var t = (de.deadzonemc.bossmod.TrophaeeItem) material().getItem();
+                if (!p.getAbilities().instabuild) {
+                    p.giveExperienceLevels(-KOSTEN_BOSSMOD);
+                    material().shrink(1);
+                }
+                s.set(de.deadzonemc.bossmod.Bossmods.MOD.get(), t.boss);
+                feld.setChanged();
+                zugang.execute((level, pos) -> level.playSound(null, pos, SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 0.7F));
+                p.displayClientMessage(Component.translatable("bossmod.deadzonemc.fertig", s.getHoverName()), true);
+                broadcastChanges();
+            }
+            return true;
+        }
         List<Holder<Enchantment>> liste = passende(p.level().registryAccess(), s);
         if (knopf < 0 || knopf >= liste.size()) {
             return false;

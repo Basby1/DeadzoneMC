@@ -89,7 +89,8 @@ public final class Schiessen {
                 SoundSource.PLAYERS, leise ? 0.8F : 3.0F, 0.94F + p.getRandom().nextFloat() * 0.12F);
         var zugriff = lv.registryAccess();
         int lautlos = de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "lautlos");
-        Laerm.machen(lv, p.position(), (leise ? a.laerm * 0.25 : a.laerm) * Math.max(0.25, 1 - 0.25 * lautlos));
+        Laerm.machen(lv, p.position(), (leise ? a.laerm * 0.25 : a.laerm) * Math.max(0.25, 1 - 0.25 * lautlos)
+                * de.deadzonemc.klasse.Klassenvorteile.laerm(p, s));
         Vec3 blick = p.getLookAngle();
         Vec3 auge = p.getEyePosition();
         Vec3 rechts = blick.cross(new Vec3(0, 1, 0)).normalize();
@@ -111,6 +112,7 @@ public final class Schiessen {
             streuung *= 0.4F;
         }
         streuung *= 1.0F - 0.15F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "ruhige_hand");
+        streuung *= de.deadzonemc.klasse.Klassenvorteile.streuung(p, s);
         Treffer t = new Treffer(de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "kopfjaeger"), de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "hohlspitz"),
                 de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "durchschlag"), de.deadzonemc.verzauberung.Zonenverzauberung.stufe(zugriff, s, "brandmunition"));
         int bestes = 0;
@@ -160,6 +162,7 @@ public final class Schiessen {
                 schaden *= a.kopf * (1 + 0.2F * t.kopfjaeger);
             }
             schaden *= 1 + 0.12F * t.hohlspitz;
+            schaden *= de.deadzonemc.klasse.Klassenvorteile.schussSchaden(p, p.getMainHandItem());
             if (schonGetroffen != null) {
                 schaden *= 0.65F; // nach dem Durchschlagen
             }

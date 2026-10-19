@@ -75,7 +75,8 @@ public final class Nachladen {
     /** Nachladezeit mit Verzauberung Schnellladen (-15 % je Stufe). */
     private static int dauer(ServerPlayer p, ItemStack s, WaffenArt a) {
         return Math.max(4, Math.round(a.laden * (1 - 0.15F * de.deadzonemc.verzauberung.Zonenverzauberung.stufe(
-                p.level().registryAccess(), s, "schnellladen"))));
+                p.level().registryAccess(), s, "schnellladen")) * de.deadzonemc.klasse.Klassenvorteile.nachladen(p, s)
+                * de.deadzonemc.bossmod.Bossmods.nachladen(s)));
     }
 
     public static void starten(ServerPlayer p) {

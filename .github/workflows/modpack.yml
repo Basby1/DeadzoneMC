@@ -94,7 +94,7 @@ jobs:
 
       - name: Configs Survival
         if: always()
-        run: python3 werkzeuge/configs_zeigen.py build/server 'config/toughasnails/*' 'config/toughasnails*' 'config/sereneseasons/*'
+        run: python3 werkzeuge/configs_zeigen.py build/server 'config/toughasnails/*' 'config/toughasnails*' 'config/sereneseasons/*' 'config/hardcorerevival*' 'config/dynamiccrosshair*' 'config/drippyloadingscreen/*' 'config/fancymenu/*'
 
       - name: Configs Gegner
         if: always()
