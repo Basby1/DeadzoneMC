@@ -35,10 +35,10 @@ import java.util.function.Supplier;
  */
 public final class BossSpawner {
 
-    /** Ruhe nach einem Boss für den Spieler (ein halber Spieltag) – Bosse sollen sich farmen lassen. */
-    private static final long PAUSE_SPIELER = 12000;
-    /** Wie lange dieselbe Bossart nicht wiederkommt (ein Spieltag). */
-    private static final long PAUSE_ART = 24000;
+    /** Ruhe nach einem Boss für den Spieler (1,5 Spieltage) – wiederholbar, aber immer noch etwas Besonderes. */
+    private static final long PAUSE_SPIELER = 36000;
+    /** Wie lange dieselbe Bossart nicht wiederkommt (3 Spieltage). */
+    private static final long PAUSE_ART = 72000;
 
     private static final Map<UUID, Long> LETZTER = new HashMap<>();
     private static final Map<String, Long> ART = new HashMap<>();
