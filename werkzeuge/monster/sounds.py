@@ -213,7 +213,7 @@ def schreiben():
              "nebel": ["nebel", "nebelstimmen", "sektor4"], "tief": ["tief", "schacht"], "zuflucht": ["zuflucht", "glut"],
              "nether": ["herzkammer", "glutfeld"], "end": ["leere", "orbit"]}
     for stueck in ("titel", "morgen", "nebel", "nacht", "tief", "gefecht", "stadt", "wildnis", "zuflucht", "endkampf",
-                   "boss_frost", "boss_fleisch", "boss_marsch", "nether", "end"):
+                   "boss_frost", "boss_fleisch", "boss_marsch", "nether", "end", "raserei"):
         daten[f"musik.{stueck}"] = {"sounds": [{"name": f"deadzonemc:musik/{t}", "stream": True}
                                                for t in pools.get(stueck, [stueck])]}
     with open(ZIEL, "w") as f:

@@ -62,6 +62,15 @@ public final class ClientAtmosphaere {
         } else {
             liste.add(new Klang("schuesse", true, nacht ? 3 : 4));
             liste.add(new Klang("funk", false, 1));
+            liste.add(new Klang("explosion", true, 1));
+            liste.add(new Klang("glocke", true, 1));
+            liste.add(new Klang("horde", true, nacht ? 4 : 1));
+            if (!nacht) {
+                liste.add(new Klang("hubschrauber", true, 1));
+            }
+            if (ort == 1) {
+                liste.add(new Klang("autoalarm", true, 2));
+            }
             if (nacht) {
                 liste.add(new Klang("schrei", true, 5));
                 liste.add(new Klang("heulen", true, ort == 1 ? 1 : 4));

@@ -3931,5 +3931,86 @@
     "stream": true
    }
   ]
+ },
+ "musik.raserei": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/raserei",
+    "stream": true
+   }
+  ]
+ },
+ "atmo.explosion": {
+  "subtitle": "subtitles.deadzonemc.atmo.explosion",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/explosion_1",
+    "attenuation_distance": 192
+   },
+   {
+    "name": "deadzonemc:atmo/explosion_2",
+    "attenuation_distance": 192
+   },
+   {
+    "name": "deadzonemc:atmo/explosion_3",
+    "attenuation_distance": 192
+   }
+  ]
+ },
+ "atmo.hubschrauber": {
+  "subtitle": "subtitles.deadzonemc.atmo.hubschrauber",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/hubschrauber_1",
+    "attenuation_distance": 192
+   },
+   {
+    "name": "deadzonemc:atmo/hubschrauber_2",
+    "attenuation_distance": 192
+   }
+  ]
+ },
+ "atmo.horde": {
+  "subtitle": "subtitles.deadzonemc.atmo.horde",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/horde_1",
+    "attenuation_distance": 128
+   },
+   {
+    "name": "deadzonemc:atmo/horde_2",
+    "attenuation_distance": 128
+   },
+   {
+    "name": "deadzonemc:atmo/horde_3",
+    "attenuation_distance": 128
+   }
+  ]
+ },
+ "atmo.autoalarm": {
+  "subtitle": "subtitles.deadzonemc.atmo.autoalarm",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/autoalarm_1",
+    "attenuation_distance": 96
+   },
+   {
+    "name": "deadzonemc:atmo/autoalarm_2",
+    "attenuation_distance": 96
+   }
+  ]
+ },
+ "atmo.glocke": {
+  "subtitle": "subtitles.deadzonemc.atmo.glocke",
+  "sounds": [
+   {
+    "name": "deadzonemc:atmo/glocke_1",
+    "attenuation_distance": 160
+   },
+   {
+    "name": "deadzonemc:atmo/glocke_2",
+    "attenuation_distance": 160
+   }
+  ]
  }
 }

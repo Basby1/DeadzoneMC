@@ -48,6 +48,7 @@ public final class ClientMusik {
     private static Music frost;
     private static Music fleisch;
     private static Music marsch;
+    private static Music raserei;
 
     /** Jeder Boss hat sein Thema: Kälte/Nebel, Fleisch/Fäulnis, Befehl/Marsch – die Endbosse den großen Endkampf. */
     private static Music bossMusik(Minecraft mc) {
@@ -67,6 +68,13 @@ public final class ClientMusik {
         }
         if (naechster == null) {
             return endkampf;
+        }
+        // Phase 2: unter halber Lebensleiste wechselt die Musik in die Raserei
+        if (naechster.getHealth() < naechster.getMaxHealth() * 0.5F) {
+            if (raserei == null) {
+                raserei = new Music(Musik.RASEREI, 0, 0, true);
+            }
+            return raserei;
         }
         String art = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(naechster.getType()).getPath();
         return switch (art) {

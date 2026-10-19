@@ -226,6 +226,79 @@ def funk(rng):
     return bp(x, 300, 3400) * huelle(len(t), 0.2, 0.4)
 
 
+def explosion(rng):
+    """Ferne Detonation: dumpfer Schlag, langes Grollen, nachrieselnde Trümmer."""
+    d = 7.0
+    n = int(d * SR)
+    t = t_(d)
+    x = tp(rng.normal(0, 1, n), 140, ) * np.exp(-t * 0.9) * 2.5
+    x += np.sin(2 * np.pi * (38 + 20 * np.exp(-t * 6)) * t) * np.exp(-t * 2.2)
+    x += bp(rng.normal(0, 1, n), 800, 3000) * (rng.random(n) > 0.995) * np.exp(-((t - 1.5) ** 2)) * 0.6
+    return hall(np.tanh(x) * huelle(n, 0.005, 2.0), 3.5, rng, nass=0.6, hell=900)
+
+
+def hubschrauber(rng):
+    """Ein Hubschrauber zieht weit weg vorbei: Rotorschlag, der an- und abschwillt."""
+    d = 12.0
+    t = t_(d)
+    rate = rng.uniform(4.5, 5.5)
+    schlag = (0.5 + 0.5 * np.sin(2 * np.pi * rate * t)) ** 6
+    x = tp(rng.normal(0, 1, len(t)), 500) * schlag + 0.3 * np.sin(2 * np.pi * 70 * t) * schlag
+    x += bp(rng.normal(0, 1, len(t)), 2000, 5000) * 0.05
+    weg = np.exp(-((t - d / 2) / (d / 4)) ** 2)
+    return hall(x * weg * huelle(len(t), 1.0, 2.0), 3.0, rng, nass=0.5, hell=1500)
+
+
+def horde(rng):
+    """Eine riesige Horde weit weg: viele Stimmen stöhnen durcheinander."""
+    d = 9.0
+    n = int(d * SR)
+    t = t_(d)
+    x = np.zeros(n)
+    for _ in range(40):
+        st = rng.uniform(0, d - 2.5)
+        laenge = rng.uniform(1.2, 2.5)
+        m = int(laenge * SR)
+        tt = np.arange(m) / SR
+        f0 = rng.uniform(80, 160) * (1 + 0.3 * np.exp(-tt * 1.5) - 0.2 * tt / laenge)
+        ph = 2 * np.pi * np.cumsum(f0) / SR
+        v = sum(np.sin(k * ph) / k for k in range(1, 14))
+        v = bp(v, 300, 1400) * huelle(m, laenge * 0.3, laenge * 0.5)
+        i = int(st * SR)
+        x[i:i + m] += v[:max(0, min(m, n - i))] * rng.uniform(0.4, 1.0)
+    return hall(tp(np.tanh(x * 0.6), 1400) * huelle(n, 2.0, 2.5), 4.0, rng, nass=0.65, hell=1100)
+
+
+def autoalarm(rng):
+    """Eine Autoalarmanlage in den Ruinen – jault ein paar Mal und erstirbt."""
+    d = 8.0
+    t = t_(d)
+    f = np.where((t % 0.5) < 0.25, 900, 600) * (1 - 0.15 * t / d)
+    ph = np.cumsum(2 * np.pi * f / SR)
+    x = np.sign(np.sin(ph)) * 0.4 + np.sin(ph)
+    x *= huelle(len(t), 0.05, 1.5) * (t < d - 0.6)
+    return hall(bp(x, 400, 2600), 3.0, rng, nass=0.55, hell=1800)
+
+
+def glocke(rng):
+    """Eine Kirchenglocke schlägt, unregelmäßig – als zöge jemand am Seil, der es nicht mehr kann."""
+    d = 12.0
+    n = int(d * SR)
+    x = np.zeros(n)
+    f0 = rng.uniform(180, 240)
+    st = 0.2
+    while st < d - 5:
+        m = int(5 * SR)
+        tt = np.arange(m) / SR
+        k = sum(a * np.sin(2 * np.pi * f0 * r * tt) * np.exp(-tt * (0.6 + r * 0.4))
+                for r, a in ((0.5, 0.6), (1.0, 1.0), (1.19, 0.5), (1.5, 0.35), (2.0, 0.3), (2.74, 0.2)))
+        i = int(st * SR)
+        x[i:i + m] += k * rng.uniform(0.6, 1.0)
+        st += rng.uniform(1.6, 3.2)
+    return hall(tp(x, 2500), 4.0, rng, nass=0.6, hell=1600)
+
+
+
 KLAENGE = {
     "schrei": (schrei, 4, 96, "Ferner Schrei"),
     "schuesse": (schuesse, 4, 128, "Schüsse in der Ferne"),
@@ -236,6 +309,11 @@ KLAENGE = {
     "heulen": (heulen, 3, 112, "Heulen in der Ferne"),
     "metall": (metall, 3, 48, "Ächzendes Metall"),
     "funk": (funk, 2, 24, "Funkrauschen"),
+    "explosion": (explosion, 3, 192, "Detonation in der Ferne"),
+    "hubschrauber": (hubschrauber, 2, 192, "Hubschrauber in der Ferne"),
+    "horde": (horde, 3, 128, "Eine Horde stöhnt in der Ferne"),
+    "autoalarm": (autoalarm, 2, 96, "Autoalarm in der Ferne"),
+    "glocke": (glocke, 2, 160, "Totenglocke in der Ferne"),
 }
 
 

@@ -7,5 +7,10 @@
  "subtitles.deadzonemc.atmo.fluestern": "Flüstern",
  "subtitles.deadzonemc.atmo.heulen": "Heulen in der Ferne",
  "subtitles.deadzonemc.atmo.metall": "Ächzendes Metall",
- "subtitles.deadzonemc.atmo.funk": "Funkrauschen"
+ "subtitles.deadzonemc.atmo.funk": "Funkrauschen",
+ "subtitles.deadzonemc.atmo.explosion": "Detonation in der Ferne",
+ "subtitles.deadzonemc.atmo.hubschrauber": "Hubschrauber in der Ferne",
+ "subtitles.deadzonemc.atmo.horde": "Eine Horde stöhnt in der Ferne",
+ "subtitles.deadzonemc.atmo.autoalarm": "Autoalarm in der Ferne",
+ "subtitles.deadzonemc.atmo.glocke": "Totenglocke in der Ferne"
 }

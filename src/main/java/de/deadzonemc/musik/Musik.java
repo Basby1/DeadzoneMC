@@ -31,6 +31,7 @@ public final class Musik {
     public static final DeferredHolder<SoundEvent, SoundEvent> ZUFLUCHT = stueck("zuflucht");
     public static final DeferredHolder<SoundEvent, SoundEvent> NETHER = stueck("nether");
     public static final DeferredHolder<SoundEvent, SoundEvent> END = stueck("end");
+    public static final DeferredHolder<SoundEvent, SoundEvent> RASEREI = stueck("raserei");
 
     private static DeferredHolder<SoundEvent, SoundEvent> stueck(String name) {
         return KLAENGE.register("musik." + name, () -> SoundEvent.createVariableRangeEvent(

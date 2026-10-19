@@ -1060,6 +1060,40 @@ def orbit():
 
 
 
+def raserei():
+    """Raserei – Boss in Phase 2: alles auf einmal. Rasende Trommeln, verzerrtes Ostinato, Blech im Takt, Sirene,
+    Chor-Cluster im Tremolo, Schreie. Kein Atemholen mehr."""
+    s = Stueck(150, 2222)
+    bpm = 152
+    takt = 4 * 60.0 / bpm
+    s.droehnen([(hz("C1"), 1.0), (hz("Db1"), 0.6)], 0.16, periode=4.0, hell=220)
+    n = int(0.2 * SR)
+    tt = np.arange(n) / SR
+    noten = ["C2", "C2", "Db2", "C2", "G1", "C2", "Gb1", "C2"]
+    t0, i = 0.5, 0
+    while t0 < 147:
+        x = np.tanh(_saege(hz(noten[i % 8]), tt) * 2.5) * np.exp(-tt * 8)
+        s.dazu(t0, tiefpass(x, 1200), 0.07)
+        t0 += takt / 4
+        i += 1
+    muster = [(0, 0.45, 1.0), (1, 0.6, 0.5), (2, 0.45, 0.9), (3, 0.7, 0.6), (4, 0.45, 1.0), (4.5, 0.6, 0.5),
+              (5, 0.45, 0.8), (6, 0.7, 0.7), (6.5, 0.7, 0.6), (7, 0.8, 0.8), (7.5, 0.8, 0.9)]
+    s.rhythmus(bpm, muster, 0.28, 2.0, 147.0)
+    for k, t in enumerate(np.arange(4.0, 147.0, takt * 4)):
+        _braam(s, t, ["C1", "C2", "G2", "Db3"] if k % 2 == 0 else ["Ab0", "Ab1", "Eb2", "A2"], laenge=takt * 4 + 1.5,
+               hell=2400, lautst=0.2)
+    chor = [["C4", "Db4", "G4"], ["B3", "C4", "F#4"]]
+    for k, t in enumerate(np.arange(2.0, 147.0, takt * 2)):
+        s.dazu(t, s.flaeche(chor[k % 2], takt * 2 + 1.0, hell=3600, tremolo=0.9), 0.035)
+    _schlaege(s, bpm, takt * 8, 147.0, alle=4, lautst=1.2)
+    for t in (20.0, 70.0, 118.0):
+        _sirene(s, t, 16.0, 0.05)
+    for t in (34.0, 61.0, 96.0, 131.0):
+        _schrei(s, t, 0.04)
+    s.speichern("raserei", hall=3.0, nass=0.45, einblenden=0.5, ausblenden=3.0, pegel=0.85, verdichten=0.3)
+
+
+
 ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf,
             "boss_frost": boss_frost, "boss_fleisch": boss_fleisch, "boss_marsch": boss_marsch}
 
@@ -1067,7 +1101,7 @@ ALLE = {"titel": titel_lobby, "morgen": morgen, "nebel": nebel, "nacht": nacht, 
 ALLE.update(ALLE_NEU)
 ALLE["sektor4"] = sektor4
 ALLE.update({n: globals()[n] for n in ("jagd", "betonwueste", "asche", "sperrzone", "verlassen", "schacht", "glut",
-                                       "nebelstimmen", "herzkammer", "glutfeld", "leere", "orbit")})
+                                       "nebelstimmen", "herzkammer", "glutfeld", "leere", "orbit", "raserei")})
 
 if __name__ == "__main__":
     for name in (sys.argv[1:] or ALLE):
