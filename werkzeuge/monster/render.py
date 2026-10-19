@@ -65,7 +65,7 @@ def flaechen_3d(w):
 
 
 def rendern(modell, textur, glow, gier=-30, neigung=12, breite=520, hoehe=720, skala=None, mit_pose=True,
-            nebel_farbe=(38, 44, 44), boden=True, mitte_y=None, mitte_x=None, mit_mitte=False):
+            nebel_farbe=(38, 44, 44), boden=True, mitte_y=None, mitte_x=None, mit_mitte=False, freigestellt=False):
     """Gibt ein PIL-Bild zurück. gier: Drehung um die Hochachse (Grad), neigung: Blick von oben."""
     ss = 2  # Supersampling
     B, H = breite * ss, hoehe * ss
@@ -196,6 +196,12 @@ def rendern(modell, textur, glow, gier=-30, neigung=12, breite=520, hoehe=720, s
     for tri in durchsichtig:
         raster(tri, True)
 
+    if freigestellt:
+        # Für Kompositionen: Modell mit Alphakanal (ohne Hintergrund) und die Leuchtstellen getrennt
+        rgba = np.concatenate([np.clip(farbe, 0, 255), (maske * 255)[..., None]], axis=2).astype(np.uint8)
+        rgba_bild = Image.fromarray(rgba, "RGBA").resize((breite, hoehe), Image.LANCZOS)
+        leucht_bild = Image.fromarray(np.clip(leucht, 0, 255).astype(np.uint8)).resize((breite, hoehe), Image.LANCZOS)
+        return rgba_bild, leucht_bild
     bild = Image.fromarray(np.clip(farbe, 0, 255).astype(np.uint8))
     # Boden-Schatten unter das Modell legen (vor dem Modell gerendert wäre schöner; hier nachträglich unter die Maske)
     if boden:

@@ -509,8 +509,9 @@ def main():
     ll, breit = ladelogo()
     speichern(ll, os.path.join(t, "mojangstudios.png"))
     pano = panorama2()
-    for i, p in enumerate(pano):
-        speichern(p, os.path.join(t, "background", f"panorama_{i}.png"))
+    # Das Panorama selbst malt jetzt werkzeuge/monster/titelszene.py („Das Tor zur Zone“, mit echten Monstern)
+    import subprocess
+    subprocess.run(["python3", "titelszene.py"], cwd=os.path.join(WURZEL, "werkzeuge", "monster"), check=True)
     os.makedirs(os.path.join(ZIEL, "texts"), exist_ok=True)
     with open(os.path.join(ZIEL, "texts", "splashes.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(SPRUECHE) + "\n")
