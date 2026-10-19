@@ -18,6 +18,7 @@ public class DeadzoneMC {
         de.deadzonemc.monster.Verbote.registrieren();
         Lebensbilanz.registrieren();
         Schlafen.registrieren();
+        de.deadzonemc.monster.Wiedergaenger.registrieren();
         de.deadzonemc.klasse.Klassenvorteile.registrieren();
         de.deadzonemc.geschichte.Archiv.registrieren();
         de.deadzonemc.monster.Rudel.registrieren();

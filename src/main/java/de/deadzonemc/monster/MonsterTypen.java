@@ -64,6 +64,10 @@ public final class MonsterTypen {
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Verschmolzener>> VERSCHMOLZENER = typ("verschmolzener", de.deadzonemc.monster.boss.Verschmolzener::new, 2.4F, 4.0F, 0x8e9883, 0xff3a2a);
     public static final DeferredHolder<EntityType<?>, EntityType<de.deadzonemc.monster.boss.Nebelmutter>> NEBELMUTTER = typ("nebelmutter", de.deadzonemc.monster.boss.Nebelmutter::new, 1.2F, 6.8F, 0xd8dcd6, 0xd8fbff);
     public static final DeferredHolder<EntityType<?>, EntityType<Mimik>> MIMIK = typ("mimik", Mimik::new, 0.6F, 1.8F, 0x3a8fa8, 0x8a2a2a);
+    /** Der eigene Zombie – erscheint nur beim Tod eines Spielers, daher nicht in ALLE und ohne Spawn-Ei. */
+    public static final DeferredHolder<EntityType<?>, EntityType<Wiedergaenger>> WIEDERGAENGER = TYPEN.register("wiedergaenger",
+            () -> EntityType.Builder.of(Wiedergaenger::new, MobCategory.MONSTER).sized(0.6F, 1.9F).clientTrackingRange(10)
+                    .build(DeadzoneMC.MODID + ":wiedergaenger"));
 
     // ---- Dimensionswesen (Herz der Zone / Orbitalstation) ----
     public static final java.util.Map<de.deadzonemc.monster.dimension.DimArt,
@@ -122,6 +126,7 @@ public final class MonsterTypen {
 
     private static void attribute(EntityAttributeCreationEvent e) {
         e.put(WANDERER.get(), Wanderer.attribute().build());
+        e.put(WIEDERGAENGER.get(), Wanderer.attribute().build());
         e.put(SCHREIER.get(), Schreier.attribute().build());
         e.put(LAUERER.get(), Lauerer.attribute().build());
         e.put(KRIECHER.get(), Kriecher.attribute().build());

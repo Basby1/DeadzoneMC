@@ -748,6 +748,8 @@
   "item.deadzonemc.munition_spritze": "Sedativpfeil",
   "item.deadzonemc.wurfmesser": "Wurfmesser",
   "item.deadzonemc.sporenbombe": "Sporenbombe",
+  "monster.deadzonemc.wiedergaenger.name": "%s (infiziert)",
+  "entity.deadzonemc.wiedergaenger": "Wiedergänger",
   "klassenvorteil.deadzonemc.kopf": "Klassenvorteil – %s:",
   "klassenvorteil.deadzonemc.waffe.brecher": "+25 % Schaden (Nahkampf), +15 % mit Schrot",
   "klassenvorteil.deadzonemc.waffe.schuetze": "+15 % Schaden, −30 % Rückstoß, −20 % Streuung",
