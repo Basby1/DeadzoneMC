@@ -116,6 +116,9 @@ public final class Funk {
             p.sendSystemMessage(Component.translatable("funk.deadzonemc.abwurf", Math.round(abwurf[0] / 25.0) * 25,
                     Math.round(abwurf[1] / 25.0) * 25).withStyle(ChatFormatting.GOLD));
         }
+        // Wem gehört das Gebiet gerade?
+        p.sendSystemMessage(Component.translatable("funk.deadzonemc.gebiet",
+                de.deadzonemc.mensch.Gebiete.name(de.deadzonemc.mensch.Gebiete.herr(ow, pos.getX(), pos.getZ()))).withStyle(ChatFormatting.GRAY));
         // Die Stimme: eine neue Sendung pro Spieltag
         CompoundTag d = p.getPersistentData();
         int index = d.getInt(INDEX);

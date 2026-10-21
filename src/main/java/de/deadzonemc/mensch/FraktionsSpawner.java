@@ -46,9 +46,13 @@ public final class FraktionsSpawner {
                 continue;
             }
             boolean nachtOderNebel = welt.isNight() || DeadzoneMonster.dichterNebel(welt);
-            if (!nachtOderNebel && z.nextInt(100) < 8) {
+            // Wandernde Fraktionsgebiete: im eigenen Gebiet ist eine Fraktion viel häufiger unterwegs
+            Fraktion herr = Gebiete.herr(welt, p.getX(), p.getZ());
+            int wacht = herr == Fraktion.WACHT ? 24 : herr == Fraktion.ASCHEKINDER ? 2 : 8;
+            int kult = herr == Fraktion.ASCHEKINDER ? (nachtOderNebel ? 18 : 10) : herr == Fraktion.WACHT ? 2 : (nachtOderNebel ? 7 : 0);
+            if (!nachtOderNebel && z.nextInt(100) < wacht) {
                 gruppe(welt, p, MenschTypen.SOLDAT.get(), 2 + z.nextInt(2), 48, 64);
-            } else if (nachtOderNebel && z.nextInt(100) < 7) {
+            } else if (z.nextInt(100) < kult) {
                 gruppe(welt, p, MenschTypen.KULTIST.get(), 2 + z.nextInt(2), 40, 56);
             } else if (z.nextInt(100) < 5) {
                 gruppe(welt, p, MenschTypen.UEBERLEBENDER.get(), 1, 30, 48);
