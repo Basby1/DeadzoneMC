@@ -100,6 +100,12 @@ public class Ueberlebender extends Mensch {
         return erg;
     }
 
+    /** Für Ereignisse (Hilferuf): sicher ein freundlicher Überlebender. */
+    public void freundlichMachen() {
+        gesinnung = Gesinnung.FREUNDLICH;
+        verwandlung = 0;
+    }
+
     private void sagen(Player p, String schluessel) {
         p.displayClientMessage(Component.literal("<").append(getDisplayName()).append("> ")
                 .append(Component.translatable("ueberlebender.deadzonemc." + schluessel)).withStyle(ChatFormatting.WHITE), false);

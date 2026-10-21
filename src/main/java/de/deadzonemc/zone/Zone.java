@@ -90,6 +90,7 @@ public final class Zone {
         NeoForge.EVENT_BUS.addListener(Emission::tick);
         NeoForge.EVENT_BUS.addListener(Emission::spielerBetritt);
         NeoForge.EVENT_BUS.addListener(Luftabwurf::tick);
+        NeoForge.EVENT_BUS.addListener(Ereignisse::tick);
         NeoForge.EVENT_BUS.addListener(Artefakte::tick);
         NeoForge.EVENT_BUS.addListener(Artefakte::fallen);
         NeoForge.EVENT_BUS.addListener(Zone::befehle);

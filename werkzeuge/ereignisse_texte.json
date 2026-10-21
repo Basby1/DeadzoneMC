@@ -1,0 +1,13 @@
+{
+ "ereignis.deadzonemc.absturz": "Ein ohrenbetäubender Knall – im %s steigt eine Rauchsäule auf. Dort ist gerade etwas abgestürzt.",
+ "ereignis.deadzonemc.hilferuf": "[Funk] „…hört mich jemand? Sie haben mich eingekreist… ungefähr bei %s, %s… bitte…“",
+ "ereignis.deadzonemc.gerettet": "Ihr habt mich da rausgeholt. Hier – mein Vorrat. Ihr braucht ihn mehr als ich.",
+ "richtung.deadzonemc.norden": "Norden",
+ "richtung.deadzonemc.nordosten": "Nordosten",
+ "richtung.deadzonemc.osten": "Osten",
+ "richtung.deadzonemc.suedosten": "Südosten",
+ "richtung.deadzonemc.sueden": "Süden",
+ "richtung.deadzonemc.suedwesten": "Südwesten",
+ "richtung.deadzonemc.westen": "Westen",
+ "richtung.deadzonemc.nordwesten": "Nordwesten"
+}
