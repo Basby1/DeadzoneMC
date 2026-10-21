@@ -1,0 +1,19 @@
+{
+ "variants": {
+  "facing=north": {
+   "model": "deadzonemc:block/funkstation"
+  },
+  "facing=east": {
+   "model": "deadzonemc:block/funkstation",
+   "y": 90
+  },
+  "facing=south": {
+   "model": "deadzonemc:block/funkstation",
+   "y": 180
+  },
+  "facing=west": {
+   "model": "deadzonemc:block/funkstation",
+   "y": 270
+  }
+ }
+}

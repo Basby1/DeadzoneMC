@@ -233,6 +233,9 @@ public final class ModRegistry {
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> FRACHTER =
             FEATURES.register("frachter",
                     () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.FRACHTER));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> FUNKTURM =
+            FEATURES.register("funkturm",
+                    () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.FUNKTURM));
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> RASTSTAETTE =
             FEATURES.register("raststaette",
                     () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.RASTSTAETTE));
@@ -310,6 +313,7 @@ public final class ModRegistry {
                         de.deadzonemc.falle.Fallen.tabFuellen(ausgabe);
                         de.deadzonemc.bossmod.Bossmods.tabFuellen(ausgabe);
                         de.deadzonemc.welt.deko.Wanddeko.tabFuellen(ausgabe);
+                        de.deadzonemc.funk.Funk.tabFuellen(ausgabe);
                         de.deadzonemc.gadget.Gadgets.tabFuellen(ausgabe);
                         de.deadzonemc.beute.Beute.tabFuellen(ausgabe);
                         de.deadzonemc.waffen.feuer.Feuerwaffen.tabFuellen(ausgabe);

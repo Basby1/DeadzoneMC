@@ -1,0 +1,8 @@
+{
+ "parent": "minecraft:block/orientable",
+ "textures": {
+  "top": "deadzonemc:block/funkstation_oben",
+  "front": "deadzonemc:block/funkstation_front",
+  "side": "deadzonemc:block/funkstation_seite"
+ }
+}

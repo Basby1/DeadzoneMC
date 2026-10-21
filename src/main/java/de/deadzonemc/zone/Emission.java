@@ -218,6 +218,11 @@ public final class Emission extends SavedData {
         setDirty();
     }
 
+    /** Spielzeit der nächsten Emission (-1 = noch nicht geplant). */
+    public long naechste() {
+        return naechste;
+    }
+
     public int stufe() {
         return stufe;
     }

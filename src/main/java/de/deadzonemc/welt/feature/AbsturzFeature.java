@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM }
 
     private final Art art;
 
@@ -116,6 +116,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case KONVOI -> konvoi(f, r);
             case EVAKUIERUNG -> evakuierung(f, r);
             case RASTSTAETTE -> raststaette(f, r);
+            case FUNKTURM -> funkturm(f, r);
         }
         return true;
     }
@@ -251,6 +252,77 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         spawnen(f, MonsterTypen.WANDERER::get, 2 + r.nextInt(2), r);
     }
 
+    /**
+     * Funkturm: ein hoher Gittermast mit Plattformen und Warnlicht, unten eine Funkerhütte mit Funkstation,
+     * Werkbankkiste und einem Vorratsfass. Ein paar gefallene Soldaten halten noch Wache.
+     */
+    private static void funkturm(Rahmen f, RandomSource r) {
+        BlockState gitter = Blocks.IRON_BARS.defaultBlockState();
+        BlockState platte = Blocks.SMOOTH_STONE_SLAB.defaultBlockState();
+        BlockState fundament = Blocks.POLISHED_ANDESITE.defaultBlockState();
+        // Fundament und freier Platz
+        for (int l = -3; l <= 8; l++) {
+            for (int b = -3; b <= 3; b++) {
+                f.setzen(l, b, -1, r.nextInt(5) == 0 ? Blocks.GRAVEL.defaultBlockState() : fundament);
+                f.stuetzen(l, b, -1, Blocks.DIRT.defaultBlockState());
+                for (int h = 0; h <= 5; h++) {
+                    f.setzen(l, b, h, Bau.LUFT);
+                }
+            }
+        }
+        int hoehe = 22 + r.nextInt(5);
+        for (int h = 0; h <= hoehe; h++) {
+            int halb = h < 8 ? 2 : h < 16 ? 1 : 0;
+            for (int l = -halb; l <= halb; l += Math.max(1, halb * 2)) {
+                for (int b = -halb; b <= halb; b += Math.max(1, halb * 2)) {
+                    f.setzen(l, b, h, gitter);
+                }
+            }
+            if (h == 7 || h == 15) {
+                for (int l = -halb; l <= halb; l++) {
+                    for (int b = -halb; b <= halb; b++) {
+                        f.setzen(l, b, h, r.nextInt(6) == 0 ? Bau.LUFT : platte);
+                    }
+                }
+            }
+        }
+        f.setzen(0, 0, hoehe + 1, Blocks.RED_STAINED_GLASS.defaultBlockState());
+        f.setzen(0, 0, hoehe + 2, Blocks.LIGHTNING_ROD.defaultBlockState());
+        f.setzen(0, 1, hoehe - 1, Blocks.SHROOMLIGHT.defaultBlockState()); // Warnlicht
+        // Leiter innen bis zur ersten Plattform
+        for (int h = 0; h <= 7; h++) {
+            f.setzen(0, 0, h, Blocks.LADDER.defaultBlockState().setValue(net.minecraft.world.level.block.LadderBlock.FACING, f.quer()));
+        }
+        f.setzen(0, -1, 0, fundament);
+        for (int h = 1; h <= 7; h++) {
+            f.setzen(0, -1, h, Blocks.STONE_BRICKS.defaultBlockState());
+        }
+        // Funkerhütte: l 4..8, b -2..2
+        for (int l = 4; l <= 8; l++) {
+            for (int b = -2; b <= 2; b++) {
+                boolean aussen = l == 4 || l == 8 || Math.abs(b) == 2;
+                boolean tuer = l == 4 && b == 0;
+                for (int h = 0; h <= 2; h++) {
+                    if (aussen && !(tuer && h <= 1)) {
+                        boolean fenster = h == 1 && Math.abs(b) == 2 && l == 6;
+                        f.setzen(l, b, h, fenster ? Blocks.GLASS_PANE.defaultBlockState() : Blocks.STONE_BRICKS.defaultBlockState());
+                    }
+                }
+                f.setzen(l, b, 3, r.nextInt(8) == 0 ? Bau.LUFT : Blocks.STONE_BRICK_SLAB.defaultBlockState());
+            }
+        }
+        f.setzen(7, 1, 0, de.deadzonemc.funk.Funk.STATION.get().defaultBlockState()
+                .setValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING, f.quer().getOpposite()));
+        f.kiste(7, -1, 0, "werkstatt", r, false);
+        f.kiste(5, -1, 0, "versteck", r, true);
+        f.setzen(5, 1, 0, Blocks.OAK_SLAB.defaultBlockState());
+        // Kabeltrommeln und Sandsäcke draußen
+        f.setzen(-3, 2, 0, Blocks.STRIPPED_SPRUCE_LOG.defaultBlockState());
+        f.setzen(-3, -2, 0, Blocks.MUD_BRICKS.defaultBlockState());
+        f.setzen(-3, -3, 0, Blocks.MUD_BRICKS.defaultBlockState());
+        spawnen(f, MonsterTypen.GEFALLENER_SOLDAT::get, 1 + r.nextInt(2), r);
+    }
+
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
         Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
@@ -263,6 +335,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case KONVOI -> konvoi(f, r);
             case EVAKUIERUNG -> evakuierung(f, r);
             case RASTSTAETTE -> raststaette(f, r);
+            case FUNKTURM -> funkturm(f, r);
         }
     }
 

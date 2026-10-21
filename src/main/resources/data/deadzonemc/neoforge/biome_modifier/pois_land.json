@@ -5,7 +5,8 @@
   "deadzonemc:panzer",
   "deadzonemc:konvoi",
   "deadzonemc:evakuierung",
-  "deadzonemc:raststaette"
+  "deadzonemc:raststaette",
+  "deadzonemc:funkturm"
  ],
  "step": "surface_structures"
 }

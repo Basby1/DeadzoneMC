@@ -128,6 +128,11 @@ public final class Luftabwurf extends SavedData {
         welt.playSound(null, kiste.getX(), kiste.getY(), kiste.getZ(), SoundEvents.ELYTRA_FLYING, SoundSource.AMBIENT, 6.0F, 0.4F);
     }
 
+    /** Der zuletzt angekündigte, noch offene Abwurf (x, z) oder null. */
+    public long[] letzter() {
+        return offen.isEmpty() ? null : offen.get(offen.size() - 1);
+    }
+
     public int offen() {
         return offen.size();
     }
