@@ -349,7 +349,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         }
         // Schlagbaum quer über die Straße, rot-weiß
         f.setzen(0, -3, 0, Blocks.POLISHED_ANDESITE.defaultBlockState());
-        f.setzen(0, -3, 1, Blocks.POLISHED_ANDESITE_WALL.defaultBlockState());
+        f.setzen(0, -3, 1, Blocks.ANDESITE_WALL.defaultBlockState());
         for (int b = -2; b <= 2; b++) {
             f.setzen(0, b, 1, (b & 1) == 0 ? Blocks.RED_CONCRETE.defaultBlockState() : Blocks.WHITE_CONCRETE.defaultBlockState());
         }
