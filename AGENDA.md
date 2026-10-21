@@ -78,5 +78,15 @@ Legende: [x] erledigt · [~] in Arbeit · [ ] offen
 - [x] Der Ursprung: riesig (3x), epische Erwachen-Sequenz (Beben, Blitze, KI-Stimme, Aufstieg aus dem Reaktorring), Raid: Kristallschild, Leerepuls mit Deckung, Tentakelschläge, Brut, zweiter Schild; Enderdrache entfernt (Rückkehrportal offen)
 - [x] Endlos weiterspielbar nach dem Finale (Nachschub, Herden, Ereignisse, Epilog)
 
+## Etappe G – Checkliste vom 19.10. (umgesetzt 19.–21.10.)
+- [x] Klassen: Lieblingsklasse je Waffe/Satz, Klassenwaffen, Gadgets; Mehrfachklassen (allein 3, zu zweit 2) mit 10 Kombi-Boni
+- [x] Boss-Trophäen als Mods für Waffen/Rüstung, Trophäenbretter mit Köpfen, Bosse mehrfach jagbar (moderate Pausen)
+- [x] Neue Gegner: Tarnfresser, Schwarmmutter (Metro-Boss), Der Pilot (Hubschrauberwrack); Wiedergänger; Mutationsstufen
+- [x] Musik: bedrohliche Lobby, 27 Stücke in Pools je Lage, Nether/End-Musik, Raserei in Boss-Phase 2; neue ferne Geräusche
+- [x] Orte: Raststätte, Funkturm, Checkpoint der Wacht, Stausee-Dorf, Bunker-Labor; Plakate/Kreidezeichen an Wänden
+- [x] Dynamische Ereignisse (Absturz, Hilferuf), Funkstation mit der Stimme (12 Sendungen), Strom-Netz (Scheinwerfer, Elektrozaun, Panzertür)
+- [x] Nebenquests (Spur-Notizen → Versteckkarte), Entscheidung Akt III, wandernde Fraktionsgebiete, Einstellungsmenü
+- [x] Wiederbeleben mit Schwäche (Hardcore Revival), geteilte Karte über Xaero-Wegpunkte
+
 ## Laufend
 - [ ] Nach jeder Etappe: Build + Pack-Test grün, Release-Zip aktualisiert, kurze Zusammenfassung an Lina
