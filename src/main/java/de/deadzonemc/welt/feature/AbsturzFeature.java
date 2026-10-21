@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM, CHECKPOINT }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM, CHECKPOINT, STAUSEEDORF }
 
     private final Art art;
 
@@ -118,6 +118,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case RASTSTAETTE -> raststaette(f, r);
             case FUNKTURM -> funkturm(f, r);
             case CHECKPOINT -> checkpoint(f, r);
+            case STAUSEEDORF -> stauseedorf(f, r);
         }
         return true;
     }
@@ -404,6 +405,101 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         spawnen(f, de.deadzonemc.mensch.MenschTypen.SOLDAT::get, 2 + r.nextInt(2), r);
     }
 
+    /**
+     * Stausee-Dorf: Hinter einer Staumauer ist das Tal vollgelaufen. Häuser stehen bis zu den Fenstern im Wasser,
+     * die Dachböden sind noch trocken (Beute). Ein Kirchturm ragt heraus. Im Wasser treiben Ertrunkene.
+     */
+    private static void stauseedorf(Rahmen f, RandomSource r) {
+        BlockState wasser = Blocks.WATER.defaultBlockState();
+        BlockState schlamm = Blocks.MUD.defaultBlockState();
+        BlockState beton = Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState();
+        int R = 13;
+        // Becken: 3 tief, Rand aus Schlamm, Wasser bis h -1
+        for (int l = -R; l <= R; l++) {
+            for (int b = -R; b <= R; b++) {
+                double d = Math.sqrt(l * l + b * b);
+                if (d > R) {
+                    continue;
+                }
+                boolean rand = d > R - 1.5;
+                f.setzen(l, b, -4, schlamm);
+                for (int h = -3; h <= -1; h++) {
+                    f.setzen(l, b, h, rand ? schlamm : wasser);
+                }
+                for (int h = 0; h <= 8; h++) {
+                    f.setzen(l, b, h, Bau.LUFT);
+                }
+                if (!rand && r.nextInt(14) == 0) {
+                    f.setzen(l, b, -3, Blocks.SEAGRASS.defaultBlockState());
+                }
+            }
+        }
+        // Staumauer an einer Seite, mit Überlauf in der Mitte
+        for (int b = -R; b <= R; b++) {
+            for (int h = -3; h <= 3; h++) {
+                boolean ueberlauf = Math.abs(b) <= 1 && h >= 0;
+                f.setzen(R, b, h, ueberlauf ? Bau.LUFT : beton);
+                f.setzen(R + 1, b, h, ueberlauf ? Bau.LUFT : beton);
+            }
+            f.stuetzen(R, b, -3, beton);
+            f.stuetzen(R + 1, b, -3, beton);
+            f.setzen(R + 1, b, 4, Blocks.IRON_BARS.defaultBlockState()); // Geländer
+        }
+        // Häuser im Wasser: Erdgeschoss geflutet, Dachboden trocken
+        int[][] haeuser = {{-7, -6}, {-6, 4}, {1, -8}, {3, 5}};
+        for (int[] hs : haeuser) {
+            int l0 = hs[0];
+            int b0 = hs[1];
+            BlockState mauer = r.nextBoolean() ? Blocks.BRICKS.defaultBlockState() : Blocks.STONE_BRICKS.defaultBlockState();
+            for (int l = l0; l <= l0 + 4; l++) {
+                for (int b = b0; b <= b0 + 4; b++) {
+                    boolean aussen = l == l0 || l == l0 + 4 || b == b0 || b == b0 + 4;
+                    for (int h = -3; h <= 2; h++) {
+                        if (aussen) {
+                            boolean fenster = h == 1 && (l == l0 + 2 || b == b0 + 2);
+                            f.setzen(l, b, h, fenster ? (r.nextBoolean() ? Bau.LUFT : Blocks.GLASS_PANE.defaultBlockState()) : mauer);
+                        }
+                    }
+                    f.setzen(l, b, -4, Blocks.STONE_BRICKS.defaultBlockState());
+                    if (!aussen) {
+                        f.setzen(l, b, 3, Blocks.SPRUCE_PLANKS.defaultBlockState()); // Dachbodenboden
+                    }
+                    // Satteldach
+                    int dachH = 4 + Math.min(Math.abs(b - b0), Math.abs(b0 + 4 - b)) ;
+                    if (dachH <= 6 && r.nextInt(8) > 0) {
+                        f.setzen(l, b, Math.min(dachH, 6), Blocks.DARK_OAK_PLANKS.defaultBlockState());
+                    }
+                }
+            }
+            f.setzen(l0 + 1, b0 + 1, 4, Bau.LUFT);
+            f.kiste(l0 + 2, b0 + 2, 4, r.nextBoolean() ? "kleiderschrank" : "stadt_wohnung", r, false);
+            f.setzen(l0 + 2, b0, 0, Bau.LUFT); // Tür zum Hineinschwimmen
+            f.setzen(l0 + 2, b0, -1, wasser);
+        }
+        // Kirchturm ragt aus dem Wasser
+        for (int h = -3; h <= 10; h++) {
+            for (int l = -2; l <= 0; l++) {
+                for (int b = -1; b <= 1; b++) {
+                    boolean aussen = l == -2 || l == 0 || Math.abs(b) == 1;
+                    boolean schall = h == 8 && (l == -1 || b == 0);
+                    if (aussen && !schall) {
+                        f.setzen(l, b, h, Blocks.COBBLESTONE.defaultBlockState());
+                    } else if (!aussen && h >= 0) {
+                        f.setzen(l, b, h, h == 8 ? Blocks.BELL.defaultBlockState() : Bau.LUFT);
+                    }
+                }
+            }
+        }
+        f.setzen(-1, 0, 11, Blocks.COBBLESTONE_WALL.defaultBlockState());
+        f.kiste(-1, 0, 7, "kirche", r, true);
+        f.setzen(-1, 0, 6, Blocks.SPRUCE_SLAB.defaultBlockState());
+        // Bootssteg am Ufer
+        for (int l = -12; l <= -9; l++) {
+            f.setzen(l, 10, -1, Blocks.SPRUCE_SLAB.defaultBlockState());
+        }
+        spawnen(f, MonsterTypen.ERTRUNKENER::get, 3, r);
+    }
+
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
         Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
@@ -418,6 +514,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case RASTSTAETTE -> raststaette(f, r);
             case FUNKTURM -> funkturm(f, r);
             case CHECKPOINT -> checkpoint(f, r);
+            case STAUSEEDORF -> stauseedorf(f, r);
         }
     }
 
