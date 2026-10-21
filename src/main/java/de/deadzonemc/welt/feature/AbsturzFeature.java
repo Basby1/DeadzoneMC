@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM, CHECKPOINT, STAUSEEDORF }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM, CHECKPOINT, STAUSEEDORF, BUNKERLABOR }
 
     private final Art art;
 
@@ -119,6 +119,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case FUNKTURM -> funkturm(f, r);
             case CHECKPOINT -> checkpoint(f, r);
             case STAUSEEDORF -> stauseedorf(f, r);
+            case BUNKERLABOR -> bunkerlabor(f, r);
         }
         return true;
     }
@@ -500,6 +501,116 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         spawnen(f, MonsterTypen.ERTRUNKENER::get, 3, r);
     }
 
+    /**
+     * Bunker-Labor: An der Oberfläche nur eine rostige Luke im Betonsockel. Darunter ein Schacht, 14 Blöcke tief,
+     * ein Gang mit drei Laborräumen: Versuchstanks, Rechner, Kühlschränke, Akten. Notbeleuchtung flackert, und
+     * etwas aus den Tanks ist entkommen.
+     */
+    private static void bunkerlabor(Rahmen f, RandomSource r) {
+        BlockState wand = Blocks.WHITE_CONCRETE.defaultBlockState();
+        BlockState boden = Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState();
+        BlockState decke = Blocks.SMOOTH_STONE.defaultBlockState();
+        BlockState licht = Blocks.SEA_LANTERN.defaultBlockState();
+        int T = -14; // Boden des Labors
+        // Betonsockel mit Luke
+        for (int l = -1; l <= 1; l++) {
+            for (int b = -1; b <= 1; b++) {
+                f.setzen(l, b, -1, Blocks.GRAY_CONCRETE.defaultBlockState());
+                f.setzen(l, b, 0, Bau.LUFT);
+            }
+        }
+        f.setzen(0, 0, -1, Blocks.IRON_TRAPDOOR.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.TrapDoorBlock.HALF, net.minecraft.world.level.block.state.properties.Half.TOP));
+        f.setzen(1, 1, 0, Blocks.LIGHTNING_ROD.defaultBlockState()); // Lüftungsrohr
+        // Gang: l -2..12, b -2..2, innen 3 hoch
+        raum(f, r, -2, 12, -2, 2, T, wand, boden, decke, licht);
+        // Schacht mit Leiter: oberhalb des Gangs gemauert, im Gang nur die Leiter an einer Stütze
+        for (int h = T + 1; h <= -2; h++) {
+            f.setzen(0, 0, h, Blocks.LADDER.defaultBlockState().setValue(net.minecraft.world.level.block.LadderBlock.FACING, f.quer()));
+            if (h >= T + 4) {
+                for (int l = -1; l <= 1; l++) {
+                    for (int b = -1; b <= 1; b++) {
+                        if (l != 0 || b != 0) {
+                            f.setzen(l, b, h, Blocks.STONE_BRICKS.defaultBlockState());
+                        }
+                    }
+                }
+            } else {
+                f.setzen(0, -1, h, Blocks.STONE_BRICKS.defaultBlockState());
+            }
+        }
+        // Drei Laborräume seitlich am Gang
+        int[][] raeume = {{2, 3}, {7, 3}, {4, -9}};
+        String[] art = {"tanks", "rechner", "lager"};
+        for (int i = 0; i < raeume.length; i++) {
+            int l0 = raeume[i][0];
+            int b0 = raeume[i][1];
+            raum(f, r, l0, l0 + 5, b0, b0 + 6, T, wand, boden, decke, licht);
+            // Durchgang zum Gang
+            int tb = b0 > 0 ? b0 : b0 + 6;
+            for (int h = T + 1; h <= T + 2; h++) {
+                f.setzen(l0 + 2, tb, h, Bau.LUFT);
+                f.setzen(l0 + 2, b0 > 0 ? 2 : -2, h, Bau.LUFT);
+            }
+            int mb = b0 + 3;
+            switch (art[i]) {
+                case "tanks" -> {
+                    for (int l = l0 + 1; l <= l0 + 4; l += 3) {
+                        for (int h = T + 1; h <= T + 3; h++) {
+                            boolean kaputt = r.nextInt(3) == 0 && h == T + 2;
+                            f.setzen(l, mb + 2, h, kaputt ? Bau.LUFT : Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState());
+                        }
+                        f.setzen(l, mb + 2, T + 4, Blocks.IRON_BLOCK.defaultBlockState());
+                    }
+                    f.kiste(l0 + 3, mb - 2, T + 1, "station_null", r, false);
+                }
+                case "rechner" -> {
+                    for (int l = l0 + 1; l <= l0 + 4; l++) {
+                        f.setzen(l, b0 + 5, T + 1, Blocks.POLISHED_DEEPSLATE.defaultBlockState());
+                        f.setzen(l, b0 + 5, T + 2, r.nextBoolean() ? Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState()
+                                : Blocks.LIME_STAINED_GLASS_PANE.defaultBlockState());
+                    }
+                    f.kiste(l0 + 1, b0 + 1, T + 1, "buero", r, true);
+                    f.kiste(l0 + 4, b0 + 1, T + 1, "bunker", r, false);
+                }
+                default -> {
+                    f.kiste(l0 + 1, b0 + 1, T + 1, "apotheke", r, false);
+                    f.kiste(l0 + 4, b0 + 1, T + 1, "kuehlschrank", r, false);
+                    f.kiste(l0 + 1, b0 + 5, T + 1, "bunker", r, true);
+                    f.kiste(l0 + 4, b0 + 5, T + 1, r.nextInt(3) == 0 ? "waffenkammer" : "militaer", r, true);
+                }
+            }
+        }
+        // Entkommene Versuchsobjekte
+        net.minecraft.world.level.WorldGenLevel w = f.w();
+        for (int i = 0; i < 2; i++) {
+            var typ = MonsterTypen.DIMENSION.get(de.deadzonemc.monster.dimension.DimArt.VERSUCHSOBJEKT).get();
+            net.minecraft.world.entity.Mob m = typ.create(w.getLevel());
+            if (m != null) {
+                BlockPos p = f.pos(4 + i * 4, 0, T + 1);
+                m.moveTo(p.getX() + 0.5, p.getY(), p.getZ() + 0.5, r.nextFloat() * 360, 0);
+                m.setPersistenceRequired();
+                m.finalizeSpawn(w, w.getCurrentDifficultyAt(p), MobSpawnType.STRUCTURE, null);
+                w.addFreshEntityWithPassengers(m);
+            }
+        }
+    }
+
+    /** Ein Raum mit Hülle: Wände, Boden, Decke mit (teils kaputter) Notbeleuchtung, innen frei. */
+    private static void raum(Rahmen f, RandomSource r, int l1, int l2, int b1, int b2, int T,
+                             BlockState wand, BlockState boden, BlockState decke, BlockState licht) {
+        for (int l = l1; l <= l2; l++) {
+            for (int b = b1; b <= b2; b++) {
+                boolean rand = l == l1 || l == l2 || b == b1 || b == b2;
+                f.setzen(l, b, T, boden);
+                f.setzen(l, b, T + 4, !rand && (l + b) % 4 == 0 ? (r.nextInt(3) == 0 ? Blocks.REDSTONE_LAMP.defaultBlockState() : licht) : decke);
+                for (int h = T + 1; h <= T + 3; h++) {
+                    f.setzen(l, b, h, rand ? (r.nextInt(14) == 0 ? Blocks.CRACKED_STONE_BRICKS.defaultBlockState() : wand) : Bau.LUFT);
+                }
+            }
+        }
+    }
+
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
         Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
@@ -515,6 +626,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case FUNKTURM -> funkturm(f, r);
             case CHECKPOINT -> checkpoint(f, r);
             case STAUSEEDORF -> stauseedorf(f, r);
+            case BUNKERLABOR -> bunkerlabor(f, r);
         }
     }
 

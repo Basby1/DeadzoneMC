@@ -233,6 +233,9 @@ public final class ModRegistry {
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> FRACHTER =
             FEATURES.register("frachter",
                     () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.FRACHTER));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> BUNKERLABOR =
+            FEATURES.register("bunkerlabor",
+                    () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.BUNKERLABOR));
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STAUSEEDORF =
             FEATURES.register("stauseedorf",
                     () -> new de.deadzonemc.welt.feature.AbsturzFeature(de.deadzonemc.welt.feature.AbsturzFeature.Art.STAUSEEDORF));

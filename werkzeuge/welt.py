@@ -57,6 +57,7 @@ CONFIGURED = {
     "funkturm": {"type": f"{MOD}:funkturm", "config": {}},
     "checkpoint": {"type": f"{MOD}:checkpoint", "config": {}},
     "stauseedorf": {"type": f"{MOD}:stauseedorf", "config": {}},
+    "bunkerlabor": {"type": f"{MOD}:bunkerlabor", "config": {}},
     "konvoi": {"type": f"{MOD}:konvoi", "config": {}},
     "evakuierung": {"type": f"{MOD}:evakuierung", "config": {}},
     **{f"siedlung_{a}": {"type": f"{MOD}:siedlung_{a}", "config": {}} for a in ("lager", "schrein", "baumhaus", "nomaden", "kuppel", "horst")},
@@ -143,6 +144,7 @@ PLACED = {
     "funkturm": ("funkturm", an_der_oberflaeche(seltenheit=150)),
     "checkpoint": ("checkpoint", an_der_oberflaeche(seltenheit=110)),
     "stauseedorf": ("stauseedorf", an_der_oberflaeche(seltenheit=260)),
+    "bunkerlabor": ("bunkerlabor", an_der_oberflaeche(seltenheit=140)),
     "konvoi": ("konvoi", an_der_oberflaeche(seltenheit=220)),
     "evakuierung": ("evakuierung", an_der_oberflaeche(seltenheit=160)),
     # Siedlungen der Fraktionen
