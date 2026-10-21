@@ -1,0 +1,20 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "redstone",
+ "pattern": [
+  "BBB",
+  "BEB"
+ ],
+ "key": {
+  "B": {
+   "item": "minecraft:iron_bars"
+  },
+  "E": {
+   "item": "deadzonemc:elektronik"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:elektrozaun",
+  "count": 6
+ }
+}

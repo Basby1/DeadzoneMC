@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "facing=north,strom=false": {
+   "model": "deadzonemc:block/scheinwerfer"
+  },
+  "facing=north,strom=true": {
+   "model": "deadzonemc:block/scheinwerfer_an"
+  },
+  "facing=east,strom=false": {
+   "model": "deadzonemc:block/scheinwerfer",
+   "y": 90
+  },
+  "facing=east,strom=true": {
+   "model": "deadzonemc:block/scheinwerfer_an",
+   "y": 90
+  },
+  "facing=south,strom=false": {
+   "model": "deadzonemc:block/scheinwerfer",
+   "y": 180
+  },
+  "facing=south,strom=true": {
+   "model": "deadzonemc:block/scheinwerfer_an",
+   "y": 180
+  },
+  "facing=west,strom=false": {
+   "model": "deadzonemc:block/scheinwerfer",
+   "y": 270
+  },
+  "facing=west,strom=true": {
+   "model": "deadzonemc:block/scheinwerfer_an",
+   "y": 270
+  }
+ }
+}

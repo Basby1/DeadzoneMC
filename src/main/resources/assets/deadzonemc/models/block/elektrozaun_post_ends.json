@@ -1,0 +1,9 @@
+{
+ "parent": "minecraft:block/iron_bars_post_ends",
+ "render_type": "minecraft:cutout",
+ "textures": {
+  "particle": "deadzonemc:block/elektrozaun",
+  "bars": "deadzonemc:block/elektrozaun",
+  "edge": "deadzonemc:block/elektrozaun"
+ }
+}

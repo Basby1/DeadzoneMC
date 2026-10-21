@@ -1,0 +1,11 @@
+{
+ "block.deadzonemc.scheinwerfer": "Scheinwerfer",
+ "item.deadzonemc.scheinwerfer": "Scheinwerfer",
+ "block.deadzonemc.elektrozaun": "Elektrozaun",
+ "item.deadzonemc.elektrozaun": "Elektrozaun",
+ "block.deadzonemc.panzertuer": "Panzertür",
+ "item.deadzonemc.panzertuer": "Panzertür",
+ "tooltip.deadzonemc.scheinwerfer": "Leuchtet hell, wenn er im Bereich eines Notstromgenerators steht.",
+ "tooltip.deadzonemc.elektrozaun": "Steht im Bereich eines Notstromgenerators unter Strom: Monster bekommen einen Schlag.",
+ "tooltip.deadzonemc.panzertuer": "Infizierte können sie nicht aufbrechen. Öffnen von Hand oder mit Redstone."
+}

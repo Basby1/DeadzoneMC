@@ -17,6 +17,10 @@ public final class ClientTooltips {
 
     public static void ergaenzen(ItemTooltipEvent e) {
         ItemStack s = e.getItemStack();
+        String hinweis = "tooltip.deadzonemc." + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(s.getItem()).getPath();
+        if (net.minecraft.client.resources.language.I18n.exists(hinweis)) {
+            e.getToolTip().add(Component.translatable(hinweis).withStyle(net.minecraft.ChatFormatting.GRAY));
+        }
         Klasse liebling = Klassenvorteile.liebling(s.getItem());
         String art = "waffe";
         if (liebling == null && s.getItem() instanceof ArmorItem ai) {

@@ -31,6 +31,7 @@ public class DeadzoneMC {
         de.deadzonemc.bossmod.Bossmods.registrieren(modBus);
         de.deadzonemc.welt.deko.Wanddeko.registrieren(modBus);
         de.deadzonemc.funk.Funk.registrieren(modBus);
+        de.deadzonemc.strom.Strom.registrieren(modBus);
         de.deadzonemc.gadget.Gadgets.registrieren(modBus);
         de.deadzonemc.gadget.Nachwirkung.registrieren();
         de.deadzonemc.welt.schild.Ladenschild.registrieren(modBus);

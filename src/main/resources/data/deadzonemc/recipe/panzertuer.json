@@ -1,0 +1,21 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "redstone",
+ "pattern": [
+  "PP",
+  "PI",
+  "PP"
+ ],
+ "key": {
+  "P": {
+   "item": "deadzonemc:panzerplatte"
+  },
+  "I": {
+   "item": "minecraft:iron_ingot"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:panzertuer",
+  "count": 1
+ }
+}

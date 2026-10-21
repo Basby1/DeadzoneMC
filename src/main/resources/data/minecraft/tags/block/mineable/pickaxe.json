@@ -12,6 +12,9 @@
   "deadzonemc:brandgraben",
   "deadzonemc:motorraum",
   "deadzonemc:stoersender",
-  "deadzonemc:funkstation"
+  "deadzonemc:funkstation",
+  "deadzonemc:scheinwerfer",
+  "deadzonemc:elektrozaun",
+  "deadzonemc:panzertuer"
  ]
 }

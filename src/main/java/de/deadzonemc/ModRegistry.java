@@ -320,6 +320,7 @@ public final class ModRegistry {
                         de.deadzonemc.bossmod.Bossmods.tabFuellen(ausgabe);
                         de.deadzonemc.welt.deko.Wanddeko.tabFuellen(ausgabe);
                         de.deadzonemc.funk.Funk.tabFuellen(ausgabe);
+                        de.deadzonemc.strom.Strom.tabFuellen(ausgabe);
                         de.deadzonemc.gadget.Gadgets.tabFuellen(ausgabe);
                         de.deadzonemc.beute.Beute.tabFuellen(ausgabe);
                         de.deadzonemc.waffen.feuer.Feuerwaffen.tabFuellen(ausgabe);

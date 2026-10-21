@@ -1,0 +1,23 @@
+{
+ "type": "minecraft:crafting_shaped",
+ "category": "redstone",
+ "pattern": [
+  "IGI",
+  "IBI"
+ ],
+ "key": {
+  "I": {
+   "item": "minecraft:iron_ingot"
+  },
+  "G": {
+   "item": "minecraft:glass"
+  },
+  "B": {
+   "item": "deadzonemc:batterie"
+  }
+ },
+ "result": {
+  "id": "deadzonemc:scheinwerfer",
+  "count": 2
+ }
+}
