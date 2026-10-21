@@ -55,6 +55,7 @@ CONFIGURED = {
     "panzer": {"type": f"{MOD}:panzer", "config": {}},
     "raststaette": {"type": f"{MOD}:raststaette", "config": {}},
     "funkturm": {"type": f"{MOD}:funkturm", "config": {}},
+    "checkpoint": {"type": f"{MOD}:checkpoint", "config": {}},
     "konvoi": {"type": f"{MOD}:konvoi", "config": {}},
     "evakuierung": {"type": f"{MOD}:evakuierung", "config": {}},
     **{f"siedlung_{a}": {"type": f"{MOD}:siedlung_{a}", "config": {}} for a in ("lager", "schrein", "baumhaus", "nomaden", "kuppel", "horst")},
@@ -139,6 +140,7 @@ PLACED = {
     "panzer": ("panzer", an_der_oberflaeche(seltenheit=90)),
     "raststaette": ("raststaette", an_der_oberflaeche(seltenheit=120)),
     "funkturm": ("funkturm", an_der_oberflaeche(seltenheit=150)),
+    "checkpoint": ("checkpoint", an_der_oberflaeche(seltenheit=110)),
     "konvoi": ("konvoi", an_der_oberflaeche(seltenheit=220)),
     "evakuierung": ("evakuierung", an_der_oberflaeche(seltenheit=160)),
     # Siedlungen der Fraktionen

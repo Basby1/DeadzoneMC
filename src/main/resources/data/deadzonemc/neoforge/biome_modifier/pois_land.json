@@ -6,7 +6,8 @@
   "deadzonemc:konvoi",
   "deadzonemc:evakuierung",
   "deadzonemc:raststaette",
-  "deadzonemc:funkturm"
+  "deadzonemc:funkturm",
+  "deadzonemc:checkpoint"
  ],
  "step": "surface_structures"
 }

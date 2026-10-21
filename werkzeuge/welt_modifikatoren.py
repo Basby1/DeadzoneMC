@@ -56,7 +56,7 @@ MODIFIKATOREN = {
              "features": ["deadzonemc:absturz_hubschrauber", "deadzonemc:absturz_flugzeug"],
              "step": "surface_structures"},
     "pois_land": {"type": "neoforge:add_features", "biomes": "#deadzonemc:land",
-             "features": ["deadzonemc:panzer", "deadzonemc:konvoi", "deadzonemc:evakuierung", "deadzonemc:raststaette", "deadzonemc:funkturm"],
+             "features": ["deadzonemc:panzer", "deadzonemc:konvoi", "deadzonemc:evakuierung", "deadzonemc:raststaette", "deadzonemc:funkturm", "deadzonemc:checkpoint"],
              "step": "surface_structures"},
     "pois_kueste": {"type": "neoforge:add_features", "biomes": "#minecraft:is_beach",
                     "features": ["deadzonemc:frachter"], "step": "surface_structures"},

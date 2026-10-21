@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
-    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM }
+    public enum Art { HUBSCHRAUBER, FLUGZEUG, FRACHTER, PANZER, KONVOI, EVAKUIERUNG, RASTSTAETTE, FUNKTURM, CHECKPOINT }
 
     private final Art art;
 
@@ -117,6 +117,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case EVAKUIERUNG -> evakuierung(f, r);
             case RASTSTAETTE -> raststaette(f, r);
             case FUNKTURM -> funkturm(f, r);
+            case CHECKPOINT -> checkpoint(f, r);
         }
         return true;
     }
@@ -323,6 +324,86 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         spawnen(f, MonsterTypen.GEFALLENER_SOLDAT::get, 1 + r.nextInt(2), r);
     }
 
+    /**
+     * Checkpoint der Wacht: Straßensperre mit Schlagbaum, Sandsackstellungen, Stacheldraht, Wachhäuschen,
+     * Suchscheinwerfer und Zelt. Besetzt von Soldaten der Wacht – freundlich, solange man mit ihr keinen Krieg hat.
+     */
+    private static void checkpoint(Rahmen f, RandomSource r) {
+        BlockState strasse = Blocks.GRAY_CONCRETE.defaultBlockState();
+        BlockState sand = Blocks.MUD_BRICKS.defaultBlockState();
+        BlockState sandStufe = Blocks.MUD_BRICK_SLAB.defaultBlockState();
+        for (int l = -11; l <= 11; l++) {
+            for (int b = -7; b <= 7; b++) {
+                boolean weg = Math.abs(b) <= 2;
+                f.setzen(l, b, -1, weg ? (r.nextInt(10) == 0 ? Blocks.COBBLESTONE.defaultBlockState() : strasse)
+                        : (r.nextInt(3) == 0 ? Blocks.COARSE_DIRT.defaultBlockState() : Blocks.GRAVEL.defaultBlockState()));
+                f.stuetzen(l, b, -1, Blocks.DIRT.defaultBlockState());
+                for (int h = 0; h <= 5; h++) {
+                    f.setzen(l, b, h, Bau.LUFT);
+                }
+            }
+        }
+        // Mittellinie
+        for (int l = -11; l <= 11; l += 3) {
+            f.setzen(l, 0, -1, Blocks.YELLOW_CONCRETE.defaultBlockState());
+        }
+        // Schlagbaum quer über die Straße, rot-weiß
+        f.setzen(0, -3, 0, Blocks.POLISHED_ANDESITE.defaultBlockState());
+        f.setzen(0, -3, 1, Blocks.POLISHED_ANDESITE_WALL.defaultBlockState());
+        for (int b = -2; b <= 2; b++) {
+            f.setzen(0, b, 1, (b & 1) == 0 ? Blocks.RED_CONCRETE.defaultBlockState() : Blocks.WHITE_CONCRETE.defaultBlockState());
+        }
+        // Sandsackstellungen links und rechts der Sperre, mit Stacheldraht davor
+        for (int seite : new int[]{-1, 1}) {
+            for (int b = 3; b <= 6; b++) {
+                int bb = seite * b;
+                f.setzen(-3, bb, 0, sand);
+                f.setzen(-3, bb, 1, sandStufe);
+                f.setzen(3, bb, 0, sand);
+                if (r.nextBoolean()) {
+                    f.setzen(-5, bb, 0, Blocks.COBWEB.defaultBlockState());
+                }
+            }
+        }
+        for (int b = -2; b <= 2; b += 4) {
+            f.setzen(-7, b, 0, Blocks.COBWEB.defaultBlockState()); // Draht auf der Straße, Durchgang in der Mitte
+        }
+        // Wachhäuschen: l 5..7, b 4..6
+        for (int l = 5; l <= 7; l++) {
+            for (int b = 4; b <= 6; b++) {
+                boolean aussen = l == 5 || l == 7 || b == 4 || b == 6;
+                boolean tuer = l == 6 && b == 6;
+                for (int h = 0; h <= 2; h++) {
+                    if (aussen && !(tuer && h <= 1)) {
+                        boolean fenster = h == 1 && (b == 4 || l == 5);
+                        f.setzen(l, b, h, fenster ? Blocks.GLASS_PANE.defaultBlockState() : Blocks.WHITE_CONCRETE.defaultBlockState());
+                    }
+                }
+                f.setzen(l, b, 3, Blocks.GREEN_CONCRETE.defaultBlockState());
+            }
+        }
+        f.kiste(6, 5, 0, "militaer", r, false);
+        // Suchscheinwerfer
+        for (int h = 0; h <= 3; h++) {
+            f.setzen(9, -5, h, Blocks.IRON_BARS.defaultBlockState());
+        }
+        f.setzen(9, -5, 4, Blocks.SHROOMLIGHT.defaultBlockState());
+        // Zelt: grünes Satteldach über Kisten
+        for (int l = -10; l <= -7; l++) {
+            for (int b = -6; b <= -4; b++) {
+                int h = b == -5 ? 2 : 1;
+                f.setzen(l, b, h, Blocks.GREEN_WOOL.defaultBlockState());
+            }
+        }
+        f.kiste(-9, -5, 0, r.nextInt(4) == 0 ? "waffenkammer" : "militaer", r, true);
+        f.kiste(-8, -5, 0, "apotheke", r, true);
+        // Aufruf der Wacht an der Wachhütte
+        f.setzen(5, 3, 1, de.deadzonemc.welt.deko.Wanddeko.PLAKAT.get().defaultBlockState()
+                .setValue(net.minecraft.world.level.block.LadderBlock.FACING, f.quer().getOpposite())
+                .setValue(de.deadzonemc.welt.deko.Wanddeko.Bild.MOTIV, 3));
+        spawnen(f, de.deadzonemc.mensch.MenschTypen.SOLDAT::get, 2 + r.nextInt(2), r);
+    }
+
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
         Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
@@ -336,6 +417,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             case EVAKUIERUNG -> evakuierung(f, r);
             case RASTSTAETTE -> raststaette(f, r);
             case FUNKTURM -> funkturm(f, r);
+            case CHECKPOINT -> checkpoint(f, r);
         }
     }
 
