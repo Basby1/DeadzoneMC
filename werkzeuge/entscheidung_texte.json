@@ -1,0 +1,10 @@
+{
+ "entscheidung.deadzonemc.frage": "Der Strahlende ist gefallen. In der Reaktorhalle pulsiert der Kern – ungeschützt. Was tut ihr? (Die Wahl gilt für alle.)",
+ "entscheidung.deadzonemc.abschalten.knopf": "[Reaktor abschalten]",
+ "entscheidung.deadzonemc.bergen.knopf": "[Kern bergen]",
+ "entscheidung.deadzonemc.abschalten.folgen": "Emissionen kommen seltener. Die Wacht ist euch dankbar (+25 Ansehen).",
+ "entscheidung.deadzonemc.bergen.folgen": "Ihr erhaltet sofort 3 Kernsplitter und 12 Strahlenkristalle. Dafür kommen Emissionen häufiger, und die Wacht wird euch feindlich (−40 Ansehen).",
+ "entscheidung.deadzonemc.abschalten.ergebnis": "%s legt den Notschalter um. Die Halden-Werke verstummen. Für eine Weile wird die Zone ruhiger.",
+ "entscheidung.deadzonemc.bergen.ergebnis": "%s reißt den Kern aus der Halterung. Splitter brechen ab und glühen in der Hand. Irgendwo heult eine Sirene der Wacht.",
+ "entscheidung.deadzonemc.nicht_jetzt": "Gerade gibt es nichts zu entscheiden."
+}

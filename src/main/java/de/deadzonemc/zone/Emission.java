@@ -86,7 +86,7 @@ public final class Emission extends SavedData {
         long zeit = welt.getGameTime();
         if (e.naechste < 0) {
             // Die erste Emission frühestens nach drei Tagen
-            e.naechste = zeit + 72000L + welt.random.nextInt(48000);
+            e.naechste = zeit + (long) ((72000L + welt.random.nextInt(48000)) * de.deadzonemc.geschichte.Entscheidung.emissionsFaktor(welt.getServer()));
             e.setDirty();
         }
         if (e.stufe == 0) {
@@ -121,7 +121,7 @@ public final class Emission extends SavedData {
             if (e.rest <= 0) {
                 e.stufe = 0;
                 e.nummer++;
-                e.naechste = zeit + 48000L + welt.random.nextInt(72000);
+                e.naechste = zeit + (long) ((48000L + welt.random.nextInt(72000)) * de.deadzonemc.geschichte.Entscheidung.emissionsFaktor(welt.getServer()));
                 e.senden();
                 melden(welt, Component.translatable("zone.deadzonemc.emission.ende").withStyle(ChatFormatting.GRAY), false);
             }

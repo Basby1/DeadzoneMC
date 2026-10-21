@@ -85,6 +85,8 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::verlassen);
         de.deadzonemc.klasse.Kombinationen.registrieren();
         de.deadzonemc.monster.Mutation.registrieren();
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.geschichte.Entscheidung::befehl);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.geschichte.Entscheidung::anmelden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::schaden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::schaden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::effekt);

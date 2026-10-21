@@ -228,6 +228,9 @@ public final class Geschichte {
         String typ = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).toString();
         if (typ.startsWith(DeadzoneMC.MODID + ":") && e instanceof Boss) {
             Fortschritt.von(sl.getServer()).merken("tot:" + typ.substring(DeadzoneMC.MODID.length() + 1));
+            if (typ.endsWith(":strahlende")) {
+                Entscheidung.anbieten(sl.getServer());
+            }
         }
         // Kernsplitter: im Herz der Zone (Nether) tragen manche Wesen Splitter des Kerns in sich
         if (sl.dimension() == Level.NETHER && e instanceof Enemy && event.getSource().getEntity() instanceof Player
