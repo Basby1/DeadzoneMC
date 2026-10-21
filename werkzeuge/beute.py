@@ -44,8 +44,15 @@ def pool(minimum, maximum, eintraege):
     return {"rolls": {"type": "minecraft:uniform", "min": minimum, "max": maximum}, "entries": eintraege}
 
 
+SPUREN = ["spur_1", "spur_2", "spur_3", "spur_4", "spur_5", "spur_6"]
+
+
 def notizen(chance_prozent, ids):
-    """Höchstens eine Notiz pro Behälter, mit der angegebenen Wahrscheinlichkeit."""
+    """Höchstens eine Notiz pro Behälter, mit der angegebenen Wahrscheinlichkeit. Ein Teil davon sind Spuren
+    (Nebenquests: Notizen, die zu einem Versteck führen)."""
+    versatz = sum(map(ord, "".join(ids))) % len(SPUREN)
+    reihe = SPUREN[versatz:] + SPUREN[:versatz]
+    ids = list(ids) + reihe[:max(1, len(ids))]
     rest = max(0, round(len(ids) * (100 - chance_prozent) / chance_prozent))
     return {"rolls": 1, "entries": [notiz(i) for i in ids] + [leer(rest)]}
 

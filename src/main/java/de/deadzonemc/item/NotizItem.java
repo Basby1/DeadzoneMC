@@ -25,7 +25,8 @@ public class NotizItem extends Item {
             "start", "evakuierung", "einkaufszettel", "abschied", "tagebuch_1", "tagebuch_2",
             "halden_flyer", "kinderzettel", "funkspruch", "brief", "pfarrer", "feuerwehr_einsatz",
             "station_null_1", "station_null_2", "station_null_3", "station_null_4",
-            "funkprotokoll_1", "funkprotokoll_2", "funkprotokoll_3", "funkprotokoll_4", "vahl_logbuch", "orbit_log_1", "orbit_log_2"
+            "funkprotokoll_1", "funkprotokoll_2", "funkprotokoll_3", "funkprotokoll_4", "vahl_logbuch", "orbit_log_1", "orbit_log_2",
+            "spur_1", "spur_2", "spur_3", "spur_4", "spur_5", "spur_6"
     };
 
     public NotizItem(Properties properties) {
@@ -60,6 +61,19 @@ public class NotizItem extends Item {
             NotizAnzeige.oeffnen(id(stack));
         } else if (player instanceof net.minecraft.server.level.ServerPlayer sp) {
             de.deadzonemc.geschichte.Archiv.gelesen(sp, id(stack));
+            // Nebenquest: Diese Notizen beschreiben ein Versteck – die Skizze wird zur Karte
+            if (id(stack).startsWith("spur_") && level instanceof net.minecraft.server.level.ServerLevel sl) {
+                ItemStack karte = SchatzkarteItem.karte(sl, sp);
+                if (karte != null) {
+                    karte.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.translatable("item.deadzonemc.spur.karte",
+                            Component.translatable("notiz.deadzonemc." + id(stack) + ".titel")).withStyle(st -> st.withItalic(false)));
+                    sp.displayClientMessage(Component.translatable("item.deadzonemc.spur.gefunden").withStyle(ChatFormatting.GOLD), false);
+                    stack.consume(1, sp);
+                    if (!sp.getInventory().add(karte)) {
+                        sp.drop(karte, false);
+                    }
+                }
+            }
         }
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
     }

@@ -101,8 +101,21 @@
           ]
         },
         {
+          "type": "minecraft:item",
+          "name": "deadzonemc:notiz",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:notiz": "spur_6"
+              }
+            }
+          ]
+        },
+        {
           "type": "minecraft:empty",
-          "weight": 2
+          "weight": 3
         }
       ]
     }

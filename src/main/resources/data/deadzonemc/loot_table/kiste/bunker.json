@@ -290,8 +290,34 @@
           ]
         },
         {
+          "type": "minecraft:item",
+          "name": "deadzonemc:notiz",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:notiz": "spur_4"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deadzonemc:notiz",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:notiz": "spur_5"
+              }
+            }
+          ]
+        },
+        {
           "type": "minecraft:empty",
-          "weight": 5
+          "weight": 9
         }
       ]
     },
@@ -312,8 +338,21 @@
           ]
         },
         {
+          "type": "minecraft:item",
+          "name": "deadzonemc:notiz",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "deadzonemc:notiz": "spur_4"
+              }
+            }
+          ]
+        },
+        {
           "type": "minecraft:empty",
-          "weight": 3
+          "weight": 6
         }
       ]
     }

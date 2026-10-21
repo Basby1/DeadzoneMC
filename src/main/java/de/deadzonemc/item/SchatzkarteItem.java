@@ -40,30 +40,11 @@ public class SchatzkarteItem extends Item {
         if (!(level instanceof ServerLevel sl)) {
             return InteractionResultHolder.success(stack);
         }
-        List<Long> bekannt = spieler.getData(ModRegistry.VERSTECKE);
-        BlockPos ziel = null;
-        for (BlockPos p : Verstecke.umkreis(sl.getSeed(), spieler.getBlockX(), spieler.getBlockZ(), 3)) {
-            double d = Math.sqrt(p.distToCenterSqr(spieler.getX(), p.getY(), spieler.getZ()));
-            if (d > 60 && !bekannt.contains(p.asLong())) {
-                ziel = p;
-                break;
-            }
-        }
-        if (ziel == null) {
+        ItemStack karte = karte(sl, spieler);
+        if (karte == null) {
             spieler.displayClientMessage(Component.translatable("item.deadzonemc.schatzkarte.nichts").withStyle(ChatFormatting.GRAY), true);
             return InteractionResultHolder.fail(stack);
         }
-        List<Long> neu = new ArrayList<>(bekannt);
-        neu.add(ziel.asLong());
-        spieler.setData(ModRegistry.VERSTECKE, neu);
-        ItemStack karte = MapItem.create(sl, ziel.getX(), ziel.getZ(), (byte) 1, true, true);
-        MapItem.renderBiomePreviewMap(sl, karte);
-        MapItemSavedData.addTargetDecoration(karte, ziel, "+", MapDecorationTypes.RED_X);
-        karte.set(DataComponents.CUSTOM_NAME, Component.translatable("item.deadzonemc.schatzkarte.karte")
-                .withStyle(s -> s.withItalic(false)));
-        int hinweis = Math.floorMod((int) (ziel.asLong() ^ sl.getSeed()), 3);
-        karte.set(DataComponents.LORE, new ItemLore(List.of(
-                Component.translatable("item.deadzonemc.schatzkarte.hinweis" + hinweis).withStyle(ChatFormatting.GRAY))));
         sl.playSound(null, spieler.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0F, 0.9F);
         stack.consume(1, spieler);
         if (stack.isEmpty()) {
@@ -78,5 +59,33 @@ public class SchatzkarteItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext ctx, List<Component> zeilen, TooltipFlag flag) {
         zeilen.add(Component.translatable("item.deadzonemc.schatzkarte.info").withStyle(ChatFormatting.GRAY));
+    }
+
+    /** Eine Karte zum nächsten noch unbekannten Versteck (60+ Blöcke entfernt) – oder null, wenn es keins gibt. */
+    public static ItemStack karte(ServerLevel sl, Player spieler) {
+        List<Long> bekannt = spieler.getData(ModRegistry.VERSTECKE);
+        BlockPos ziel = null;
+        for (BlockPos p : Verstecke.umkreis(sl.getSeed(), spieler.getBlockX(), spieler.getBlockZ(), 3)) {
+            double d = Math.sqrt(p.distToCenterSqr(spieler.getX(), p.getY(), spieler.getZ()));
+            if (d > 60 && !bekannt.contains(p.asLong())) {
+                ziel = p;
+                break;
+            }
+        }
+        if (ziel == null) {
+            return null;
+        }
+        List<Long> neu = new ArrayList<>(bekannt);
+        neu.add(ziel.asLong());
+        spieler.setData(ModRegistry.VERSTECKE, neu);
+        ItemStack karte = MapItem.create(sl, ziel.getX(), ziel.getZ(), (byte) 1, true, true);
+        MapItem.renderBiomePreviewMap(sl, karte);
+        MapItemSavedData.addTargetDecoration(karte, ziel, "+", MapDecorationTypes.RED_X);
+        karte.set(DataComponents.CUSTOM_NAME, Component.translatable("item.deadzonemc.schatzkarte.karte")
+                .withStyle(s -> s.withItalic(false)));
+        int hinweis = Math.floorMod((int) (ziel.asLong() ^ sl.getSeed()), 3);
+        karte.set(DataComponents.LORE, new ItemLore(List.of(
+                Component.translatable("item.deadzonemc.schatzkarte.hinweis" + hinweis).withStyle(ChatFormatting.GRAY))));
+        return karte;
     }
 }
