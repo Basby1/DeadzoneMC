@@ -392,11 +392,12 @@ def ruinen():
             k.w((xx, oben, z0 + 2), (bb, hh, t - 4), mat)
             oben += hh
         # Fenster: wenige leuchten noch
-        for _ in range(int(rng.integers(0, 4))):
-            fx = x + int(rng.integers(2, b - 3))
+        for _ in range(int(rng.integers(1, 6))):
+            fx = x + int(rng.integers(2, b - 5))
             fy = int(rng.integers(6, h - 6))
-            k.w((fx, fy, z0 - 0.5), (2, 3, 0.5), warm if rng.random() > 0.2 else kalt)
-            k.w((fx + 3, fy, z0 - 0.5), (2, 3, 0.5), warm)
+            k.w((fx, fy, z0 - 0.5), (3, 4, 0.5), warm if rng.random() > 0.2 else kalt)
+            if rng.random() < 0.5:
+                k.w((fx, fy - 6, z0 - 0.5), (3, 4, 0.5), warm)
         if rng.random() < 0.18:
             k.w((x + b // 2 - 2, h, z0 + t // 2 - 2), (4, 3, 4), feuer)
         x += b + int(rng.integers(2, 12))

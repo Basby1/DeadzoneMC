@@ -32,11 +32,11 @@ public class RuinenRenderer extends GeoEntityRenderer<KinoRuinen> {
 
     @Override
     protected int getBlockLightLevel(KinoRuinen r, BlockPos pos) {
-        return ClientKinoBoot.lichtBlock() > 10 ? 15 : 2;
+        return ClientKinoBoot.lichtBlock() > 10 ? 15 : 5;
     }
 
     @Override
     protected int getSkyLightLevel(KinoRuinen r, BlockPos pos) {
-        return ClientKinoBoot.lichtHimmel() > 10 ? 15 : 3;
+        return ClientKinoBoot.lichtHimmel() > 10 ? 15 : 4;
     }
 }

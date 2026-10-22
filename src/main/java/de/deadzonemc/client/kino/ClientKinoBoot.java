@@ -210,7 +210,7 @@ public final class ClientKinoBoot {
         hinzufuegen(level, kamera, bootPos(0), 0);
         // Die zerstörte Stadt am Ufer: drei Kulissen hintereinander gestaffelt
         float meerGier = gierVon(land.scale(-1));
-        double[][] lagen = {{50, -62}, {62, 2}, {55, 66}};
+        double[][] lagen = {{36, -58}, {46, 0}, {40, 60}};
         for (double[] l : lagen) {
             KinoRuinen k = KinoTypen.RUINEN.get().create(level);
             Vec3 p = ufer.add(land.scale(l[0])).add(rechts.scale(l[1]));
@@ -219,7 +219,7 @@ public final class ClientKinoBoot {
             KULISSE.add(k);
         }
         // Der Ursprung: erst fern zwischen den Ruinen, beim zweiten Blitz am Strand
-        Vec3 fern = ufer.add(land.scale(84)).add(rechts.scale(22));
+        Vec3 fern = ufer.add(land.scale(62)).add(rechts.scale(20));
         ursprungFern = new Vec3(fern.x, boden(level, fern, wasser + 4) - 3, fern.z);
         Vec3 nah = ufer.add(land.scale(8)).add(rechts.scale(-14));
         ursprungNah = new Vec3(nah.x, Math.max(wasser - 2, boden(level, nah, wasser + 1) - 2), nah.z);
@@ -562,8 +562,9 @@ public final class ClientKinoBoot {
     static Vec3 kameraPos(float s) {
         if (s < AUSSEN) {
             // An Deck: langsam zwischen den Bänken nach vorn
+            // Hinter dem Steuerhaus: langsamer Schwenk über die Bänke, die Gesichter im Profil
             float a = Mth.clamp((s - DECK) / (AUSSEN - DECK), 0, 1);
-            return lokal(s, -22, 44 - 4 * a, Mth.lerp(a, 112, 40));
+            return lokal(s, Mth.lerp(a, 16, -16), 52, 19);
         }
         if (s < BUG) {
             // Von außen: neben und hinter dem Boot über dem Wasser, die Küste voraus
@@ -585,7 +586,7 @@ public final class ClientKinoBoot {
             return lokal(s, -6, 58, Mth.lerp(a, -54, -74));
         }
         if (s < WASSERLINIE) {
-            return lokal(s, -20, 46, 100);
+            return lokal(s, -34, 46, 62);
         }
         if (s < UEBERBORD) {
             // Von außen, knapp über dem Wasser: das Boot legt sich auf die Seite
@@ -608,7 +609,7 @@ public final class ClientKinoBoot {
     static Vec3 kameraZiel(float s) {
         if (s < AUSSEN) {
             float a = Mth.clamp((s - DECK) / (AUSSEN - DECK), 0, 1);
-            return lokal(s, 18, 30, Mth.lerp(a, 40, -20));
+            return lokal(s, Mth.lerp(a, -8, 8), 24, 74);
         }
         if (s < BUG) {
             return bootPos(s).add(land.scale(26)).add(0, 3, 0);
@@ -623,7 +624,7 @@ public final class ClientKinoBoot {
             return ursprungNah.add(0, 16, 0);
         }
         if (s < WASSERLINIE) {
-            return lokal(s, 14, 30, 30);
+            return lokal(s, 22, 28, 40);
         }
         if (s < UNTER) {
             return bootPos(s).add(0, 3, 0);
@@ -700,8 +701,11 @@ public final class ClientKinoBoot {
         if (b > 0) {
             weit = Math.max(weit, 70 + 180 * b);
         }
+        if (s >= BUG && s < BLITZ2) {
+            weit = Math.max(weit, 150);
+        }
         if (s >= BLITZ2 && s < UEBERBORD) {
-            weit = Math.max(weit, 95);
+            weit = Math.max(weit, 110);
         }
         e.setNearPlaneDistance(weit * 0.25F);
         e.setFarPlaneDistance(weit);
