@@ -50,6 +50,9 @@ public class KlassenScreen extends Screen {
             onClose();
         }).bounds(x, y + 6, 120, 20).build());
         bestaetigen.active = !auswahl.isEmpty();
+        // Aussehen ändern: der Charakter-Editor ist von hier aus jederzeit erreichbar
+        addRenderableWidget(Button.builder(Component.literal("Aussehen ändern"),
+                b -> de.deadzonemc.client.charakter.ClientCharakter.editorOeffnen(false)).bounds(width - 110, 6, 104, 20).build());
     }
 
     private Component beschriftung(Klasse k) {

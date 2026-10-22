@@ -112,6 +112,7 @@ public final class Geschichte {
         NeoForge.EVENT_BUS.addListener(Geschichte::tick);
         NeoForge.EVENT_BUS.addListener(Geschichte::tod);
         NeoForge.EVENT_BUS.addListener(Geschichte::anmelden);
+        Kino.registrieren();
     }
 
     public static void tabFuellen(net.minecraft.world.item.CreativeModeTab.Output ausgabe) {
@@ -253,17 +254,7 @@ public final class Geschichte {
             }
             PacketDistributor.sendToPlayer(p, paket(f));
             if (f.schritt == 0 && !f.hat("intro:" + p.getUUID())) {
-                f.merken("intro:" + p.getUUID());
-                p.connection.send(new ClientboundSetTitlesAnimationPacket(20, 90, 30));
-                p.connection.send(new ClientboundSetTitleTextPacket(Component.translatable("geschichte.deadzonemc.akt.1")
-                        .withStyle(ChatFormatting.DARK_RED)));
-                p.connection.send(new ClientboundSetSubtitleTextPacket(Component.translatable("geschichte.deadzonemc.akt.1.name")
-                        .withStyle(ChatFormatting.GRAY)));
-                p.sendSystemMessage(Component.translatable("geschichte.deadzonemc.intro", p.getName())
-                        .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-                String namen = String.join(", ", p.server.getPlayerList().getPlayers().stream()
-                        .map(x -> x.getGameProfile().getName()).toList());
-                PacketDistributor.sendToPlayer(p, new IntroPayload(namen));
+                Kino.vormerken(p); // erst Charakter-Editor, dann das Kino-Intro (siehe Kino)
             }
         }
     }

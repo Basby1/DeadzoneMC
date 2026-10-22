@@ -15,6 +15,7 @@ public class DeadzoneMC {
     public DeadzoneMC(IEventBus modBus, ModContainer container) {
         ModRegistry.registrieren(modBus);
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
+        de.deadzonemc.kino.KinoTypen.registrieren(modBus);
         de.deadzonemc.monster.Verbote.registrieren();
         Lebensbilanz.registrieren();
         Schlafen.registrieren();
@@ -56,6 +57,8 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(WetterSystem::dimensionGewechselt);
         NeoForge.EVENT_BUS.addListener(WetterSystem::befehleRegistrieren);
         NeoForge.EVENT_BUS.addListener(Spielstart::beimBetreten);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.charakter.Charaktere::betreten);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.charakter.Charaktere::abmelden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::betreten);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::respawn);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.monster.SpawnSchutz::erscheinen);

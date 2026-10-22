@@ -36,10 +36,15 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::klick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::fov);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientKlasse::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.charakter.ClientCharakter::abmelden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientAtmosphaere::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.IntroScreen::kamera);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::winkel);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::nebel);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::nebelFarbe);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::bild);
         NeoForge.EVENT_BUS.addListener(DeadzoneClient::titelbildschirm);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientTitel::danach);
@@ -86,6 +91,9 @@ public class DeadzoneClient {
         e.registerBlockEntityRenderer(de.deadzonemc.falle.Fallen.GESCHUETZTURM_BE.get(), de.deadzonemc.client.GeschuetzturmRenderer::new);
         e.registerEntityRenderer(de.deadzonemc.waffen.wurf.Wurfwaffen.WURFKOERPER.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.FIGUR.get(), de.deadzonemc.client.kino.KinoFigurRenderer::new);
+        e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.TRANSPORTER.get(), de.deadzonemc.client.kino.TransporterRenderer::new);
+        e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.SCHATTEN.get(), de.deadzonemc.client.kino.SchattenRenderer::new);
         e.registerEntityRenderer(MonsterTypen.WANDERER.get(), c -> new MonsterRenderer<>(c, "wanderer", false, false, 0.5F));
         e.registerEntityRenderer(MonsterTypen.SCHREIER.get(), c -> new MonsterRenderer<>(c, "schreier", false, false, 0.5F));
         e.registerEntityRenderer(MonsterTypen.LAUERER.get(), c -> new MonsterRenderer<>(c, "lauerer", false, false, 0.6F));

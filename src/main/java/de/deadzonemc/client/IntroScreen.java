@@ -51,6 +51,40 @@ public class IntroScreen extends Screen {
         if (++zeit >= DAUER) {
             onClose();
         }
+        // Am Horizont verglimmt eine violette Lichtsäule – dort, wo der Schatten stand
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.level != null && mc.player != null && zeit > 30 && zeit < 240) {
+            float w = (startGier - 40) * Mth.DEG_TO_RAD;
+            double x = mc.player.getX() - Mth.sin(w) * 70;
+            double z = mc.player.getZ() + Mth.cos(w) * 70;
+            int menge = zeit < 140 ? 6 : (240 - zeit) / 20;
+            for (int i = 0; i < menge; i++) {
+                double y = mc.player.getY() + mc.level.random.nextDouble() * 70;
+                mc.level.addParticle(net.minecraft.core.particles.ParticleTypes.END_ROD, x + mc.level.random.nextGaussian() * 0.6, y,
+                        z + mc.level.random.nextGaussian() * 0.6, 0, 0.02, 0);
+                mc.level.addParticle(net.minecraft.core.particles.ParticleTypes.REVERSE_PORTAL, x, y, z, 0, 0.05, 0);
+            }
+        }
+    }
+
+    /** Lider: 1 = geschlossen. Erst blinzeln, dann langsam auf. */
+    private float lider(float t) {
+        if (t < 12) {
+            return 1;
+        }
+        if (t < 22) {
+            return 1 - 0.45F * (t - 12) / 10F;
+        }
+        if (t < 28) {
+            return 0.55F + 0.45F * (t - 22) / 6F;
+        }
+        if (t < 34) {
+            return 1;
+        }
+        if (t < 70) {
+            return 1 - (t - 34) / 36F;
+        }
+        return 0;
     }
 
     @Override
@@ -64,10 +98,16 @@ public class IntroScreen extends Screen {
         int balken = height / 8;
         g.fill(0, 0, width, balken, 0xFF000000);
         g.fill(0, height - balken, width, height, 0xFF000000);
-        // Schwarzblende am Anfang und Ende
-        float ein = Mth.clamp(1 - t / 50F, 0, 1);
+        // Aufwachen: die Augen öffnen sich (zweimal blinzeln), am Ende Schwarzblende
+        float lid = lider(t);
+        if (lid > 0) {
+            int h = (int) (height / 2F * lid) + 1;
+            g.fill(0, 0, width, h, 0xFF000000);
+            g.fill(0, height - h, width, height, 0xFF000000);
+            g.fill(0, 0, width, height, ((int) (lid * 160) << 24));
+        }
         float aus = Mth.clamp((t - (DAUER - 30)) / 30F, 0, 1);
-        int a = (int) (Math.max(ein, aus) * 255);
+        int a = (int) (aus * 255);
         if (a > 0) {
             g.fill(0, 0, width, height, a << 24);
         }
@@ -97,6 +137,7 @@ public class IntroScreen extends Screen {
     @Override
     public boolean keyPressed(int k, int s, int m) {
         if (k == 32 || k == 256) {
+            de.deadzonemc.client.kino.ClientKino.tonStoppen();
             onClose();
             return true;
         }

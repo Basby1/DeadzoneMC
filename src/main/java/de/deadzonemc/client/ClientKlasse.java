@@ -67,7 +67,8 @@ public final class ClientKlasse {
         }
         if (n.oeffnen()) {
             // Läuft gerade das Intro, kommt die Klassenwahl direkt danach (statt es zu verdrängen)
-            if (Minecraft.getInstance().screen instanceof IntroScreen) {
+            if (Minecraft.getInstance().screen instanceof IntroScreen
+                    || de.deadzonemc.client.charakter.ClientCharakter.vorDemSpiel()) {
                 klassenwahlDanach = true;
             } else {
                 Minecraft.getInstance().setScreen(new KlassenScreen());

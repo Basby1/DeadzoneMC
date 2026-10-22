@@ -1094,6 +1094,172 @@ def raserei():
 
 
 
+# ---- Kino-Intro „Flug Q-7“ ----------------------------------------------------------------------
+# Läuft genau auf die Bilder geschnitten (Zeiten in Sekunden, siehe client/kino/ClientKino.java):
+#  0 Schwarz/Funk · 4 Frachtraum · 13 außen · 20 Störung/Stimme · 27 Tür · 29 Blitz · 32 Blitz+Auge · 35 Schwerelos
+#  39 Rumpf reißt · 43 Stille · 45,5 Sturz · 48 Aufprall · 48–54 Tinnitus · 54 Erwachen (Live-Intro) · 66,5 DEADZONE
+
+def _passend(h, n):
+    return h[:n] if len(h) >= n else np.pad(h, (0, n - len(h)), mode="edge")
+
+
+def _rotor(s, von, bis, lautst, rate=4.6, abfall=0.0):
+    """Rotorblätter (dumpfes Schlagen) und Turbinenpfeifen."""
+    t0 = von
+    n = int(0.09 * SR)
+    tt = np.arange(n) / SR
+    while t0 < bis:
+        a = 1.0 - abfall * (t0 - von) / max(0.01, bis - von)
+        schlag = tiefpass(s.rng.normal(0, 1, n), 420) * np.exp(-tt * 38) * 2.2 + np.sin(2 * np.pi * 62 * tt) * np.exp(-tt * 30)
+        s.dazu(t0, schlag, lautst * a * s.rng.uniform(0.85, 1.0))
+        t0 += 1.0 / (rate * (1 - 0.35 * abfall * (t0 - von) / max(0.01, bis - von)))
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    f = 390 * (1 + 0.004 * np.sin(2 * np.pi * 0.4 * tt)) * (1 - 0.5 * abfall * tt / max(0.01, bis - von))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    pfeifen = (np.sin(ph) + 0.4 * np.sin(2 * ph) + 0.2 * np.sin(3.01 * ph)) * 0.18
+    pfeifen += tiefpass(s.rng.normal(0, 1, j - i), 160) * 0.9
+    s.spur[i:j] += tiefpass(pfeifen, 1800) * _passend(huellkurve(bis - von, 0.6, 0.6), j - i) * lautst
+
+
+def _funkstimme(s, start, laenge, lautst, tief=1.0):
+    """Verrauschter Funkspruch: silbenhafte, verzerrte Stimme im Telefonband."""
+    t = start
+    while t < start + laenge - 0.2:
+        wort = s.rng.uniform(0.25, 0.7)
+        silbe = 0.0
+        while silbe < wort:
+            d = s.rng.uniform(0.09, 0.22)
+            n = int(d * SR)
+            tt = np.arange(n) / SR
+            f0 = s.rng.uniform(105, 140) * tief
+            ph = 2 * np.pi * f0 * tt
+            roh = sum(np.sin(k * ph) / k for k in range(1, 30))
+            v = s.rng.choice([(300, 870), (530, 1840), (730, 1090), (400, 2000), (570, 840)])
+            x = bandpass(roh, v[0] * 0.8, v[0] * 1.2) + 0.7 * bandpass(roh, v[1] * 0.85, v[1] * 1.15)
+            x = np.tanh(x * 3) * huellkurve(d, 0.015, 0.04)
+            s.dazu(t + silbe, bandpass(x, 350, 2900), lautst)
+            silbe += d
+        t += wort + s.rng.uniform(0.08, 0.3)
+    n = int(laenge * SR)
+    s.dazu(start, bandpass(s.rng.normal(0, 1, n), 500, 3200) * huellkurve(laenge, 0.03, 0.1) * 0.25, lautst)
+    for k in (0, laenge - 0.1):  # Klick beim Drücken/Loslassen
+        s.dazu(start + k, s.rng.normal(0, 1, int(0.03 * SR)), lautst * 0.6)
+
+
+def _donner(s, start, lautst):
+    n = int(7.0 * SR)
+    tt = np.arange(n) / SR
+    knall = hochpass(s.rng.normal(0, 1, n), 900) * np.exp(-tt * 22)
+    grollen = tiefpass(s.rng.normal(0, 1, n), 140, 3) * 8 * np.exp(-tt * 0.55) * (0.6 + 0.4 * np.sin(2 * np.pi * 1.3 * tt) ** 2)
+    s.dazu(start, knall * 0.9 + grollen, lautst)
+
+
+def _aufprall(s, start, lautst):
+    n = int(4.0 * SR)
+    tt = np.arange(n) / SR
+    tief = np.sin(2 * np.pi * np.cumsum(70 * np.exp(-tt * 1.4) + 24) / SR) * np.exp(-tt * 1.8) * 1.6
+    krach = tiefpass(s.rng.normal(0, 1, n), 900) * np.exp(-tt * 6) * 1.4
+    s.dazu(start, np.tanh((tief + krach) * 1.6), lautst)
+    s.metall([start + s.rng.uniform(0.0, 0.5) for _ in range(5)], lautst * 0.5)
+    for _ in range(40):  # Splitter
+        st = start + s.rng.uniform(0.05, 1.2)
+        m = int(0.02 * SR)
+        s.dazu(st, hochpass(s.rng.normal(0, 1, m), 3000) * np.exp(-np.arange(m) / SR * 250), lautst * 0.25)
+
+
+def _tinnitus(s, von, bis, lautst, f=4200):
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    s.spur[i:j] += np.sin(2 * np.pi * f * tt) * np.exp(-tt / (bis - von) * 2.2) * _passend(huellkurve(bis - von, 0.02, 1.0), j - i) * lautst
+
+
+def _sturzwind(s, von, bis, lautst):
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    roh = s.rng.normal(0, 1, j - i)
+    x = bandpass(roh, 200, 900) * 0.6 + bandpass(roh, 900, 3500) * (tt / (bis - von))
+    s.spur[i:j] += x * (tt / (bis - von)) ** 1.5 * lautst
+
+
+def _reissen(s, start, lautst):
+    """Der Rumpf reißt auf: kreischendes Metall, darunter ein tiefes Ächzen."""
+    for k in range(3):
+        _kratzen(s, start + k * 0.5, lautst * 0.8)
+    n = int(3.0 * SR)
+    tt = np.arange(n) / SR
+    f = 46 * (1 - 0.3 * tt / 3.0)
+    x = tiefpass(_saege(46, tt) + 0.5 * np.sin(2 * np.pi * np.cumsum(f) / SR), 300)
+    s.dazu(start, np.tanh(x) * huellkurve(3.0, 0.3, 1.5), lautst)
+
+
+def kino():
+    """Flug Q-7 – das Intro. Rotor und Funk, eine fremde Stimme, zwei Blitze, das Auge. Dann Stille, Herzschlag,
+    Schwerelosigkeit – und der Sturz. Danach Tinnitus und das Erwachen am Wrack."""
+    s = Stueck(72, 7007)
+    # Schwarz: Funk
+    _funk(s, 0.2, 1.2, 0.25)
+    _funkstimme(s, 0.8, 2.6, 0.22)
+    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.4)], 0.05, periode=30.0, hell=180)
+    # Frachtraum und außen: Rotor
+    _rotor(s, 3.4, 13.0, 0.55)
+    _rotor(s, 13.0, 20.0, 0.85)
+    _rotor(s, 20.0, 34.6, 0.55)
+    _rotor(s, 34.6, 36.0, 0.55, abfall=1.0)
+    _funkstimme(s, 8.8, 2.8, 0.2)
+    s.dazu(4.0, s.flaeche(["D2", "A2", "F3"], 16.0, hell=500), 0.05)
+    _braam(s, 13.2, ["D1", "A1", "D2"], laenge=8.0, hell=700, lautst=0.22)
+    # Störung, die Stimme
+    for t in (20.3, 21.4, 22.0, 24.6):
+        _funk(s, t, s.rng.uniform(0.3, 0.8), 0.3)
+    _funkstimme(s, 20.6, 1.4, 0.18)
+    for t in (22.6, 23.4, 24.2, 25.0):
+        _fluestern(s, t, 0.22)
+    _funkstimme(s, 23.0, 2.4, 0.16, tief=0.62)
+    _herz(s, 21.0, 34.5, 62, 96, 0.35)
+    for k in range(10):
+        n = int(0.12 * SR)
+        s.dazu(24.0 + k * 0.4, np.sin(2 * np.pi * 2100 * np.arange(n) / SR) * huellkurve(0.12, 0.005, 0.03), 0.06)
+    _shepard(s, 26.0, 29.0, 0.06, tempo=0.08)
+    # Blitze und das Auge
+    _donner(s, 29.0, 0.9)
+    _donner(s, 32.0, 1.0)
+    _braam(s, 32.2, ["C1", "Db1", "G1", "C2"], laenge=9.0, hell=2200, lautst=0.9)
+    _braam(s, 32.25, ["C2", "Gb2"], laenge=8.0, hell=1600, lautst=0.4)
+    # Schwerelos: nur Herz, hoher Ton, ein ferner Chor
+    _herz(s, 35.2, 43.0, 52, 46, 0.55, tief=38)
+    _tinnitus(s, 35.0, 43.0, 0.02, f=5800)
+    s.dazu(35.0, s.flaeche(["C5", "Db5", "G5"], 8.5, hell=5000, tremolo=0.3), 0.04)
+    _reissen(s, 39.0, 0.45)
+    # Stille – ein einzelner Schlag
+    _herz(s, 44.4, 44.9, 40, 40, 0.5, tief=36)
+    # Sturz
+    _sturzwind(s, 45.5, 48.0, 0.5)
+    _alarm(s, 45.6, 0.12, wdh=4)
+    _aufprall(s, 48.0, 1.0)
+    # Danach: Tinnitus, dumpfes Grollen
+    _tinnitus(s, 48.15, 54.5, 0.09)
+    i = int(48.4 * SR)
+    j = int(56.0 * SR)
+    s.spur[i:j] += tiefpass(s.rng.normal(0, 1, j - i), 90, 3) * 2.0 * _passend(huellkurve(7.6, 2.0, 3.0), j - i)
+    _herz(s, 50.5, 54.0, 44, 52, 0.25, tief=36)
+    # Erwachen am Wrack: das Thema
+    s.droehnen([(hz("D1"), 1.0), (hz("Eb1"), 0.5), (hz("A1"), 0.3)], 0.0, periode=20.0, hell=200)
+    i = int(54.0 * SR)
+    x = np.zeros(s.n - i)
+    tt = np.arange(s.n - i) / SR
+    for f0, a in ((hz("D1"), 1.0), (hz("Eb1"), 0.5), (hz("A1"), 0.35)):
+        x += a * sum(np.sin(2 * np.pi * f0 * k * tt + k) / k ** 1.4 for k in range(1, 7))
+    s.spur[i:] += tiefpass(x, 220) * np.minimum(1, tt / 3.0) * 0.12
+    _braam(s, 54.2, ["D1", "A1", "D2"], laenge=8.0, hell=1200, lautst=0.45)
+    for k, (note, dt) in enumerate((("D5", 0.0), ("F5", 1.1), ("Eb5", 2.2), ("D5", 4.4))):
+        s.dazu(59.0 + dt, _spieluhr(note, 3.5, verstimmt=0.012), 0.07)
+    _sirene(s, 56.0, 12.0, 0.04)
+    s.trommel(66.5, tief=0.6, lautst=1.2)
+    _braam(s, 66.5, ["D1", "Ab1", "D2", "Ab2"], laenge=6.0, hell=2600, lautst=1.0)
+    s.speichern("kino", hall=3.2, nass=0.35, einblenden=0.3, ausblenden=3.5, pegel=0.9)
+
+
 ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf,
             "boss_frost": boss_frost, "boss_fleisch": boss_fleisch, "boss_marsch": boss_marsch}
 
@@ -1101,7 +1267,7 @@ ALLE = {"titel": titel_lobby, "morgen": morgen, "nebel": nebel, "nacht": nacht, 
 ALLE.update(ALLE_NEU)
 ALLE["sektor4"] = sektor4
 ALLE.update({n: globals()[n] for n in ("jagd", "betonwueste", "asche", "sperrzone", "verlassen", "schacht", "glut",
-                                       "nebelstimmen", "herzkammer", "glutfeld", "leere", "orbit", "raserei")})
+                                       "nebelstimmen", "herzkammer", "glutfeld", "leere", "orbit", "raserei", "kino")})
 
 if __name__ == "__main__":
     for name in (sys.argv[1:] or ALLE):

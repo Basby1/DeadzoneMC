@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.deadzonemc.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "SkinMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

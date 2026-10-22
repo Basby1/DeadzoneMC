@@ -125,6 +125,12 @@ public final class ModRegistry {
                     .build());
 
     /** Gewählte Klasse des Spielers (leer = noch keine). */
+    /** Aussehen aus dem Charakter-Editor ("" = noch nicht erstellt, "eigen" = eigener Minecraft-Skin). */
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<String>> CHARAKTER =
+            ANHAENGE.register("charakter", () -> AttachmentType.builder(() -> "")
+                    .serialize(Codec.STRING)
+                    .copyOnDeath()
+                    .build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<String>> KLASSE =
             ANHAENGE.register("klasse", () -> AttachmentType.builder(() -> "")
                     .serialize(Codec.STRING)

@@ -118,6 +118,9 @@ public final class ClientWetter {
     }
 
     public static void nebel(ViewportEvent.RenderFog event) {
+        if (de.deadzonemc.client.kino.ClientKino.aktiv()) {
+            return; // das Intro macht seinen eigenen Nebel
+        }
         ClientLevel level = Minecraft.getInstance().level;
         if (!nebelAn || !aktiv(level) || !bereit || event.getType() != FogType.NONE) {
             return;
@@ -135,6 +138,9 @@ public final class ClientWetter {
     }
 
     public static void nebelFarbe(ViewportEvent.ComputeFogColor event) {
+        if (de.deadzonemc.client.kino.ClientKino.aktiv()) {
+            return;
+        }
         ClientLevel level = Minecraft.getInstance().level;
         Camera kamera = event.getCamera();
         if (!nebelAn || !aktiv(level) || !bereit || kamera.getFluidInCamera() != FogType.NONE) {

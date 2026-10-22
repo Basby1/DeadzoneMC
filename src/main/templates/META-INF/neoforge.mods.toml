@@ -11,6 +11,9 @@ Horror-Survival in einer postapokalyptischen Welt voller Nebel. Plündern, über
 und herausfinden, was in Station Null geschehen ist.
 '''
 
+[[mixins]]
+config="deadzonemc.mixins.json"
+
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"

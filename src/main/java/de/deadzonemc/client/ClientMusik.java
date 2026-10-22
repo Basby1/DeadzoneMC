@@ -126,6 +126,10 @@ public final class ClientMusik {
             return;
         }
         anlegen();
+        if (de.deadzonemc.client.kino.ClientKino.aktiv() || mc.screen instanceof de.deadzonemc.client.IntroScreen) {
+            e.setMusic(null); // während des Intros läuft nur dessen eigener Soundtrack
+            return;
+        }
         // Bosskampf (auch in Nether und End): epische Kampfmusik
         if (mc.gui.getBossOverlay().shouldPlayMusic()) {
             e.setMusic(bossMusik(mc));
