@@ -18,6 +18,16 @@ public class TransporterRenderer extends GeoEntityRenderer<Transporter> {
         shadowRadius = 0;
     }
 
+    /** GeckoLib dreht nur Lebewesen nach ihrer Blickrichtung – den Hubschrauber drehen wir selbst. */
+    @Override
+    public void render(Transporter t, float gier, float teil, com.mojang.blaze3d.vertex.PoseStack ps,
+                       net.minecraft.client.renderer.MultiBufferSource puffer, int licht) {
+        ps.pushPose();
+        ps.mulPose(com.mojang.math.Axis.YP.rotationDegrees(-net.minecraft.util.Mth.rotLerp(teil, t.yRotO, t.getYRot())));
+        super.render(t, gier, teil, ps, puffer, licht);
+        ps.popPose();
+    }
+
     @Override
     protected int getBlockLightLevel(Transporter t, BlockPos pos) {
         return ClientKino.lichtBlock();

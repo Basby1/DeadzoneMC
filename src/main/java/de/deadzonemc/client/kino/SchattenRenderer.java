@@ -57,7 +57,10 @@ public class SchattenRenderer extends GeoEntityRenderer<UrsprungSchatten> {
     @Override
     public void render(UrsprungSchatten s, float gier, float teil, PoseStack ps, MultiBufferSource puffer, int licht) {
         if (s.sichtbar > 0.01F) {
+            ps.pushPose();
+            ps.mulPose(com.mojang.math.Axis.YP.rotationDegrees(-net.minecraft.util.Mth.rotLerp(teil, s.yRotO, s.getYRot())));
             super.render(s, gier, teil, ps, puffer, licht);
+            ps.popPose();
         }
     }
 

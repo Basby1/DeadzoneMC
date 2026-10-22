@@ -283,7 +283,7 @@ public class CharakterScreen extends Screen {
         ps.scale(groesse, groesse, -groesse);
         ps.mulPose(Axis.XP.rotationDegrees(-6));
         ps.mulPose(Axis.YP.rotationDegrees(drehung));
-        Lighting.setupForEntityInInventory();
+        Lighting.setupForFlatItems();
         var puffer = g.bufferSource();
         m.renderToBuffer(ps, puffer.getBuffer(RenderType.entityTranslucent(tex)), 0xF000F0, OverlayTexture.NO_OVERLAY);
         g.flush();
