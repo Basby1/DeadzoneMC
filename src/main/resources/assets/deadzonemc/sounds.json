@@ -550,6 +550,12 @@
    },
    {
     "name": "deadzonemc:monster/wanderer/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/wanderer/ambient_4"
+   },
+   {
+    "name": "deadzonemc:monster/wanderer/ambient_5"
    }
   ]
  },
@@ -564,6 +570,9 @@
    },
    {
     "name": "deadzonemc:monster/wanderer/hurt_3"
+   },
+   {
+    "name": "deadzonemc:monster/wanderer/hurt_4"
    }
   ]
  },
@@ -575,6 +584,9 @@
    },
    {
     "name": "deadzonemc:monster/wanderer/death_2"
+   },
+   {
+    "name": "deadzonemc:monster/wanderer/death_3"
    }
   ]
  },
@@ -630,6 +642,9 @@
    },
    {
     "name": "deadzonemc:monster/schreier/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/schreier/hurt_3"
    }
   ]
  },
@@ -638,6 +653,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/schreier/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/schreier/death_2"
    }
   ]
  },
@@ -670,6 +688,9 @@
    },
    {
     "name": "deadzonemc:monster/lauerer/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/lauerer/hurt_3"
    }
   ]
  },
@@ -678,6 +699,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/lauerer/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/lauerer/death_2"
    }
   ]
  },
@@ -692,6 +716,9 @@
    },
    {
     "name": "deadzonemc:monster/lauerer/atmen_3"
+   },
+   {
+    "name": "deadzonemc:monster/lauerer/atmen_4"
    }
   ]
  },
@@ -720,6 +747,9 @@
    },
    {
     "name": "deadzonemc:monster/kriecher/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/kriecher/ambient_4"
    }
   ]
  },
@@ -781,6 +811,9 @@
    },
    {
     "name": "deadzonemc:monster/der_stille/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/der_stille/hurt_3"
    }
   ]
  },
@@ -789,6 +822,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/der_stille/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_stille/death_2"
    }
   ]
  },
@@ -817,6 +853,9 @@
    },
    {
     "name": "deadzonemc:monster/imitator/hurt_3"
+   },
+   {
+    "name": "deadzonemc:monster/imitator/hurt_4"
    }
   ]
  },
@@ -842,6 +881,9 @@
    },
    {
     "name": "deadzonemc:monster/nebelwesen/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/nebelwesen/ambient_4"
    }
   ]
  },
@@ -853,6 +895,9 @@
    },
    {
     "name": "deadzonemc:monster/nebelwesen/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/nebelwesen/hurt_3"
    }
   ]
  },
@@ -861,6 +906,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/nebelwesen/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/nebelwesen/death_2"
    }
   ]
  },
@@ -875,6 +923,9 @@
    },
    {
     "name": "deadzonemc:monster/schwarm/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/schwarm/ambient_4"
    }
   ]
  },
@@ -886,6 +937,9 @@
    },
    {
     "name": "deadzonemc:monster/schwarm/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/schwarm/hurt_3"
    }
   ]
  },
@@ -894,6 +948,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/schwarm/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/schwarm/death_2"
    }
   ]
  },
@@ -933,6 +990,9 @@
    },
    {
     "name": "deadzonemc:monster/brut/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/brut/ambient_4"
    }
   ]
  },
@@ -944,6 +1004,9 @@
    },
    {
     "name": "deadzonemc:monster/brut/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/brut/hurt_3"
    }
   ]
  },
@@ -952,6 +1015,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/brut/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/brut/death_2"
    }
   ]
  },
@@ -963,6 +1029,9 @@
    },
    {
     "name": "deadzonemc:monster/brut/platzen_2"
+   },
+   {
+    "name": "deadzonemc:monster/brut/platzen_3"
    }
   ]
  },
@@ -977,6 +1046,9 @@
    },
    {
     "name": "deadzonemc:monster/juggernaut/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/juggernaut/ambient_4"
    }
   ]
  },
@@ -988,6 +1060,9 @@
    },
    {
     "name": "deadzonemc:monster/juggernaut/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/juggernaut/hurt_3"
    }
   ]
  },
@@ -996,6 +1071,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/juggernaut/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/juggernaut/death_2"
    }
   ]
  },
@@ -1039,6 +1117,10 @@
    {
     "name": "deadzonemc:monster/juggernaut/brullen_2",
     "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/juggernaut/brullen_3",
+    "attenuation_distance": 64
    }
   ]
  },
@@ -1046,14 +1128,13 @@
   "subtitle": "subtitles.deadzonemc.juggernaut.panzer",
   "sounds": [
    {
-    "name": "minecraft:random/anvil_land",
-    "pitch": 1.4,
-    "volume": 0.8
+    "name": "deadzonemc:monster/juggernaut/panzer_1"
    },
    {
-    "name": "minecraft:random/anvil_break",
-    "pitch": 1.6,
-    "volume": 0.6
+    "name": "deadzonemc:monster/juggernaut/panzer_2"
+   },
+   {
+    "name": "deadzonemc:monster/juggernaut/panzer_3"
    }
   ]
  },
@@ -1068,6 +1149,12 @@
    },
    {
     "name": "deadzonemc:monster/gefallener_soldat/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/gefallener_soldat/ambient_4"
+   },
+   {
+    "name": "deadzonemc:monster/gefallener_soldat/ambient_5"
    }
   ]
  },
@@ -1157,6 +1244,9 @@
    },
    {
     "name": "deadzonemc:monster/glutleib/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/glutleib/ambient_4"
    }
   ]
  },
@@ -1219,14 +1309,13 @@
   "subtitle": "subtitles.deadzonemc.glutleib.glut",
   "sounds": [
    {
-    "name": "minecraft:fire/fire",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/glutleib/glut_1"
    },
    {
-    "name": "minecraft:random/fizz",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/glutleib/glut_2"
+   },
+   {
+    "name": "deadzonemc:monster/glutleib/glut_3"
    }
   ]
  },
@@ -1241,6 +1330,12 @@
    },
    {
     "name": "deadzonemc:monster/seuchenhund/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/seuchenhund/ambient_4"
+   },
+   {
+    "name": "deadzonemc:monster/seuchenhund/ambient_5"
    }
   ]
  },
@@ -1252,6 +1347,9 @@
    },
    {
     "name": "deadzonemc:monster/seuchenhund/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/seuchenhund/hurt_3"
    }
   ]
  },
@@ -1260,6 +1358,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/seuchenhund/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/seuchenhund/death_2"
    }
   ]
  },
@@ -1301,6 +1402,9 @@
    },
    {
     "name": "deadzonemc:monster/seuchenhund/heulen_2"
+   },
+   {
+    "name": "deadzonemc:monster/seuchenhund/heulen_3"
    }
   ]
  },
@@ -1315,6 +1419,9 @@
    },
    {
     "name": "deadzonemc:monster/wuehler/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/wuehler/ambient_4"
    }
   ]
  },
@@ -1347,9 +1454,13 @@
   "subtitle": "subtitles.deadzonemc.wuehler.graben",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/dig",
-    "pitch": 1.2,
-    "volume": 1.0
+    "name": "deadzonemc:monster/wuehler/graben_1"
+   },
+   {
+    "name": "deadzonemc:monster/wuehler/graben_2"
+   },
+   {
+    "name": "deadzonemc:monster/wuehler/graben_3"
    }
   ]
  },
@@ -1364,6 +1475,9 @@
    },
    {
     "name": "deadzonemc:monster/sauger/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/sauger/ambient_4"
    }
   ]
  },
@@ -1375,6 +1489,9 @@
    },
    {
     "name": "deadzonemc:monster/sauger/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/sauger/hurt_3"
    }
   ]
  },
@@ -1383,6 +1500,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/sauger/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/sauger/death_2"
    }
   ]
  },
@@ -1390,19 +1510,13 @@
   "subtitle": "subtitles.deadzonemc.sauger.saugen",
   "sounds": [
    {
-    "name": "minecraft:mob/wolf/panting",
-    "pitch": 0.4,
-    "volume": 1.0
+    "name": "deadzonemc:monster/sauger/saugen_1"
    },
    {
-    "name": "minecraft:mob/slime/attack1",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/sauger/saugen_2"
    },
    {
-    "name": "minecraft:mob/slime/attack2",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/sauger/saugen_3"
    }
   ]
  },
@@ -1417,6 +1531,12 @@
    },
    {
     "name": "deadzonemc:monster/seuchentraeger/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/seuchentraeger/ambient_4"
+   },
+   {
+    "name": "deadzonemc:monster/seuchentraeger/ambient_5"
    }
   ]
  },
@@ -1428,6 +1548,9 @@
    },
    {
     "name": "deadzonemc:monster/seuchentraeger/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/seuchentraeger/hurt_3"
    }
   ]
  },
@@ -1436,6 +1559,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/seuchentraeger/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/seuchentraeger/death_2"
    }
   ]
  },
@@ -1443,19 +1569,13 @@
   "subtitle": "subtitles.deadzonemc.seuchentraeger.spruehen",
   "sounds": [
    {
-    "name": "minecraft:random/fizz",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/seuchentraeger/spruehen_1"
    },
    {
-    "name": "minecraft:mob/llama/spit1",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/seuchentraeger/spruehen_2"
    },
    {
-    "name": "minecraft:mob/llama/spit2",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/seuchentraeger/spruehen_3"
    }
   ]
  },
@@ -1470,6 +1590,9 @@
    },
    {
     "name": "deadzonemc:monster/ertrunkener/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/ertrunkener/ambient_4"
    }
   ]
  },
@@ -1481,6 +1604,9 @@
    },
    {
     "name": "deadzonemc:monster/ertrunkener/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/ertrunkener/hurt_3"
    }
   ]
  },
@@ -1489,6 +1615,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/ertrunkener/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/ertrunkener/death_2"
    }
   ]
  },
@@ -1526,9 +1655,16 @@
   "subtitle": "subtitles.deadzonemc.spaeherdrohne.ambient",
   "sounds": [
    {
-    "name": "minecraft:block/beacon/ambient",
-    "pitch": 1.8,
-    "volume": 0.5
+    "name": "deadzonemc:monster/spaeherdrohne/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/spaeherdrohne/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/spaeherdrohne/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/spaeherdrohne/ambient_4"
    }
   ]
  },
@@ -1536,9 +1672,13 @@
   "subtitle": "subtitles.deadzonemc.spaeherdrohne.hurt",
   "sounds": [
    {
-    "name": "minecraft:random/anvil_land",
-    "pitch": 2.0,
-    "volume": 0.4
+    "name": "deadzonemc:monster/spaeherdrohne/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/spaeherdrohne/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/spaeherdrohne/hurt_3"
    }
   ]
  },
@@ -1546,24 +1686,10 @@
   "subtitle": "subtitles.deadzonemc.spaeherdrohne.death",
   "sounds": [
    {
-    "name": "minecraft:random/explode1",
-    "pitch": 1.6,
-    "volume": 0.8
+    "name": "deadzonemc:monster/spaeherdrohne/death_1"
    },
    {
-    "name": "minecraft:random/explode2",
-    "pitch": 1.6,
-    "volume": 0.8
-   },
-   {
-    "name": "minecraft:random/explode3",
-    "pitch": 1.6,
-    "volume": 0.8
-   },
-   {
-    "name": "minecraft:random/explode4",
-    "pitch": 1.6,
-    "volume": 0.8
+    "name": "deadzonemc:monster/spaeherdrohne/death_2"
    }
   ]
  },
@@ -1571,33 +1697,11 @@
   "subtitle": "subtitles.deadzonemc.spaeherdrohne.alarm",
   "sounds": [
    {
-    "name": "minecraft:block/sculk_shrieker/shriek1",
-    "pitch": 1.5,
-    "volume": 1.0,
+    "name": "deadzonemc:monster/spaeherdrohne/alarm_1",
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:block/sculk_shrieker/shriek2",
-    "pitch": 1.5,
-    "volume": 1.0,
-    "attenuation_distance": 64
-   },
-   {
-    "name": "minecraft:block/sculk_shrieker/shriek3",
-    "pitch": 1.5,
-    "volume": 1.0,
-    "attenuation_distance": 64
-   },
-   {
-    "name": "minecraft:block/sculk_shrieker/shriek4",
-    "pitch": 1.5,
-    "volume": 1.0,
-    "attenuation_distance": 64
-   },
-   {
-    "name": "minecraft:block/sculk_shrieker/shriek5",
-    "pitch": 1.5,
-    "volume": 1.0,
+    "name": "deadzonemc:monster/spaeherdrohne/alarm_2",
     "attenuation_distance": 64
    }
   ]
@@ -1606,24 +1710,16 @@
   "subtitle": "subtitles.deadzonemc.lichtmotte.ambient",
   "sounds": [
    {
-    "name": "minecraft:mob/bat/idle1",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/ambient_1"
    },
    {
-    "name": "minecraft:mob/bat/idle2",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/ambient_2"
    },
    {
-    "name": "minecraft:mob/bat/idle3",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/ambient_3"
    },
    {
-    "name": "minecraft:mob/bat/idle4",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/ambient_4"
    }
   ]
  },
@@ -1631,24 +1727,13 @@
   "subtitle": "subtitles.deadzonemc.lichtmotte.hurt",
   "sounds": [
    {
-    "name": "minecraft:mob/bat/hurt1",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/hurt_1"
    },
    {
-    "name": "minecraft:mob/bat/hurt2",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/hurt_2"
    },
    {
-    "name": "minecraft:mob/bat/hurt3",
-    "pitch": 0.6,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/bat/hurt4",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/hurt_3"
    }
   ]
  },
@@ -1656,9 +1741,10 @@
   "subtitle": "subtitles.deadzonemc.lichtmotte.death",
   "sounds": [
    {
-    "name": "minecraft:mob/bat/death",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/lichtmotte/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/lichtmotte/death_2"
    }
   ]
  },
@@ -1666,34 +1752,13 @@
   "subtitle": "subtitles.deadzonemc.lichtmotte.flattern",
   "sounds": [
    {
-    "name": "minecraft:mob/phantom/flap1",
-    "pitch": 1.4,
-    "volume": 0.5
+    "name": "deadzonemc:monster/lichtmotte/flattern_1"
    },
    {
-    "name": "minecraft:mob/phantom/flap2",
-    "pitch": 1.4,
-    "volume": 0.5
+    "name": "deadzonemc:monster/lichtmotte/flattern_2"
    },
    {
-    "name": "minecraft:mob/phantom/flap3",
-    "pitch": 1.4,
-    "volume": 0.5
-   },
-   {
-    "name": "minecraft:mob/phantom/flap4",
-    "pitch": 1.4,
-    "volume": 0.5
-   },
-   {
-    "name": "minecraft:mob/phantom/flap5",
-    "pitch": 1.4,
-    "volume": 0.5
-   },
-   {
-    "name": "minecraft:mob/phantom/flap6",
-    "pitch": 1.4,
-    "volume": 0.5
+    "name": "deadzonemc:monster/lichtmotte/flattern_3"
    }
   ]
  },
@@ -1708,6 +1773,9 @@
    },
    {
     "name": "deadzonemc:monster/scheintoter/atmen_3"
+   },
+   {
+    "name": "deadzonemc:monster/scheintoter/atmen_4"
    }
   ]
  },
@@ -1719,6 +1787,9 @@
    },
    {
     "name": "deadzonemc:monster/scheintoter/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/scheintoter/hurt_3"
    }
   ]
  },
@@ -1727,6 +1798,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/scheintoter/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/scheintoter/death_2"
    }
   ]
  },
@@ -1738,6 +1812,9 @@
    },
    {
     "name": "deadzonemc:monster/scheintoter/packen_2"
+   },
+   {
+    "name": "deadzonemc:monster/scheintoter/packen_3"
    }
   ]
  },
@@ -1852,6 +1929,9 @@
    },
    {
     "name": "deadzonemc:monster/verschmolzener/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/verschmolzener/ambient_4"
    }
   ]
  },
@@ -1863,6 +1943,9 @@
    },
    {
     "name": "deadzonemc:monster/verschmolzener/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/verschmolzener/hurt_3"
    }
   ]
  },
@@ -1871,6 +1954,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/verschmolzener/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/verschmolzener/death_2"
    }
   ]
  },
@@ -1914,6 +2000,10 @@
    {
     "name": "deadzonemc:monster/verschmolzener/brullen_2",
     "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/verschmolzener/brullen_3",
+    "attenuation_distance": 64
    }
   ]
  },
@@ -1921,34 +2011,10 @@
   "subtitle": "subtitles.deadzonemc.verschmolzener.fusion",
   "sounds": [
    {
-    "name": "minecraft:mob/slime/big1",
-    "pitch": 0.5,
-    "volume": 1.0
+    "name": "deadzonemc:monster/verschmolzener/fusion_1"
    },
    {
-    "name": "minecraft:mob/slime/big2",
-    "pitch": 0.5,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/slime/big3",
-    "pitch": 0.5,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/slime/big4",
-    "pitch": 0.5,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/zombie/hurt1",
-    "pitch": 0.4,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/zombie/hurt2",
-    "pitch": 0.4,
-    "volume": 1.0
+    "name": "deadzonemc:monster/verschmolzener/fusion_2"
    }
   ]
  },
@@ -1963,6 +2029,9 @@
    },
    {
     "name": "deadzonemc:monster/nebelmutter/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/nebelmutter/ambient_4"
    }
   ]
  },
@@ -1974,6 +2043,9 @@
    },
    {
     "name": "deadzonemc:monster/nebelmutter/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/nebelmutter/hurt_3"
    }
   ]
  },
@@ -1982,6 +2054,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/nebelmutter/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/nebelmutter/death_2"
    }
   ]
  },
@@ -1994,6 +2069,10 @@
    },
    {
     "name": "deadzonemc:monster/nebelmutter/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/nebelmutter/brullen_3",
     "attenuation_distance": 64
    }
   ]
@@ -2009,6 +2088,9 @@
    },
    {
     "name": "deadzonemc:monster/strahlende/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/strahlende/ambient_4"
    }
   ]
  },
@@ -2020,6 +2102,9 @@
    },
    {
     "name": "deadzonemc:monster/strahlende/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/strahlende/hurt_3"
    }
   ]
  },
@@ -2028,6 +2113,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/strahlende/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/strahlende/death_2"
    }
   ]
  },
@@ -2066,6 +2154,10 @@
    {
     "name": "deadzonemc:monster/strahlende/brullen_2",
     "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/strahlende/brullen_3",
+    "attenuation_distance": 64
    }
   ]
  },
@@ -2073,9 +2165,10 @@
   "subtitle": "subtitles.deadzonemc.strahlende.puls",
   "sounds": [
    {
-    "name": "minecraft:block/beacon/power1",
-    "pitch": 0.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/strahlende/puls_1"
+   },
+   {
+    "name": "deadzonemc:monster/strahlende/puls_2"
    }
   ]
  },
@@ -2090,6 +2183,9 @@
    },
    {
     "name": "deadzonemc:monster/brutkoenigin/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/brutkoenigin/ambient_4"
    }
   ]
  },
@@ -2101,6 +2197,9 @@
    },
    {
     "name": "deadzonemc:monster/brutkoenigin/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/brutkoenigin/hurt_3"
    }
   ]
  },
@@ -2109,6 +2208,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/brutkoenigin/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/brutkoenigin/death_2"
    }
   ]
  },
@@ -2146,6 +2248,10 @@
    },
    {
     "name": "deadzonemc:monster/brutkoenigin/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/brutkoenigin/brullen_3",
     "attenuation_distance": 64
    }
   ]
@@ -2186,6 +2292,9 @@
    },
    {
     "name": "deadzonemc:monster/schlaechter/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/schlaechter/ambient_4"
    }
   ]
  },
@@ -2197,6 +2306,9 @@
    },
    {
     "name": "deadzonemc:monster/schlaechter/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/schlaechter/hurt_3"
    }
   ]
  },
@@ -2204,19 +2316,10 @@
   "subtitle": "subtitles.deadzonemc.schlaechter.death",
   "sounds": [
    {
-    "name": "minecraft:mob/ravager/death1",
-    "pitch": 0.8,
-    "volume": 1.0
+    "name": "deadzonemc:monster/schlaechter/death_1"
    },
    {
-    "name": "minecraft:mob/ravager/death2",
-    "pitch": 0.8,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/ravager/death3",
-    "pitch": 0.8,
-    "volume": 1.0
+    "name": "deadzonemc:monster/schlaechter/death_2"
    }
   ]
  },
@@ -2254,27 +2357,15 @@
   "subtitle": "subtitles.deadzonemc.schlaechter.brullen",
   "sounds": [
    {
-    "name": "minecraft:mob/hoglin/angry1",
-    "pitch": 0.6,
-    "volume": 1.0,
+    "name": "deadzonemc:monster/schlaechter/brullen_1",
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/hoglin/angry2",
-    "pitch": 0.6,
-    "volume": 1.0,
+    "name": "deadzonemc:monster/schlaechter/brullen_2",
     "attenuation_distance": 64
    },
    {
-    "name": "minecraft:mob/hoglin/angry3",
-    "pitch": 0.6,
-    "volume": 1.0,
-    "attenuation_distance": 64
-   },
-   {
-    "name": "minecraft:mob/hoglin/angry4",
-    "pitch": 0.6,
-    "volume": 1.0,
+    "name": "deadzonemc:monster/schlaechter/brullen_3",
     "attenuation_distance": 64
    }
   ]
@@ -2338,24 +2429,16 @@
   "subtitle": "subtitles.deadzonemc.kommandant.ambient",
   "sounds": [
    {
-    "name": "minecraft:mob/pillager/idle1",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/ambient_1"
    },
    {
-    "name": "minecraft:mob/pillager/idle2",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/ambient_2"
    },
    {
-    "name": "minecraft:mob/pillager/idle3",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/ambient_3"
    },
    {
-    "name": "minecraft:mob/pillager/idle4",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/ambient_4"
    }
   ]
  },
@@ -2363,24 +2446,13 @@
   "subtitle": "subtitles.deadzonemc.kommandant.hurt",
   "sounds": [
    {
-    "name": "minecraft:mob/irongolem/hit1",
-    "pitch": 1.2,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/hurt_1"
    },
    {
-    "name": "minecraft:mob/irongolem/hit2",
-    "pitch": 1.2,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/hurt_2"
    },
    {
-    "name": "minecraft:mob/irongolem/hit3",
-    "pitch": 1.2,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/irongolem/hit4",
-    "pitch": 1.2,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/hurt_3"
    }
   ]
  },
@@ -2388,9 +2460,10 @@
   "subtitle": "subtitles.deadzonemc.kommandant.death",
   "sounds": [
    {
-    "name": "minecraft:mob/irongolem/death",
-    "pitch": 0.9,
-    "volume": 1.0
+    "name": "deadzonemc:monster/kommandant/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/kommandant/death_2"
    }
   ]
  },
@@ -2423,9 +2496,15 @@
   "subtitle": "subtitles.deadzonemc.kommandant.brullen",
   "sounds": [
    {
-    "name": "minecraft:event/raid/raidhorn_01",
-    "pitch": 1.0,
-    "volume": 1.0,
+    "name": "deadzonemc:monster/kommandant/brullen_1",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/kommandant/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/kommandant/brullen_3",
     "attenuation_distance": 64
    }
   ]
@@ -2441,6 +2520,9 @@
    },
    {
     "name": "deadzonemc:monster/hirte/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/hirte/ambient_4"
    }
   ]
  },
@@ -2452,6 +2534,9 @@
    },
    {
     "name": "deadzonemc:monster/hirte/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/hirte/hurt_3"
    }
   ]
  },
@@ -2460,6 +2545,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/hirte/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/hirte/death_2"
    }
   ]
  },
@@ -2491,6 +2579,9 @@
    },
    {
     "name": "deadzonemc:monster/schlund/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/schlund/ambient_4"
    }
   ]
  },
@@ -2502,6 +2593,9 @@
    },
    {
     "name": "deadzonemc:monster/schlund/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/schlund/hurt_3"
    }
   ]
  },
@@ -2510,6 +2604,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/schlund/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/schlund/death_2"
    }
   ]
  },
@@ -2534,9 +2631,13 @@
   "subtitle": "subtitles.deadzonemc.schlund.graben",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/dig",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/schlund/graben_1"
+   },
+   {
+    "name": "deadzonemc:monster/schlund/graben_2"
+   },
+   {
+    "name": "deadzonemc:monster/schlund/graben_3"
    }
   ]
  },
@@ -2544,9 +2645,10 @@
   "subtitle": "subtitles.deadzonemc.schlund.auftauchen",
   "sounds": [
    {
-    "name": "minecraft:mob/warden/emerge",
-    "pitch": 0.8,
-    "volume": 1.0
+    "name": "deadzonemc:monster/schlund/auftauchen_1"
+   },
+   {
+    "name": "deadzonemc:monster/schlund/auftauchen_2"
    }
   ]
  },
@@ -2561,6 +2663,9 @@
    },
    {
     "name": "deadzonemc:monster/pilzvater/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/pilzvater/ambient_4"
    }
   ]
  },
@@ -2572,6 +2677,9 @@
    },
    {
     "name": "deadzonemc:monster/pilzvater/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/pilzvater/hurt_3"
    }
   ]
  },
@@ -2580,6 +2688,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/pilzvater/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/pilzvater/death_2"
    }
   ]
  },
@@ -2612,29 +2723,13 @@
   "subtitle": "subtitles.deadzonemc.pilzvater.sporen",
   "sounds": [
    {
-    "name": "minecraft:random/fizz",
-    "pitch": 0.4,
-    "volume": 1.0
+    "name": "deadzonemc:monster/pilzvater/sporen_1"
    },
    {
-    "name": "minecraft:mob/slime/big1",
-    "pitch": 0.3,
-    "volume": 1.0
+    "name": "deadzonemc:monster/pilzvater/sporen_2"
    },
    {
-    "name": "minecraft:mob/slime/big2",
-    "pitch": 0.3,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/slime/big3",
-    "pitch": 0.3,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/slime/big4",
-    "pitch": 0.3,
-    "volume": 1.0
+    "name": "deadzonemc:monster/pilzvater/sporen_3"
    }
   ]
  },
@@ -2649,6 +2744,9 @@
    },
    {
     "name": "deadzonemc:monster/erfrorene/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/erfrorene/ambient_4"
    }
   ]
  },
@@ -2660,6 +2758,9 @@
    },
    {
     "name": "deadzonemc:monster/erfrorene/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/erfrorene/hurt_3"
    }
   ]
  },
@@ -2668,6 +2769,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/erfrorene/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/erfrorene/death_2"
    }
   ]
  },
@@ -2706,6 +2810,10 @@
    {
     "name": "deadzonemc:monster/erfrorene/brullen_2",
     "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/erfrorene/brullen_3",
+    "attenuation_distance": 64
    }
   ]
  },
@@ -2713,39 +2821,13 @@
   "subtitle": "subtitles.deadzonemc.erfrorene.atem",
   "sounds": [
    {
-    "name": "minecraft:mob/blaze/breathe1",
-    "pitch": 1.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/erfrorene/atem_1"
    },
    {
-    "name": "minecraft:mob/blaze/breathe2",
-    "pitch": 1.6,
-    "volume": 1.0
+    "name": "deadzonemc:monster/erfrorene/atem_2"
    },
    {
-    "name": "minecraft:mob/blaze/breathe3",
-    "pitch": 1.6,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:mob/blaze/breathe4",
-    "pitch": 1.6,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:random/glass1",
-    "pitch": 0.7,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:random/glass2",
-    "pitch": 0.7,
-    "volume": 1.0
-   },
-   {
-    "name": "minecraft:random/glass3",
-    "pitch": 0.7,
-    "volume": 1.0
+    "name": "deadzonemc:monster/erfrorene/atem_3"
    }
   ]
  },
@@ -2757,6 +2839,9 @@
    },
    {
     "name": "deadzonemc:monster/tarnfresser/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/tarnfresser/hurt_3"
    }
   ]
  },
@@ -2765,6 +2850,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/tarnfresser/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/tarnfresser/death_2"
    }
   ]
  },
@@ -2772,34 +2860,16 @@
   "subtitle": "subtitles.deadzonemc.tarnfresser.knacken",
   "sounds": [
    {
-    "name": "minecraft:step/wood1",
-    "pitch": 0.5,
-    "volume": 0.6
+    "name": "deadzonemc:monster/tarnfresser/knacken_1"
    },
    {
-    "name": "minecraft:step/wood2",
-    "pitch": 0.5,
-    "volume": 0.6
+    "name": "deadzonemc:monster/tarnfresser/knacken_2"
    },
    {
-    "name": "minecraft:step/wood3",
-    "pitch": 0.5,
-    "volume": 0.6
+    "name": "deadzonemc:monster/tarnfresser/knacken_3"
    },
    {
-    "name": "minecraft:step/wood4",
-    "pitch": 0.5,
-    "volume": 0.6
-   },
-   {
-    "name": "minecraft:step/wood5",
-    "pitch": 0.5,
-    "volume": 0.6
-   },
-   {
-    "name": "minecraft:step/wood6",
-    "pitch": 0.5,
-    "volume": 0.6
+    "name": "deadzonemc:monster/tarnfresser/knacken_4"
    }
   ]
  },
@@ -2811,6 +2881,9 @@
    },
    {
     "name": "deadzonemc:monster/tarnfresser/schreck_2"
+   },
+   {
+    "name": "deadzonemc:monster/tarnfresser/schreck_3"
    }
   ]
  },
@@ -2825,6 +2898,9 @@
    },
    {
     "name": "deadzonemc:monster/schwarmmutter/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/schwarmmutter/ambient_4"
    }
   ]
  },
@@ -2836,6 +2912,9 @@
    },
    {
     "name": "deadzonemc:monster/schwarmmutter/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/schwarmmutter/hurt_3"
    }
   ]
  },
@@ -2844,6 +2923,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/schwarmmutter/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/schwarmmutter/death_2"
    }
   ]
  },
@@ -2881,6 +2963,10 @@
    },
    {
     "name": "deadzonemc:monster/schwarmmutter/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/schwarmmutter/brullen_3",
     "attenuation_distance": 64
    }
   ]
@@ -2941,6 +3027,9 @@
    },
    {
     "name": "deadzonemc:monster/pilot/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/pilot/ambient_4"
    }
   ]
  },
@@ -2952,6 +3041,9 @@
    },
    {
     "name": "deadzonemc:monster/pilot/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/pilot/hurt_3"
    }
   ]
  },
@@ -2960,6 +3052,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/pilot/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/pilot/death_2"
    }
   ]
  },
@@ -2998,6 +3093,10 @@
    {
     "name": "deadzonemc:monster/pilot/brullen_2",
     "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/pilot/brullen_3",
+    "attenuation_distance": 64
    }
   ]
  },
@@ -3016,6 +3115,146 @@
    }
   ]
  },
+ "monster.das_herz.ambient": {
+  "subtitle": "subtitles.deadzonemc.das_herz.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/ambient_4"
+   }
+  ]
+ },
+ "monster.das_herz.hurt": {
+  "subtitle": "subtitles.deadzonemc.das_herz.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/hurt_3"
+   }
+  ]
+ },
+ "monster.das_herz.death": {
+  "subtitle": "subtitles.deadzonemc.das_herz.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/death_2"
+   }
+  ]
+ },
+ "monster.das_herz.brullen": {
+  "subtitle": "subtitles.deadzonemc.das_herz.brullen",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/brullen_1",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/brullen_3",
+    "attenuation_distance": 64
+   }
+  ]
+ },
+ "monster.das_herz.herzschlag": {
+  "subtitle": "subtitles.deadzonemc.das_herz.herzschlag",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/das_herz/herzschlag_1"
+   },
+   {
+    "name": "deadzonemc:monster/das_herz/herzschlag_2"
+   }
+  ]
+ },
+ "monster.der_ursprung.ambient": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.ambient",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/ambient_4"
+   }
+  ]
+ },
+ "monster.der_ursprung.hurt": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.hurt",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/hurt_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/hurt_3"
+   }
+  ]
+ },
+ "monster.der_ursprung.death": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.death",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/death_2"
+   }
+  ]
+ },
+ "monster.der_ursprung.brullen": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.brullen",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/brullen_1",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/brullen_2",
+    "attenuation_distance": 64
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/brullen_3",
+    "attenuation_distance": 64
+   }
+  ]
+ },
+ "monster.der_ursprung.puls": {
+  "subtitle": "subtitles.deadzonemc.der_ursprung.puls",
+  "sounds": [
+   {
+    "name": "deadzonemc:monster/der_ursprung/puls_1"
+   },
+   {
+    "name": "deadzonemc:monster/der_ursprung/puls_2"
+   }
+  ]
+ },
  "monster.lenker.ambient": {
   "subtitle": "subtitles.deadzonemc.lenker.ambient",
   "sounds": [
@@ -3027,6 +3266,9 @@
    },
    {
     "name": "deadzonemc:monster/lenker/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/lenker/ambient_4"
    }
   ]
  },
@@ -3066,6 +3308,9 @@
    },
    {
     "name": "deadzonemc:monster/spuk/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/spuk/ambient_4"
    }
   ]
  },
@@ -3077,6 +3322,9 @@
    },
    {
     "name": "deadzonemc:monster/spuk/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/spuk/hurt_3"
    }
   ]
  },
@@ -3085,6 +3333,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/spuk/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/spuk/death_2"
    }
   ]
  },
@@ -3099,6 +3350,9 @@
    },
    {
     "name": "deadzonemc:monster/truegruede/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/truegruede/ambient_4"
    }
   ]
  },
@@ -3110,6 +3364,9 @@
    },
    {
     "name": "deadzonemc:monster/truegruede/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/truegruede/hurt_3"
    }
   ]
  },
@@ -3118,6 +3375,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/truegruede/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/truegruede/death_2"
    }
   ]
  },
@@ -3132,6 +3392,9 @@
    },
    {
     "name": "deadzonemc:monster/entreisser/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/entreisser/ambient_4"
    }
   ]
  },
@@ -3171,6 +3434,9 @@
    },
    {
     "name": "deadzonemc:monster/chimaere/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/chimaere/ambient_4"
    }
   ]
  },
@@ -3182,6 +3448,9 @@
    },
    {
     "name": "deadzonemc:monster/chimaere/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/chimaere/hurt_3"
    }
   ]
  },
@@ -3190,6 +3459,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/chimaere/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/chimaere/death_2"
    }
   ]
  },
@@ -3204,6 +3476,9 @@
    },
    {
     "name": "deadzonemc:monster/glasgaenger/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/glasgaenger/ambient_4"
    }
   ]
  },
@@ -3215,6 +3490,9 @@
    },
    {
     "name": "deadzonemc:monster/glasgaenger/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/glasgaenger/hurt_3"
    }
   ]
  },
@@ -3223,6 +3501,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/glasgaenger/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/glasgaenger/death_2"
    }
   ]
  },
@@ -3237,6 +3518,9 @@
    },
    {
     "name": "deadzonemc:monster/schwebender/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/schwebender/ambient_4"
    }
   ]
  },
@@ -3276,6 +3560,9 @@
    },
    {
     "name": "deadzonemc:monster/entlader/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/entlader/ambient_4"
    }
   ]
  },
@@ -3287,6 +3574,9 @@
    },
    {
     "name": "deadzonemc:monster/entlader/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/entlader/hurt_3"
    }
   ]
  },
@@ -3295,6 +3585,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/entlader/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/entlader/death_2"
    }
   ]
  },
@@ -3309,6 +3602,9 @@
    },
    {
     "name": "deadzonemc:monster/echo/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/echo/ambient_4"
    }
   ]
  },
@@ -3345,6 +3641,9 @@
    },
    {
     "name": "deadzonemc:monster/zonenhirsch/ambient_2"
+   },
+   {
+    "name": "deadzonemc:monster/zonenhirsch/ambient_3"
    }
   ]
  },
@@ -3356,6 +3655,9 @@
    },
    {
     "name": "deadzonemc:monster/zonenhirsch/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/zonenhirsch/hurt_3"
    }
   ]
  },
@@ -3364,6 +3666,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/zonenhirsch/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/zonenhirsch/death_2"
    }
   ]
  },
@@ -3378,6 +3683,9 @@
    },
    {
     "name": "deadzonemc:monster/leerlaeufer/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/leerlaeufer/ambient_4"
    }
   ]
  },
@@ -3389,6 +3697,9 @@
    },
    {
     "name": "deadzonemc:monster/leerlaeufer/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/leerlaeufer/hurt_3"
    }
   ]
  },
@@ -3397,6 +3708,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/leerlaeufer/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/leerlaeufer/death_2"
    }
   ]
  },
@@ -3411,6 +3725,9 @@
    },
    {
     "name": "deadzonemc:monster/wartungsspinne/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/wartungsspinne/ambient_4"
    }
   ]
  },
@@ -3422,6 +3739,9 @@
    },
    {
     "name": "deadzonemc:monster/wartungsspinne/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/wartungsspinne/hurt_3"
    }
   ]
  },
@@ -3430,6 +3750,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/wartungsspinne/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/wartungsspinne/death_2"
    }
   ]
  },
@@ -3444,6 +3767,9 @@
    },
    {
     "name": "deadzonemc:monster/wachkugel/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/wachkugel/ambient_4"
    }
   ]
  },
@@ -3455,6 +3781,9 @@
    },
    {
     "name": "deadzonemc:monster/wachkugel/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/wachkugel/hurt_3"
    }
   ]
  },
@@ -3463,6 +3792,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/wachkugel/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/wachkugel/death_2"
    }
   ]
  },
@@ -3477,6 +3809,9 @@
    },
    {
     "name": "deadzonemc:monster/versuchsobjekt/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/ambient_4"
    }
   ]
  },
@@ -3488,6 +3823,9 @@
    },
    {
     "name": "deadzonemc:monster/versuchsobjekt/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/hurt_3"
    }
   ]
  },
@@ -3496,6 +3834,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/versuchsobjekt/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/versuchsobjekt/death_2"
    }
   ]
  },
@@ -3510,6 +3851,9 @@
    },
    {
     "name": "deadzonemc:monster/konglomerat/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/konglomerat/ambient_4"
    }
   ]
  },
@@ -3549,6 +3893,9 @@
    },
    {
     "name": "deadzonemc:monster/kryoschlaefer/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/ambient_4"
    }
   ]
  },
@@ -3560,6 +3907,9 @@
    },
    {
     "name": "deadzonemc:monster/kryoschlaefer/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/hurt_3"
    }
   ]
  },
@@ -3568,6 +3918,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/kryoschlaefer/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/kryoschlaefer/death_2"
    }
   ]
  },
@@ -3582,6 +3935,9 @@
    },
    {
     "name": "deadzonemc:monster/leerenaal/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/leerenaal/ambient_4"
    }
   ]
  },
@@ -3593,6 +3949,9 @@
    },
    {
     "name": "deadzonemc:monster/leerenaal/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/leerenaal/hurt_3"
    }
   ]
  },
@@ -3601,6 +3960,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/leerenaal/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/leerenaal/death_2"
    }
   ]
  },
@@ -3615,6 +3977,9 @@
    },
    {
     "name": "deadzonemc:monster/klammerer/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/klammerer/ambient_4"
    }
   ]
  },
@@ -3626,6 +3991,9 @@
    },
    {
     "name": "deadzonemc:monster/klammerer/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/klammerer/hurt_3"
    }
   ]
  },
@@ -3634,6 +4002,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/klammerer/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/klammerer/death_2"
    }
   ]
  },
@@ -3648,6 +4019,9 @@
    },
    {
     "name": "deadzonemc:monster/hologeist/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/hologeist/ambient_4"
    }
   ]
  },
@@ -3659,6 +4033,9 @@
    },
    {
     "name": "deadzonemc:monster/hologeist/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/hologeist/hurt_3"
    }
   ]
  },
@@ -3667,6 +4044,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/hologeist/death_1"
+   },
+   {
+    "name": "deadzonemc:monster/hologeist/death_2"
    }
   ]
  },
@@ -3681,6 +4061,9 @@
    },
    {
     "name": "deadzonemc:monster/forscher/ambient_3"
+   },
+   {
+    "name": "deadzonemc:monster/forscher/ambient_4"
    }
   ]
  },
@@ -3692,6 +4075,9 @@
    },
    {
     "name": "deadzonemc:monster/forscher/hurt_2"
+   },
+   {
+    "name": "deadzonemc:monster/forscher/hurt_3"
    }
   ]
  },
@@ -3700,128 +4086,9 @@
   "sounds": [
    {
     "name": "deadzonemc:monster/forscher/death_1"
-   }
-  ]
- },
- "monster.der_ursprung.ambient": {
-  "subtitle": "subtitles.deadzonemc.der_ursprung.ambient",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/der_ursprung/ambient_1"
    },
    {
-    "name": "deadzonemc:monster/der_ursprung/ambient_2"
-   },
-   {
-    "name": "deadzonemc:monster/der_ursprung/ambient_3"
-   }
-  ]
- },
- "monster.der_ursprung.hurt": {
-  "subtitle": "subtitles.deadzonemc.der_ursprung.hurt",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/der_ursprung/hurt_1"
-   },
-   {
-    "name": "deadzonemc:monster/der_ursprung/hurt_2"
-   }
-  ]
- },
- "monster.der_ursprung.death": {
-  "subtitle": "subtitles.deadzonemc.der_ursprung.death",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/der_ursprung/death_1"
-   }
-  ]
- },
- "monster.der_ursprung.brullen": {
-  "subtitle": "subtitles.deadzonemc.der_ursprung.brullen",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/der_ursprung/brullen_1",
-    "attenuation_distance": 64
-   },
-   {
-    "name": "deadzonemc:monster/der_ursprung/brullen_2",
-    "attenuation_distance": 64
-   },
-   {
-    "name": "deadzonemc:monster/der_ursprung/brullen_3",
-    "attenuation_distance": 64
-   }
-  ]
- },
- "monster.der_ursprung.puls": {
-  "subtitle": "subtitles.deadzonemc.der_ursprung.puls",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/der_ursprung/puls_1"
-   },
-   {
-    "name": "deadzonemc:monster/der_ursprung/puls_2"
-   }
-  ]
- },
- "monster.das_herz.ambient": {
-  "subtitle": "subtitles.deadzonemc.das_herz.ambient",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/das_herz/ambient_1"
-   },
-   {
-    "name": "deadzonemc:monster/das_herz/ambient_2"
-   },
-   {
-    "name": "deadzonemc:monster/das_herz/ambient_3"
-   }
-  ]
- },
- "monster.das_herz.hurt": {
-  "subtitle": "subtitles.deadzonemc.das_herz.hurt",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/das_herz/hurt_1"
-   },
-   {
-    "name": "deadzonemc:monster/das_herz/hurt_2"
-   }
-  ]
- },
- "monster.das_herz.death": {
-  "subtitle": "subtitles.deadzonemc.das_herz.death",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/das_herz/death_1"
-   }
-  ]
- },
- "monster.das_herz.brullen": {
-  "subtitle": "subtitles.deadzonemc.das_herz.brullen",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/das_herz/brullen_1",
-    "attenuation_distance": 64
-   },
-   {
-    "name": "deadzonemc:monster/das_herz/brullen_2",
-    "attenuation_distance": 64
-   },
-   {
-    "name": "deadzonemc:monster/das_herz/brullen_3",
-    "attenuation_distance": 64
-   }
-  ]
- },
- "monster.das_herz.herzschlag": {
-  "subtitle": "subtitles.deadzonemc.das_herz.herzschlag",
-  "sounds": [
-   {
-    "name": "deadzonemc:monster/das_herz/herzschlag_1"
-   },
-   {
-    "name": "deadzonemc:monster/das_herz/herzschlag_2"
+    "name": "deadzonemc:monster/forscher/death_2"
    }
   ]
  },

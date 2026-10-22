@@ -187,10 +187,10 @@ SOUNDS = {
 
 
 def eigene_stimmen():
-    """Stimmen aus stimmen.py ersetzen die umgefärbten Minecraft-Klänge (Schritte usw. bleiben)."""
+    """Eigene Geräusche aus geraeusche.py ersetzen die umgefärbten Minecraft-Klänge (Schritte usw. bleiben)."""
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    import stimmen
-    return stimmen.eintraege()
+    import geraeusche
+    return geraeusche.eintraege()
 
 
 def schreiben():
