@@ -104,19 +104,31 @@ public final class Orbitalstation {
             f.merken("station_gebaut");
             Stationsausbau.bauen(end, y, MITTE.getX(), MITTE.getZ(), R);
             f.merken("station_ausbau_1");
+            Stationsausbau.beleuchten(end, y, MITTE.getX(), MITTE.getZ(), R);
+            f.merken("station_licht_1");
         } else if (!f.hat("station_ausbau_1")) {
             // Bestehende Welten: Station steht schon – Plattformhöhe am Kraterkern suchen und ausbauen
-            for (int y = end.getMaxBuildHeight() - 1; y > end.getMinBuildHeight(); y--) {
-                if (end.getBlockState(new BlockPos(MITTE.getX(), y, MITTE.getZ())).is(Blocks.CRYING_OBSIDIAN)) {
-                    Stationsausbau.bauen(end, y, MITTE.getX(), MITTE.getZ(), R);
-                    break;
-                }
-            }
+            Stationsausbau.bauen(end, plattform(end), MITTE.getX(), MITTE.getZ(), R);
             f.merken("station_ausbau_1");
+        }
+        if (f.hat("station_ausbau_1") && !f.hat("station_licht_1")) {
+            Stationsausbau.beleuchten(end, plattform(end), MITTE.getX(), MITTE.getZ(), R);
+            f.merken("station_licht_1");
         }
         if (f.hat("knoten_alle") && !f.hat("ursprung_erwacht")) {
             erwachen(server, end, f);
         }
+    }
+
+    /** Höhe der Plattform: der Kraterboden (weinender Obsidian) von unten gesucht – oben schwebt der Reaktorkern. */
+    public static int plattform(ServerLevel end) {
+        end.getChunk(MITTE.getX() >> 4, MITTE.getZ() >> 4);
+        for (int y = end.getMinBuildHeight(); y < end.getMaxBuildHeight(); y++) {
+            if (end.getBlockState(new BlockPos(MITTE.getX(), y, MITTE.getZ())).is(Blocks.CRYING_OBSIDIAN)) {
+                return y;
+            }
+        }
+        return hoehe(end);
     }
 
     public static int hoehe(ServerLevel end) {
@@ -137,6 +149,7 @@ public final class Orbitalstation {
     public static void testBauen(ServerLevel w, BlockPos mitte) {
         bauen(w, mitte.getY(), mitte.getX(), mitte.getZ());
         Stationsausbau.bauen(w, mitte.getY(), mitte.getX(), mitte.getZ(), R);
+        Stationsausbau.beleuchten(w, mitte.getY(), mitte.getX(), mitte.getZ(), R);
     }
 
     private static void bauen(ServerLevel w, int y, int cx, int cz) {
@@ -322,7 +335,7 @@ public final class Orbitalstation {
     private static void erwachen(MinecraftServer server, ServerLevel end, Fortschritt f) {
         sequenz++;
         int y = end.getHeight(Heightmap.Types.WORLD_SURFACE, MITTE.getX(), MITTE.getZ() + 12);
-        BlockPos mitte = new BlockPos(MITTE.getX(), hoehe(end) + 1, MITTE.getZ());
+        BlockPos mitte = new BlockPos(MITTE.getX(), plattform(end) + 1, MITTE.getZ());
         switch (sequenz) {
             case 0 -> ki(server, "orbit.deadzonemc.ki.erwachen_1");
             case 3 -> ki(server, "orbit.deadzonemc.ki.erwachen_2");

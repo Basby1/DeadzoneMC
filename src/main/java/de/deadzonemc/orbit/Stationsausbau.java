@@ -74,6 +74,70 @@ final class Stationsausbau {
         w = null;
     }
 
+    /**
+     * Unsichtbare Lichtquellen rund um die Station: Im End ist es sonst so dunkel, dass man von Hülle, Flügeln und
+     * Modulen kaum etwas sieht. Lichtblöcke sind unsichtbar und nicht anfassbar.
+     */
+    static void beleuchten(ServerLevel welt, int y, int mx, int mz, int r) {
+        w = welt;
+        cx = mx;
+        cy = y;
+        cz = mz;
+        BlockState l = Blocks.LIGHT.defaultBlockState().setValue(net.minecraft.world.level.block.LightBlock.LEVEL, 13);
+        BlockState schwach = Blocks.LIGHT.defaultBlockState().setValue(net.minecraft.world.level.block.LightBlock.LEVEL, 9);
+        // außen um die Arenawand und unter der Plattform
+        for (int i = 0; i < 48; i++) {
+            double wk = 2 * Math.PI * i / 48;
+            int x = (int) Math.round(Math.cos(wk) * (r + 3));
+            int z = (int) Math.round(Math.sin(wk) * (r + 3));
+            sl(x, 3, z, l);
+            sl(x, 9, z, schwach);
+            sl((int) Math.round(Math.cos(wk) * (r - 4)), -3, (int) Math.round(Math.sin(wk) * (r - 4)), schwach);
+        }
+        // auf der Kampffläche (dezent, damit es unheimlich bleibt)
+        for (int x = -r + 4; x <= r - 4; x += 8) {
+            for (int z = -r + 4; z <= r - 4; z += 8) {
+                if (x * x + z * z < (r - 3) * (r - 3)) {
+                    sl(x, 4, z, schwach);
+                }
+            }
+        }
+        // Reaktorring und Gitterträger
+        for (int i = 0; i < 16; i++) {
+            double wk = 2 * Math.PI * i / 16;
+            sl((int) Math.round(Math.cos(wk) * 10.5), 21, (int) Math.round(Math.sin(wk) * 10.5), l);
+        }
+        for (int x = -(r + 40); x <= r + 40; x += 6) {
+            sl(x, 27, 0, l);
+            sl(x, 33, 0, l);
+        }
+        // Solarflügel: von beiden Seiten angestrahlt
+        for (int seite : new int[]{1, -1}) {
+            for (int x = r + 8; x <= r + 40; x += 4) {
+                for (int z = -24; z <= 24; z += 6) {
+                    sl(seite * x, 30, z + (z == 0 ? 3 : 0), l);
+                }
+            }
+        }
+        // Module, Arme, Andockring, Antenne
+        for (int x = r; x <= r + 30; x += 4) {
+            for (int z : new int[]{-9, 9}) {
+                sl(x, 4, z, l);
+                sl(-x, 4, z, l);
+            }
+            sl(x, 10, 0, l);
+        }
+        for (int z = r; z <= r + 12; z += 4) {
+            sl(-5, 4, z, l);
+            sl(5, 4, z, l);
+        }
+        for (int y2 = 0; y2 <= 34; y2 += 6) {
+            sl(5, y2, -(r + 4), l);
+            sl(9, y2, -(r + 4), l);
+        }
+        w = null;
+    }
+
     /** Leuchtende Krone auf der Außenwand: von Weitem sieht man die Station als Lichterkreis. */
     private static void wandkrone(int r) {
         for (int dx = -r; dx <= r; dx++) {
