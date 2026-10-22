@@ -303,7 +303,7 @@ public class CharakterScreen extends Screen {
                     return true;
                 }
                 Minecraft.getInstance().getSoundManager().play(net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                        net.minecraft.sounds.SoundEvents.UI_BUTTON_CLICK, 1.0F, 0.5F));
+                        net.minecraft.sounds.SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 0.5F));
                 return true;
             }
         }
