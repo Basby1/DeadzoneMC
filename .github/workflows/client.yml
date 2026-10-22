@@ -7,10 +7,13 @@ on:
       - '.github/workflows/client.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   client:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 55
     steps:
       - name: Code holen
         uses: actions/checkout@v4
@@ -24,23 +27,53 @@ jobs:
       - name: Gradle einrichten
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Grafik ohne Bildschirm (Xvfb + Mesa)
-        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri mesa-utils imagemagick
+      - name: Grafik ohne Bildschirm (Xvfb + Mesa) und ffmpeg
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri mesa-utils imagemagick ffmpeg
 
-      - name: Client starten und durch Editor und Intro gehen
-        timeout-minutes: 35
+      - name: Client starten, durch Editor und Intro gehen, alles aufnehmen
+        timeout-minutes: 40
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
           MESA_GL_VERSION_OVERRIDE: '4.5'
+          DISPLAY: ':99'
         run: |
           chmod +x ./gradlew
+          ./gradlew compileJava --no-daemon -q
           mkdir -p run
           printf 'onboardAccessibility:false\nrenderDistance:8\nsimulationDistance:6\nguiScale:2\ntutorialStep:none\njoinedFirstServer:true\nskipMultiplayerWarning:true\nmaxFps:60\nsoundCategory_master:0.0\n' > run/options.txt
-          xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient -Pclienttest --no-daemon --console=plain > /tmp/client.txt 2>&1 || true
+          Xvfb :99 -screen 0 1280x720x24 &
+          sleep 3
+          glxinfo -B | head -20 || true
+          date +%s%3N > /tmp/aufnahme_start
+          ffmpeg -loglevel error -y -f x11grab -video_size 1280x720 -framerate 20 -i :99 -c:v libx264 -preset ultrafast -crf 23 /tmp/roh.mkv &
+          FF=$!
+          ./gradlew runClient -Pclienttest --no-daemon --console=plain > /tmp/client.txt 2>&1 || true
+          kill -INT $FF || true
+          sleep 3
           tail -5 /tmp/client.txt
-          grep -E "\[Clienttest\]|Exception|ERROR" /tmp/client.txt | grep -v "DEBUG" | head -80 || true
 
-      - name: Bilder in Branch bildprotokoll ablegen
+      - name: Zusammenfassung
+        if: always()
+        run: |
+          grep -E "\[Clienttest\]|Exception|Caused by|Error|ERROR|FATAL" /tmp/client.txt | grep -v DEBUG | head -60 > /tmp/kurz.txt || true
+          python3 -c "import sys;t=open('/tmp/kurz.txt').read()[:3800].replace('%','%25').replace(chr(10),'%0A');print('::notice title=Clienttest::'+t)"
+
+      - name: Intro-Video schneiden
+        if: always()
+        run: |
+          A=$(cat /tmp/aufnahme_start)
+          K=$(grep -o "KINO_START [0-9]*" /tmp/client.txt | head -1 | awk '{print $2}')
+          E=$(grep -o "INTRO_ENDE [0-9]*" /tmp/client.txt | head -1 | awk '{print $2}')
+          if [ -n "$K" ]; then
+            [ -n "$E" ] || E=$((K + 72000))
+            SS=$(python3 -c "print(($K-$A)/1000)")
+            DAUER=$(python3 -c "print(min(75,($E-$K)/1000+1))")
+            ffmpeg -loglevel error -y -ss $SS -t $DAUER -i /tmp/roh.mkv -i src/main/resources/assets/deadzonemc/sounds/musik/kino.ogg \
+              -map 0:v -map 1:a -c:v libx264 -preset veryfast -crf 27 -pix_fmt yuv420p -c:a aac -b:a 160k -shortest /tmp/intro.mp4 || true
+            ls -la /tmp/intro.mp4 || true
+          fi
+
+      - name: Bilder und Video in Branch bildprotokoll ablegen
         if: always()
         run: |
           mkdir -p /tmp/bild && cd /tmp/bild && git init -q && git checkout -q -b bildprotokoll
@@ -48,7 +81,8 @@ jobs:
             [ -e "$f" ] || continue
             convert "$f" -resize 960x -quality 82 "$(basename "${f%.png}").jpg"
           done
-          grep -E "\[Clienttest\]|Exception|Caused by|ERROR|WARN.*deadzonemc" /tmp/client.txt | grep -v DEBUG | head -400 > log.txt || true
-          cp "$GITHUB_WORKSPACE"/run/logs/latest.log . 2>/dev/null || true
+          cp /tmp/intro.mp4 . 2>/dev/null || true
+          cp /tmp/kurz.txt log.txt 2>/dev/null || true
+          grep -v DEBUG /tmp/client.txt | tail -3000 > client_log.txt || true
           git add -A && git -c user.name=ci -c user.email=ci@localhost commit -qm "Bildprotokoll ${GITHUB_SHA::7}"
           git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" bildprotokoll

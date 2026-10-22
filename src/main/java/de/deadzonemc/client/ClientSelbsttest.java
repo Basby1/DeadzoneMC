@@ -35,6 +35,8 @@ public final class ClientSelbsttest {
     private static int bild;
     private static int introTick;
     private static int gesamt;
+    private static boolean kinoGemeldet;
+    private static boolean introGemeldet;
 
     public static boolean an() {
         return Boolean.getBoolean("deadzonemc.clienttest");
@@ -116,6 +118,10 @@ public final class ClientSelbsttest {
                     foto(mc, "warten");
                 }
                 if (ClientKino.aktiv()) {
+                    if (!kinoGemeldet) {
+                        kinoGemeldet = true;
+                        LOG.info("[Clienttest] KINO_START {}", System.currentTimeMillis());
+                    }
                     float s = t > 0 ? kinoZeit() : 0;
                     while (marke < KINO_BILDER.length && s >= KINO_BILDER[marke]) {
                         foto(mc, String.format("kino_%04.1f", KINO_BILDER[marke]).replace(',', '.'));
@@ -137,6 +143,10 @@ public final class ClientSelbsttest {
                         }
                     }
                 } else if (mc.screen instanceof KlassenScreen) {
+                    if (!introGemeldet) {
+                        introGemeldet = true;
+                        LOG.info("[Clienttest] INTRO_ENDE {}", System.currentTimeMillis());
+                    }
                     if (t > 40) {
                         foto(mc, "klassenwahl");
                         mc.setScreen(null);
