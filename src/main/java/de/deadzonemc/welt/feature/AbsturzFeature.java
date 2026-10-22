@@ -611,6 +611,26 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
+    private static boolean ohneGegner;
+
+    /**
+     * Das Wrack am Startplatz: derselbe abgestürzte Hubschrauber, aber ohne Gegner, und ohne Rotormast aus Eisen
+     * (so erscheint am Start nicht gleich der Pilot). Das Triebwerk raucht noch – man sieht, wo man herkommt.
+     */
+    public static void startWrack(WorldGenLevel w, RandomSource r, BlockPos boden) {
+        ohneGegner = true;
+        try {
+            testBauen(w, r, boden, Art.HUBSCHRAUBER);
+        } finally {
+            ohneGegner = false;
+        }
+        for (BlockPos q : BlockPos.betweenClosed(boden.offset(-12, -2, -12), boden.offset(12, 8, 12))) {
+            if (w.getBlockState(q).is(Blocks.IRON_BLOCK)) {
+                w.setBlock(q, Blocks.POLISHED_BLACKSTONE.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        }
+    }
+
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
         Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
@@ -1145,6 +1165,9 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private static void spawnen(Rahmen f, Supplier<? extends EntityType<? extends Mob>> typ, int anzahl, RandomSource r) {
+        if (ohneGegner) {
+            return;
+        }
         WorldGenLevel w = f.w();
         for (int i = 0; i < anzahl; i++) {
             Mob m = typ.get().create(w.getLevel());

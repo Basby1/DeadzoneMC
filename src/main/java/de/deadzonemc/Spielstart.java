@@ -37,8 +37,13 @@ public final class Spielstart {
         ServerLevel oberwelt = spieler.server.overworld();
         BlockPos ziel = startplatzSuchen(oberwelt, spieler.getRandom());
         if (ziel != null && spieler.level() == oberwelt) {
-            spieler.teleportTo(oberwelt, ziel.getX() + 0.5, ziel.getY(), ziel.getZ() + 0.5,
-                    spieler.getRandom().nextFloat() * 360F, 0F);
+            // Der Absturz aus dem Intro: Das Wrack liegt ein paar Schritte neben dem Startplatz
+            int wx = ziel.getX() + 7;
+            int wz = ziel.getZ();
+            de.deadzonemc.welt.feature.AbsturzFeature.startWrack(oberwelt, spieler.getRandom(),
+                    new BlockPos(wx, oberwelt.getHeight(Heightmap.Types.WORLD_SURFACE, wx, wz), wz));
+            spieler.teleportTo(oberwelt, ziel.getX() + 0.5, oberwelt.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    ziel.getX(), ziel.getZ()), ziel.getZ() + 0.5, -90F, 0F);
         }
         // Grund-Überlebenspaket: man soll sich am Anfang verteidigen und ein, zwei Tage durchhalten können
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(de.deadzonemc.beute.Beute.ROSTIGES_MESSER.get()));

@@ -84,7 +84,7 @@ public final class Geschichte {
                     }
                 }
                 return true;
-            }, (s, f, p) -> kein(f)),
+            }, (s, f, p) -> stadt(s, f, p)),
             new Schritt("kommandant", 2, (p, f) -> f.hat("tot:kommandant"), (s, f, p) -> ortWaehlen(s, f, p, 0)),
             // Akt III – Station Null
             new Schritt("station_null", 3, (p, f) -> de.deadzonemc.welt.station.StationNull.bei(p.serverLevel(), p.blockPosition()) != null,
@@ -242,6 +242,15 @@ public final class Geschichte {
     private static void anmelden(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer p) {
             Fortschritt f = Fortschritt.von(p.server);
+            if (!f.hat("zielkorrektur_2210") && f.schritt < SCHRITTE.size() && f.gestartet) {
+                f.merken("zielkorrektur_2210");
+                String id = SCHRITTE.get(f.schritt).id();
+                if (id.equals("absturz") || id.equals("station_null") || id.equals("protokolle")) {
+                    SCHRITTE.get(f.schritt).start().ausfuehren(p.server, f, p);
+                    f.setDirty();
+                    senden(p.server, f);
+                }
+            }
             PacketDistributor.sendToPlayer(p, paket(f));
             if (f.schritt == 0 && !f.hat("intro:" + p.getUUID())) {
                 f.merken("intro:" + p.getUUID());
@@ -275,6 +284,28 @@ public final class Geschichte {
         f.zielWelt = 2;
     }
 
+    /** Zeigt auf die nächste Stadt (dort liegen Polizeiwache, Krankenhaus und Apotheken). */
+    private static void stadt(MinecraftServer server, Fortschritt f, ServerPlayer p) {
+        ServerLevel ow = server.overworld();
+        int cx = (p.level() == ow ? p.blockPosition() : ow.getSharedSpawnPos()).getX() >> 4;
+        int cz = (p.level() == ow ? p.blockPosition() : ow.getSharedSpawnPos()).getZ() >> 4;
+        for (int r = 0; r <= 64; r += 2) {
+            for (int dx = -r; dx <= r; dx += 2) {
+                for (int dz = -r; dz <= r; dz += 2) {
+                    if (Math.max(Math.abs(dx), Math.abs(dz)) != r) {
+                        continue;
+                    }
+                    if (de.deadzonemc.welt.Staedte.istStadt(ow, cx + dx, cz + dz)) {
+                        f.ziel = new BlockPos(((cx + dx) << 4) + 8, 64, ((cz + dz) << 4) + 8);
+                        f.zielWelt = 0;
+                        return;
+                    }
+                }
+            }
+        }
+        f.ziel = null;
+    }
+
     private static void kein(Fortschritt f) {
         f.ziel = null;
     }
@@ -283,7 +314,20 @@ public final class Geschichte {
         ServerLevel ow = server.overworld();
         TagKey<Structure> tag = TagKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(DeadzoneMC.MODID, name));
         BlockPos von = p.level() == ow ? p.blockPosition() : ow.getSharedSpawnPos();
-        BlockPos z = ow.findNearestMapStructure(tag, von, 80, false);
+        BlockPos z = null;
+        var reg = ow.registryAccess().registryOrThrow(Registries.STRUCTURE);
+        var menge = reg.getTag(tag);
+        if (menge.isPresent()) {
+            var paar = ow.getChunkSource().getGenerator().findNearestMapStructure(ow, menge.get(), von, 80, false);
+            if (paar != null) {
+                // Die Zuflucht am Stadtrand steht nicht im Planungs-Chunk, sondern bis zu 5 Chunks daneben:
+                // den echten Start laden und auf die Mitte der gebauten Anlage zeigen.
+                net.minecraft.world.level.ChunkPos cp = new net.minecraft.world.level.ChunkPos(paar.getFirst());
+                var chunk = ow.getChunk(cp.x, cp.z, net.minecraft.world.level.chunk.status.ChunkStatus.STRUCTURE_STARTS);
+                var start = chunk.getStartForStructure(paar.getSecond().value());
+                z = start != null && start.isValid() ? start.getBoundingBox().getCenter() : paar.getFirst();
+            }
+        }
         f.ziel = z;
         f.zielWelt = 0;
     }

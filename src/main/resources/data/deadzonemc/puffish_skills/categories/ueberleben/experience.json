@@ -5,7 +5,7 @@
    "expression": "30 + level * 12 + level * level * 1.2"
   }
  },
- "level_limit": 20,
+ "level_limit": 15,
  "sources": [
   {
    "type": "puffish_skills:eat_food",

@@ -38,7 +38,8 @@ public final class Kombinationen {
         if (!(event.getSource().getEntity() instanceof Player p) || !(event.getEntity() instanceof Enemy)) {
             return;
         }
-        boolean nahkampf = event.getSource().getDirectEntity() == p;
+        boolean nahkampf = event.getSource().getDirectEntity() == p
+                && !event.getSource().is(net.minecraft.tags.DamageTypeTags.IS_PROJECTILE);
         if (nahkampf && Klassen.kombi(p, Klasse.BRECHER, Klasse.SANITAETER)) {
             p.heal(2F);
         }

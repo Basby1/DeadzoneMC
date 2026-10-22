@@ -94,6 +94,9 @@ class Baum:
             skills[id] = {"x": n["gx"] * RASTER, "y": n["gy"] * RASTER, "definition": id}
             if n["wurzel"]:
                 skills[id]["root"] = True
+        # Levelgrenze = Punkte, die alle Skills zusammen kosten (minus Startpunkt): das letzte Level schaltet
+        # genau den letzten Skill frei – nichts bleibt unerreichbar, kein Level ist nutzlos.
+        self.limit = max(1, sum(n["kosten"] for n in self.knoten.values()) - 1)
         erfahrung = {
             "experience_per_level": {"type": "expression",
                                      "data": {"expression": "30 + level * 12 + level * level * 1.2"}},

@@ -263,7 +263,8 @@ public final class Klassen {
         if (aktiv.isEmpty()) {
             return;
         }
-        boolean nahkampf = event.getSource().getDirectEntity() == p;
+        boolean nahkampf = event.getSource().getDirectEntity() == p
+                && !event.getSource().is(net.minecraft.tags.DamageTypeTags.IS_PROJECTILE);
         // Mit mehreren Klassen zählt jeweils die stärkste – Schwächen fallen weg
         float f = 0F;
         for (Klasse k : aktiv) {

@@ -135,10 +135,11 @@ def modell(name, teile):
         "textures": {"0": "deadzonemc:item/waffen/teile", "particle": "deadzonemc:item/waffen/teile"},
         "elements": [element(t) for t in teile],
         "display": {
-            "thirdperson_righthand": {"rotation": [0, -90, 0], "translation": [0, 2.5, 1.5 if lang else 1], "scale": [0.85, 0.85, 0.85]},
-            "thirdperson_lefthand": {"rotation": [0, 90, 0], "translation": [0, 2.5, 1.5 if lang else 1], "scale": [0.85, 0.85, 0.85]},
-            "firstperson_righthand": {"rotation": [0, -90, 0], "translation": [1.5, 2.5, -1 if lang else 0.5], "scale": [0.7, 0.7, 0.7]},
-            "firstperson_lefthand": {"rotation": [0, 90, 0], "translation": [1.5, 2.5, -1 if lang else 0.5], "scale": [0.7, 0.7, 0.7]},
+            # Mündung zeigt vom Spieler weg (Rückmeldung 22.10.: vorher um 180° verdreht)
+            "thirdperson_righthand": {"rotation": [0, 90, 0], "translation": [0, 2.5, 1.5 if lang else 1], "scale": [0.85, 0.85, 0.85]},
+            "thirdperson_lefthand": {"rotation": [0, -90, 0], "translation": [0, 2.5, 1.5 if lang else 1], "scale": [0.85, 0.85, 0.85]},
+            "firstperson_righthand": {"rotation": [0, 90, 0], "translation": [1.5, 2.5, -1 if lang else 0.5], "scale": [0.7, 0.7, 0.7]},
+            "firstperson_lefthand": {"rotation": [0, -90, 0], "translation": [1.5, 2.5, -1 if lang else 0.5], "scale": [0.7, 0.7, 0.7]},
             "gui": {"rotation": [20, 0, 0], "translation": [dx * gui, 0, 0], "scale": [gui, gui, gui]},
             "ground": {"translation": [0, 2, 0], "scale": [0.45, 0.45, 0.45]},
             "fixed": {"translation": [dx * gui, 0, 0], "scale": [gui, gui, gui]},

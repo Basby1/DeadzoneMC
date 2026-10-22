@@ -5,7 +5,7 @@
    "expression": "30 + level * 12 + level * level * 1.2"
   }
  },
- "level_limit": 24,
+ "level_limit": 25,
  "sources": [
   {
    "type": "puffish_skills:increase_stat",

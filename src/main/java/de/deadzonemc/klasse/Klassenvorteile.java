@@ -113,7 +113,8 @@ public final class Klassenvorteile {
     }
 
     private static void nahkampf(LivingIncomingDamageEvent event) {
-        if (event.getSource().getDirectEntity() instanceof Player p && event.getSource().getEntity() == p) {
+        if (event.getSource().getDirectEntity() instanceof Player p && event.getSource().getEntity() == p
+                && !event.getSource().is(net.minecraft.tags.DamageTypeTags.IS_PROJECTILE)) {
             ItemStack s = p.getMainHandItem();
             if (passt(p, s) && !(s.getItem() instanceof de.deadzonemc.waffen.feuer.SchusswaffeItem)) {
                 event.setAmount(event.getAmount() * (liebling(s.getItem()) == Klasse.BRECHER ? 1.25F : 1.15F));

@@ -88,7 +88,14 @@ public final class ClientGeschichte {
             String pfeil = rel < 0 ? "◀" : "▶";
             g.drawString(mc.font, pfeil, rel < 0 ? mitte - breite / 2 - 8 : mitte + breite / 2 + 2, y + 2, 0xFFE0A030, true);
         }
-        String text = dist < 1000 ? Math.round(dist) + " m" : String.format("%.1f km", dist / 1000);
-        g.drawCenteredString(mc.font, text, mitte, y + 14, 0xFFE8DCB8);
+        String entfernung = dist < 1000 ? Math.round(dist) + " m" : String.format("%.1f km", dist / 1000);
+        net.minecraft.network.chat.Component titel = schritt < de.deadzonemc.geschichte.Geschichte.SCHRITTE.size()
+                ? net.minecraft.network.chat.Component.translatable("geschichte.deadzonemc."
+                + de.deadzonemc.geschichte.Geschichte.SCHRITTE.get(schritt).id() + ".titel")
+                : net.minecraft.network.chat.Component.empty();
+        net.minecraft.network.chat.Component zeile = dist < 24
+                ? net.minecraft.network.chat.Component.translatable("ziel.deadzonemc.erreicht", titel)
+                : net.minecraft.network.chat.Component.translatable("ziel.deadzonemc.zeile", titel, entfernung);
+        g.drawCenteredString(mc.font, zeile, mitte, y + 14, 0xFFE8DCB8);
     }
 }
