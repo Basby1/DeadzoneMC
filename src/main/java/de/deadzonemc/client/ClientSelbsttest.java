@@ -180,15 +180,17 @@ public final class ClientSelbsttest {
         }
     }
 
-    /** Ins End zur Orbitalstation (Mitte 0/90) und von mehreren Seiten fotografieren. */
+    /** Ins End zur Orbitalstation (Mitte 0/90) und von mehreren Seiten fotografieren: x, Höhe über der Plattform, z, Gier, Neigung. */
     private static final String[][] END_BLICKE = {
-            {"0 105 40 0 20", "end_anflug"},
-            {"0 95 62 0 25", "end_station_nah"},
-            {"45 100 90 90 25", "end_station_seite"},
-            {"-40 92 130 -135 15", "end_station_hinten"},
-            {"0 150 90 0 90", "end_von_oben"},
-            {"8 70 82 160 -5", "end_innen"},
+            {"0 32 -45 0 18", "end_anflug"},
+            {"95 28 90 90 12", "end_station_seite"},
+            {"70 22 165 145 12", "end_station_schraeg"},
+            {"0 120 90 0 90", "end_von_oben"},
+            {"0 6 70 0 -40", "end_reaktorring"},
+            {"52 3 92 90 5", "end_habitat"},
+            {"-48 8 86 -60 10", "end_westarm"},
     };
+    private static int plattform = Integer.MIN_VALUE;
 
     private static void endBesuchen(Minecraft mc) {
         if (mc.player == null) {
@@ -197,20 +199,29 @@ public final class ClientSelbsttest {
         if (t == 5) {
             mc.options.hideGui = true;
             mc.player.connection.sendCommand("gamemode spectator");
-            mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s 0 105 40 0 20");
+            mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s 0 110 40 0 20");
         }
-        int start = 20 * 25; // Station bauen lassen, Chunks laden
-        int i = (t - start) / 100;
-        int imSchritt = (t - start) % 100;
+        int start = 20 * 30; // Station bauen lassen, Chunks laden
+        if (t == start - 20 && mc.level != null) {
+            plattform = mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, 0, 104) - 1;
+            LOG.info("[Clienttest] Plattform auf Höhe {}", plattform);
+            if (plattform < 20) {
+                plattform = 64;
+            }
+        }
+        int i = (t - start) / 120;
+        int imSchritt = (t - start) % 120;
         if (t >= start && i < END_BLICKE.length) {
             if (imSchritt == 0) {
-                mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s " + END_BLICKE[i][0]);
+                String[] w = END_BLICKE[i][0].split(" ");
+                int y = plattform + Integer.parseInt(w[1]);
+                mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s " + w[0] + " " + y + " " + w[2] + " " + w[3] + " " + w[4]);
             }
-            if (imSchritt == 80) {
+            if (imSchritt == 100) {
                 foto(mc, END_BLICKE[i][1]);
             }
         }
-        if (t >= start + END_BLICKE.length * 100 + 20) {
+        if (t >= start + END_BLICKE.length * 120 + 20) {
             LOG.info("[Clienttest] fertig");
             mc.stop();
         }

@@ -99,8 +99,20 @@ public final class Orbitalstation {
         Fortschritt f = Fortschritt.von(server);
         if (!f.hat("station_gebaut")) {
             end.getChunk(MITTE.getX() >> 4, MITTE.getZ() >> 4);
-            bauen(end, hoehe(end));
+            int y = hoehe(end);
+            bauen(end, y);
             f.merken("station_gebaut");
+            Stationsausbau.bauen(end, y, MITTE.getX(), MITTE.getZ(), R);
+            f.merken("station_ausbau_1");
+        } else if (!f.hat("station_ausbau_1")) {
+            // Bestehende Welten: Station steht schon – Plattformhöhe am Kraterkern suchen und ausbauen
+            for (int y = end.getMaxBuildHeight() - 1; y > end.getMinBuildHeight(); y--) {
+                if (end.getBlockState(new BlockPos(MITTE.getX(), y, MITTE.getZ())).is(Blocks.CRYING_OBSIDIAN)) {
+                    Stationsausbau.bauen(end, y, MITTE.getX(), MITTE.getZ(), R);
+                    break;
+                }
+            }
+            f.merken("station_ausbau_1");
         }
         if (f.hat("knoten_alle") && !f.hat("ursprung_erwacht")) {
             erwachen(server, end, f);
@@ -124,6 +136,7 @@ public final class Orbitalstation {
     /** Für den Selbsttest: die Station an beliebiger Stelle errichten. */
     public static void testBauen(ServerLevel w, BlockPos mitte) {
         bauen(w, mitte.getY(), mitte.getX(), mitte.getZ());
+        Stationsausbau.bauen(w, mitte.getY(), mitte.getX(), mitte.getZ(), R);
     }
 
     private static void bauen(ServerLevel w, int y, int cx, int cz) {
