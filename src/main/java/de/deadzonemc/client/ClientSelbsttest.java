@@ -171,12 +171,48 @@ public final class ClientSelbsttest {
                     mc.options.setCameraType(CameraType.FIRST_PERSON);
                 }
                 if (t == 140) {
-                    LOG.info("[Clienttest] fertig");
-                    mc.stop();
+                    weiter();
                 }
             }
+            case 6 -> endBesuchen(mc);
             default -> {
             }
+        }
+    }
+
+    /** Ins End zur Orbitalstation (Mitte 0/90) und von mehreren Seiten fotografieren. */
+    private static final String[][] END_BLICKE = {
+            {"0 105 40 0 20", "end_anflug"},
+            {"0 95 62 0 25", "end_station_nah"},
+            {"45 100 90 90 25", "end_station_seite"},
+            {"-40 92 130 -135 15", "end_station_hinten"},
+            {"0 150 90 0 90", "end_von_oben"},
+            {"8 70 82 160 -5", "end_innen"},
+    };
+
+    private static void endBesuchen(Minecraft mc) {
+        if (mc.player == null) {
+            return;
+        }
+        if (t == 5) {
+            mc.options.hideGui = true;
+            mc.player.connection.sendCommand("gamemode spectator");
+            mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s 0 105 40 0 20");
+        }
+        int start = 20 * 25; // Station bauen lassen, Chunks laden
+        int i = (t - start) / 100;
+        int imSchritt = (t - start) % 100;
+        if (t >= start && i < END_BLICKE.length) {
+            if (imSchritt == 0) {
+                mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s " + END_BLICKE[i][0]);
+            }
+            if (imSchritt == 80) {
+                foto(mc, END_BLICKE[i][1]);
+            }
+        }
+        if (t >= start + END_BLICKE.length * 100 + 20) {
+            LOG.info("[Clienttest] fertig");
+            mc.stop();
         }
     }
 
