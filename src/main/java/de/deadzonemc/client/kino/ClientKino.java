@@ -407,10 +407,10 @@ public final class ClientKino {
         }
         if (s < STURZ) {
             float a = Math.min(1, (s - SCHWEBEN) / (STILLE - SCHWEBEN));
-            return lokal(s, -4, 34 + 10 * a, 50 - 10 * a);
+            return lokal(s, -8, 30 + 5 * a, 58 - 8 * a);
         }
         if (sturzStart == null) {
-            sturzStart = lokal(STURZ, -4, 44, 40);
+            sturzStart = lokal(STURZ, -8, 35, 50);
         }
         float a = Math.min(1, (s - STURZ) / (AUFPRALL - STURZ));
         return sturzStart.add(rechts.scale(a * 6)).add(0, -Math.min(50, boden < sturzStart.y ? (sturzStart.y - boden - 2) : 40) * a * a, 0);

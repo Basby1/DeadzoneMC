@@ -45,7 +45,7 @@ jobs:
           sleep 3
           glxinfo -B | head -20 || true
           date +%s%3N > /tmp/aufnahme_start
-          ffmpeg -loglevel error -y -f x11grab -video_size 1280x720 -framerate 20 -i :99 -c:v libx264 -preset ultrafast -crf 23 /tmp/roh.mkv &
+          ffmpeg -loglevel error -y -f x11grab -draw_mouse 0 -video_size 1280x720 -framerate 20 -i :99 -c:v libx264 -preset ultrafast -crf 23 /tmp/roh.mkv &
           FF=$!
           ./gradlew runClient -Pclienttest --no-daemon --console=plain > /tmp/client.txt 2>&1 || true
           kill -INT $FF || true
