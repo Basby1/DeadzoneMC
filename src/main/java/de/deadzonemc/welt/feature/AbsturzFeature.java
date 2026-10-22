@@ -619,15 +619,18 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
      */
     public static void startWrack(WorldGenLevel w, RandomSource r, BlockPos boden) {
         // Der Absturz hat die Bäume ringsum umgerissen: Laub und Stämme weg, ein paar Stämme liegen am Boden
-        for (BlockPos q : BlockPos.betweenClosed(boden.offset(-12, -1, -12), boden.offset(12, 28, 12))) {
+        // Lichtung von 16 Blöcken Radius: auch Riesenpilze und überhängende Kronen (Schwarzeichen) verschwinden
+        for (BlockPos q : BlockPos.betweenClosed(boden.offset(-16, -2, -16), boden.offset(16, 40, 16))) {
             int dx = q.getX() - boden.getX();
             int dz = q.getZ() - boden.getZ();
-            if (dx * dx + dz * dz > 144) {
+            if (dx * dx + dz * dz > 256) {
                 continue;
             }
             BlockState b = w.getBlockState(q);
             if (b.is(net.minecraft.tags.BlockTags.LEAVES) || b.is(net.minecraft.tags.BlockTags.LOGS)
-                    || b.is(Blocks.VINE) || b.is(Blocks.BEE_NEST)) {
+                    || b.is(Blocks.VINE) || b.is(Blocks.BEE_NEST) || b.is(Blocks.RED_MUSHROOM_BLOCK)
+                    || b.is(Blocks.BROWN_MUSHROOM_BLOCK) || b.is(Blocks.MUSHROOM_STEM) || b.is(Blocks.SHROOMLIGHT)
+                    || b.is(Blocks.HANGING_ROOTS) || b.is(Blocks.MOSS_CARPET) && q.getY() > boden.getY() + 1) {
                 w.setBlock(q, Bau.LUFT, Block.UPDATE_CLIENTS);
             }
         }

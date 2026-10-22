@@ -26,13 +26,17 @@ public final class Fahrzeugschau {
 
     /** Blickpunkte: Ziel (dx, dy, dz) und Kamera relativ zum Ziel, dazu ein Name. */
     private static final Object[][] BLICKE = {
-            {4, 1, 2, -7, 5, -8, "autos_1"},
-            {16, 1, 2, -7, 5, -8, "autos_2"},
-            {31, 1, 2, -7, 5, -8, "autos_3"},
+            {1, 1, 2, -4, 3, -5, "limousine"},
+            {7, 1, 2, -4, 3, -5, "kombi"},
+            {13, 1, 2, -4, 3, -5, "kleinwagen"},
+            {19, 1, 2, -4, 3, -5, "pickup"},
+            {25, 1, 2, -4, 3, -5, "lieferwagen"},
+            {31, 1, 2, -4, 3, -5, "streifenwagen"},
+            {37, 1, 2, -4, 3, -5, "krankenwagen"},
             {16, 1, 11, 6, 7, 14, "autos_ausgebrannt"},
             {50, 1, 3, -8, 5, -8, "traktor_loeschfahrzeug"},
             {10, 2, 35, -10, 7, -11, "panzer"},
-            {60, 2, 35, -7, 5, -8, "lastwagen"},
+            {60, 2, 35, -4, 4, 8, "lastwagen"},
             {60, 2, 35, -6, 16, -26, "konvoi"},
             {115, 2, 35, -16, 14, -20, "flugzeug"},
             {108, 2, 35, -4, 3, -5, "flugzeug_innen"},
