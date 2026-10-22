@@ -61,6 +61,10 @@ neoForge {
     runs {
         client {
             client()
+            if (project.hasProperty('clienttest')) {
+                systemProperty 'deadzonemc.clienttest', 'true'
+                programArguments.addAll '--width', '1280', '--height', '720'
+            }
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }

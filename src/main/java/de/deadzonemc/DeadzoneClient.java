@@ -42,6 +42,9 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.IntroScreen::kamera);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::tick);
+        if (de.deadzonemc.client.ClientSelbsttest.an()) {
+            NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSelbsttest::tick);
+        }
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::winkel);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::nebel);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.kino.ClientKino::nebelFarbe);

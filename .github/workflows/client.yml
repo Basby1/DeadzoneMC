@@ -1,0 +1,54 @@
+name: Clienttest
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/client.yml'
+  workflow_dispatch:
+
+jobs:
+  client:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+
+      - name: Java 21 einrichten
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Gradle einrichten
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grafik ohne Bildschirm (Xvfb + Mesa)
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri mesa-utils imagemagick
+
+      - name: Client starten und durch Editor und Intro gehen
+        timeout-minutes: 35
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          MESA_GL_VERSION_OVERRIDE: '4.5'
+        run: |
+          chmod +x ./gradlew
+          mkdir -p run
+          printf 'onboardAccessibility:false\nrenderDistance:8\nsimulationDistance:6\nguiScale:2\ntutorialStep:none\njoinedFirstServer:true\nskipMultiplayerWarning:true\nmaxFps:60\nsoundCategory_master:0.0\n' > run/options.txt
+          xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient -Pclienttest --no-daemon --console=plain > /tmp/client.txt 2>&1 || true
+          tail -5 /tmp/client.txt
+          grep -E "\[Clienttest\]|Exception|ERROR" /tmp/client.txt | grep -v "DEBUG" | head -80 || true
+
+      - name: Bilder in Branch bildprotokoll ablegen
+        if: always()
+        run: |
+          mkdir -p /tmp/bild && cd /tmp/bild && git init -q && git checkout -q -b bildprotokoll
+          for f in "$GITHUB_WORKSPACE"/run/screenshots/*.png; do
+            [ -e "$f" ] || continue
+            convert "$f" -resize 960x -quality 82 "$(basename "${f%.png}").jpg"
+          done
+          grep -E "\[Clienttest\]|Exception|Caused by|ERROR|WARN.*deadzonemc" /tmp/client.txt | grep -v DEBUG | head -400 > log.txt || true
+          cp "$GITHUB_WORKSPACE"/run/logs/latest.log . 2>/dev/null || true
+          git add -A && git -c user.name=ci -c user.email=ci@localhost commit -qm "Bildprotokoll ${GITHUB_SHA::7}"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" bildprotokoll

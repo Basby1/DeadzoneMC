@@ -325,6 +325,21 @@ public class CharakterScreen extends Screen {
         return super.mouseReleased(mx, my, knopf);
     }
 
+    // ---- für den automatischen Client-Test ----
+    public void testReiter(int r) {
+        reiter = r;
+    }
+
+    public void testZufall() {
+        wahl = CharakterTeile.zufall(RandomSource.create());
+        eigen = false;
+        neuBauen();
+    }
+
+    public void testFertig() {
+        ClientCharakter.uebernehmen(eigen ? "eigen" : CharakterTeile.kodieren(wahl), erstesMal);
+    }
+
     @Override
     public boolean shouldCloseOnEsc() {
         return !erstesMal;
