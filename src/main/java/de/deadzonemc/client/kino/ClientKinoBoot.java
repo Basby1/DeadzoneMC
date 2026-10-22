@@ -210,7 +210,7 @@ public final class ClientKinoBoot {
         hinzufuegen(level, kamera, bootPos(0), 0);
         // Die zerstörte Stadt am Ufer: drei Kulissen hintereinander gestaffelt
         float meerGier = gierVon(land.scale(-1));
-        double[][] lagen = {{88, -72}, {104, 4}, {94, 78}};
+        double[][] lagen = {{50, -62}, {62, 2}, {55, 66}};
         for (double[] l : lagen) {
             KinoRuinen k = KinoTypen.RUINEN.get().create(level);
             Vec3 p = ufer.add(land.scale(l[0])).add(rechts.scale(l[1]));
@@ -219,7 +219,7 @@ public final class ClientKinoBoot {
             KULISSE.add(k);
         }
         // Der Ursprung: erst fern zwischen den Ruinen, beim zweiten Blitz am Strand
-        Vec3 fern = ufer.add(land.scale(122)).add(rechts.scale(26));
+        Vec3 fern = ufer.add(land.scale(84)).add(rechts.scale(22));
         ursprungFern = new Vec3(fern.x, boden(level, fern, wasser + 4) - 3, fern.z);
         Vec3 nah = ufer.add(land.scale(8)).add(rechts.scale(-14));
         ursprungNah = new Vec3(nah.x, Math.max(wasser - 2, boden(level, nah, wasser + 1) - 2), nah.z);
@@ -563,7 +563,7 @@ public final class ClientKinoBoot {
         if (s < AUSSEN) {
             // An Deck: langsam zwischen den Bänken nach vorn
             float a = Mth.clamp((s - DECK) / (AUSSEN - DECK), 0, 1);
-            return lokal(s, Mth.sin(s * 0.5F) * 2, 44 - 4 * a, Mth.lerp(a, 108, 16));
+            return lokal(s, -22, 44 - 4 * a, Mth.lerp(a, 112, 40));
         }
         if (s < BUG) {
             // Von außen: neben und hinter dem Boot über dem Wasser, die Küste voraus
@@ -576,8 +576,8 @@ public final class ClientKinoBoot {
             return lokal(s, 12, 74, 34);
         }
         if (s < BLITZ2) {
-            // Die Gesichter: alle starren zur Küste
-            return lokal(s, 0, 40, -6);
+            // Die Gesichter: alle starren zur Küste (zur Kamera hin)
+            return lokal(s, 0, 44, 22);
         }
         if (s < EINSCHLAG) {
             // Am Bug: der Ursprung am Strand, die Welle kommt
@@ -585,7 +585,7 @@ public final class ClientKinoBoot {
             return lokal(s, -6, 58, Mth.lerp(a, -54, -74));
         }
         if (s < WASSERLINIE) {
-            return lokal(s, -14, 48, 50);
+            return lokal(s, -20, 46, 100);
         }
         if (s < UEBERBORD) {
             // Von außen, knapp über dem Wasser: das Boot legt sich auf die Seite
@@ -607,7 +607,8 @@ public final class ClientKinoBoot {
 
     static Vec3 kameraZiel(float s) {
         if (s < AUSSEN) {
-            return lokal(s, Mth.sin(s * 0.3F) * 18, 32, -90);
+            float a = Mth.clamp((s - DECK) / (AUSSEN - DECK), 0, 1);
+            return lokal(s, 18, 30, Mth.lerp(a, 40, -20));
         }
         if (s < BUG) {
             return bootPos(s).add(land.scale(26)).add(0, 3, 0);
@@ -616,13 +617,13 @@ public final class ClientKinoBoot {
             return ufer.add(land.scale(70)).add(0, 14, 0);
         }
         if (s < BLITZ2) {
-            return lokal(s, 0, 28, 64);
+            return lokal(s, 0, 30, 80);
         }
         if (s < EINSCHLAG) {
             return ursprungNah.add(0, 16, 0);
         }
         if (s < WASSERLINIE) {
-            return lokal(s, 12, 30, -70);
+            return lokal(s, 14, 30, 30);
         }
         if (s < UNTER) {
             return bootPos(s).add(0, 3, 0);
@@ -689,12 +690,12 @@ public final class ClientKinoBoot {
         float s = zeit((float) e.getPartialTick());
         if (e.getCamera().getFluidInCamera() == FogType.WATER) {
             e.setNearPlaneDistance(0);
-            e.setFarPlaneDistance(13);
+            e.setFarPlaneDistance(22);
             e.setCanceled(true);
             return;
         }
         // Nebel zieht auf: erst weit, dann dicht; Blitze reißen ihn kurz auf
-        float weit = s < AUSSEN ? 70 : Mth.lerp(Mth.clamp((s - AUSSEN) / 8, 0, 1), 90, 64);
+        float weit = s < AUSSEN ? 70 : Mth.lerp(Mth.clamp((s - AUSSEN) / 8, 0, 1), 120, 100);
         float b = blitz(s);
         if (b > 0) {
             weit = Math.max(weit, 70 + 180 * b);
@@ -702,7 +703,7 @@ public final class ClientKinoBoot {
         if (s >= BLITZ2 && s < UEBERBORD) {
             weit = Math.max(weit, 95);
         }
-        e.setNearPlaneDistance(weit * 0.12F);
+        e.setNearPlaneDistance(weit * 0.25F);
         e.setFarPlaneDistance(weit);
         e.setCanceled(true);
     }
@@ -719,12 +720,12 @@ public final class ClientKinoBoot {
             b = 0.22F;
         }
         if (e.getCamera().getFluidInCamera() == FogType.WATER) {
-            r = 0.04F;
-            g = 0.06F;
-            b = 0.12F;
+            r = 0.07F;
+            g = 0.13F;
+            b = 0.20F;
             if (violett(s)) {
-                r = 0.09F;
-                b = 0.16F;
+                r = 0.13F;
+                b = 0.24F;
             }
         }
         float f = blitz(s);

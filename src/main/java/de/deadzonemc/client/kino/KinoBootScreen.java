@@ -57,7 +57,7 @@ public class KinoBootScreen extends Screen {
             g.fill(0, 0, width, height, a(v) | 0x4A1478);
         }
         if (s >= UNTER && s < SCHWARZ) {
-            g.fill(0, 0, width, height, a(0.35F) | 0x061420);
+            g.fill(0, 0, width, height, a(0.18F) | 0x0A2030);
         }
         float blitz = ClientKinoBoot.blitz(s);
         if (blitz > 0) {

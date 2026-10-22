@@ -196,7 +196,15 @@ public final class ClientSelbsttest {
                     weiter();
                 }
             }
-            case 6 -> fahrzeugeBesuchen(mc);
+            // Fahrzeugschau und End sind abgenommen; nur bei Bedarf wieder einschalten (CI-Zeit)
+            case 6 -> {
+                if (Boolean.getBoolean("deadzonemc.clienttest.alles")) {
+                    fahrzeugeBesuchen(mc);
+                } else {
+                    LOG.info("[Clienttest] fertig");
+                    mc.stop();
+                }
+            }
             case 7 -> endBesuchen(mc);
             default -> {
             }

@@ -241,16 +241,17 @@ def kennung_k2():
     return deko
 
 
-def strahl(basis="5a5640"):
-    """Lichtkegel des Suchscheinwerfers: unsichtbar, nur als Leuchten (wird im Spiel addiert)."""
-    b = farbe(basis)
+def strahl(basis="ffffff", alpha=40):
+    """Lichtkegel des Suchscheinwerfers: nur als schwaches, durchscheinendes Leuchten."""
+    b = farbe(basis, alpha)
 
     def malen(m, rect, flaeche, w):
         u, v, bb, hh = rect
         m.bild[v:v + hh, u:u + bb] = 0
         n = rauschen_einfach(bb, hh, m.rng)
-        m.glow[v:v + hh, u:u + bb, :3] = b[:3] * (0.75 + 0.25 * n[..., None])
-        m.glow[v:v + hh, u:u + bb, 3] = 255
+        # hell, aber fast durchsichtig: wirkt wie ein Lichtkegel im Regen
+        m.glow[v:v + hh, u:u + bb, :3] = np.array([255, 244, 214]) * (0.85 + 0.15 * n[..., None])
+        m.glow[v:v + hh, u:u + bb, 3] = b[3] * (0.8 + 0.2 * n)
     return malen
 
 
@@ -309,8 +310,8 @@ def boot():
     licht.w((-5, 61, -30), (10, 10, 12), einfarbig("2a2c2e"))
     licht.w((-4, 62, -31), (8, 8, 1), leuchtend("fff2c0"))
     kegel = m.k("kegel", "scheinwerfer", drehpunkt=(0, 66, -31))
-    kegel.w((-4, 62, -191), (8, 8, 160), strahl("4a4836"))
-    kegel.w((-7, 59, -351), (14, 14, 160), strahl("2e2c22"))
+    kegel.w((-4, 62, -191), (8, 8, 160), strahl("ffffff", 46))
+    kegel.w((-7, 59, -351), (14, 14, 160), strahl("ffffff", 22))
     # Bänke an Deck (hier sitzen die Spieler), Rückenlehnen an der Reling
     for x0, lehne in ((-32, -32), (22, 30)):
         rumpf.w((x0, 17, 22), (10, 8, 72), einfarbig("3a3226"))
@@ -395,6 +396,7 @@ def ruinen():
             fx = x + int(rng.integers(2, b - 3))
             fy = int(rng.integers(6, h - 6))
             k.w((fx, fy, z0 - 0.5), (2, 3, 0.5), warm if rng.random() > 0.2 else kalt)
+            k.w((fx + 3, fy, z0 - 0.5), (2, 3, 0.5), warm)
         if rng.random() < 0.18:
             k.w((x + b // 2 - 2, h, z0 + t // 2 - 2), (4, 3, 4), feuer)
         x += b + int(rng.integers(2, 12))
