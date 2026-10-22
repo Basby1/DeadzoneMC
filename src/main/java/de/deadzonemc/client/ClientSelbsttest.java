@@ -170,7 +170,24 @@ public final class ClientSelbsttest {
                     foto(mc, "skin_hinten");
                     mc.options.setCameraType(CameraType.FIRST_PERSON);
                 }
-                if (t == 140) {
+                // Das Wrack neben dem Startplatz (liegt 7 Blöcke östlich)
+                if (t == 125 && mc.player != null) {
+                    mc.options.hideGui = true;
+                    mc.player.connection.sendCommand("gamemode spectator");
+                    mc.player.connection.sendCommand("tp @s ~-4 ~7 ~-8 -54 27");
+                }
+                if (t == 220) {
+                    foto(mc, "wrack_1");
+                    mc.player.connection.sendCommand("tp @s ~22 ~-1 ~18 132 25");
+                }
+                if (t == 300) {
+                    foto(mc, "wrack_2");
+                    mc.player.connection.sendCommand("tp @s ~-11 ~-4 ~-17 -10 15");
+                }
+                if (t == 380) {
+                    foto(mc, "wrack_3");
+                }
+                if (t == 390) {
                     weiter();
                 }
             }

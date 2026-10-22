@@ -122,7 +122,7 @@ public final class Kino {
             if (p == null) {
                 continue;
             }
-            if (en.getValue() >= 0 && Charaktere.erstellt(p) && p.tickCount > 100) {
+            if (en.getValue() >= 0 && Charaktere.erstellt(p) && p.tickCount > 300) {
                 bereit.add(p);
                 aeltester = Math.min(aeltester, en.getValue());
             } else {

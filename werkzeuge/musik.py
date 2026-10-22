@@ -228,6 +228,9 @@ class Stueck:
             wavfile.write(wav, SR, (stereo * 32767).astype(np.int16))
             subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-c:a", "libvorbis", "-q:a", "2", ziel],
                            check=True)
+        # Lautheit an alle anderen Stücke angleichen (siehe lautheit.py)
+        import lautheit
+        lautheit.angleichen(f"musik/{name}.ogg")
         print(f"{name}: {self.dauer:.0f} s, {os.path.getsize(ziel) // 1024} KB")
 
 

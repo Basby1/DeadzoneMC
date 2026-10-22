@@ -40,7 +40,7 @@ public final class ClientKino {
     // ---- Drehbuch (Sekunden) ----
     static final float INNEN1 = 4.0F, AUSSEN = 13.0F, INNEN2 = 20.0F, TUER = 27.0F, BLITZ1 = 29.0F, BLITZ2 = 32.0F,
             SCHWEBEN = 35.0F, REISSEN = 39.0F, STILLE = 43.0F, STURZ = 45.5F, AUFPRALL = 48.0F, ENDE = 54.0F;
-    private static final float TEMPO = 0.22F; // Blöcke pro Tick
+    private static final float TEMPO = 0.11F; // Blöcke pro Tick (die Flugbahn bleibt nah am Startplatz, dort ist die Welt geladen)
 
     /** Sitzplätze in Modellpixeln (x, z) – linke Bank schaut zur Tür (+x), rechte hintere Bank zurück. */
     private static final float[][] SITZE = {{-19, -2}, {-19, 14}, {-19, -18}, {-19, 30}, {-19, -34}, {19, 40}, {-19, 46},
@@ -55,6 +55,7 @@ public final class ClientKino {
     private static UrsprungSchatten schatten;
     private static KinoFigur kamera;
     private static Vec3 start;
+    private static Vec3 schattenBasis;
     private static Vec3 richtung;
     private static Vec3 rechts;
     private static float heliGier;
@@ -67,7 +68,7 @@ public final class ClientKino {
     private static final RandomSource ZUFALL = RandomSource.create();
 
     public static boolean aktiv() {
-        return aktiv;
+        return aktiv || vorbereiten;
     }
 
     static float zeit(float teil) {
@@ -83,7 +84,7 @@ public final class ClientKino {
     /** daten: "uuid,name;uuid,name" */
     public static void starten(String daten) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null || aktiv) {
+        if (mc.player == null || mc.level == null || aktiv || vorbereiten) {
             return;
         }
         List<UUID> leute = new ArrayList<>();
@@ -103,6 +104,50 @@ public final class ClientKino {
             leute.add(mc.player.getUUID());
             NAMEN.add(mc.player.getGameProfile().getName());
         }
+        // Erst warten, bis die Welt rund um den Startplatz geladen und gezeichnet ist – sonst fliegt man über Löcher
+        WARTEN_AUF.clear();
+        WARTEN_AUF.addAll(leute);
+        vorbereiten = true;
+        vorbereitet = 0;
+        mc.getMusicManager().stopPlaying();
+        mc.setScreen(new KinoScreen());
+    }
+
+    private static final List<UUID> WARTEN_AUF = new ArrayList<>();
+    private static boolean vorbereiten;
+    private static int vorbereitet;
+
+    static boolean bereitet() {
+        return vorbereiten;
+    }
+
+    /** Sind alle Chunks im Umkreis geladen und ihre Oberfläche fertig gezeichnet? */
+    private static boolean weltBereit(Minecraft mc) {
+        ClientLevel level = mc.level;
+        int px = mc.player.getBlockX(), pz = mc.player.getBlockZ();
+        for (int dx = -64; dx <= 64; dx += 16) {
+            for (int dz = -64; dz <= 64; dz += 16) {
+                int x = px + dx, z = pz + dz;
+                if (!level.hasChunk(x >> 4, z >> 4)) {
+                    return false;
+                }
+                int y = level.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
+                if (y <= level.getMinBuildHeight() + 1 || !mc.levelRenderer.isSectionCompiled(new net.minecraft.core.BlockPos(x, y - 1, z))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void vorbereitenTick(Minecraft mc) {
+        vorbereitet++;
+        // mindestens 2 s, höchstens 30 s warten
+        if (vorbereitet < 40 || (!weltBereit(mc) && vorbereitet < 20 * 30)) {
+            return;
+        }
+        vorbereiten = false;
+        List<UUID> leute = new ArrayList<>(WARTEN_AUF);
         try {
             aufbauen(mc, leute);
         } catch (Exception e) {
@@ -122,8 +167,9 @@ public final class ClientKino {
         rechts = new Vec3(-richtung.z, 0, richtung.x);
         heliGier = gier;
         boden = mc.player.getY();
-        double hoehe = Math.min(boden + 58, level.getMaxBuildHeight() - 20);
-        start = mc.player.position().add(richtung.scale(-95)).add(0, hoehe - boden, 0);
+        double hoehe = Math.min(boden + 44, level.getMaxBuildHeight() - 20);
+        start = mc.player.position().add(richtung.scale(-42)).add(0, hoehe - boden, 0);
+        schattenBasis = mc.player.position();
 
         heli = KinoTypen.TRANSPORTER.get().create(level);
         hinzufuegen(level, heli);
@@ -166,6 +212,12 @@ public final class ClientKino {
     /** Überspringen (Leertaste) oder regulär am Ende. */
     static void beenden(boolean uebersprungen) {
         Minecraft mc = Minecraft.getInstance();
+        if (vorbereiten) {
+            vorbereiten = false; // noch beim Laden übersprungen
+            meldenNachIntro = true;
+            IntroScreen.starten(String.join(", ", NAMEN));
+            return;
+        }
         if (!aktiv) {
             return;
         }
@@ -233,10 +285,18 @@ public final class ClientKino {
     // ---- Ablauf --------------------------------------------------------------------------------
 
     public static void tick(ClientTickEvent.Post e) {
+        Minecraft mc = Minecraft.getInstance();
+        if (vorbereiten) {
+            if (mc.level == null || mc.player == null) {
+                vorbereiten = false;
+                return;
+            }
+            vorbereitenTick(mc);
+            return;
+        }
         if (!aktiv) {
             return;
         }
-        Minecraft mc = Minecraft.getInstance();
         if (mc.level == null || mc.player == null || heli == null || heli.level() != mc.level) {
             abbauen(mc);
             return;
@@ -355,8 +415,14 @@ public final class ClientKino {
             }
         }
         // Schatten: erst weit draußen, beim zweiten Blitz näher
-        double abstand = (t / 20F) >= BLITZ2 ? 72 : 96;
-        Vec3 sp = heliPos(31.0F).add(rechts.scale(abstand)).add(richtung.scale((t / 20F) >= BLITZ2 ? 8 : 26));
+        boolean nah = (t / 20F) >= BLITZ2;
+        double abstand = nah ? 40 : 54;
+        Vec3 sp = schattenBasis.add(rechts.scale(abstand)).add(richtung.scale(nah ? 28 : 36));
+        // nur dort, wo die Welt geladen ist – sonst wird er gar nicht gezeichnet
+        while (abstand > 24 && !Minecraft.getInstance().level.hasChunk(Mth.floor(sp.x) >> 4, Mth.floor(sp.z) >> 4)) {
+            abstand -= 6;
+            sp = schattenBasis.add(rechts.scale(abstand)).add(richtung.scale(nah ? 28 : 36));
+        }
         int bx = Mth.floor(sp.x), bz = Mth.floor(sp.z);
         double gy = Minecraft.getInstance().level.getHeight(Heightmap.Types.WORLD_SURFACE, bx, bz);
         if (gy <= Minecraft.getInstance().level.getMinBuildHeight() + 1) {
@@ -421,7 +487,7 @@ public final class ClientKino {
             sturzStart = draussen(STURZ);
         }
         float a = Mth.clamp((s - STURZ) / (AUFPRALL - STURZ), 0, 1);
-        double tiefe = Math.max(6, sturzStart.y - (boden + 1.6));
+        double tiefe = Math.max(6, sturzStart.y - (boden + 7));
         return sturzStart.add(rechts.scale(a * 3)).add(0, -tiefe * Math.pow(a, 2.2), 0);
     }
 
@@ -518,16 +584,16 @@ public final class ClientKino {
         float s = zeit((float) e.getPartialTick());
         float weit = 46;
         if (s >= AUSSEN && s < INNEN2) {
-            weit = 120;
+            weit = 80;
         }
         float b = blitz(s);
         if (s >= BLITZ2 && s < SCHWEBEN + 1) {
-            weit = 140;
+            weit = 110;
         } else if (b > 0) {
             weit = 46 + 260 * b;
         }
         if (s >= STILLE) {
-            weit = 96; // draußen: Boden und Nebel unter einem
+            weit = 64; // draußen: Boden und Nebel unter einem (dichter Nebel verdeckt, was noch nicht geladen ist)
         }
         e.setNearPlaneDistance(weit * 0.15F);
         e.setFarPlaneDistance(weit);

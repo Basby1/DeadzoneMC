@@ -39,7 +39,7 @@ public class SchattenRenderer extends GeoEntityRenderer<UrsprungSchatten> {
 
     public SchattenRenderer(EntityRendererProvider.Context c) {
         super(c, new Modell());
-        withScale(6.0F);
+        withScale(5.0F);
         shadowRadius = 0;
         addRenderLayer(new GeoRenderLayer<>(this) {
             @Override

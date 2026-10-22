@@ -89,6 +89,13 @@ public class KinoScreen extends Screen {
         if (schwarz > 0) {
             g.fill(0, 0, width, height, a(schwarz));
         }
+        if (ClientKino.bereitet()) {
+            g.fill(0, 0, width, height, 0xFF000000);
+            int a = (int) (120 + 100 * Mth.sin(zeit * 0.15F));
+            g.drawCenteredString(font, Component.literal("[Q-7]  Funkverbindung wird aufgebaut …"), width / 2, height / 2 - 4,
+                    (a << 24) | 0xC8D8C0);
+            return;
+        }
         // Kinobalken
         g.fill(0, 0, width, balken, 0xFF000000);
         g.fill(0, height - balken, width, height, 0xFF000000);

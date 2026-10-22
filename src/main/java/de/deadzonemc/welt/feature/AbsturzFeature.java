@@ -653,63 +653,162 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
     // ---- Hubschrauber ---------------------------------------------------------------------
 
     private static void hubschrauber(Rahmen f, RandomSource r) {
-        BlockState oliv = Blocks.GREEN_TERRACOTTA.defaultBlockState();
+        // Transporthubschrauber Q-7 (wie im Intro): gealtertes Kupferblech, runde Kanten aus Treppen, Glaskanzel,
+        // offene Schiebetür, Triebwerk auf dem Dach, Heckausleger abgeknickt, Rotorblätter verstreut.
+        BlockState blech = Blocks.WAXED_WEATHERED_CUT_COPPER.defaultBlockState();
+        BlockState platte = Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+        BlockState platteOben = Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP);
         BlockState dunkel = Blocks.POLISHED_BLACKSTONE.defaultBlockState();
-        BlockState stufe = Blocks.POLISHED_BLACKSTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
-        BlockState glas = Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
+        BlockState russ = Blocks.BLACKSTONE.defaultBlockState();
+        BlockState kufe = Blocks.POLISHED_BLACKSTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+        BlockState blatt = Blocks.DEEPSLATE_TILE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+        BlockState scheibe = Blocks.TINTED_GLASS.defaultBlockState();
+        BlockState fenster = Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
+        BlockState boden = Blocks.POLISHED_DEEPSLATE.defaultBlockState();
+        BlockState gelb = Blocks.YELLOW_TERRACOTTA.defaultBlockState();
+        BlockState schwarz = Blocks.BLACK_CONCRETE.defaultBlockState();
         BlockState eisen = Blocks.IRON_BLOCK.defaultBlockState();
-        krater(f, r, 7);
-        // Rumpf l -3..3, b -1..1, h 0..3 (leicht zur Seite gekippt: rechte Seite eine Stufe tiefer)
-        for (int l = -3; l <= 3; l++) {
-            for (int b = -1; b <= 1; b++) {
-                int sink = b == 1 ? 0 : 0;
-                f.setzen(l, b, 0 - sink, oliv);
-                f.stuetzen(l, b, 0, Blocks.COARSE_DIRT.defaultBlockState());
-                for (int h = 1; h <= 2; h++) {
-                    boolean wand = b != 0 || l == 3;
-                    boolean tuer = b == -1 && (l == 0 || l == 1); // offene Schiebetür
-                    f.setzen(l, b, h, wand && !tuer ? (r.nextInt(6) == 0 ? dunkel : oliv) : Bau.LUFT);
-                }
-                f.setzen(l, b, 3, r.nextInt(7) == 0 ? Bau.LUFT : oliv);
+        java.util.function.BiFunction<Direction, net.minecraft.world.level.block.state.properties.Half, BlockState> treppe =
+                (d, h) -> Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS.defaultBlockState().setValue(StairBlock.FACING, d)
+                        .setValue(StairBlock.HALF, h);
+        var unten = net.minecraft.world.level.block.state.properties.Half.BOTTOM;
+        var oben = net.minecraft.world.level.block.state.properties.Half.TOP;
+        krater(f, r, 8);
+        // Kufen (die rechte ist eingeknickt)
+        for (int l = -5; l <= 4; l++) {
+            f.setzen(l, -3, 0, kufe);
+            if (l < 1 || r.nextInt(3) > 0) {
+                f.setzen(l, 3, 0, kufe);
             }
         }
-        // Cockpit vorn (l = -4) mit gesplitterter Kanzel
+        // Kabine l -4..4, b -2..2, h 1..5 – runde Kanten oben und unten
+        for (int l = -4; l <= 4; l++) {
+            for (int b = -2; b <= 2; b++) {
+                for (int h = 1; h <= 5; h++) {
+                    boolean rand = Math.abs(b) == 2 || h == 1 || h == 5 || l == 4;
+                    BlockState st = Bau.LUFT;
+                    if (rand) {
+                        st = blech;
+                        if (Math.abs(b) == 2 && h == 5) {
+                            st = treppe.apply(b > 0 ? f.quer().getOpposite() : f.quer(), unten);
+                        } else if (Math.abs(b) == 2 && h == 1) {
+                            st = treppe.apply(b > 0 ? f.quer().getOpposite() : f.quer(), oben);
+                        } else if (h == 1) {
+                            st = boden;
+                        } else if (Math.abs(b) == 2 && h == 3 && l % 2 == 0 && l != 4) {
+                            st = fenster;
+                        } else if (r.nextInt(14) == 0) {
+                            st = russ;
+                        }
+                    }
+                    // offene Schiebetür links (b = -2, l 0..2)
+                    if (b == -2 && l >= 0 && l <= 2 && h >= 2 && h <= 4) {
+                        st = Bau.LUFT;
+                    }
+                    f.setzen(l, b, h, st);
+                }
+                f.stuetzen(l, b, 1, Blocks.COARSE_DIRT.defaultBlockState());
+            }
+        }
+        // Warnstreifen an der Türkante, die herausgerissene Tür liegt daneben
+        for (int h = 2; h <= 4; h++) {
+            f.setzen(-1, -2, h, (h & 1) == 0 ? gelb : schwarz);
+            f.setzen(3, -2, h, (h & 1) == 0 ? schwarz : gelb);
+        }
+        for (int l = 0; l <= 2; l++) {
+            f.setzen(l, -5, 0, Blocks.IRON_TRAPDOOR.defaultBlockState());
+        }
+        // Innen: Klappsitze an der rechten Wand, Netz unter der Decke
+        for (int l = -3; l <= 3; l += 2) {
+            f.setzen(l, 1, 2, Blocks.DARK_OAK_TRAPDOOR.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.TrapDoorBlock.HALF, oben));
+        }
+        for (int l = -3; l <= 3; l++) {
+            if (r.nextBoolean()) {
+                f.setzen(l, 0, 4, Blocks.COBWEB.defaultBlockState());
+            }
+        }
+        // Cockpit: Glaskanzel, vorn abgeschrägt, Scheiben zum Teil zersplittert
+        for (int b = -2; b <= 2; b++) {
+            for (int h = 1; h <= 5; h++) {
+                boolean rand = Math.abs(b) == 2 || h == 1 || h == 5;
+                BlockState st = rand ? (h >= 3 && h <= 4 ? scheibe : blech) : Bau.LUFT;
+                if (Math.abs(b) == 2 && h == 5) {
+                    st = treppe.apply(b > 0 ? f.quer().getOpposite() : f.quer(), unten);
+                }
+                f.setzen(-5, b, h, st);
+            }
+        }
         for (int b = -1; b <= 1; b++) {
-            f.setzen(-4, b, 0, oliv);
-            f.setzen(-4, b, 1, r.nextInt(3) == 0 ? Bau.LUFT : glas);
-            f.setzen(-4, b, 2, r.nextInt(2) == 0 ? Bau.LUFT : glas);
-            f.setzen(-5, b, 0, stufe);
+            f.setzen(-6, b, 1, blech);
+            f.setzen(-6, b, 2, blech);
+            f.setzen(-6, b, 3, r.nextInt(3) == 0 ? Bau.LUFT : scheibe);
+            f.setzen(-6, b, 4, treppe.apply(f.lang(), unten));
+            f.setzen(-7, b, 1, treppe.apply(f.lang(), unten));
+            f.setzen(-7, b, 2, r.nextInt(2) == 0 ? Bau.LUFT : platte);
         }
-        // Heckausleger und Leitwerk
-        for (int l = 4; l <= 10; l++) {
-            f.setzen(l, 0, 2, l > 8 && r.nextBoolean() ? dunkel : oliv);
+        f.setzen(-5, 0, 2, Blocks.LEVER.defaultBlockState());
+        // Triebwerk auf dem Dach, Auspuff hinten rußig
+        for (int l = -2; l <= 3; l++) {
+            for (int b = -1; b <= 1; b++) {
+                f.setzen(l, b, 6, l == 3 ? russ : (b == 0 ? blech : platte));
+            }
         }
-        f.setzen(10, 0, 3, oliv);
-        f.setzen(10, 0, 4, oliv);
-        f.setzen(10, 1, 3, Blocks.IRON_BARS.defaultBlockState());
-        f.setzen(10, -1, 3, Blocks.IRON_BARS.defaultBlockState());
-        // Rotormast, ein Blatt noch dran, die anderen liegen verstreut
-        f.setzen(0, 0, 4, eisen);
-        for (int b = 1; b <= 5; b++) {
-            f.setzen(0, b, 5 - (b > 3 ? 1 : 0), stufe);
+        f.setzen(4, 0, 6, dunkel);
+        // Rotormast und Nabe, ein Blatt hängt schräg herab
+        f.setzen(0, 0, 7, eisen);
+        f.setzen(0, 0, 8, dunkel);
+        for (int k = 1; k <= 7; k++) {
+            f.setzen(-k, 0, 8 - (k > 3 ? 1 : 0) - (k > 6 ? 1 : 0), blatt);
         }
+        for (int k = 1; k <= 4; k++) {
+            f.setzen(0, k, 8 - k / 2, blatt);
+        }
+        // Heckausleger: zuerst kräftig, dann schmal, bei l 10 abgeknickt
+        for (int l = 5; l <= 9; l++) {
+            int breit = l <= 6 ? 1 : 0;
+            for (int b = -breit; b <= breit; b++) {
+                f.setzen(l, b, 4, l <= 6 ? blech : platteOben);
+                f.setzen(l, b, 3, l <= 6 ? blech : Bau.LUFT);
+            }
+        }
+        // abgerissenes Heckstück mit Leitwerk liegt daneben im Gras
+        for (int l = 11; l <= 15; l++) {
+            f.setzen(l, 2, 0, l == 11 ? russ : platte);
+            f.stuetzen(l, 2, 0, Blocks.COARSE_DIRT.defaultBlockState());
+        }
+        f.setzen(15, 3, 0, blech);
+        f.setzen(15, 4, 0, blech);
+        f.setzen(15, 5, 0, platte);
+        f.setzen(16, 3, 0, Blocks.IRON_BARS.defaultBlockState());
+        f.setzen(16, 4, 0, Blocks.IRON_BARS.defaultBlockState());
+        // die anderen Rotorblätter liegen verstreut
         for (int i = 0; i < 3; i++) {
-            int l0 = -8 + r.nextInt(16);
-            int b0 = r.nextBoolean() ? 4 + r.nextInt(5) : -4 - r.nextInt(5);
-            for (int k = 0; k < 4; k++) {
+            int l0 = -9 + r.nextInt(18);
+            int b0 = r.nextBoolean() ? 5 + r.nextInt(5) : -6 - r.nextInt(5);
+            for (int k = 0; k < 6; k++) {
                 BlockPos p = f.pos(l0 + (i % 2 == 0 ? k : 0), b0 + (i % 2 == 0 ? 0 : k), 0);
                 int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
-                f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), stufe, Block.UPDATE_CLIENTS);
+                f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), blatt, Block.UPDATE_CLIENTS);
+            }
+        }
+        // Splitter und Blechteile im Krater
+        for (int i = 0; i < 8; i++) {
+            BlockPos p = f.pos(-8 + r.nextInt(17), -7 + r.nextInt(15), 0);
+            int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+            BlockPos q = new BlockPos(p.getX(), y, p.getZ());
+            if (f.w().getBlockState(q).isAir()) {
+                f.w().setBlock(q, r.nextBoolean() ? platte : fenster, Block.UPDATE_CLIENTS);
             }
         }
         // Brennendes Triebwerk: Rauchsäule, die man von weit her sieht
-        f.setzen(2, 0, 3, Blocks.HAY_BLOCK.defaultBlockState());
-        f.setzen(2, 0, 4, Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, true)
+        f.setzen(3, 0, 6, Blocks.HAY_BLOCK.defaultBlockState());
+        f.setzen(3, 0, 7, Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, true)
                 .setValue(CampfireBlock.SIGNAL_FIRE, true));
         // Beute: Militärkisten, mit Glück die Waffenkammer
-        f.kiste(-2, 0, 1, "militaer", r, true);
-        f.kiste(2, 0, 1, r.nextInt(3) == 0 ? "waffenkammer" : "militaer", r, false);
-        f.kiste(-3, 1, 1, "apotheke", r, true);
+        f.kiste(-2, 1, 2, "militaer", r, true);
+        f.kiste(2, 1, 2, r.nextInt(3) == 0 ? "waffenkammer" : "militaer", r, false);
+        f.kiste(-3, -1, 2, "apotheke", r, true);
         spawnen(f, MonsterTypen.GEFALLENER_SOLDAT::get, 1 + r.nextInt(2), r);
     }
 
