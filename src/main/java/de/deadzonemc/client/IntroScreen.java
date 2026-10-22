@@ -29,6 +29,9 @@ public class IntroScreen extends Screen {
         IntroScreen s = new IntroScreen(namen);
         s.startGier = mc.player != null ? mc.player.getYRot() : 0;
         aktiv = s;
+        if (mc.screen instanceof KlassenScreen) {
+            ClientKlasse.klassenwahlDanach = true; // erst das Intro, dann die Wahl
+        }
         mc.setScreen(s);
     }
 
@@ -109,5 +112,9 @@ public class IntroScreen extends Screen {
     public void onClose() {
         aktiv = null;
         super.onClose();
+        if (ClientKlasse.klassenwahlDanach) {
+            ClientKlasse.klassenwahlDanach = false;
+            Minecraft.getInstance().setScreen(new KlassenScreen());
+        }
     }
 }

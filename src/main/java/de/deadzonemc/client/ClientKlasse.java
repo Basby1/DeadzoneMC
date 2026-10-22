@@ -22,6 +22,8 @@ public final class ClientKlasse {
     private static List<String> gewaehlt = new ArrayList<>();
     /** Wie viele davon gerade wirken (allein 3, zu zweit 2, sonst 1). */
     private static int plaetze = 1;
+    /** Klassenwahl nach dem Intro öffnen. */
+    public static boolean klassenwahlDanach;
 
     public static final KeyMapping FAEHIGKEIT = new KeyMapping("key.deadzonemc.faehigkeit",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.categories.deadzonemc");
@@ -64,7 +66,12 @@ public final class ClientKlasse {
             }
         }
         if (n.oeffnen()) {
-            Minecraft.getInstance().setScreen(new KlassenScreen());
+            // Läuft gerade das Intro, kommt die Klassenwahl direkt danach (statt es zu verdrängen)
+            if (Minecraft.getInstance().screen instanceof IntroScreen) {
+                klassenwahlDanach = true;
+            } else {
+                Minecraft.getInstance().setScreen(new KlassenScreen());
+            }
         }
     }
 
