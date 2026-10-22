@@ -182,13 +182,13 @@ public final class ClientSelbsttest {
 
     /** Ins End zur Orbitalstation (Mitte 0/90) und von mehreren Seiten fotografieren: x, Höhe über der Plattform, z, Gier, Neigung. */
     private static final String[][] END_BLICKE = {
-            {"0 32 -45 0 18", "end_anflug"},
-            {"95 28 90 90 12", "end_station_seite"},
-            {"70 22 165 145 12", "end_station_schraeg"},
-            {"0 120 90 0 90", "end_von_oben"},
+            {"0 26 18 0 20", "end_anflug"},
+            {"60 20 90 90 15", "end_station_seite"},
+            {"45 16 140 140 12", "end_station_schraeg"},
+            {"0 95 90 0 90", "end_von_oben"},
             {"0 6 70 0 -40", "end_reaktorring"},
-            {"52 3 92 90 5", "end_habitat"},
-            {"-48 8 86 -60 10", "end_westarm"},
+            {"-40 10 98 -110 20", "end_westarm"},
+            {"10 3 98 180 5", "end_arena"},
     };
     private static int plattform = Integer.MIN_VALUE;
 
@@ -209,19 +209,19 @@ public final class ClientSelbsttest {
                 plattform = 64;
             }
         }
-        int i = (t - start) / 120;
-        int imSchritt = (t - start) % 120;
+        int i = (t - start) / 360;
+        int imSchritt = (t - start) % 360;
         if (t >= start && i < END_BLICKE.length) {
             if (imSchritt == 0) {
                 String[] w = END_BLICKE[i][0].split(" ");
                 int y = plattform + Integer.parseInt(w[1]);
                 mc.player.connection.sendCommand("execute in minecraft:the_end run tp @s " + w[0] + " " + y + " " + w[2] + " " + w[3] + " " + w[4]);
             }
-            if (imSchritt == 100) {
+            if (imSchritt == 340) {
                 foto(mc, END_BLICKE[i][1]);
             }
         }
-        if (t >= start + END_BLICKE.length * 120 + 20) {
+        if (t >= start + END_BLICKE.length * 360 + 20) {
             LOG.info("[Clienttest] fertig");
             mc.stop();
         }

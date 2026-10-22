@@ -204,7 +204,11 @@ final class Stationsausbau {
                 }
             }
         }
-        // Solarflügel: senkrechte Paneele an den Trägerenden, außerhalb der Arena, nach Norden und Süden ausgefahren
+        fluegel(r, h);
+    }
+
+    /** Solarflügel: flache Paneelfelder an den Trägerenden, außerhalb der Arena, nach Norden und Süden ausgefahren. */
+    private static void fluegel(int r, int h) {
         for (int seite : new int[]{1, -1}) {
             for (int f = 0; f < 2; f++) {
                 int x0 = seite * (r + 8 + f * 16);
@@ -214,13 +218,17 @@ final class Stationsausbau {
                         if (Math.abs(z) < 3) {
                             continue;
                         }
-                        // der westliche äußere Flügel ist halb abgerissen: unregelmäßige Kante
+                        // der westliche äußere Flügel ist halb abgerissen: unregelmäßige Kante, ein Stück hängt schief
                         if (seite < 0 && f == 1 && z > 4 + ((dx * 7) % 9)) {
+                            if (z < 20 && dx > 3 && dx < 10) {
+                                s(x, h - 2 - (z - 4) / 3, z, PANEL);
+                            }
                             continue;
                         }
-                        for (int y = -5; y <= 5; y++) {
-                            boolean rand = dx == 0 || dx == 12 || Math.abs(z) % 8 == 3 || Math.abs(y) == 5;
-                            s(x, h + y, z, rand ? RAHMEN : PANEL);
+                        boolean rand = dx == 0 || dx == 12 || Math.abs(z) % 8 == 3 || Math.abs(z) == 26;
+                        s(x, h, z, rand ? RAHMEN : PANEL);
+                        if (rand && (dx == 0 || dx == 12) && Math.abs(z) % 8 == 3) {
+                            s(x, h + 1, z, LICHT);
                         }
                     }
                     s(x, h, -2, EISEN);
@@ -228,6 +236,33 @@ final class Stationsausbau {
                 }
             }
         }
+    }
+
+    /** Ältere Fassung hatte massive Glasquader statt Paneelen: wegräumen und neu setzen. */
+    static void fluegelErneuern(ServerLevel welt, int y, int mx, int mz, int r) {
+        w = welt;
+        cx = mx;
+        cy = y;
+        cz = mz;
+        int h = 30;
+        for (int seite : new int[]{1, -1}) {
+            for (int x = r + 8; x <= r + 44; x++) {
+                for (int z = -26; z <= 26; z++) {
+                    if (Math.abs(z) < 3) {
+                        continue;
+                    }
+                    for (int dy = -6; dy <= 6; dy++) {
+                        BlockPos p = new BlockPos(cx + seite * x, cy + h + dy, cz + z);
+                        BlockState alt = w.getBlockState(p);
+                        if (alt.is(Blocks.BLUE_STAINED_GLASS) || alt.is(Blocks.GRAY_CONCRETE)) {
+                            w.setBlock(p, LUFT, Block.UPDATE_CLIENTS);
+                        }
+                    }
+                }
+            }
+        }
+        fluegel(r, h);
+        w = null;
     }
 
     /** Habitat-Modul im Osten: Gang durch die Wand, Kojen, Spinde mit Logbüchern, Warnleuchten. */

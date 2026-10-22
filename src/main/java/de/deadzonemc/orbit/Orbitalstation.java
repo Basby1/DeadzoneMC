@@ -106,6 +106,7 @@ public final class Orbitalstation {
             f.merken("station_ausbau_1");
             Stationsausbau.beleuchten(end, y, MITTE.getX(), MITTE.getZ(), R);
             f.merken("station_licht_1");
+            f.merken("station_fluegel_2");
         } else if (!f.hat("station_ausbau_1")) {
             // Bestehende Welten: Station steht schon – Plattformhöhe am Kraterkern suchen und ausbauen
             Stationsausbau.bauen(end, plattform(end), MITTE.getX(), MITTE.getZ(), R);
@@ -114,6 +115,10 @@ public final class Orbitalstation {
         if (f.hat("station_ausbau_1") && !f.hat("station_licht_1")) {
             Stationsausbau.beleuchten(end, plattform(end), MITTE.getX(), MITTE.getZ(), R);
             f.merken("station_licht_1");
+        }
+        if (f.hat("station_ausbau_1") && !f.hat("station_fluegel_2")) {
+            Stationsausbau.fluegelErneuern(end, plattform(end), MITTE.getX(), MITTE.getZ(), R);
+            f.merken("station_fluegel_2");
         }
         if (f.hat("knoten_alle") && !f.hat("ursprung_erwacht")) {
             erwachen(server, end, f);
