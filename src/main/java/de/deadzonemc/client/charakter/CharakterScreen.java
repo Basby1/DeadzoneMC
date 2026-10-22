@@ -107,12 +107,12 @@ public class CharakterScreen extends Screen {
 
     @Override
     public void renderBackground(GuiGraphics g, int mx, int my, float d) {
-        g.fillGradient(0, 0, width, height, 0xE80C0E10, 0xF4050607);
+        // wird in render() selbst gezeichnet (sonst legt Screen.render den Hintergrund ein zweites Mal über alles)
     }
 
     @Override
     public void render(GuiGraphics g, int mx, int my, float d) {
-        renderBackground(g, mx, my, d);
+        g.fillGradient(0, 0, width, height, 0xE80C0E10, 0xF4050607);
         ziele.clear();
         int gesamt = Math.min(width - 20, 400);
         int links = (width - gesamt) / 2;
@@ -198,7 +198,6 @@ public class CharakterScreen extends Screen {
         if (eigen) {
             g.drawCenteredString(font, Component.literal("Du spielst mit deinem eigenen Minecraft-Skin."), sx + sb / 2, ky - 12, 0xFF80C080);
         }
-        super.render(g, mx, my, d);
     }
 
     private void knopf(GuiGraphics g, int mx, int my, int x, int y, int b, String text, Runnable r) {

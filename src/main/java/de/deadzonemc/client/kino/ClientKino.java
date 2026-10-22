@@ -118,7 +118,8 @@ public final class ClientKino {
         tick = 0;
         float gier = mc.player.getYRot();
         richtung = new Vec3(-Mth.sin(gier * Mth.DEG_TO_RAD), 0, Mth.cos(gier * Mth.DEG_TO_RAD)).normalize();
-        rechts = new Vec3(-richtung.z, 0, richtung.x);
+        // Modell-+x (Seite mit der Schiebetür) liegt in GeckoLib links vom Blick – so zeigt "rechts" zur Tür
+        rechts = new Vec3(richtung.z, 0, -richtung.x);
         heliGier = gier;
         boden = mc.player.getY();
         double hoehe = Math.min(boden + 58, level.getMaxBuildHeight() - 20);
@@ -172,7 +173,7 @@ public final class ClientKino {
         if (uebersprungen) {
             tonStoppen();
         }
-        fertigMelden();
+        meldenNachIntro = true; // der Server begrüßt erst, wenn auch das Erwachen vorbei ist
         IntroScreen.starten(String.join(", ", NAMEN));
     }
 
@@ -215,8 +216,18 @@ public final class ClientKino {
         }
     }
 
+    private static boolean meldenNachIntro;
+
     private static void fertigMelden() {
         PacketDistributor.sendToServer(new CharakterPayload(CharakterPayload.KINO, ""));
+    }
+
+    /** Vom IntroScreen beim Schließen: jetzt darf der Server „Akt I“ einblenden. */
+    public static void introVorbei() {
+        if (meldenNachIntro) {
+            meldenNachIntro = false;
+            fertigMelden();
+        }
     }
 
     // ---- Ablauf --------------------------------------------------------------------------------
@@ -375,16 +386,16 @@ public final class ClientKino {
     /** Augenposition der Kamera zum Zeitpunkt s. */
     static Vec3 kameraPos(float s) {
         if (s < INNEN1) {
-            return lokal(s, 6, 30, -40);
+            return lokal(s, 12, 30, -30);
         }
         if (s < AUSSEN) {
             float a = (s - INNEN1) / (AUSSEN - INNEN1);
-            return lokal(s, 6, 30, Mth.lerp(a, -42, 34));
+            return lokal(s, 12, 30, Mth.lerp(a, -30, 22));
         }
         if (s < INNEN2) {
             float a = (s - AUSSEN) / (INNEN2 - AUSSEN);
-            double w = Math.toRadians(-35 + 50 * a);
-            return lokal(s, 260 * Math.cos(w), 70 - 20 * a, 260 * Math.sin(w) + 40);
+            double w = Math.toRadians(15 + 50 * a);
+            return lokal(s, 200 * Math.cos(w), 46 - 26 * a, 200 * Math.sin(w) - 10);
         }
         if (s < TUER) {
             float a = (s - INNEN2) / (TUER - INNEN2);
@@ -481,7 +492,7 @@ public final class ClientKino {
         float s = zeit((float) e.getPartialTick());
         float weit = 46;
         if (s >= AUSSEN && s < INNEN2) {
-            weit = 64;
+            weit = 120;
         }
         float b = blitz(s);
         if (s >= BLITZ2 && s < SCHWEBEN + 1) {
@@ -527,7 +538,7 @@ public final class ClientKino {
         if (s >= BLITZ2 + 0.25F && s < STILLE) {
             return 9;
         }
-        return innen ? 5 : 0;
+        return innen ? 7 : 0;
     }
 
     static int lichtHimmel() {
@@ -539,6 +550,6 @@ public final class ClientKino {
             return 15;
         }
         boolean innen = s < AUSSEN || (s >= INNEN2 && s < STURZ);
-        return innen ? 4 : 11;
+        return innen ? 5 : 12;
     }
 }

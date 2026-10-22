@@ -153,6 +153,7 @@ public class IntroScreen extends Screen {
     public void onClose() {
         aktiv = null;
         super.onClose();
+        de.deadzonemc.client.kino.ClientKino.introVorbei();
         if (ClientKlasse.klassenwahlDanach) {
             ClientKlasse.klassenwahlDanach = false;
             Minecraft.getInstance().setScreen(new KlassenScreen());

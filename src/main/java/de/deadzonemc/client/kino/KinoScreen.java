@@ -49,7 +49,7 @@ public class KinoScreen extends Screen {
         if (innen && s >= INNEN1) {
             float flackern = s >= INNEN2 + 2 ? (((int) (s * 7.3F) % 5 == 0) ? 0.55F : 0.0F) : 0;
             float alarm = s >= INNEN2 + 4 ? 0.12F + 0.12F * Mth.sin(s * 9) : 0;
-            g.fill(0, 0, width, height, a(0.22F + alarm) | 0x5A0606);
+            g.fill(0, 0, width, height, a(0.15F + alarm) | 0x5A0606);
             if (flackern > 0) {
                 g.fill(0, 0, width, height, a(flackern) | 0x000000);
             }
