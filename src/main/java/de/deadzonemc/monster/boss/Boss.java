@@ -156,6 +156,39 @@ public abstract class Boss extends DeadzoneMonster {
             kampfAnim.triggerableAnim(n, RawAnimation.begin().thenPlay("animation." + art + "." + n));
         }
         controllers.add(kampfAnim);
+        String[] eigene = musterAnims();
+        if (eigene.length > 0) {
+            AnimationController<Boss> muster = new AnimationController<>(this, "muster", 3, s -> PlayState.STOP);
+            for (String n : eigene) {
+                muster.triggerableAnim(n, RawAnimation.begin().thenPlay("animation." + art + "." + n));
+            }
+            controllers.add(muster);
+        }
+    }
+
+    /** Zusätzliche, auslösbare Animationen für eigene Angriffsmuster (Controller „muster“). */
+    protected String[] musterAnims() {
+        return new String[0];
+    }
+
+    /** Solange ein eigenes Angriffsmuster läuft, setzen Wuchtangriffe, Nahkampf und Fähigkeitstakt aus. */
+    protected boolean beschaeftigt() {
+        return false;
+    }
+
+    /** Phase 2 (unter halber Lebensleiste). */
+    protected boolean inRaserei() {
+        return wut;
+    }
+
+    /** Phase 3 (unter 20 %). */
+    protected boolean inLetzterKraft() {
+        return letzteKraft;
+    }
+
+    /** Ob gerade das Brüllen des Phasenwechsels läuft. */
+    protected boolean bruellt() {
+        return wutRest > 0;
     }
 
     // ---- Kampfmuster -------------------------------------------------------------------------
@@ -174,7 +207,7 @@ public abstract class Boss extends DeadzoneMonster {
         return (float) getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE);
     }
 
-    private void beben(ServerLevel sl, double radius, int staerke) {
+    protected void beben(ServerLevel sl, double radius, int staerke) {
         for (ServerPlayer p : sl.players()) {
             if (p.distanceToSqr(this) < radius * radius) {
                 net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, new de.deadzonemc.netz.SchreckPayload(-staerke));
@@ -551,7 +584,10 @@ public abstract class Boss extends DeadzoneMonster {
             }
         }
         if (kampf && ziel != null && ziel.isAlive() && !imAuftritt() && sprungStart < 0) {
-            kampfTick(sl, ziel);
+            if (!beschaeftigt() || wutRest > 0 || (!wut && getHealth() < getMaxHealth() * 0.5F)
+                    || (wut && !letzteKraft && getHealth() < getMaxHealth() * 0.2F)) {
+                kampfTick(sl, ziel);
+            }
         }
         // Kampfatmosphäre: jeder Boss füllt die Luft um die Kämpfenden mit seinem eigenen Staub, Schnee, Sporen …
         if (kampf && tickCount % 5 == 0) {
@@ -580,7 +616,7 @@ public abstract class Boss extends DeadzoneMonster {
             }
         }
         int takt = faehigkeitTakt() * (wut ? 55 : 75) / 100;
-        if (takt > 0 && ziel != null && ziel.isAlive() && !imAuftritt() && aktiv == null && betaeubt == 0
+        if (takt > 0 && ziel != null && ziel.isAlive() && !imAuftritt() && aktiv == null && betaeubt == 0 && wutRest == 0 && !beschaeftigt()
                 && ++faehigkeit >= takt) {
             faehigkeit = 0;
             faehigkeit(sl, ziel);
@@ -606,7 +642,7 @@ public abstract class Boss extends DeadzoneMonster {
 
     @Override
     public boolean doHurtTarget(net.minecraft.world.entity.Entity ziel) {
-        if (aktiv != null || betaeubt > 0 || wutRest > 0) {
+        if (aktiv != null || betaeubt > 0 || wutRest > 0 || beschaeftigt()) {
             return false; // während eines Wuchtangriffs kein normaler Schlag
         }
         return super.doHurtTarget(ziel);
