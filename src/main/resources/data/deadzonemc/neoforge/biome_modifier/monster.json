@@ -4,93 +4,87 @@
  "spawners": [
   {
    "type": "deadzonemc:wanderer",
-   "weight": 34,
+   "weight": 40,
    "minCount": 1,
    "maxCount": 3
   },
   {
-   "type": "deadzonemc:schreier",
-   "weight": 24,
-   "minCount": 1,
-   "maxCount": 1
-  },
-  {
-   "type": "deadzonemc:lauerer",
-   "weight": 24,
-   "minCount": 1,
-   "maxCount": 1
-  },
-  {
-   "type": "deadzonemc:kriecher",
-   "weight": 24,
+   "type": "deadzonemc:nebelwesen",
+   "weight": 30,
    "minCount": 1,
    "maxCount": 2
   },
   {
    "type": "deadzonemc:der_stille",
-   "weight": 40,
+   "weight": 20,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:imitator",
-   "weight": 24,
+   "weight": 14,
    "minCount": 1,
    "maxCount": 1
   },
   {
-   "type": "deadzonemc:nebelwesen",
-   "weight": 40,
+   "type": "deadzonemc:kriecher",
+   "weight": 18,
    "minCount": 1,
    "maxCount": 2
   },
   {
-   "type": "deadzonemc:schwarm",
-   "weight": 12,
-   "minCount": 4,
-   "maxCount": 7
-  },
-  {
-   "type": "deadzonemc:brut",
-   "weight": 24,
-   "minCount": 1,
-   "maxCount": 1
-  },
-  {
-   "type": "deadzonemc:juggernaut",
-   "weight": 8,
-   "minCount": 1,
-   "maxCount": 1
-  },
-  {
-   "type": "deadzonemc:gefallener_soldat",
-   "weight": 24,
-   "minCount": 1,
-   "maxCount": 1
-  },
-  {
-   "type": "deadzonemc:scheintoter",
-   "weight": 24,
+   "type": "deadzonemc:lauerer",
+   "weight": 16,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:wuehler",
-   "weight": 40,
+   "weight": 30,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:brut",
+   "weight": 10,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:schwarm",
+   "weight": 8,
+   "minCount": 4,
+   "maxCount": 7
+  },
+  {
+   "type": "deadzonemc:schreier",
+   "weight": 18,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:gefallener_soldat",
+   "weight": 18,
+   "minCount": 1,
+   "maxCount": 2
+  },
+  {
+   "type": "deadzonemc:scheintoter",
+   "weight": 16,
    "minCount": 1,
    "maxCount": 1
   },
   {
    "type": "deadzonemc:spaeherdrohne",
-   "weight": 30,
+   "weight": 14,
    "minCount": 1,
    "maxCount": 1
   },
   {
-   "type": "deadzonemc:lichtmotte",
-   "weight": 30,
+   "type": "deadzonemc:juggernaut",
+   "weight": 4,
    "minCount": 1,
-   "maxCount": 2
+   "maxCount": 1
   }
  ]
 }

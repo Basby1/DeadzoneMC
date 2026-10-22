@@ -4,13 +4,19 @@
  "spawners": [
   {
    "type": "deadzonemc:seuchentraeger",
-   "weight": 28,
+   "weight": 36,
    "minCount": 1,
    "maxCount": 2
   },
   {
    "type": "deadzonemc:glutleib",
-   "weight": 28,
+   "weight": 24,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:juggernaut",
+   "weight": 6,
    "minCount": 1,
    "maxCount": 1
   }

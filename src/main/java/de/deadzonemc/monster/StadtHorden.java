@@ -111,7 +111,7 @@ public final class StadtHorden {
             // Kein Wühler in der Metro: der lebt nur in natürlichen Höhlen
             EntityType<? extends DeadzoneMonster> typ = w < 22 ? MonsterTypen.KRIECHER.get()
                     : w < 40 ? MonsterTypen.LAUERER.get() : w < 55 ? MonsterTypen.BRUT.get()
-                    : w < 68 ? MonsterTypen.SCHEINTOTER.get() : w < 80 ? MonsterTypen.IMITATOR.get()
+                    : w < 68 ? MonsterTypen.SCHEINTOTER.get() : w < 78 ? MonsterTypen.SCHWARM.get()
                     : MonsterTypen.WANDERER.get();
             DeadzoneMonster e = typ.create(welt);
             if (e == null) {
@@ -164,13 +164,18 @@ public final class StadtHorden {
             if (mitte == null || de.deadzonemc.zuflucht.ZufluchtSchutz.sicher(welt, mitte)) {
                 continue;
             }
+            // Ein Grüppchen mit einem Thema, das zur Gegend passt (Hunde kommen nie allein)
+            Lebensraum.Thema thema = Lebensraum.thema(welt, mitte, false);
+            anzahl = Math.max(anzahl, Math.min(thema.minGroesse(), deckel - nah));
+            java.util.List<EntityType<? extends DeadzoneMonster>> arten = thema.mitglieder(welt.random, anzahl);
+            int nr = 0;
             for (int i = 0; i < anzahl * 2 && anzahl > 0; i++) {
                 BlockPos pos = boden(welt, mitte.getX() + welt.random.nextInt(7) - 3, mitte.getZ() + welt.random.nextInt(7) - 3,
                         mitte.getY());
                 if (pos == null) {
                     continue;
                 }
-                DeadzoneMonster e = Herden.mitglied(welt, pos, false).create(welt);
+                DeadzoneMonster e = arten.get(Math.min(nr, arten.size() - 1)).create(welt);
                 if (e == null) {
                     return;
                 }
@@ -183,6 +188,7 @@ public final class StadtHorden {
                     continue;
                 }
                 welt.addFreshEntity(e);
+                nr++;
                 anzahl--;
             }
         }
@@ -196,15 +202,12 @@ public final class StadtHorden {
         return n;
     }
 
-    private static EntityType<? extends DeadzoneMonster> mitglied(ServerLevel welt, int nr, BlockPos pos) {
-        int w = welt.random.nextInt(100);
-        if (nr == 0 && w < 10) {
-            return MonsterTypen.SCHREIER.get(); // ruft die ganze Straße zusammen
-        }
-        if (nr == 0 && welt.getDifficulty() == Difficulty.HARD && w > 98) {
+    private static EntityType<? extends DeadzoneMonster> mitglied(ServerLevel welt, int nr,
+                                                                java.util.List<EntityType<? extends DeadzoneMonster>> arten) {
+        if (nr == 0 && welt.getDifficulty() == Difficulty.HARD && welt.random.nextInt(100) > 98) {
             return MonsterTypen.JUGGERNAUT.get();
         }
-        return Herden.mitglied(welt, pos, true);
+        return arten.get(Math.min(nr, arten.size() - 1));
     }
 
     /** Spawnt eine Gruppe 28–52 Blöcke entfernt in einem Stadt-Chunk, außer Sicht. Gibt die Anzahl zurück. */
@@ -227,13 +230,15 @@ public final class StadtHorden {
                 continue;
             }
             int gespawnt = 0;
+            java.util.List<EntityType<? extends DeadzoneMonster>> arten = Lebensraum.thema(welt, mitte, true)
+                    .mitglieder(welt.random, anzahl);
             for (int i = 0; i < anzahl * 3 && gespawnt < anzahl; i++) {
                 BlockPos pos = i == 0 ? mitte : boden(welt, mitte.getX() + welt.random.nextInt(7) - 3,
                         mitte.getZ() + welt.random.nextInt(7) - 3, mitte.getY());
                 if (pos == null) {
                     continue;
                 }
-                DeadzoneMonster e = mitglied(welt, gespawnt, pos).create(welt);
+                DeadzoneMonster e = mitglied(welt, gespawnt, arten).create(welt);
                 if (e == null) {
                     break;
                 }

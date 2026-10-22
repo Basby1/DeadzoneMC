@@ -1,0 +1,36 @@
+{
+ "type": "neoforge:add_spawns",
+ "biomes": "#deadzonemc:sumpf",
+ "spawners": [
+  {
+   "type": "deadzonemc:schwarm",
+   "weight": 20,
+   "minCount": 5,
+   "maxCount": 8
+  },
+  {
+   "type": "deadzonemc:brut",
+   "weight": 20,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:tarnfresser",
+   "weight": 18,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:sauger",
+   "weight": 16,
+   "minCount": 1,
+   "maxCount": 1
+  },
+  {
+   "type": "deadzonemc:lichtmotte",
+   "weight": 18,
+   "minCount": 1,
+   "maxCount": 2
+  }
+ ]
+}

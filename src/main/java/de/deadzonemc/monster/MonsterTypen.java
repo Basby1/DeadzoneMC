@@ -225,5 +225,17 @@ public final class MonsterTypen {
                 (typ, level, grund, pos, zufall) -> Monster.checkAnyLightMonsterSpawnRules(typ, level, grund, pos, zufall)
                         && DeadzoneMonster.dichterNebel(level.getLevel()),
                 RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        // Jedes Monster nur in seiner Gegend (Lebensraum): zusätzlich zu allen Regeln oben
+        for (var typ : java.util.List.of(WANDERER.get(), SCHREIER.get(), LAUERER.get(), KRIECHER.get(), IMITATOR.get(),
+                SCHWARM.get(), BRUT.get(), JUGGERNAUT.get(), GEFALLENER_SOLDAT.get(), GLUTLEIB.get(), SEUCHENHUND.get(),
+                SAUGER.get(), SEUCHENTRAEGER.get(), SCHEINTOTER.get(), TARNFRESSER.get(), WUEHLER.get(), ERTRUNKENER.get(),
+                SPAEHERDROHNE.get(), LICHTMOTTE.get(), DER_STILLE.get(), NEBELWESEN.get())) {
+            lebensraum(e, typ);
+        }
+    }
+
+    private static <T extends net.minecraft.world.entity.Entity> void lebensraum(RegisterSpawnPlacementsEvent e, EntityType<T> typ) {
+        e.register(typ, null, null, (t, level, grund, pos, zufall) -> Lebensraum.passt(t, level, grund, pos),
+                RegisterSpawnPlacementsEvent.Operation.AND);
     }
 }

@@ -72,61 +72,9 @@ public final class Herden {
 
     // ---- Zusammensetzung ---------------------------------------------------------------------
 
-    /** Welche Art als Nächstes in diese Herde kommt – je nach Gegend, Tageszeit und Wetter. */
-    /**
-     * Wer in einer Gruppe mitläuft. Alle Arten, die in die Gegend passen, kommen etwa gleich oft vor (Rückmeldung:
-     * nicht nur Wanderer); Wanderer zählen doppelt, weil sie das Rückgrat der Horden sind. Bosse nie.
-     */
+    /** Eine einzelne passende Art (für Ersatz und Einzelspawns) – aus dem Thema der Gegend. */
     static EntityType<? extends DeadzoneMonster> mitglied(ServerLevel w, BlockPos pos, boolean stadt) {
-        boolean nacht = w.isNight();
-        var biom = w.getBiome(pos);
-        java.util.List<EntityType<? extends DeadzoneMonster>> l = new java.util.ArrayList<>();
-        l.add(MonsterTypen.WANDERER.get());
-        l.add(MonsterTypen.WANDERER.get());
-        if (DeadzoneMonster.dichterNebel(w)) {
-            l.add(MonsterTypen.NEBELWESEN.get());
-        }
-        if (stadt) {
-            l.add(MonsterTypen.SCHREIER.get());
-            l.add(MonsterTypen.GEFALLENER_SOLDAT.get());
-            l.add(MonsterTypen.KRIECHER.get());
-            l.add(MonsterTypen.LAUERER.get());
-            l.add(MonsterTypen.SCHEINTOTER.get());
-            l.add(MonsterTypen.IMITATOR.get());
-            if (nacht) {
-                l.add(MonsterTypen.BRUT.get());
-                l.add(MonsterTypen.DER_STILLE.get());
-            }
-        } else if (biom.is(VERSEUCHT)) {
-            l.add(MonsterTypen.SEUCHENTRAEGER.get());
-            l.add(MonsterTypen.GLUTLEIB.get());
-            l.add(MonsterTypen.KRIECHER.get());
-            l.add(MonsterTypen.SCHREIER.get());
-        } else if (biom.is(WASSER)) {
-            l.add(MonsterTypen.ERTRUNKENER.get());
-            l.add(MonsterTypen.BRUT.get());
-            l.add(MonsterTypen.SCHEINTOTER.get());
-        } else if (biom.is(WUESTE)) {
-            l.add(MonsterTypen.GLUTLEIB.get());
-            l.add(MonsterTypen.SEUCHENHUND.get());
-            l.add(MonsterTypen.KRIECHER.get());
-        } else if (biom.is(SCHNEE)) {
-            l.add(MonsterTypen.SEUCHENHUND.get());
-            l.add(MonsterTypen.LAUERER.get());
-            l.add(MonsterTypen.IMITATOR.get());
-        } else {
-            l.add(MonsterTypen.SEUCHENHUND.get());
-            l.add(MonsterTypen.SCHREIER.get());
-            l.add(MonsterTypen.LAUERER.get());
-            l.add(MonsterTypen.IMITATOR.get());
-            l.add(MonsterTypen.SCHEINTOTER.get());
-            l.add(MonsterTypen.GEFALLENER_SOLDAT.get());
-            if (nacht) {
-                l.add(MonsterTypen.SAUGER.get());
-                l.add(MonsterTypen.DER_STILLE.get());
-            }
-        }
-        return l.get(w.random.nextInt(l.size()));
+        return Lebensraum.thema(w, pos, stadt).mitglieder(w.random, 1).get(0);
     }
 
     // ---- Takt ---------------------------------------------------------------------------------
@@ -196,29 +144,31 @@ public final class Herden {
                     : zumSpieler.yRot((float) ((w.random.nextDouble() - 0.5) * 1.2));
             Herde h = new Herde(ueberfall ? ort : Vec3.atCenterOf(mitte).add(richtung.scale(60)), richtung);
             h.ueberfall = ueberfall;
+            // Eine Herde hat ein Thema, das zur Gegend passt (Infizierte, Hunderudel, Soldaten, Werksarbeiter …)
+            Lebensraum.Thema thema = Lebensraum.thema(w, mitte, stadt);
+            List<EntityType<? extends DeadzoneMonster>> arten = thema.mitglieder(w.random,
+                    thema.kern().get() == MonsterTypen.SEUCHENHUND.get() ? Math.min(groesse, 4 + w.random.nextInt(2)) : groesse);
             int gespawnt = 0;
-            for (int i = 0; i < groesse * 2 && gespawnt < groesse; i++) {
+            int naechste = 0;
+            for (int i = 0; i < arten.size() * 2 && naechste < arten.size(); i++) {
                 BlockPos pos = boden(w, x + w.random.nextInt(11) - 5, z + w.random.nextInt(11) - 5);
                 if (pos == null) {
                     continue;
                 }
-                EntityType<? extends DeadzoneMonster> typ = mitglied(w, pos, stadt);
-                int anzahl = typ == MonsterTypen.SEUCHENHUND.get() ? 3 : 1; // Hunde kommen im Rudel
-                for (int k = 0; k < anzahl && gespawnt < groesse; k++) {
-                    DeadzoneMonster m = erschaffen(w, typ, pos, p);
-                    if (m != null) {
-                        h.mitglieder.add(m.getUUID());
-                        gespawnt++;
-                        if (ueberfall && p != null) {
-                            m.setTarget(p);
-                        }
+                DeadzoneMonster m = erschaffen(w, arten.get(naechste), pos, p);
+                if (m != null) {
+                    naechste++;
+                    h.mitglieder.add(m.getUUID());
+                    gespawnt++;
+                    if (ueberfall && p != null) {
+                        m.setTarget(p);
                     }
                 }
             }
             if (gespawnt == 0) {
                 continue;
             }
-            if (!ueberfall && w.random.nextInt(4) == 0) {
+            if (!ueberfall && (stadt || thema.name().equals("soldaten")) && w.random.nextInt(3) == 0) {
                 DeadzoneMonster d = erschaffen(w, MonsterTypen.SPAEHERDROHNE.get(), new BlockPos(x, y + 10, z), p);
                 if (d != null) {
                     h.mitglieder.add(d.getUUID());

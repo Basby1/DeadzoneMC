@@ -32,6 +32,7 @@ public final class Selbsttest {
     private static final boolean PACK = MODUS.equals("pack");
 
     private static final List<String> PACK_BEFEHLE = List.of(
+            "#spawnliste",
             "gamerule spawnChunkRadius 8",
             "deadzone wetter dichter_nebel",
             "deadzone nebel aus",
@@ -988,6 +989,10 @@ public final class Selbsttest {
                 waffenPruefen(server);
                 return;
             }
+            if (befehl.equals("#spawnliste")) {
+                spawnliste(server);
+                return;
+            }
             if (befehl.equals("#monster")) {
                 StringBuilder b = new StringBuilder();
                 for (var e : server.overworld().getAllEntities()) {
@@ -1026,5 +1031,31 @@ public final class Selbsttest {
             LOG.info("[Selbsttest] fertig, Server wird beendet");
             server.halt(false);
         }
+    }
+
+    /** Welche Monster (aller Mods) in welchen Biomen natürlich erscheinen – nach allen Biom-Modifikatoren. */
+    private static void spawnliste(net.minecraft.server.MinecraftServer server) {
+        var reg = server.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME);
+        java.util.Map<String, java.util.List<String>> wo = new java.util.TreeMap<>();
+        for (var e : reg.entrySet()) {
+            String biom = e.getKey().location().toString().replace("minecraft:", "");
+            for (var sd : e.getValue().getMobSettings().getMobs(net.minecraft.world.entity.MobCategory.MONSTER).unwrap()) {
+                String id = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(sd.type).toString();
+                wo.computeIfAbsent(id, k -> new java.util.ArrayList<>()).add(biom + "/" + sd.getWeight().asInt());
+            }
+        }
+        for (var e : wo.entrySet()) {
+            var l = e.getValue();
+            LOG.info("[Selbsttest] Spawnliste {} in {} Biomen: {}", e.getKey(), l.size(),
+                    l.size() > 60 ? String.join(" ", l.subList(0, 60)) + " …" : String.join(" ", l));
+        }
+        StringBuilder ohne = new StringBuilder();
+        for (var t : net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE) {
+            String id = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(t).toString();
+            if (t.getCategory() == net.minecraft.world.entity.MobCategory.MONSTER && !wo.containsKey(id)) {
+                ohne.append(id).append(' ');
+            }
+        }
+        LOG.info("[Selbsttest] Spawnliste ohne natürliche Spawns: {}", ohne);
     }
 }
