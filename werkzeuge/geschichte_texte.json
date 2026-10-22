@@ -12,8 +12,8 @@
  "geschichte.deadzonemc.akt.6": "EPILOG",
  "geschichte.deadzonemc.akt.6.name": "Die Zone lebt",
  "geschichte.deadzonemc.absturz.titel": "Überleben",
- "geschichte.deadzonemc.absturz.text": "Der Evakuierungshubschrauber ist abgestürzt. Von der Besatzung lebt niemand mehr.\n\nIrgendwo da draußen soll es eine Zuflucht geben – ein ummauertes Lager der Überlebenden. Der Marker oben zeigt die Richtung.\n\nBleib in Bewegung. Nachts kommen sie.",
- "geschichte.deadzonemc.absturz.ende": "Hinter der Mauer ist es still. Zum ersten Mal seit dem Absturz atmest du durch.",
+ "geschichte.deadzonemc.absturz.text": "Deine Ankunft in der Zone ist gescheitert. Von der Besatzung lebt niemand mehr.\n\nIrgendwo da draußen soll es eine Zuflucht geben – ein ummauertes Lager der Überlebenden. Der Marker oben zeigt die Richtung.\n\nBleib in Bewegung. Nachts kommen sie.",
+ "geschichte.deadzonemc.absturz.ende": "Hinter der Mauer ist es still. Zum ersten Mal seit deiner Ankunft atmest du durch.",
  "geschichte.deadzonemc.verwalter.titel": "Der Verwalter",
  "geschichte.deadzonemc.verwalter.text": "Jede Zuflucht hat einen Verwalter – meist an einem Tisch mit Klemmbrett und Funkgerät.\n\nSprich mit ihm. Er weiß, was in der Zone vorgeht.",
  "geschichte.deadzonemc.verwalter.ende": "„Funkgerät hinüber, Generator am Ende. Aber wenn das Funkgerät wieder läuft – vielleicht hört uns jemand.“",
@@ -81,5 +81,8 @@
  "intro.deadzonemc.1": "Du lebst.",
  "intro.deadzonemc.2": "Die anderen sind irgendwo da draußen.",
  "intro.deadzonemc.ueberlebende": "Überlebende: %s",
- "intro.deadzonemc.ueberspringen": "Leertaste: überspringen"
+ "intro.deadzonemc.ueberspringen": "Leertaste: überspringen",
+ "geschichte.deadzonemc.intro_boot": "Wellen. Ein Krachen. Dann Stille.\n%s, du wachst am Strand auf, neben dem Wrack der Kilo-2. Durchsuch die Kisten im Wrack.\nDie Leiste oben am Bildschirm zeigt dein nächstes Ziel: Strich = Richtung, darunter Ziel und Entfernung. Mit J öffnest du dein Tagebuch.",
+ "gamerule.deadzoneIntro": "Deadzone: Intro (0 = Boot, 1 = Hubschrauber, 2 = Zufall)",
+ "gamerule.deadzoneIntro.description": "Wie man in die Zone kommt: mit dem Patrouillenboot an der Küste stranden oder mit dem Hubschrauber abstürzen. Gilt für die ganze Welt; ohne Küste in der Nähe kommt der Hubschrauber."
 }

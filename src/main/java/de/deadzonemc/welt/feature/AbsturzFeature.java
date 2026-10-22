@@ -879,13 +879,15 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         for (int k = 0; k < 5; k++) {
             BlockPos p = f.pos(4 + k, 6, 0);
             int y = bodenHoehe(f.w(), p.getX(), p.getZ());
-            f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), blatt, Block.UPDATE_CLIENTS);
+            if (y <= f.o().getY() + 2) { // nicht auf Rotorblätter oder Rumpf legen
+                f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), blatt, Block.UPDATE_CLIENTS);
+            }
         }
         for (int i = 0; i < 8; i++) {
             BlockPos p = f.pos(-8 + r.nextInt(17), -7 + r.nextInt(15), 0);
             int y = bodenHoehe(f.w(), p.getX(), p.getZ());
             BlockPos q = new BlockPos(p.getX(), y, p.getZ());
-            if (f.w().getBlockState(q).isAir()) {
+            if (f.w().getBlockState(q).isAir() && y <= f.o().getY() + 2) {
                 f.w().setBlock(q, r.nextBoolean() ? platte : Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
         }

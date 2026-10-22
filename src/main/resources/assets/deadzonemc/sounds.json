@@ -4287,5 +4287,13 @@
     "stream": true
    }
   ]
+ },
+ "musik.kino_boot": {
+  "sounds": [
+   {
+    "name": "deadzonemc:musik/kino_boot",
+    "stream": true
+   }
+  ]
  }
 }

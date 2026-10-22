@@ -16,6 +16,7 @@ public class DeadzoneMC {
         ModRegistry.registrieren(modBus);
         de.deadzonemc.monster.MonsterTypen.registrieren(modBus);
         de.deadzonemc.kino.KinoTypen.registrieren(modBus);
+        de.deadzonemc.geschichte.Introwahl.registrieren();
         de.deadzonemc.monster.Verbote.registrieren();
         Lebensbilanz.registrieren();
         Schlafen.registrieren();

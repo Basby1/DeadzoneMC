@@ -57,7 +57,7 @@ public final class Kino {
             IM_KINO.put(p.getUUID(), (long) p.server.getTickCount() + HOECHSTENS_KINO);
             wiederholung.add(p.getUUID());
             PacketDistributor.sendToPlayer(p, new CharakterPayload(CharakterPayload.KINO,
-                    p.getUUID() + "," + p.getGameProfile().getName()));
+                    Introwahl.praefix(p.server) + p.getUUID() + "," + p.getGameProfile().getName()));
             return 1;
         }));
     }
@@ -155,7 +155,7 @@ public final class Kino {
             WARTEND.remove(p.getUUID());
             IM_KINO.put(p.getUUID(), (long) s.getTickCount() + HOECHSTENS_KINO);
             f.merken("intro:" + p.getUUID());
-            PacketDistributor.sendToPlayer(p, new CharakterPayload(CharakterPayload.KINO, b.toString()));
+            PacketDistributor.sendToPlayer(p, new CharakterPayload(CharakterPayload.KINO, Introwahl.praefix(s) + b.toString()));
         }
     }
 
@@ -172,7 +172,8 @@ public final class Kino {
                 .withStyle(ChatFormatting.DARK_RED)));
         p.connection.send(new ClientboundSetSubtitleTextPacket(Component.translatable("geschichte.deadzonemc.akt.1.name")
                 .withStyle(ChatFormatting.GRAY)));
-        p.sendSystemMessage(Component.translatable("geschichte.deadzonemc.intro", p.getName())
+        p.sendSystemMessage(Component.translatable(Introwahl.boot(p.server) ? "geschichte.deadzonemc.intro_boot"
+                        : "geschichte.deadzonemc.intro", p.getName())
                 .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
     }
 

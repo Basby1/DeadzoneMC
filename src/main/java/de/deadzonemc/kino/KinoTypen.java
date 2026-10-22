@@ -28,6 +28,13 @@ public final class KinoTypen {
             () -> EntityType.Builder.<UrsprungSchatten>of(UrsprungSchatten::new, MobCategory.MISC).sized(40F, 90F).noSave().noSummon()
                     .clientTrackingRange(0).build(DeadzoneMC.MODID + ":kino_schatten"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<KinoBoot>> BOOT = TYPEN.register("kino_boot",
+            () -> EntityType.Builder.<KinoBoot>of(KinoBoot::new, MobCategory.MISC).sized(4.5F, 3F).noSave().noSummon()
+                    .clientTrackingRange(0).build(DeadzoneMC.MODID + ":kino_boot"));
+    public static final DeferredHolder<EntityType<?>, EntityType<KinoRuinen>> RUINEN = TYPEN.register("kino_ruinen",
+            () -> EntityType.Builder.<KinoRuinen>of(KinoRuinen::new, MobCategory.MISC).sized(60F, 40F).noSave().noSummon()
+                    .clientTrackingRange(0).build(DeadzoneMC.MODID + ":kino_ruinen"));
+
     public static void registrieren(IEventBus modBus) {
         TYPEN.register(modBus);
         modBus.addListener((EntityAttributeCreationEvent e) -> e.put(FIGUR.get(), LivingEntity.createLivingAttributes().build()));

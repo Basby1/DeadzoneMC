@@ -64,11 +64,13 @@ jobs:
           A=$(cat /tmp/aufnahme_start)
           K=$(grep -o "KINO_START [0-9]*" /tmp/client.txt | head -1 | awk '{print $2}')
           E=$(grep -o "INTRO_ENDE [0-9]*" /tmp/client.txt | head -1 | awk '{print $2}')
+          TON=kino
+          grep -q "KINO_ART boot" /tmp/client.txt && TON=kino_boot
           if [ -n "$K" ]; then
             [ -n "$E" ] || E=$((K + 72000))
             SS=$(python3 -c "print(($K-$A)/1000)")
             DAUER=$(python3 -c "print(min(75,($E-$K)/1000+1))")
-            ffmpeg -loglevel error -y -ss $SS -t $DAUER -i /tmp/roh.mkv -i src/main/resources/assets/deadzonemc/sounds/musik/kino.ogg \
+            ffmpeg -loglevel error -y -ss $SS -t $DAUER -i /tmp/roh.mkv -i src/main/resources/assets/deadzonemc/sounds/musik/$TON.ogg \
               -map 0:v -map 1:a -c:v libx264 -preset veryfast -crf 27 -pix_fmt yuv420p -c:a aac -b:a 160k -shortest /tmp/intro.mp4 || true
             ls -la /tmp/intro.mp4 || true
           fi

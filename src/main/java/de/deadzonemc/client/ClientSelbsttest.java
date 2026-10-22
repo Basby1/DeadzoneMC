@@ -26,6 +26,7 @@ public final class ClientSelbsttest {
     }
 
     private static final Logger LOG = com.mojang.logging.LogUtils.getLogger();
+    private static final float[] BOOT_BILDER = {2, 6, 10, 14, 17, 20, 24, 27, 29.2F, 30.8F, 32.4F, 34, 35.6F, 37, 39, 41, 43, 48};
     private static final float[] KINO_BILDER = {2, 6, 9, 12, 15, 18, 22, 25, 28, 29.15F, 31, 32.5F, 34, 36.5F, 40, 42, 46.6F, 50};
     private static final int[] INTRO_BILDER = {12, 30, 60, 120, 200, 270};
 
@@ -118,13 +119,17 @@ public final class ClientSelbsttest {
                     foto(mc, "warten");
                 }
                 if (ClientKino.aktiv()) {
-                    if (!kinoGemeldet) {
-                        kinoGemeldet = true;
-                        LOG.info("[Clienttest] KINO_START {}", System.currentTimeMillis());
-                    }
+                    boolean boot = de.deadzonemc.client.kino.ClientKinoBoot.aktiv();
                     float s = t > 0 ? kinoZeit() : 0;
-                    while (marke < KINO_BILDER.length && s >= KINO_BILDER[marke]) {
-                        foto(mc, String.format("kino_%04.1f", KINO_BILDER[marke]).replace(',', '.'));
+                    // Startzeit erst melden, wenn die Szene läuft (nicht schon beim Laden) – sonst passt der Ton nicht
+                    if (!kinoGemeldet && s > 0) {
+                        kinoGemeldet = true;
+                        LOG.info("[Clienttest] KINO_START {}", System.currentTimeMillis() - (long) (s * 1000));
+                        LOG.info("[Clienttest] KINO_ART {}", boot ? "boot" : "heli");
+                    }
+                    float[] bilder = boot ? BOOT_BILDER : KINO_BILDER;
+                    while (marke < bilder.length && s >= bilder[marke]) {
+                        foto(mc, String.format("kino_%04.1f", bilder[marke]).replace(',', '.'));
                         marke++;
                     }
                 } else if (mc.screen instanceof IntroScreen) {
@@ -279,7 +284,8 @@ public final class ClientSelbsttest {
 
     private static float kinoZeit() {
         try {
-            var m = ClientKino.class.getDeclaredMethod("zeit", float.class);
+            Class<?> k = de.deadzonemc.client.kino.ClientKinoBoot.aktiv() ? de.deadzonemc.client.kino.ClientKinoBoot.class : ClientKino.class;
+            var m = k.getDeclaredMethod("zeit", float.class);
             m.setAccessible(true);
             return (float) m.invoke(null, 0F);
         } catch (Exception e) {

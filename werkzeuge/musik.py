@@ -1263,6 +1263,148 @@ def kino():
     s.speichern("kino", hall=3.2, nass=0.35, einblenden=0.3, ausblenden=3.5, pegel=0.9)
 
 
+# ---- Boot-Intro „Kilo-2“ -------------------------------------------------------------------------
+
+def _wellen(s, von, bis, lautst, sturm=0.0):
+    """Wellen am Rumpf: langsames Rauschen in Zügen, bei Sturm schneller und mit Klatschen."""
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    roh = s.rng.normal(0, 1, j - i)
+    zuege = 0.5 + 0.5 * np.sin(2 * np.pi * (0.16 + 0.12 * sturm) * tt + s.rng.random() * 6) ** 2
+    x = bandpass(roh, 120, 700) * zuege + 0.35 * bandpass(roh, 700, 2600) * zuege ** 2
+    s.spur[i:j] += x * _passend(huellkurve(bis - von, 1.0, 1.0), j - i) * lautst
+    t = von
+    while sturm and t < bis - 0.5:
+        n = int(0.35 * SR)
+        k = bandpass(s.rng.normal(0, 1, n), 250, 1600) * np.exp(-np.arange(n) / SR * 9)
+        s.dazu(t, k, lautst * sturm * s.rng.uniform(0.5, 1.0))
+        t += s.rng.uniform(0.6, 1.6)
+
+
+def _motor(s, von, bis, lautst, abfall=0.0):
+    """Dieselmotor des Boots: tiefes Tuckern mit Obertönen, bei abfall stirbt er stotternd ab."""
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    dauer = bis - von
+    f = 21 * (1 - abfall * (tt / dauer) ** 2 * 0.7)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    takt = (0.5 + 0.5 * np.sign(np.sin(ph))) * (0.6 + 0.4 * np.sin(ph * 0.5))
+    brumm = tiefpass(s.rng.normal(0, 1, j - i), 220) * 3 * takt + 0.4 * np.sin(ph * 2) + 0.2 * np.sin(ph * 4.02)
+    if abfall:
+        stottern = (s.rng.random(j - i) > (tt / dauer) * 0.6).astype(float)
+        brumm *= tiefpass(stottern, 12) * (1 - tt / dauer)
+    s.spur[i:j] += tiefpass(brumm, 600) * _passend(huellkurve(dauer, 0.8, 0.3), j - i) * lautst
+
+
+def _regen(s, von, bis, lautst):
+    """Plötzlicher Starkregen: Prasseln auf Deck und Wasser."""
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    roh = s.rng.normal(0, 1, j - i)
+    x = bandpass(roh, 1200, 9000) * 0.8 + bandpass(roh, 300, 1200) * 0.4
+    tropf = (s.rng.random(j - i) > 0.9985).astype(float)
+    x += hochpass(np.convolve(tropf, np.exp(-np.arange(200) / 25), mode="same"), 1800) * 1.5
+    s.spur[i:j] += x * np.minimum(1, tt / 1.2) * _passend(huellkurve(bis - von, 0.01, 0.8), j - i) * lautst
+
+
+def _gischt(s, start, lautst):
+    n = int(2.5 * SR)
+    tt = np.arange(n) / SR
+    x = bandpass(s.rng.normal(0, 1, n), 300, 5000) * np.exp(-tt * 1.6) + tiefpass(s.rng.normal(0, 1, n), 200) * 3 * np.exp(-tt * 2.5)
+    s.dazu(start, np.tanh(x * 1.5), lautst)
+
+
+def _nebelhorn(s, start, lautst, f=92):
+    n = int(3.2 * SR)
+    tt = np.arange(n) / SR
+    x = sum(np.sin(2 * np.pi * f * k * tt) / k for k in range(1, 9))
+    s.dazu(start, tiefpass(x, 900) * huellkurve(3.2, 0.25, 1.2), lautst)
+
+
+def _unterwasser(s, von, bis, lautst):
+    """Unter Wasser: dumpfes Rauschen, Blubbern, das eigene Herz, ein gedämpfter Ton von oben."""
+    i, j = int(von * SR), int(bis * SR)
+    tt = np.arange(j - i) / SR
+    x = tiefpass(s.rng.normal(0, 1, j - i), 180, 3) * 4
+    s.spur[i:j] += x * _passend(huellkurve(bis - von, 0.05, 1.5), j - i) * lautst
+    for _ in range(int((bis - von) * 9)):
+        st = s.rng.uniform(von, bis - 0.2)
+        m = int(0.06 * SR)
+        t2 = np.arange(m) / SR
+        f = s.rng.uniform(300, 900)
+        s.dazu(st, np.sin(2 * np.pi * f * t2 * (1 + 5 * t2)) * np.exp(-t2 * 50), lautst * 0.35)
+
+
+def kino_boot():
+    """Kilo-2 – das Boot-Intro. Wellen, Motor, Funk; Nebel und ein Nebelhorn; Regen setzt ein; zwei Blitze, der
+    Ursprung; die Druckwelle, Alarm, das Boot kentert; unter Wasser; Stille, Flüstern – und das Erwachen am Strand."""
+    s = Stueck(70, 7117)
+    # Schwarz: Wellen und Funk
+    _wellen(s, 0.0, 23.5, 0.55)
+    _funk(s, 0.3, 1.0, 0.22)
+    _funkstimme(s, 0.7, 3.0, 0.2)
+    _motor(s, 1.5, 35.0, 0.5)
+    s.droehnen([(hz("D1"), 1.0), (hz("A1"), 0.4)], 0.05, periode=30.0, hell=180)
+    _funkstimme(s, 5.0, 3.6, 0.2)
+    _funkstimme(s, 9.3, 3.2, 0.18)
+    s.dazu(4.0, s.flaeche(["D2", "A2", "F3"], 16.0, hell=500), 0.05)
+    # Nebel, die Stadt am Ufer
+    _braam(s, 15.2, ["D1", "A1", "D2"], laenge=8.0, hell=700, lautst=0.2)
+    _nebelhorn(s, 17.5, 0.25)
+    _funkstimme(s, 16.8, 3.0, 0.18)
+    for k in range(6):
+        s.dazu(20.0 + k * 0.6, _spieluhr(["D5", "F5", "Eb5", "D5", "C5", "D5"][k], 2.5, verstimmt=0.015), 0.035)
+    # Regen setzt ein, Sturm
+    _regen(s, 23.0, 44.0, 0.45)
+    _wellen(s, 23.0, 40.0, 0.7, sturm=1.0)
+    _funkstimme(s, 24.4, 2.0, 0.18)
+    for t in (26.9, 27.4, 28.1):
+        _funk(s, t, s.rng.uniform(0.3, 0.6), 0.28)
+        _fluestern(s, t + 0.1, 0.2)
+    _funkstimme(s, 27.0, 1.8, 0.15, tief=0.6)
+    _herz(s, 25.0, 35.0, 64, 104, 0.32)
+    # Blitze und der Ursprung
+    _donner(s, 29.0, 0.95)
+    _braam(s, 29.05, ["C1", "G1", "C2"], laenge=4.0, hell=1200, lautst=0.5)
+    _funkstimme(s, 30.5, 1.3, 0.22)
+    _donner(s, 32.0, 1.0)
+    _braam(s, 32.2, ["C1", "Db1", "G1", "C2"], laenge=9.0, hell=2200, lautst=0.9)
+    _braam(s, 32.25, ["C2", "Gb2"], laenge=8.0, hell=1600, lautst=0.4)
+    _shepard(s, 32.5, 35.0, 0.08, tempo=0.12)
+    # Die Druckwelle, Einschlag, Alarm, Kentern
+    _sturzwind(s, 33.0, 35.0, 0.5)
+    _gischt(s, 35.0, 1.0)
+    _aufprall(s, 35.0, 0.7)
+    _motor(s, 35.0, 37.0, 0.5, abfall=1.0)
+    _alarm(s, 35.4, 0.14, wdh=6)
+    _funkstimme(s, 35.3, 1.2, 0.25)
+    _gischt(s, 36.5, 0.8)
+    _reissen(s, 37.0, 0.35)
+    _gischt(s, 38.2, 0.9)
+    # Unter Wasser
+    _unterwasser(s, 40.0, 44.5, 0.9)
+    _herz(s, 40.3, 44.0, 52, 40, 0.5, tief=38)
+    s.dazu(40.0, s.flaeche(["C5", "Db5", "G5"], 4.5, hell=3000, tremolo=0.3), 0.03)
+    # Stille, das Flüstern
+    for t in (44.4, 45.1, 45.9, 46.6):
+        _fluestern(s, t, 0.26)
+    _tinnitus(s, 44.0, 52.0, 0.05)
+    # Erwachen am Strand: Wellen, das Thema
+    _wellen(s, 52.0, 70.0, 0.4)
+    i = int(52.0 * SR)
+    x = np.zeros(s.n - i)
+    tt = np.arange(s.n - i) / SR
+    for f0, a in ((hz("D1"), 1.0), (hz("Eb1"), 0.5), (hz("A1"), 0.35)):
+        x += a * sum(np.sin(2 * np.pi * f0 * k * tt + k) / k ** 1.4 for k in range(1, 7))
+    s.spur[i:] += tiefpass(x, 220) * np.minimum(1, tt / 3.0) * 0.12
+    _braam(s, 52.2, ["D1", "A1", "D2"], laenge=8.0, hell=1200, lautst=0.45)
+    for note, dt in (("D5", 0.0), ("F5", 1.1), ("Eb5", 2.2), ("D5", 4.4)):
+        s.dazu(57.0 + dt, _spieluhr(note, 3.5, verstimmt=0.012), 0.07)
+    s.trommel(64.5, tief=0.6, lautst=1.2)
+    _braam(s, 64.5, ["D1", "Ab1", "D2", "Ab2"], laenge=5.0, hell=2600, lautst=1.0)
+    s.speichern("kino_boot", hall=3.0, nass=0.3, einblenden=0.3, ausblenden=3.0, pegel=0.9)
+
+
 ALLE_NEU = {"stadt": stadt, "wildnis": wildnis, "zuflucht": zuflucht, "endkampf": endkampf,
             "boss_frost": boss_frost, "boss_fleisch": boss_fleisch, "boss_marsch": boss_marsch}
 
@@ -1270,7 +1412,8 @@ ALLE = {"titel": titel_lobby, "morgen": morgen, "nebel": nebel, "nacht": nacht, 
 ALLE.update(ALLE_NEU)
 ALLE["sektor4"] = sektor4
 ALLE.update({n: globals()[n] for n in ("jagd", "betonwueste", "asche", "sperrzone", "verlassen", "schacht", "glut",
-                                       "nebelstimmen", "herzkammer", "glutfeld", "leere", "orbit", "raserei", "kino")})
+                                       "nebelstimmen", "herzkammer", "glutfeld", "leere", "orbit", "raserei", "kino",
+                                       "kino_boot")})
 
 if __name__ == "__main__":
     for name in (sys.argv[1:] or ALLE):

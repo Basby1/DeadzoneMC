@@ -68,7 +68,7 @@ public final class ClientKino {
     private static final RandomSource ZUFALL = RandomSource.create();
 
     public static boolean aktiv() {
-        return aktiv || vorbereiten;
+        return aktiv || vorbereiten || ClientKinoBoot.aktiv();
     }
 
     static float zeit(float teil) {
@@ -83,6 +83,14 @@ public final class ClientKino {
 
     /** daten: "uuid,name;uuid,name" */
     public static void starten(String daten) {
+        // Welche Fassung? "boot:<Landrichtung>|…" ist das Boot-Intro, sonst der Hubschrauber
+        if (daten.startsWith("boot:")) {
+            ClientKinoBoot.starten(daten.substring(5));
+            return;
+        }
+        if (daten.startsWith("heli:")) {
+            daten = daten.substring(5);
+        }
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null || aktiv || vorbereiten) {
             return;
@@ -262,6 +270,7 @@ public final class ClientKino {
     }
 
     public static void tonStoppen() {
+        ClientKinoBoot.tonStoppen();
         if (ton != null) {
             Minecraft.getInstance().getSoundManager().stop(ton);
             ton = null;
@@ -269,6 +278,14 @@ public final class ClientKino {
     }
 
     private static boolean meldenNachIntro;
+
+    static void nachIntroMelden() {
+        meldenNachIntro = true;
+    }
+
+    static void fertigMeldenJetzt() {
+        fertigMelden();
+    }
 
     private static void fertigMelden() {
         PacketDistributor.sendToServer(new CharakterPayload(CharakterPayload.KINO, ""));
@@ -286,6 +303,10 @@ public final class ClientKino {
 
     public static void tick(ClientTickEvent.Post e) {
         Minecraft mc = Minecraft.getInstance();
+        if (ClientKinoBoot.aktiv()) {
+            ClientKinoBoot.tick(mc);
+            return;
+        }
         if (vorbereiten) {
             if (mc.level == null || mc.player == null) {
                 vorbereiten = false;
@@ -531,6 +552,10 @@ public final class ClientKino {
     }
 
     public static void winkel(ViewportEvent.ComputeCameraAngles e) {
+        if (ClientKinoBoot.aktiv()) {
+            ClientKinoBoot.winkel(e);
+            return;
+        }
         if (!aktiv || Minecraft.getInstance().getCameraEntity() != kamera) {
             return;
         }
@@ -578,6 +603,10 @@ public final class ClientKino {
     }
 
     public static void nebel(ViewportEvent.RenderFog e) {
+        if (ClientKinoBoot.aktiv()) {
+            ClientKinoBoot.nebel(e);
+            return;
+        }
         if (!aktiv) {
             return;
         }
@@ -601,6 +630,10 @@ public final class ClientKino {
     }
 
     public static void nebelFarbe(ViewportEvent.ComputeFogColor e) {
+        if (ClientKinoBoot.aktiv()) {
+            ClientKinoBoot.nebelFarbe(e);
+            return;
+        }
         if (!aktiv) {
             return;
         }
@@ -619,6 +652,9 @@ public final class ClientKino {
 
     /** Blocklicht für die Darsteller (innen dunkel, beim Blitz grell). */
     static int lichtBlock() {
+        if (ClientKinoBoot.aktiv()) {
+            return ClientKinoBoot.lichtBlock();
+        }
         if (!aktiv) {
             return 15;
         }
@@ -634,6 +670,9 @@ public final class ClientKino {
     }
 
     static int lichtHimmel() {
+        if (ClientKinoBoot.aktiv()) {
+            return ClientKinoBoot.lichtHimmel();
+        }
         if (!aktiv) {
             return 15;
         }

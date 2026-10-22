@@ -218,5 +218,227 @@ def bauen():
     print("Transporter geschrieben, Vorschau:", ziel, "Textur", m.tb, "x", m.th)
 
 
+# ==== Boot-Intro „Kilo-2“ ===========================================================================
+
+def kennung_k2():
+    """Schablonenschrift „K-2“ am Bug."""
+    weiss = farbe("c8c4b0")
+
+    def deko(m, rect, flaeche, w):
+        u, v, bb, hh = rect
+        if bb < 24 or hh < 12:
+            return
+        zeilen = ["X..X.......XXX",
+                  "X.X..........X",
+                  "XX....XXX..XXX",
+                  "X.X........X..",
+                  "X..X.......XXX"]
+        x0, y0 = u + bb // 2 - 7, v + hh // 3
+        for j, z in enumerate(zeilen):
+            for i, c in enumerate(z):
+                if c == "X":
+                    m.setze(x0 + i, y0 + j, weiss)
+    return deko
+
+
+def strahl(basis="5a5640"):
+    """Lichtkegel des Suchscheinwerfers: unsichtbar, nur als Leuchten (wird im Spiel addiert)."""
+    b = farbe(basis)
+
+    def malen(m, rect, flaeche, w):
+        u, v, bb, hh = rect
+        m.bild[v:v + hh, u:u + bb] = 0
+        n = rauschen_einfach(bb, hh, m.rng)
+        m.glow[v:v + hh, u:u + bb, :3] = b[:3] * (0.75 + 0.25 * n[..., None])
+        m.glow[v:v + hh, u:u + bb, 3] = 255
+    return malen
+
+
+def rauschen_einfach(b, h, rng):
+    x = rng.random((h, b))
+    return x
+
+
+def boot():
+    """Patrouillenboot Kilo-2: grauer Rumpf mit rotem Unterwasseranstrich, spitzer Bug, Steuerhaus mit Fensterband,
+    Mast mit Radar und Positionslicht, Suchscheinwerfer mit Lichtkegel, Bänke an Deck, Kisten, zwei Außenborder,
+    Flagge am Heck. Wasserlinie bei y = 0, das Boot schaut nach Norden (-z)."""
+    m = Modell("kino_boot", 1024, 1024)
+    grau = blech("3d4248", fuge=20)
+    rot = blech("4a1e1a", fuge=20)
+    deck = einfarbig("2a2d30", streuung=10)
+    dunkel = einfarbig("1c1d20")
+    glas = einfarbig("141c22", streuung=5)
+    rumpf = m.k("rumpf", drehpunkt=(0, 0, 0))
+    # Rumpf: unten rot, oben grau; der Bug läuft in vier Stufen spitz zu und steigt leicht an
+    rumpf.w((-36, -16, -64), (72, 14, 168), rot)
+    rumpf.w((-36, -2, -64), (72, 18, 168), grau, deko=kennung_k2())
+    for (halb, y0, y1, z0, z1) in ((30, -14, 18, -80, -64), (22, -10, 20, -94, -80), (14, -6, 22, -104, -94), (7, -2, 23, -110, -104)):
+        rumpf.w((-halb, y0, z0), (2 * halb, y1 - y0, z1 - z0), grau)
+    rumpf.w((-34, 16, -62), (68, 1, 164), deck)
+    # Reling: Pfosten und Handlauf
+    for x in (-35, 33):
+        for z in range(-56, 101, 16):
+            rumpf.w((x, 17, z), (2, 12, 2), einfarbig("6a6e70"))
+        rumpf.w((x, 28, -60), (2, 2, 162), einfarbig("7a7e80"))
+    rumpf.w((-28, 28, -68), (56, 2, 2), einfarbig("7a7e80"))
+    # Fender (alte Reifen)
+    for z in (-40, 0, 40, 80):
+        rumpf.w((-38, 2, z), (2, 9, 9), dunkel)
+        rumpf.w((36, 2, z), (2, 9, 9), dunkel)
+    # Steuerhaus mit Fensterband, Tür und Rettungsring
+    rumpf.w((-24, 17, -30), (48, 41, 44), grau)
+    rumpf.w((-20, 40, -31), (40, 12, 1), glas)
+    rumpf.w((-25, 40, -26), (1, 12, 34), glas)
+    rumpf.w((24, 40, -26), (1, 12, 34), glas)
+    rumpf.w((-8, 42, -31.5), (6, 8, 0.5), leuchtend("6a4a20"))  # schwaches Licht im Steuerhaus
+    rumpf.w((24.5, 18, 0), (0.5, 22, 10), dunkel)  # Tür
+    rumpf.w((-8, 26, 14), (16, 16, 1), einfarbig("c86020"))
+    rumpf.w((-4, 30, 14.5), (8, 8, 1), dunkel)
+    rumpf.w((-26, 58, -32), (52, 3, 48), einfarbig("2e3236"))
+    # Mast mit Rahe und Positionslicht
+    rumpf.w((-2, 61, 0), (4, 60, 4), einfarbig("4a4e52"))
+    rumpf.w((-12, 108, 1), (24, 2, 2), einfarbig("4a4e52"))
+    rumpf.w((-2, 121, 0), (4, 4, 4), leuchtend("ff2a1a"))
+    rumpf.w((-13, 110, 1), (2, 2, 2), leuchtend("f0f0e0"))
+    rumpf.w((11, 110, 1), (2, 2, 2), leuchtend("30ff60"))
+    radar = m.k("radar", "rumpf", drehpunkt=(0, 100, 2))
+    radar.w((-14, 98, 0), (28, 3, 4), einfarbig("2a2c2e"))
+    # Suchscheinwerfer auf dem Dach, mit Lichtkegel nach vorn
+    licht = m.k("scheinwerfer", "rumpf", drehpunkt=(0, 66, -24))
+    licht.w((-5, 61, -30), (10, 10, 12), einfarbig("2a2c2e"))
+    licht.w((-4, 62, -31), (8, 8, 1), leuchtend("fff2c0"))
+    kegel = m.k("kegel", "scheinwerfer", drehpunkt=(0, 66, -31))
+    kegel.w((-4, 62, -191), (8, 8, 160), strahl("4a4836"))
+    kegel.w((-7, 59, -351), (14, 14, 160), strahl("2e2c22"))
+    # Bänke an Deck (hier sitzen die Spieler), Rückenlehnen an der Reling
+    for x0, lehne in ((-32, -32), (22, 30)):
+        rumpf.w((x0, 17, 22), (10, 8, 72), einfarbig("3a3226"))
+        rumpf.w((lehne, 25, 22), (2, 9, 72), einfarbig("3a3226"))
+    # Ladung: Kisten und Fässer
+    rumpf.w((-10, 17, 70), (20, 14, 18), metall("4a5232", nieten=True))
+    rumpf.w((-7, 31, 73), (14, 10, 12), metall("3e4630"))
+    for x in (-16, 10):
+        rumpf.w((x, 17, 56), (6, 12, 6), einfarbig("1e3a5a"))
+    # Heck: zwei Außenborder, Flaggenstock
+    for x in (-24, 12):
+        rumpf.w((x, -20, 104), (12, 40, 12), dunkel)
+        rumpf.w((x - 1, 20, 103), (14, 10, 14), einfarbig("4a4e52"))
+    rumpf.w((-1, 17, 98), (2, 54, 2), einfarbig("6a6e70"))
+    flagge = m.k("flagge", "rumpf", drehpunkt=(1, 62, 99))
+    flagge.w((1, 52, 98.5), (26, 18, 1), einfarbig("8a8676", streuung=14))
+    return m
+
+
+def boot_animationen():
+    fahrt = AN.Anim("fahrt", 6.0)
+    fahrt.tasten("radar", "rotation", {0: (0, 0, 0), 3.0: (0, 180, 0), 6.0: (0, 360, 0)})
+    fahrt.tasten("scheinwerfer", "rotation", {0: (0, 0, 0), 1.5: (4, 28, 0), 3.0: (0, 0, 0), 4.5: (3, -32, 0), 6.0: (0, 0, 0)})
+    fahrt.tasten("flagge", "rotation", {0: (0, 0, 0), 0.75: (0, 14, 0), 1.5: (0, -6, 0), 2.25: (0, 18, 0), 3.0: (0, 0, 0),
+                                        3.75: (0, 12, 0), 4.5: (0, -8, 0), 5.25: (0, 16, 0), 6.0: (0, 0, 0)})
+    # Der Scheinwerfer zerspringt: kippt weg, der Kegel verschwindet
+    aus = AN.Anim("licht_aus", 1.0, schleife=None)
+    aus.tasten("scheinwerfer", "rotation", {0: (0, 0, 0), 0.2: (-25, 40, 10), 1.0: (-60, 70, 20)})
+    aus.tasten("kegel", "scale", {0: (1, 1, 1), 0.1: (1.2, 1.2, 1), 0.15: (0.01, 0.01, 0.01), 1.0: (0.01, 0.01, 0.01)})
+    daten = {"format_version": "1.8.0", "animations": {f"animation.kino_boot.{a.name}": a.json() for a in (fahrt, aus)}}
+    with open(os.path.join(AN.ZIEL, "kino_boot.animation.json"), "w") as f:
+        json.dump(daten, f)
+
+
+def fensterraster():
+    """Leere, dunkle Fensterreihen; manche Felder sind ausgebrochen (heller Beton dahinter fehlt)."""
+    def deko(m, rect, flaeche, w):
+        u, v, bb, hh = rect
+        if bb < 6 or hh < 8 or flaeche in ("oben", "unten", "up", "down"):
+            return
+        for y in range(v + 2, v + hh - 2, 4):
+            for x in range(u + 1, u + bb - 1, 3):
+                if m.rng.random() < 0.85:
+                    m.setze(x, y, farbe("121314"))
+                    m.setze(x, y + 1, farbe("121314"))
+        # Risse
+        for _ in range(max(1, bb * hh // 300)):
+            x0, y0 = u + int(m.rng.integers(0, bb)), v + int(m.rng.integers(0, hh))
+            for k in range(int(m.rng.integers(4, 12))):
+                m.setze(min(u + bb - 1, x0 + k // 2), min(v + hh - 1, y0 + k), farbe("0c0c0d"))
+    return deko
+
+
+def ruinen():
+    """Kulisse: zerstörte Hochhäuser am Ufer, im Viertelmaßstab (der Renderer vergrößert x4). Ein paar Fenster
+    leuchten noch, auf einem Dach brennt etwas."""
+    m = Modell("kino_ruinen", 512, 512)
+    beton = [einfarbig(c, streuung=16) for c in ("3a3c3e", "34363a", "403e3a", "2e3034")]
+    warm = leuchtend("ffb050")
+    kalt = leuchtend("9ac8ff")
+    feuer = leuchtend("ff6a1a")
+    rng = np.random.default_rng(41)
+    k = m.k("stadt", drehpunkt=(0, 0, 0))
+    x = -130
+    while x < 130:
+        b = int(rng.integers(14, 34))
+        h = int(rng.integers(40, 130))
+        t = int(rng.integers(14, 26))
+        z0 = int(rng.integers(-8, 10))
+        mat = beton[int(rng.integers(0, len(beton)))]
+        k.w((x, 0, z0), (b, h, t), mat, deko=fensterraster())
+        # abgebrochene Krone: zwei, drei Stufen
+        oben = h
+        for stufe in range(int(rng.integers(1, 4))):
+            bb = int(b * rng.uniform(0.3, 0.7))
+            hh = int(rng.integers(4, 14))
+            xx = x + int(rng.integers(0, max(1, b - bb)))
+            k.w((xx, oben, z0 + 2), (bb, hh, t - 4), mat)
+            oben += hh
+        # Fenster: wenige leuchten noch
+        for _ in range(int(rng.integers(0, 4))):
+            fx = x + int(rng.integers(2, b - 3))
+            fy = int(rng.integers(6, h - 6))
+            k.w((fx, fy, z0 - 0.5), (2, 3, 0.5), warm if rng.random() > 0.2 else kalt)
+        if rng.random() < 0.18:
+            k.w((x + b // 2 - 2, h, z0 + t // 2 - 2), (4, 3, 4), feuer)
+        x += b + int(rng.integers(2, 12))
+    # ein umgeknickter Turm und ein Baukran
+    knick = m.k("knick", "stadt", drehpunkt=(60, 70, 0), drehung=(0, 0, -24))
+    knick.w((52, 70, 0), (16, 50, 16), beton[1], deko=fensterraster())
+    kran = m.k("kran", "stadt", drehpunkt=(-40, 0, 30))
+    kran.w((-42, 0, 28), (3, 150, 3), einfarbig("2a2622"))
+    kran.w((-70, 146, 28.5), (80, 3, 2), einfarbig("2a2622"))
+    kran.w((-66, 120, 29), (1, 26, 1), einfarbig("1a1816"))
+    kran.w((-42, 151, 28), (2, 2, 2), leuchtend("ff2a1a"))
+    return m
+
+
+def bauen_boot():
+    for modell, saat, name in ((boot(), 91, "kino_boot"), (ruinen(), 92, "kino_ruinen")):
+        while True:
+            try:
+                modell.uv_packen()
+                break
+            except ValueError:
+                if modell.th < modell.tb:
+                    modell.th *= 2
+                else:
+                    modell.tb *= 2
+        maler = Maler(modell, saat=saat)
+        maler.alles_malen()
+        modell.speichern(os.path.join(E.ASSETS, "geo", "entity", f"{name}.geo.json"))
+        maler.speichern(os.path.join(E.ASSETS, "textures", "entity", f"{name}.png"),
+                        os.path.join(E.ASSETS, "textures", "entity", f"{name}_glowmask.png"))
+        os.makedirs(E.VORSCHAU, exist_ok=True)
+        if name == "kino_boot":
+            b = blatt(modell, maler.bild, maler.glow, "Patrouillenboot Kilo-2", "Boot-Intro", groesse_bloecke=(4.8, 7.8, 14),
+                      ansichten=((-40, 14), (90, 8), (215, 16)))
+        else:
+            b = blatt(modell, maler.bild, maler.glow, "Ruinen am Ufer", "Kulisse (im Spiel x4)", ansichten=((0, 4), (-30, 10), (30, 10)))
+        b.save(os.path.join(E.VORSCHAU, f"{name}.png"))
+        print(name, "Textur", modell.tb, "x", modell.th)
+    boot_animationen()
+
+
 if __name__ == "__main__":
-    bauen()
+    if "boot" in sys.argv:
+        bauen_boot()
+    else:
+        bauen()
+        bauen_boot()

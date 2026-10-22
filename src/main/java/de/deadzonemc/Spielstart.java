@@ -35,6 +35,12 @@ public final class Spielstart {
         }
         spieler.setData(ModRegistry.GESTARTET.get(), true);
         ServerLevel oberwelt = spieler.server.overworld();
+        // Boot-Intro: gestrandet an der Küste, neben dem Wrack der Kilo-2
+        if (de.deadzonemc.geschichte.Introwahl.boot(spieler.server) && spieler.level() == oberwelt
+                && strandStart(oberwelt, spieler)) {
+            ausruesten(spieler, oberwelt);
+            return;
+        }
         BlockPos ziel = startplatzSuchen(oberwelt, spieler.getRandom());
         if (ziel != null && spieler.level() == oberwelt) {
             // Der Absturz aus dem Intro: Das Wrack liegt ein paar Schritte neben dem Startplatz
@@ -45,7 +51,11 @@ public final class Spielstart {
             spieler.teleportTo(oberwelt, ziel.getX() + 0.5, oberwelt.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     ziel.getX(), ziel.getZ()), ziel.getZ() + 0.5, -90F, 0F);
         }
-        // Grund-Überlebenspaket: man soll sich am Anfang verteidigen und ein, zwei Tage durchhalten können
+        ausruesten(spieler, oberwelt);
+    }
+
+    /** Grund-Überlebenspaket: man soll sich am Anfang verteidigen und ein, zwei Tage durchhalten können. */
+    private static void ausruesten(ServerPlayer spieler, ServerLevel oberwelt) {
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(de.deadzonemc.beute.Beute.ROSTIGES_MESSER.get()));
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.VERBAND.get(), 3));
         spieler.getInventory().add(new net.minecraft.world.item.ItemStack(ModRegistry.KONSERVENDOSE.get(), 3));
@@ -157,6 +167,46 @@ public final class Spielstart {
         int i = (int) Math.floorMod(Math.round(Math.toDegrees(Math.atan2(-dx, dz)) / 45.0), 8L);
         spieler.sendSystemMessage(Component.literal("Funkgerät, Rauschen: „… Zuflucht … etwa " + Math.max(50, abstand)
                 + " Meter Richtung " + namen[i] + " … sicher … Handel … kommt zu uns …“").withStyle(ChatFormatting.DARK_AQUA));
+    }
+
+    /**
+     * Start an der Küste (Boot-Intro): Das Wrack liegt einmal pro Welt an der Uferlinie; jeder Spieler wacht ein Stück
+     * daneben auf dem Strand auf, mit Blick aufs Meer. Liefert false, wenn sich kein Platz findet (dann Hubschrauber).
+     */
+    private static boolean strandStart(ServerLevel w, ServerPlayer spieler) {
+        var k = de.deadzonemc.geschichte.Introwahl.kueste(spieler.server);
+        if (k == null) {
+            return false;
+        }
+        var f = de.deadzonemc.geschichte.Fortschritt.von(spieler.server);
+        net.minecraft.world.phys.Vec3 meer = k.meer();
+        if (!f.hat("bootswrack")) {
+            f.merken("bootswrack");
+            de.deadzonemc.welt.feature.Bootswrack.bauen(w, k.ufer(), meer, spieler.getRandom());
+        }
+        net.minecraft.world.phys.Vec3 quer = new net.minecraft.world.phys.Vec3(-meer.z, 0, meer.x);
+        RandomSource r = spieler.getRandom();
+        for (int versuch = 0; versuch < 12; versuch++) {
+            double seite = (r.nextBoolean() ? 1 : -1) * (6 + r.nextInt(18));
+            double x = k.ufer().getX() + quer.x * seite;
+            double z = k.ufer().getZ() + quer.z * seite;
+            BlockPos ufer = de.deadzonemc.geschichte.Introwahl.uferlinie(w, x, z, meer);
+            if (ufer == null) {
+                continue;
+            }
+            int sx = net.minecraft.util.Mth.floor(ufer.getX() - meer.x * 3);
+            int sz = net.minecraft.util.Mth.floor(ufer.getZ() - meer.z * 3);
+            int sy = w.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, sx, sz);
+            BlockState darunter = w.getBlockState(new BlockPos(sx, sy - 1, sz));
+            if (!darunter.getFluidState().isEmpty() || !darunter.isSolid()) {
+                continue;
+            }
+            float blick = (float) (net.minecraft.util.Mth.atan2(-meer.x, meer.z) * net.minecraft.util.Mth.RAD_TO_DEG);
+            spieler.teleportTo(w, sx + 0.5, sy, sz + 0.5, blick, 10F);
+            spieler.setRespawnPosition(w.dimension(), new BlockPos(sx, sy, sz), blick, true, false);
+            return true;
+        }
+        return false;
     }
 
     private static BlockPos startplatzSuchen(ServerLevel level, RandomSource zufall) {

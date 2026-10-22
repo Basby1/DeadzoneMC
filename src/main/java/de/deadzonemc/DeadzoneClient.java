@@ -98,6 +98,8 @@ public class DeadzoneClient {
         e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.FIGUR.get(), de.deadzonemc.client.kino.KinoFigurRenderer::new);
         e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.TRANSPORTER.get(), de.deadzonemc.client.kino.TransporterRenderer::new);
         e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.SCHATTEN.get(), de.deadzonemc.client.kino.SchattenRenderer::new);
+        e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.BOOT.get(), de.deadzonemc.client.kino.BootRenderer::new);
+        e.registerEntityRenderer(de.deadzonemc.kino.KinoTypen.RUINEN.get(), de.deadzonemc.client.kino.RuinenRenderer::new);
         e.registerEntityRenderer(MonsterTypen.WANDERER.get(), c -> new MonsterRenderer<>(c, "wanderer", false, false, 0.5F));
         e.registerEntityRenderer(MonsterTypen.SCHREIER.get(), c -> new MonsterRenderer<>(c, "schreier", false, false, 0.5F));
         e.registerEntityRenderer(MonsterTypen.LAUERER.get(), c -> new MonsterRenderer<>(c, "lauerer", false, false, 0.6F));

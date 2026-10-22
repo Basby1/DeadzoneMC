@@ -7,7 +7,7 @@ import os
 # Unter diesem Alphawert gilt ein Pixel als Glas/Aura und wird durchscheinend gezeichnet.
 GLAS_SCHWELLE = 200
 # Diese Wesen werden ohnehin komplett durchscheinend gezeichnet (MonsterRenderer mit durchscheinend=true).
-GANZ_DURCHSCHEINEND = {"nebelwesen", "spaeherdrohne", "nebelmutter", "erfrorene", "hologeist", "spuk"}
+GANZ_DURCHSCHEINEND = {"kino_boot", "kino_ruinen", "nebelwesen", "spaeherdrohne", "nebelmutter", "erfrorene", "hologeist", "spuk"}
 
 import numpy as np
 from PIL import Image
