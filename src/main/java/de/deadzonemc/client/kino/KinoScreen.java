@@ -69,7 +69,7 @@ public class KinoScreen extends Screen {
         } else if (s < INNEN1 + 1.2F) {
             schwarz = 1 - (s - INNEN1) / 1.2F;
         }
-        for (float schnitt : new float[]{AUSSEN, INNEN2, TUER, SCHWEBEN}) {
+        for (float schnitt : new float[]{AUSSEN, INNEN2, TUER, SCHWEBEN, STILLE}) {
             if (s >= schnitt - 0.12F && s < schnitt + 0.12F) {
                 schwarz = Math.max(schwarz, 1);
             }
