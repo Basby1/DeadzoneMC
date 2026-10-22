@@ -75,10 +75,13 @@ public class KinoScreen extends Screen {
             }
         }
         if (s >= STILLE && s < STURZ) {
-            schwarz = Math.max(schwarz, 0.55F + 0.35F * Mth.clamp((s - STILLE) / 1.5F, 0, 1));
+            // Das violette Licht erlischt: kurz dunkel, dann treibt man still draußen
+            float ab = Mth.clamp((s - STILLE) / 0.6F, 0, 1);
+            schwarz = Math.max(schwarz, 0.75F - 0.4F * ab);
         }
         if (s >= STURZ) {
-            schwarz = Math.max(schwarz, 0.5F + 0.5F * Mth.clamp((s - STURZ) / (AUFPRALL - STURZ), 0, 1));
+            float a = Mth.clamp((s - (AUFPRALL - 0.35F)) / 0.35F, 0, 1);
+            schwarz = Math.max(schwarz, 0.3F + 0.7F * a);
         }
         if (s >= AUFPRALL) {
             schwarz = 1;

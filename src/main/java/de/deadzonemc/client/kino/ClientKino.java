@@ -343,6 +343,10 @@ public final class ClientKino {
                     weg = weg.add(rechts.scale(r * r * 0.35 + r * 0.6)).add(richtung.scale(r * (i % 2 == 0 ? 0.5 : -0.4)))
                             .add(tr.scale(r * 30));
                 }
+                if (s >= STURZ) {
+                    float fall = s - STURZ;
+                    weg = weg.add(0, -fall * fall * 7, 0);
+                }
                 f.arme = Math.min(1, d / 2.5F);
                 f.roll = d * (i % 2 == 0 ? 9 : -7);
                 f.kippen = d * (i % 3 == 0 ? 6 : -4);
@@ -405,15 +409,27 @@ public final class ClientKino {
             float a = (s - TUER) / (SCHWEBEN - TUER);
             return lokal(s, Mth.lerp(a, -10, 4), 34, Mth.lerp(a, 4, -2));
         }
-        if (s < STURZ) {
+        if (s < STILLE) {
             float a = Math.min(1, (s - SCHWEBEN) / (STILLE - SCHWEBEN));
             return lokal(s, -8, 30 + 5 * a, 58 - 8 * a);
         }
-        if (sturzStart == null) {
-            sturzStart = lokal(STURZ, -8, 35, 50);
+        if (s < STURZ) {
+            return draussen(s);
         }
-        float a = Math.min(1, (s - STURZ) / (AUFPRALL - STURZ));
-        return sturzStart.add(rechts.scale(a * 6)).add(0, -Math.min(50, boden < sturzStart.y ? (sturzStart.y - boden - 2) : 40) * a * a, 0);
+        // Die Schwerkraft ist zurück: man fällt, der Boden kommt immer schneller näher
+        if (sturzStart == null) {
+            sturzStart = draussen(STURZ);
+        }
+        float a = Mth.clamp((s - STURZ) / (AUFPRALL - STURZ), 0, 1);
+        double tiefe = Math.max(6, sturzStart.y - (boden + 1.6));
+        return sturzStart.add(rechts.scale(a * 3)).add(0, -tiefe * Math.pow(a, 2.2), 0);
+    }
+
+    /** Draußen treibend (Stille): man ist durch den Riss hinausgetrieben und sieht den Hubschrauber über sich. */
+    private static Vec3 draussen(float s) {
+        float d = Math.max(0, s - STILLE);
+        Vec3 riss = lokal(STILLE, 40, 20, 30);
+        return riss.add(rechts.scale(1.5 + 1.1 * d)).add(0, -0.8 - 0.4 * d, 0).add(richtung.scale(-0.4 * d));
     }
 
     /** Wohin die Kamera schaut (Punkt in der Welt). */
@@ -434,10 +450,18 @@ public final class ClientKino {
             Vec3 tuer = lokal(s, 200, 10, -40);
             return tuer.lerp(aussen, a * 0.85);
         }
-        if (s < STURZ) {
+        if (s < STILLE) {
             return lokal(s, 60, 50, -10);
         }
-        return kameraPos(s).add(rechts.scale(1)).add(0, -2.2, 0);
+        if (s < STURZ) {
+            return heliPos(s).add(0, 2.0, 0); // zurück nach oben, zum zerrissenen Hubschrauber
+        }
+        float a = Mth.clamp((s - STURZ) / (AUFPRALL - STURZ), 0, 1);
+        float kipp = Mth.clamp(a * 2.2F, 0, 1);
+        kipp = kipp * kipp * (3 - 2 * kipp);
+        Vec3 oben = heliPos(s).add(0, 2.0, 0);
+        Vec3 unten = kameraPos(s).add(rechts.scale(3)).add(richtung.scale(1)).add(0, -12, 0);
+        return oben.lerp(unten, kipp);
     }
 
     public static void winkel(ViewportEvent.ComputeCameraAngles e) {
@@ -455,13 +479,15 @@ public final class ClientKino {
             wackeln = 1.3F;
         }
         float roll = Mth.sin(s * 1.7F) * wackeln;
-        if (s >= SCHWEBEN && s < STURZ) {
+        if (s >= SCHWEBEN && s < STILLE) {
             roll += Math.min(24, (s - SCHWEBEN) * 3.5F);
         }
+        if (s >= STILLE && s < STURZ) {
+            roll += 24 - 10 * (s - STILLE) / (STURZ - STILLE) + Mth.sin(s * 0.8F) * 4;
+        }
         if (s >= STURZ) {
-            float a = (s - STURZ) / (AUFPRALL - STURZ);
-            roll += 24 + a * a * 420;
-            nicken += a * 35;
+            float a = Mth.clamp((s - STURZ) / (AUFPRALL - STURZ), 0, 1);
+            roll += 14 + Mth.sin(a * 9) * 18 * a + a * 50;
         }
         gier += Mth.sin(s * 2.3F) * wackeln * 0.6F;
         nicken += Mth.sin(s * 3.1F + 1) * wackeln * 0.5F;
@@ -501,7 +527,7 @@ public final class ClientKino {
             weit = 46 + 260 * b;
         }
         if (s >= STILLE) {
-            weit = 24;
+            weit = 96; // draußen: Boden und Nebel unter einem
         }
         e.setNearPlaneDistance(weit * 0.15F);
         e.setFarPlaneDistance(weit);
@@ -534,7 +560,7 @@ public final class ClientKino {
         if (blitz(s) > 0.3F) {
             return 15;
         }
-        boolean innen = s < AUSSEN || (s >= INNEN2 && s < STURZ);
+        boolean innen = s < AUSSEN || (s >= INNEN2 && s < STILLE);
         if (s >= BLITZ2 + 0.25F && s < STILLE) {
             return 9;
         }
@@ -549,7 +575,7 @@ public final class ClientKino {
         if (blitz(s) > 0.3F) {
             return 15;
         }
-        boolean innen = s < AUSSEN || (s >= INNEN2 && s < STURZ);
+        boolean innen = s < AUSSEN || (s >= INNEN2 && s < STILLE);
         return innen ? 5 : 12;
     }
 }
