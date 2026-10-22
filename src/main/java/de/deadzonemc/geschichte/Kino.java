@@ -44,7 +44,26 @@ public final class Kino {
         NeoForge.EVENT_BUS.addListener(Kino::tick);
         NeoForge.EVENT_BUS.addListener(Kino::schaden);
         NeoForge.EVENT_BUS.addListener(Kino::ziel);
+        NeoForge.EVENT_BUS.addListener(Kino::befehle);
     }
+
+    /** /intro – das Intro noch einmal ansehen (nur man selbst, mit dem eigenen Charakter). */
+    private static void befehle(net.neoforged.neoforge.event.RegisterCommandsEvent e) {
+        e.getDispatcher().register(net.minecraft.commands.Commands.literal("intro").executes(ctx -> {
+            ServerPlayer p = ctx.getSource().getPlayerOrException();
+            if (IM_KINO.containsKey(p.getUUID()) || WARTEND.containsKey(p.getUUID())) {
+                return 0;
+            }
+            IM_KINO.put(p.getUUID(), (long) p.server.getTickCount() + HOECHSTENS_KINO);
+            wiederholung.add(p.getUUID());
+            PacketDistributor.sendToPlayer(p, new CharakterPayload(CharakterPayload.KINO,
+                    p.getUUID() + "," + p.getGameProfile().getName()));
+            return 1;
+        }));
+    }
+
+    /** Wer das Intro nur wiederholt, bekommt danach keine Begrüßung zum ersten Akt. */
+    private static final java.util.Set<UUID> wiederholung = new java.util.HashSet<>();
 
     /** Beim ersten Betreten: Intro steht noch aus. */
     static void vormerken(ServerPlayer p) {
@@ -86,7 +105,7 @@ public final class Kino {
                 return false;
             }
             ServerPlayer p = s.getPlayerList().getPlayer(en.getKey());
-            if (p != null) {
+            if (p != null && !wiederholung.remove(en.getKey())) {
                 begruessen(p);
             }
             return true;
@@ -142,7 +161,7 @@ public final class Kino {
 
     /** Der Client meldet: Intro vorbei (oder übersprungen). */
     public static void fertig(ServerPlayer p) {
-        if (IM_KINO.remove(p.getUUID()) != null) {
+        if (IM_KINO.remove(p.getUUID()) != null && !wiederholung.remove(p.getUUID())) {
             begruessen(p);
         }
     }
