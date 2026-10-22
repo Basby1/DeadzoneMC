@@ -5,10 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -17,31 +14,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 /**
  * Verlassene Autos – manchmal liegt im Inneren noch etwas Brauchbares.
  *
- * <p>Seitenansicht (vorne links), fünf Blöcke lang und drei breit:</p>
- * <pre>
- *   .  _  _  _  .     Dach: Stufen in Lackfarbe
- *   _  G  G  G  _     Haube und Kofferraum als Stufen, dazwischen Scheiben
- *   K  R  K  R  K     Karosserie, R = Räder
- * </pre>
+ * Gebaut wird mit {@link de.deadzonemc.welt.bau.Fahrzeuge#auto}: Limousine, Kombi, Kleinwagen, Pickup oder Lieferwagen.
  */
 public class AutowrackFeature extends Feature<NoneFeatureConfiguration> {
-
-    /** Lackfarbe: voller Block und passende Stufe. */
-    private record Lack(Block voll, Block stufe) {
-    }
-
-    private static final Lack[] LACKE = {
-            new Lack(Blocks.POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB),
-            new Lack(Blocks.SMOOTH_QUARTZ, Blocks.SMOOTH_QUARTZ_SLAB),
-            new Lack(Blocks.RED_NETHER_BRICKS, Blocks.RED_NETHER_BRICK_SLAB),
-            new Lack(Blocks.POLISHED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE_SLAB),
-            new Lack(Blocks.EXPOSED_CUT_COPPER, Blocks.EXPOSED_CUT_COPPER_SLAB),
-            new Lack(Blocks.WEATHERED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER_SLAB),
-            new Lack(Blocks.OXIDIZED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER_SLAB),
-            new Lack(Blocks.SMOOTH_STONE, Blocks.SMOOTH_STONE_SLAB),
-    };
-    private static final Lack AUSGEBRANNT = new Lack(Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_SLAB);
-    private static final Block[] GLAS = {Blocks.GRAY_STAINED_GLASS, Blocks.BLACK_STAINED_GLASS, Blocks.LIGHT_GRAY_STAINED_GLASS};
 
     public AutowrackFeature() {
         super(NoneFeatureConfiguration.CODEC);
@@ -83,47 +58,9 @@ public class AutowrackFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
         boolean ausgebrannt = zufall.nextInt(4) == 0;
-        Lack lack = ausgebrannt ? AUSGEBRANNT : Bau.waehlen(zufall, LACKE);
-        BlockState voll = lack.voll().defaultBlockState();
-        BlockState stufe = lack.stufe().defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
-        BlockState glas = Bau.waehlen(zufall, GLAS).defaultBlockState();
-        BlockState rad = Blocks.BLACK_CONCRETE.defaultBlockState();
-
-        for (int l = 0; l < laenge; l++) {
-            for (int b = 0; b < breite; b++) {
-                // Karosserie mit vier Rädern an den Seiten
-                boolean istRad = (l == 1 || l == 3) && (b == 0 || b == 2);
-                setzen(level, versetzt(boden, entlangX, l, b, 0), istRad ? rad : voll);
-
-                // Haube, Kofferraum und Scheiben
-                BlockState mitte;
-                if (l == 0 || l == 4) {
-                    mitte = stufe;
-                } else if (b == 1 && l >= 2) {
-                    mitte = Bau.LUFT; // Innenraum
-                } else {
-                    boolean kaputt = ausgebrannt || zufall.nextInt(10) < 3;
-                    mitte = kaputt ? Bau.LUFT : glas;
-                }
-                setzen(level, versetzt(boden, entlangX, l, b, 1), mitte);
-
-                // Dach über dem Innenraum
-                if (l >= 1 && l <= 3 && !(ausgebrannt && zufall.nextInt(3) == 0)) {
-                    setzen(level, versetzt(boden, entlangX, l, b, 2), stufe);
-                }
-            }
-        }
-        // Motorhaube in der Mitte vorn: mit dem Brecheisen aufzuhebeln (Fahrzeugteile)
-        setzen(level, versetzt(boden, entlangX, 0, 1, 1), de.deadzonemc.beute.Beute.MOTORRAUM.get().defaultBlockState());
-        // Hintere Dachsäulen in Lackfarbe, damit das Dach nicht schwebt
-        setzen(level, versetzt(boden, entlangX, 3, 0, 1), voll);
-        setzen(level, versetzt(boden, entlangX, 3, 2, 1), voll);
-        // Manchmal liegt auf dem Rücksitz noch etwas
-        if (zufall.nextInt(5) < 2) {
-            BlockPos kiste = versetzt(boden, entlangX, 3, 1, 1);
-            Bau.kiste(level, bereich, kiste.getX(), kiste.getY(), kiste.getZ(),
-                    Blocks.BARREL.defaultBlockState(), Bau.beute("autowrack"), zufall.nextLong());
-        }
+        long saat = zufall.nextLong();
+        de.deadzonemc.welt.bau.Fahrzeuge.auto(de.deadzonemc.welt.bau.Fahrzeuge.kasten(level, bereich, boden.getX(), boden.getY(),
+                boden.getZ(), entlangX, 5, 3, saat), saat, ausgebrannt);
         return true;
     }
 

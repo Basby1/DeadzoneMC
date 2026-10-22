@@ -77,7 +77,7 @@ public class ObjektPiece extends StructurePiece {
         switch (typ) {
             case "auto", "auto_brand" -> {
                 Baukasten b = Fahrzeuge.kasten(level, bereich, x, y + 1, z, entlangX, 5, 3, saat);
-                Fahrzeuge.auto(b, saat, typ.equals("auto_brand"));
+                Fahrzeuge.strassenwrack(b, saat, typ.equals("auto_brand"));
             }
             case "ortsschild" -> ortsschild(level, bereich);
             default -> {

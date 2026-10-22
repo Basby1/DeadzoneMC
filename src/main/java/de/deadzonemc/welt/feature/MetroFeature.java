@@ -144,12 +144,30 @@ public class MetroFeature extends Feature<NoneFeatureConfiguration> {
                     if (!imChunk(p, x0, z0)) {
                         continue;
                     }
-                    boolean wand = l == 0 || l == 9 || q != 0 || h == 2;
+                    boolean ende = l == 0 || l == 9;
+                    boolean wand = ende || q != 0 || h == 2;
                     boolean tuer = (l == 4 || l == 5) && q != 0 && h < 2;
-                    boolean fenster = h == 1 && q != 0 && l % 3 == 1;
+                    // Fensterband zwischen Säulen, Stirnfenster vorn und hinten, unten ein blauer Streifen
+                    boolean fenster = h == 1 && ((q != 0 && !ende && l % 3 != 0) || (ende && q == 0));
+                    BlockState zustand;
+                    if (fenster) {
+                        boolean laengs = !ende;
+                        boolean alongX = laengs == entlangX;
+                        BlockState glas = Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState();
+                        glas = alongX ? glas.setValue(net.minecraft.world.level.block.CrossCollisionBlock.EAST, true)
+                                .setValue(net.minecraft.world.level.block.CrossCollisionBlock.WEST, true)
+                                : glas.setValue(net.minecraft.world.level.block.CrossCollisionBlock.NORTH, true)
+                                .setValue(net.minecraft.world.level.block.CrossCollisionBlock.SOUTH, true);
+                        zustand = z.nextInt(4) == 0 ? Blocks.AIR.defaultBlockState() : glas;
+                    } else if (h == 2) {
+                        zustand = Blocks.SMOOTH_STONE_SLAB.defaultBlockState(); // Dach
+                    } else if (h == 0) {
+                        zustand = Blocks.BLUE_CONCRETE.defaultBlockState();
+                    } else {
+                        zustand = Blocks.IRON_BLOCK.defaultBlockState();
+                    }
                     if (wand && !tuer) {
-                        level.setBlock(p, fenster ? Blocks.IRON_BARS.defaultBlockState()
-                                : (h == 2 ? Blocks.SMOOTH_STONE_SLAB.defaultBlockState() : Blocks.IRON_BLOCK.defaultBlockState()), 2);
+                        level.setBlock(p, zustand, 2);
                     } else if (!tuer) {
                         level.setBlock(p, Blocks.AIR.defaultBlockState(), 2);
                     }

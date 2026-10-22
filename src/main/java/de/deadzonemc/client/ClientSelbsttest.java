@@ -191,9 +191,42 @@ public final class ClientSelbsttest {
                     weiter();
                 }
             }
-            case 6 -> endBesuchen(mc);
+            case 6 -> fahrzeugeBesuchen(mc);
+            case 7 -> endBesuchen(mc);
             default -> {
             }
+        }
+    }
+
+    /** Die Fahrzeugschau aufbauen und jedes Fahrzeug fotografieren. */
+    private static void fahrzeugeBesuchen(Minecraft mc) {
+        if (mc.player == null) {
+            return;
+        }
+        if (t == 5) {
+            mc.options.hideGui = true;
+            mc.player.connection.sendCommand("gamemode spectator");
+            mc.player.connection.sendCommand("time set noon");
+            mc.player.connection.sendCommand("weather clear");
+            mc.player.connection.sendCommand("deadzone nebel aus");
+        }
+        if (t == 20) {
+            mc.player.connection.sendCommand("deadzone fahrzeugschau");
+        }
+        int start = 20 * 35;
+        int n = de.deadzonemc.welt.Fahrzeugschau.anzahlBlicke();
+        int i = (t - start) / 240;
+        int imSchritt = (t - start) % 240;
+        if (t >= start && i < n) {
+            if (imSchritt == 0) {
+                mc.player.connection.sendCommand("deadzone fahrzeugschau " + i);
+            }
+            if (imSchritt == 220) {
+                foto(mc, "fz_" + de.deadzonemc.welt.Fahrzeugschau.blickName(i));
+            }
+        }
+        if (t >= start + n * 240 + 10) {
+            weiter();
         }
     }
 

@@ -30,6 +30,10 @@ public final class Ortsbefehle {
         event.getDispatcher().register(Commands.literal("deadzone")
                 .requires(q -> q.hasPermission(2))
                 .then(Commands.literal("orte").executes(Ortsbefehle::orte))
+                .then(Commands.literal("fahrzeugschau").executes(ctx -> Fahrzeugschau.befehl(ctx, -1))
+                        .then(Commands.argument("blick", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0))
+                                .executes(ctx -> Fahrzeugschau.befehl(ctx,
+                                        com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "blick")))))
                 .then(Commands.literal("hin").executes(ctx -> hin(ctx, SiedlungsTyp.DORF))
                         .then(Commands.literal("dorf").executes(ctx -> hin(ctx, SiedlungsTyp.DORF)))
                         .then(Commands.literal("kleinstadt").executes(ctx -> hin(ctx, SiedlungsTyp.KLEINSTADT)))

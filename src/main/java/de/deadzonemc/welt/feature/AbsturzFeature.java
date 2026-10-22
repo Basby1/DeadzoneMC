@@ -668,16 +668,20 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
+        testBauen(w, r, boden, art, Direction.Plane.HORIZONTAL.getRandomDirection(r));
+    }
+
+    /** Wie {@link #testBauen(WorldGenLevel, RandomSource, BlockPos, Art)}, mit fester Längsrichtung. */
+    public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art, Direction lang) {
         nachWeltgen = true;
         try {
-            testBauenIntern(w, r, boden, art);
+            testBauenIntern(w, r, boden, art, lang);
         } finally {
             nachWeltgen = false;
         }
     }
 
-    private static void testBauenIntern(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
-        Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
+    private static void testBauenIntern(WorldGenLevel w, RandomSource r, BlockPos boden, Art art, Direction lang) {
         Rahmen f = new Rahmen(w, boden, lang, lang.getClockWise());
         switch (art) {
             case HUBSCHRAUBER -> hubschrauber(f, r);
@@ -856,16 +860,43 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         spawnen(f, MonsterTypen.GEFALLENER_SOLDAT::get, 1 + r.nextInt(2), r);
     }
 
+    // ---- Hilfen für Blockzustände ----------------------------------------------------------------
+
+    /** Treppe, deren hohe Seite nach {@code hoch} zeigt; {@code kopf} = kopfüber. */
+    private static BlockState tr(Block b, Direction hoch, boolean kopf) {
+        return b.defaultBlockState().setValue(StairBlock.FACING, hoch).setValue(StairBlock.HALF,
+                kopf ? net.minecraft.world.level.block.state.properties.Half.TOP : net.minecraft.world.level.block.state.properties.Half.BOTTOM);
+    }
+
+    private static BlockState st(Block b, boolean oben) {
+        return b.defaultBlockState().setValue(SlabBlock.TYPE, oben ? SlabType.TOP : SlabType.BOTTOM);
+    }
+
+    /** Scheibe, Gitter oder Zaun, der sich entlang einer Achse verbindet. */
+    private static BlockState laengs(Block b, Direction d) {
+        BlockState s = b.defaultBlockState();
+        var p = net.minecraft.world.level.block.PipeBlock.PROPERTY_BY_DIRECTION;
+        if (s.hasProperty(p.get(d))) {
+            s = s.setValue(p.get(d), true).setValue(p.get(d.getOpposite()), true);
+        }
+        return s;
+    }
+
     // ---- Flugzeug -------------------------------------------------------------------------
 
+    /**
+     * Abgestürztes Passagierflugzeug: runder Rumpf (Treppen an den Kanten), in der Mitte durchgebrochen, das Heck
+     * versetzt. Cockpit mit dunklen Scheiben, Sitzreihen, Gepäckfächer, Teppich im Gang, offene Tür mit
+     * Notrutsche, ein Flügel mit Triebwerk und Positionslicht, der andere abgerissen, Höhen- und Seitenleitwerk.
+     */
     private static void flugzeug(Rahmen f, RandomSource r) {
-        BlockState weiss = Blocks.WHITE_CONCRETE.defaultBlockState();
+        BlockState weiss = Blocks.SMOOTH_QUARTZ.defaultBlockState();
         BlockState grau = Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState();
         BlockState rot = Blocks.RED_CONCRETE.defaultBlockState();
         BlockState schwarz = Blocks.POLISHED_BLACKSTONE.defaultBlockState();
-        BlockState fenster = Blocks.LIGHT_BLUE_STAINED_GLASS_PANE.defaultBlockState();
-        BlockState flUegel = Blocks.SMOOTH_STONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP);
-        BlockState sitz = Blocks.BLUE_TERRACOTTA.defaultBlockState();
+        BlockState fenster = laengs(Blocks.GRAY_STAINED_GLASS_PANE, f.lang());
+        BlockState fluegel = st(Blocks.SMOOTH_STONE_SLAB, true);
+        Direction vor = f.lang().getOpposite();
         krater(f, r, 9);
         // Rumpf l -11..11 (Bruch bei l 0..1), Querschnitt b -2..2, h 0..4; das Heck ist versetzt
         for (int l = -11; l <= 11; l++) {
@@ -876,11 +907,16 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             boolean kaputt = l > 8 || l < -9;
             for (int b = -2; b <= 2; b++) {
                 int bb = b + versatz;
+                Direction innen = b < 0 ? f.quer() : f.quer().getOpposite();
                 for (int h = 0; h <= 4; h++) {
                     boolean rand = Math.abs(b) == 2 || h == 0 || h == 4;
                     BlockState s;
                     if (!rand) {
                         s = Bau.LUFT;
+                    } else if (Math.abs(b) == 2 && h == 4) {
+                        s = tr(Blocks.SMOOTH_QUARTZ_STAIRS, innen, false); // runde Oberkante
+                    } else if (Math.abs(b) == 2 && h == 0) {
+                        s = tr(Blocks.POLISHED_DIORITE_STAIRS, innen, true); // runde Unterkante
                     } else if (h == 2 && Math.abs(b) == 2 && l % 2 == 0) {
                         s = r.nextInt(3) == 0 ? Bau.LUFT : fenster;
                     } else if (h == 1 && Math.abs(b) == 2) {
@@ -897,45 +933,95 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 f.stuetzen(l, bb, 0, Blocks.COARSE_DIRT.defaultBlockState());
             }
-            // Sitzreihen
+            // Gepäckfächer oben, Teppich im Gang, Sitzreihen
+            if (l > -10 && l < 10) {
+                for (int b : new int[]{-1, 1}) {
+                    if (r.nextInt(5) > 0) {
+                        f.setzen(l, b + versatz, 3, st(Blocks.SMOOTH_STONE_SLAB, true));
+                    }
+                }
+                if (r.nextInt(4) > 0) {
+                    f.setzen(l, versatz, 1, Blocks.RED_CARPET.defaultBlockState());
+                }
+            }
             if (l % 2 != 0 && l > -9 && l < 10) {
-                f.setzen(l, -1 + versatz, 1, sitz);
-                f.setzen(l, 1 + versatz, 1, sitz);
+                for (int b : new int[]{-1, 1}) {
+                    f.setzen(l, b + versatz, 1, r.nextInt(7) == 0 ? Bau.LUFT : tr(Blocks.DARK_PRISMARINE_STAIRS, f.lang(), false));
+                }
             }
         }
-        // Nase und Cockpit
+        // Nase: verjüngt, Cockpitscheiben, schräge Oberseite
         for (int b = -1; b <= 1; b++) {
+            f.setzen(-12, b, 0, grau);
             f.setzen(-12, b, 1, weiss);
-            f.setzen(-12, b, 2, fenster);
-            f.setzen(-12, b, 3, weiss);
+            f.setzen(-12, b, 2, weiss);
+            f.setzen(-12, b, 3, laengs(Blocks.BLACK_STAINED_GLASS_PANE, f.quer()));
+            f.setzen(-12, b, 4, tr(Blocks.SMOOTH_QUARTZ_STAIRS, f.lang(), false));
+            f.stuetzen(-12, b, 0, Blocks.COARSE_DIRT.defaultBlockState());
         }
-        // Leitwerk am Heck
+        f.setzen(-13, 0, 0, grau);
+        f.setzen(-13, 0, 1, weiss);
+        f.setzen(-13, 0, 2, tr(Blocks.SMOOTH_QUARTZ_STAIRS, f.lang(), false));
+        f.setzen(-13, -1, 1, tr(Blocks.SMOOTH_QUARTZ_STAIRS, f.quer(), false));
+        f.setzen(-13, 1, 1, tr(Blocks.SMOOTH_QUARTZ_STAIRS, f.quer().getOpposite(), false));
+        f.stuetzen(-13, 0, 0, Blocks.COARSE_DIRT.defaultBlockState());
+        // Leitwerk am Heck: Seitenruder mit rotem Streifen, Höhenleitwerk zu beiden Seiten
         for (int h = 5; h <= 8; h++) {
             f.setzen(11, 1, h, h == 7 ? rot : weiss);
-            f.setzen(10, 1, h, h <= 6 ? weiss : Bau.LUFT);
+            f.setzen(10, 1, h, h <= 6 ? weiss : (h == 7 ? tr(Blocks.SMOOTH_QUARTZ_STAIRS, f.lang(), false) : Bau.LUFT));
         }
-        // Flügel: links ganz, rechts abgerissen; Triebwerke darunter
+        for (int l = 10; l <= 11; l++) {
+            for (int b = 2; b <= 4; b++) {
+                if (l == 10 && b == 4) {
+                    continue;
+                }
+                f.setzen(l, 1 + b, 4, st(Blocks.SMOOTH_QUARTZ_SLAB, true));
+                f.setzen(l, 1 - b, 4, st(Blocks.SMOOTH_QUARTZ_SLAB, true));
+            }
+        }
+        // Flügel: links ganz, rechts abgerissen
         for (int l = -5; l <= -2; l++) {
             for (int b = 3; b <= 11; b++) {
                 if (b > 11 - (l + 5)) {
                     continue;
                 }
-                f.setzen(l, -b, 1, flUegel);
+                f.setzen(l, -b, 1, fluegel);
             }
             for (int b = 3; b <= 6; b++) {
-                f.setzen(l, b, 1, flUegel);
+                f.setzen(l, b, 1, fluegel);
             }
         }
-        for (int l = -5; l <= -3; l++) {
-            f.setzen(l, -6, 0, Blocks.IRON_BLOCK.defaultBlockState());
+        f.setzen(-5, -11, 1, Blocks.RED_STAINED_GLASS.defaultBlockState()); // Positionslicht an der Spitze
+        f.setzen(-5, -11, 2, st(Blocks.SMOOTH_STONE_SLAB, false)); // Winglet
+        // Triebwerk unter dem Flügel: Einlauf, Gondel, Schubdüse
+        f.setzen(-7, -6, 0, schwarz);
+        for (int l = -6; l <= -3; l++) {
+            f.setzen(l, -6, 0, l == -6 ? Blocks.IRON_BLOCK.defaultBlockState() : grau);
+            f.stuetzen(l, -6, 0, Blocks.COARSE_DIRT.defaultBlockState());
         }
-        f.setzen(-6, -6, 0, schwarz);
-        // abgerissener Flügel liegt daneben
+        f.setzen(-2, -6, 0, laengs(Blocks.IRON_BARS, f.quer()));
+        // abgerissener Flügel liegt daneben, mit dem zweiten Triebwerk
         for (int l = 4; l <= 8; l++) {
             for (int b = 7; b <= 9; b++) {
                 BlockPos p = f.pos(l, b, 0);
                 int y = bodenHoehe(f.w(), p.getX(), p.getZ());
                 f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), Blocks.SMOOTH_STONE_SLAB.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        }
+        for (int l = 5; l <= 7; l++) {
+            BlockPos p = f.pos(l, 11, 0);
+            int y = bodenHoehe(f.w(), p.getX(), p.getZ());
+            f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), l == 5 ? schwarz : grau, Block.UPDATE_CLIENTS);
+        }
+        // offene Tür mit Notrutsche
+        f.setzen(-9, -2, 1, Bau.LUFT);
+        f.setzen(-9, -2, 2, Bau.LUFT);
+        f.setzen(-9, -3, 0, Blocks.YELLOW_WOOL.defaultBlockState());
+        for (int b = 4; b <= 7; b++) {
+            for (int l = -10; l <= -9; l++) {
+                BlockPos p = f.pos(l, -b, 0);
+                int y = bodenHoehe(f.w(), p.getX(), p.getZ());
+                f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), Blocks.YELLOW_CARPET.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
         }
         f.setzen(0, -3, 0, Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, true)
@@ -956,14 +1042,19 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
     // ---- Frachter -------------------------------------------------------------------------
 
+    /**
+     * Gestrandeter Frachter mit Schlagseite: rostiger Rumpf, Reling, Ladekran am Bug, Container auf Deck,
+     * Brücke mit Schornstein, Radarmast und Rettungsboot, Ankerkette.
+     */
     private static void frachter(Rahmen f, RandomSource r, int wassertiefe) {
         BlockState rost = Blocks.TERRACOTTA.defaultBlockState();
         BlockState rost2 = Blocks.BROWN_TERRACOTTA.defaultBlockState();
         BlockState rumpf = Blocks.RED_TERRACOTTA.defaultBlockState();
         BlockState deck = Blocks.EXPOSED_CUT_COPPER.defaultBlockState();
         BlockState weiss = Blocks.WHITE_TERRACOTTA.defaultBlockState();
-        BlockState fenster = Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState();
+        BlockState gelb = Blocks.YELLOW_CONCRETE.defaultBlockState();
         int deckH = Math.max(4, wassertiefe + 3);
+        int d = deckH;
         // Rumpf l -13..13, b -4..4 – zum Bug hin schmaler, Schlagseite: linke Seite höher
         for (int l = -13; l <= 13; l++) {
             int halb = l < -9 ? 4 - (-9 - l) : 4;
@@ -978,10 +1069,17 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                     if (aussen && h > 1 && r.nextInt(18) == 0) {
                         s = Bau.LUFT; // Rostlöcher
                     }
+                    if (aussen && h == deckH && Math.abs(b) == halb) {
+                        s = weiss; // weißer Wasserpass unter der Reling
+                    }
                     f.setzen(l, b, h + neig, s);
                 }
                 f.setzen(l, b, deckH + 1 + neig, deck);
                 f.stuetzen(l, b, neig, rost2);
+                // Reling am Rand (hinten an der Brücke frei), mit Lücken
+                if (Math.abs(b) == halb && l < 8 && r.nextInt(4) > 0) {
+                    f.setzen(l, b, deckH + 2 + neig, laengs(Blocks.IRON_BARS, halb == 4 ? f.lang() : f.quer()));
+                }
             }
         }
         // Brücke am Heck
@@ -989,13 +1087,57 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             for (int b = -3; b <= 3; b++) {
                 for (int h = deckH + 2; h <= deckH + 6; h++) {
                     boolean rand = Math.abs(b) == 3 || l == 8 || l == 12 || h == deckH + 6;
-                    BlockState s = !rand ? Bau.LUFT : (h == deckH + 5 && (l == 8 || Math.abs(b) == 3)) ? fenster : weiss;
+                    BlockState s = weiss;
+                    if (!rand) {
+                        s = Bau.LUFT;
+                    } else if (h == deckH + 5 && (l == 8 || Math.abs(b) == 3) && !(l == 8 && Math.abs(b) == 3)) {
+                        s = r.nextInt(5) == 0 ? Bau.LUFT : laengs(Blocks.BLACK_STAINED_GLASS_PANE, l == 8 ? f.quer() : f.lang());
+                    }
                     f.setzen(l, b, h + (b < 0 ? 1 : 0), s);
                 }
             }
         }
         f.kiste(10, 0, deckH + 2, "werkzeug", r, false);
         f.kiste(11, -1, deckH + 3, "militaer", r, true);
+        // Schornstein mit rotem Band, Radarmast
+        for (int h = d + 7; h <= d + 10; h++) {
+            for (int l = 10; l <= 11; l++) {
+                f.setzen(l, 0, h, h == d + 9 ? Blocks.RED_CONCRETE.defaultBlockState() : Blocks.BLACK_CONCRETE.defaultBlockState());
+            }
+        }
+        for (int h = d + 7; h <= d + 11; h++) {
+            f.setzen(9, 0, h, Blocks.IRON_BARS.defaultBlockState());
+        }
+        f.setzen(9, -1, d + 10, laengs(Blocks.IRON_BARS, f.quer()));
+        f.setzen(9, 1, d + 10, laengs(Blocks.IRON_BARS, f.quer()));
+        f.setzen(9, 0, d + 10, laengs(Blocks.IRON_BARS, f.quer()));
+        f.setzen(9, 0, d + 12, Blocks.LIGHTNING_ROD.defaultBlockState());
+        // Rettungsboot in den Davits an der Steuerbordseite
+        for (int l = 8; l <= 12; l += 4) {
+            for (int h = d + 2; h <= d + 4; h++) {
+                f.setzen(l, 4, h, Blocks.IRON_BARS.defaultBlockState());
+            }
+        }
+        for (int l = 9; l <= 11; l++) {
+            f.setzen(l, 4, d + 3, l == 10 ? Blocks.ORANGE_CONCRETE.defaultBlockState() : Blocks.ORANGE_TERRACOTTA.defaultBlockState());
+            f.setzen(l, 4, d + 4, st(Blocks.SMOOTH_QUARTZ_SLAB, false));
+        }
+        // Ladekran am Bug: gelbe Säule, Ausleger übers Wasser, Kette mit Haken
+        for (int h = d + 2; h <= d + 7; h++) {
+            f.setzen(-10, 0, h, gelb);
+        }
+        for (int b = 1; b <= 6; b++) {
+            f.setzen(-10, b, d + 7, b == 6 ? tr(Blocks.SMOOTH_SANDSTONE_STAIRS, f.quer().getOpposite(), true) : gelb);
+        }
+        f.setzen(-10, 0, d + 8, Blocks.BLACK_CONCRETE.defaultBlockState()); // Kranführerhaus
+        for (int h = d + 3; h <= d + 6; h++) {
+            f.setzen(-10, 6, h, Blocks.CHAIN.defaultBlockState());
+        }
+        f.setzen(-10, 6, d + 2, Blocks.TRIPWIRE_HOOK.defaultBlockState());
+        // Ankerkette hängt am Bug ins Wasser
+        for (int h = 1; h <= d + 1; h++) {
+            f.setzen(-14, 0, h, Blocks.CHAIN.defaultBlockState());
+        }
         // Container auf Deck (2 breit, 2 hoch, 5 lang) mit Ware
         BlockState[] farben = {Blocks.RED_CONCRETE.defaultBlockState(), Blocks.BLUE_CONCRETE.defaultBlockState(),
                 Blocks.ORANGE_CONCRETE.defaultBlockState(), Blocks.GREEN_CONCRETE.defaultBlockState(),
@@ -1017,7 +1159,9 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                         }
                     }
                 }
-                f.setzen(l0 + 4, b0, deckH + 2 + (b0 < 0 ? 1 : 0), Bau.LUFT); // Tür offen
+                // Türseite mit Verriegelungsstangen, eine Tür offen
+                f.setzen(l0 + 4, b0, deckH + 2 + (b0 < 0 ? 1 : 0), Bau.LUFT);
+                f.setzen(l0 + 4, b0 + 1, deckH + 2 + (b0 + 1 < 0 ? 1 : 0), laengs(Blocks.IRON_BARS, f.quer()));
                 f.kiste(l0 + 2, b0, deckH + 2 + (b0 < 0 ? 1 : 0), ware[r.nextInt(ware.length)], r, true);
             }
         }
@@ -1026,121 +1170,229 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
 
     // ---- Panzerwrack und Konvoi ----------------------------------------------------------------
 
+    private static void panzer(Rahmen f, RandomSource r, int l0, int b0, boolean einzeln) {
+        int z = r.nextInt(20);
+        panzer(f, r, l0, b0, einzeln, z < 12 ? 0 : z < 17 ? 1 : 2);
+    }
+
     /**
      * Ein alter Kampfpanzer, Jahrzehnte alt oder in den ersten Tagen der Abriegelung liegen geblieben: Wanne mit
-     * Ketten und Laufrollen, Turm mit Kanone (oft zur Seite gedreht), offene Luke, Rost, Moos, Ranken.
-     * Im Inneren: Munitionskisten.
+     * schrägem Bug, Ketten mit Laufrollen und runden Enden, Kettenschürzen, Turm mit Blende und Kanone
+     * (vorn, zur Seite oder nach hinten), offene Luke, Antenne, Staukorb, Ersatzkettenglieder, Zusatztanks.
+     * Überwuchert (Moos, Ranken) oder ausgebrannt (Ruß, Schädel). Im Inneren: Munitionskisten.
+     *
+     * @param rohr 0 = nach vorn, 1 = zur Seite, 2 = nach hinten
      */
-    private static void panzer(Rahmen f, RandomSource r, int l0, int b0, boolean einzeln) {
+    private static void panzer(Rahmen f, RandomSource r, int l0, int b0, boolean einzeln, int rohr) {
         boolean alt = r.nextInt(3) > 0; // alt = überwuchert, sonst ausgebrannt
-        BlockState gruen = Blocks.GREEN_TERRACOTTA.defaultBlockState();
-        BlockState oliv = Blocks.MOSS_BLOCK.defaultBlockState();
-        BlockState rost = Blocks.BROWN_TERRACOTTA.defaultBlockState();
-        BlockState russ = Blocks.POLISHED_BLACKSTONE.defaultBlockState();
+        Block blech = alt ? Blocks.WAXED_WEATHERED_CUT_COPPER : Blocks.POLISHED_BLACKSTONE;
+        Block blechStufe = alt ? Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB : Blocks.POLISHED_BLACKSTONE_SLAB;
+        Block blechTreppe = alt ? Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS : Blocks.POLISHED_BLACKSTONE_STAIRS;
         BlockState kette = Blocks.POLISHED_DEEPSLATE.defaultBlockState();
         BlockState rolle = Blocks.DEEPSLATE_TILES.defaultBlockState();
-        BlockState stufeK = Blocks.POLISHED_DEEPSLATE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+        BlockState erde = Blocks.COARSE_DIRT.defaultBlockState();
+        Direction vor = f.lang().getOpposite();
+        Direction zur = f.lang();
         java.util.function.Supplier<BlockState> haut = () -> {
+            int w = r.nextInt(20);
             if (!alt) {
-                return r.nextInt(3) == 0 ? rost : russ;
+                return (w < 14 ? Blocks.POLISHED_BLACKSTONE : w < 18 ? Blocks.BLACKSTONE : Blocks.BROWN_TERRACOTTA).defaultBlockState();
             }
-            int z = r.nextInt(10);
-            return z < 6 ? gruen : z < 8 ? rost : oliv;
+            return (w < 14 ? Blocks.WAXED_WEATHERED_CUT_COPPER : w < 16 ? Blocks.GREEN_TERRACOTTA
+                    : w < 19 ? Blocks.BROWN_TERRACOTTA : Blocks.MOSS_BLOCK).defaultBlockState();
         };
+        // Schreibt relativ zur Panzermitte
+        interface P {
+            void s(int l, int b, int h, BlockState x);
+        }
+        P p = (l, b, h, x) -> f.setzen(l0 + l, b0 + b, h, x);
         if (einzeln) {
             krater(f, r, 6);
         }
         // Wanne l -4..4, b -2..2 (Ketten auf b = ±2)
         for (int l = -4; l <= 4; l++) {
             for (int b = -2; b <= 2; b++) {
-                int ll = l0 + l;
-                int bb = b0 + b;
-                boolean kettenseite = Math.abs(b) == 2;
-                if (kettenseite) {
-                    f.setzen(ll, bb, 0, (l == -4 || l == 4) ? stufeK : (l % 2 == 0 ? rolle : kette));
-                    f.setzen(ll, bb, 1, (l == -4 || l == 4) ? Bau.LUFT : kette);
+                if (Math.abs(b) == 2) {
+                    boolean ende = l == -4 || l == 4;
+                    Direction innen = l == -4 ? zur : vor;
+                    p.s(l, b, 0, ende ? tr(Blocks.POLISHED_DEEPSLATE_STAIRS, innen, false) : (l % 2 == 0 ? rolle : kette));
+                    p.s(l, b, 1, ende ? tr(Blocks.POLISHED_DEEPSLATE_STAIRS, innen, true) : kette);
+                    // Kettenschürze
+                    p.s(l, b, 2, l == -4 || (!alt && r.nextInt(4) == 0) ? Bau.LUFT : st(blechStufe, false));
                 } else {
-                    f.setzen(ll, bb, 0, kette);
-                    f.setzen(ll, bb, 1, haut.get());
-                    f.setzen(ll, bb, 2, (l == 4) ? (alt ? Blocks.MOSSY_COBBLESTONE_SLAB : Blocks.BLACKSTONE_SLAB)
-                            .defaultBlockState() : haut.get());
+                    p.s(l, b, 0, kette);
+                    p.s(l, b, 1, haut.get());
+                    p.s(l, b, 2, l == -4 ? tr(blechTreppe, zur, false) : haut.get());
                 }
-                f.stuetzen(ll, bb, 0, Blocks.COARSE_DIRT.defaultBlockState());
+                f.stuetzen(l0 + l, b0 + b, 0, erde);
             }
         }
-        // Bug (schräge Front)
+        // Bug: schräge untere Platte, Abschlepphaken
         for (int b = -1; b <= 1; b++) {
-            f.setzen(l0 - 5, b0 + b, 1, (alt ? Blocks.MOSSY_STONE_BRICK_SLAB : Blocks.BLACKSTONE_SLAB).defaultBlockState());
-            f.setzen(l0 - 5, b0 + b, 0, haut.get());
-            f.stuetzen(l0 - 5, b0 + b, 0, Blocks.COARSE_DIRT.defaultBlockState());
+            p.s(-5, b, 0, haut.get());
+            p.s(-5, b, 1, tr(blechTreppe, zur, false));
+            f.stuetzen(l0 - 5, b0 + b, 0, erde);
+        }
+        // Heck: zwei Zusatztanks (leere Fässer, liegend)
+        for (int b = -1; b <= 1; b += 2) {
+            p.s(5, b, 1, Blocks.BARREL.defaultBlockState().setValue(net.minecraft.world.level.block.BarrelBlock.FACING, f.quer()));
+            p.s(5, b, 0, haut.get());
+            f.stuetzen(l0 + 5, b0 + b, 0, erde);
+        }
+        // Ersatzkettenglieder quer auf dem Bug
+        for (int b = -1; b <= 1; b += 2) {
+            p.s(-3, b, 3, Blocks.CHAIN.defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS,
+                    f.quer().getAxis()));
         }
         // Innenraum mit Munitionskiste (unter der Luke)
-        f.setzen(l0 + 1, b0, 2, Bau.LUFT);
-        f.setzen(l0 + 1, b0, 1, Bau.LUFT);
+        p.s(1, 0, 2, Bau.LUFT);
+        p.s(1, 0, 1, Bau.LUFT);
         f.kiste(l0, b0, 1, "militaer", r, true);
-        // Turm 3x3 mit Kanone, oft verdreht
-        boolean quer = r.nextInt(3) == 0;
-        for (int l = -1; l <= 1; l++) {
+        // Turm l 0..2, b -1..1: vorn abgeschrägt, Luke in der Mitte
+        for (int l = 0; l <= 2; l++) {
             for (int b = -1; b <= 1; b++) {
-                f.setzen(l0 + 1 + l, b0 + b, 3, (l == 0 && b == 0) ? Blocks.IRON_TRAPDOOR.defaultBlockState()
-                        .setValue(net.minecraft.world.level.block.TrapDoorBlock.OPEN, true) : haut.get());
+                BlockState s = haut.get();
+                if (l == 0 && b != 0) {
+                    s = tr(blechTreppe, zur, false);
+                }
+                if (l == 1 && b == 0) {
+                    s = Blocks.IRON_TRAPDOOR.defaultBlockState().setValue(net.minecraft.world.level.block.TrapDoorBlock.OPEN, true);
+                }
+                p.s(l, b, 3, s);
             }
         }
-        net.minecraft.core.Direction.Axis achse = quer ? f.quer().getAxis() : f.lang().getAxis();
-        BlockState rohr = Blocks.POLISHED_BASALT.defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS, achse);
-        for (int i = 2; i <= 6; i++) {
-            if (quer) {
-                f.setzen(l0 + 1, b0 + i, 3, rohr);
+        // Kommandantenkuppel und Antenne
+        p.s(2, -1, 4, st(blechStufe, false));
+        p.s(2, 1, 4, Blocks.LIGHTNING_ROD.defaultBlockState());
+        p.s(2, 1, 5, Blocks.IRON_BARS.defaultBlockState());
+        if (alt) {
+            p.s(2, 1, 6, Blocks.IRON_BARS.defaultBlockState());
+        }
+        // Kanone: Blende, Rohr, Mündungsbremse
+        BlockState blende = blech.defaultBlockState();
+        BlockState muendung = Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
+        if (rohr == 1) {
+            net.minecraft.core.Direction.Axis achse = f.quer().getAxis();
+            BlockState rohrS = Blocks.POLISHED_BASALT.defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS, achse);
+            p.s(1, 2, 3, blende);
+            for (int i = 3; i <= 7; i++) {
+                p.s(1, i, 3, rohrS);
+            }
+            p.s(1, 8, 3, muendung);
+        } else {
+            int s = rohr == 0 ? -1 : 1;
+            int start = rohr == 0 ? -1 : 3;
+            BlockState rohrS = Blocks.POLISHED_BASALT.defaultBlockState().setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS,
+                    f.lang().getAxis());
+            p.s(start, 0, 3, blende);
+            for (int i = 1; i <= 5; i++) {
+                p.s(start + s * i, 0, 3, rohrS);
+            }
+            p.s(start + s * 6, 0, 3, muendung);
+        }
+        // Staukorb am Turmheck (nicht, wenn das Rohr nach hinten zeigt)
+        if (rohr != 2) {
+            p.s(3, -1, 3, laengs(Blocks.IRON_BARS, f.lang()));
+            p.s(3, 1, 3, laengs(Blocks.IRON_BARS, f.lang()));
+            if (r.nextInt(5) < 2) {
+                f.kiste(l0 + 3, b0, 3, "militaer", r, true);
             } else {
-                f.setzen(l0 + 1 - i, b0, 3, rohr);
+                p.s(3, 0, 3, Blocks.BROWN_WOOL.defaultBlockState()); // zusammengerollte Plane
             }
         }
         if (alt) {
             for (int i = 0; i < 6; i++) {
-                int l = l0 + r.nextInt(7) - 3;
-                int b = b0 + (r.nextBoolean() ? 3 : -3);
-                f.setzen(l, b, 1, Blocks.VINE.defaultBlockState()
-                        .setValue(b > b0 ? net.minecraft.world.level.block.VineBlock.getPropertyForFace(f.quer().getOpposite())
+                int l = r.nextInt(7) - 3;
+                int b = r.nextBoolean() ? 3 : -3;
+                p.s(l, b, 1, Blocks.VINE.defaultBlockState()
+                        .setValue(b > 0 ? net.minecraft.world.level.block.VineBlock.getPropertyForFace(f.quer().getOpposite())
                                 : net.minecraft.world.level.block.VineBlock.getPropertyForFace(f.quer()), true));
             }
-            f.setzen(l0 + 2, b0 - 1, 4, Blocks.MOSS_CARPET.defaultBlockState());
+            p.s(4, -1, 3, Blocks.MOSS_CARPET.defaultBlockState());
+            p.s(4, 1, 3, Blocks.MOSS_CARPET.defaultBlockState());
+            p.s(-2, 1, 3, Blocks.MOSS_CARPET.defaultBlockState());
         } else {
-            f.setzen(l0, b0 + 1, 4, Blocks.SKELETON_SKULL.defaultBlockState());
-            f.setzen(l0 + 1, b0, 2, Blocks.COBWEB.defaultBlockState());
+            p.s(0, 1, 4, Blocks.SKELETON_SKULL.defaultBlockState());
+            p.s(1, 0, 2, Blocks.COBWEB.defaultBlockState());
         }
+    }
+
+    /**
+     * Militärlastwagen (9 lang, 3 breit): Stoßstange mit Tarnscheinwerfern, Kühlergrill, gerundete Motorhaube,
+     * Fahrerhaus mit Frontscheibe und Türfenstern, Tank, Doppelachse hinten, Pritsche mit Holzboden, Spriegeln
+     * und zerrissener Plane. Mitte bei l = 0.
+     */
+    private static void lastwagen(Rahmen f, RandomSource r, int l0) {
+        BlockState blech = Blocks.WAXED_WEATHERED_CUT_COPPER.defaultBlockState();
+        BlockState flach = st(Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, false);
+        BlockState rad = Blocks.BLACK_CONCRETE.defaultBlockState();
+        BlockState plane = Blocks.GREEN_WOOL.defaultBlockState();
+        BlockState holz = Blocks.SPRUCE_PLANKS.defaultBlockState();
+        BlockState spriegel = Blocks.SPRUCE_FENCE.defaultBlockState();
+        Block glas = Blocks.GRAY_STAINED_GLASS_PANE;
+        for (int l = -4; l <= 4; l++) {
+            for (int b = -1; b <= 1; b++) {
+                boolean istRad = (l == -3 || l == 2 || l == 3) && b != 0;
+                BlockState unten = istRad ? rad : blech;
+                if (l == -1 && b == 1) {
+                    unten = Blocks.IRON_BLOCK.defaultBlockState(); // Tank
+                }
+                f.setzen(l0 + l, b, 0, unten);
+                f.stuetzen(l0 + l, b, 0, Blocks.COARSE_DIRT.defaultBlockState());
+            }
+        }
+        // Front: Grill, Tarnscheinwerfer, gerundete Haube
+        f.setzen(l0 - 4, 0, 1, laengs(Blocks.IRON_BARS, f.quer()));
+        f.setzen(l0 - 4, -1, 1, Blocks.REDSTONE_LAMP.defaultBlockState());
+        f.setzen(l0 - 4, 1, 1, Blocks.REDSTONE_LAMP.defaultBlockState());
+        for (int b = -1; b <= 1; b++) {
+            f.setzen(l0 - 4, b, 2, tr(Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS, f.lang(), false));
+            f.setzen(l0 - 3, b, 1, blech);
+            f.setzen(l0 - 3, b, 2, flach);
+        }
+        // Fahrerhaus
+        for (int b = -1; b <= 1; b++) {
+            f.setzen(l0 - 2, b, 1, blech);
+            f.setzen(l0 - 2, b, 2, r.nextInt(3) == 0 ? Bau.LUFT : laengs(glas, f.quer()));
+            f.setzen(l0 - 2, b, 3, flach);
+            f.setzen(l0 - 1, b, 3, flach);
+        }
+        f.setzen(l0 - 1, -1, 1, blech);
+        f.setzen(l0 - 1, 1, 1, r.nextInt(3) == 0 ? Bau.LUFT : blech); // Tür offen?
+        f.setzen(l0 - 1, 0, 1, tr(Blocks.SPRUCE_STAIRS, f.lang(), false)); // Sitzbank
+        f.setzen(l0 - 1, -1, 2, laengs(glas, f.lang()));
+        f.setzen(l0 - 1, 1, 2, r.nextInt(2) == 0 ? Bau.LUFT : laengs(glas, f.lang()));
+        f.setzen(l0 - 1, 0, 2, Bau.LUFT);
+        // Pritsche: Holzboden, Stirnwand, Spriegel, Plane mit Rissen
+        for (int l = 0; l <= 4; l++) {
+            for (int b = -1; b <= 1; b++) {
+                f.setzen(l0 + l, b, 1, holz);
+                boolean seite = b != 0;
+                BlockState wand;
+                if (l == 0) {
+                    wand = holz;
+                } else if (seite) {
+                    wand = r.nextInt(5) < 3 ? plane : (l == 2 || l == 4 ? spriegel : Bau.LUFT);
+                } else {
+                    wand = Bau.LUFT;
+                }
+                f.setzen(l0 + l, b, 2, wand);
+                BlockState dach = r.nextInt(4) > 0 ? plane : (seite && l % 2 == 0 ? spriegel : Bau.LUFT);
+                f.setzen(l0 + l, b, 3, dach);
+            }
+        }
+        f.kiste(l0 + 1, 0, 2, "militaer", r, true);
+        f.kiste(l0 + 2, 0, 2, r.nextInt(3) == 0 ? "waffenkammer" : "apotheke", r, false);
+        f.setzen(l0 + 4, 0, 2, Bau.LUFT);
+        f.setzen(l0 + 4, 0, 3, r.nextBoolean() ? plane : Bau.LUFT);
     }
 
     /** Liegengebliebener Konvoi: zwei Panzer und ein Lastwagen hintereinander, dazwischen Kisten und Sandsäcke. */
     private static void konvoi(Rahmen f, RandomSource r) {
-        krater(f, r, 9);
-        panzer(f, r, -9, 0, false);
-        panzer(f, r, 8, 1, false);
-        // Lastwagen in der Mitte: Fahrerhaus + Ladefläche mit Plane
-        BlockState lack = Blocks.GREEN_TERRACOTTA.defaultBlockState();
-        BlockState plane = Blocks.GREEN_WOOL.defaultBlockState();
-        for (int l = -2; l <= 3; l++) {
-            for (int b = -1; b <= 1; b++) {
-                f.setzen(l, b, 0, (l == -1 || l == 2) && b != 0 ? Blocks.BLACK_CONCRETE.defaultBlockState() : lack);
-                f.stuetzen(l, b, 0, Blocks.COARSE_DIRT.defaultBlockState());
-                if (l <= -1) {
-                    // Fahrerhaus: unten Blech, oben Frontscheibe (zersplittert) und Dach
-                    f.setzen(l, b, 1, lack);
-                    f.setzen(l, b, 2, l == -2 ? (r.nextInt(3) == 0 ? Bau.LUFT : Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState())
-                            : (b == 0 ? Bau.LUFT : Blocks.GRAY_STAINED_GLASS_PANE.defaultBlockState()));
-                    f.setzen(l, b, 3, lack);
-                } else {
-                    // Ladefläche mit zerrissener Plane über Spriegeln
-                    boolean rand = Math.abs(b) == 1 || l == 3;
-                    f.setzen(l, b, 1, rand && r.nextInt(4) > 0 ? plane : Bau.LUFT);
-                    f.setzen(l, b, 2, rand && r.nextInt(3) > 0 ? plane : Bau.LUFT);
-                    f.setzen(l, b, 3, r.nextInt(4) > 0 ? plane : Bau.LUFT);
-                }
-            }
-        }
-        f.setzen(-3, -1, 1, Blocks.REDSTONE_LAMP.defaultBlockState()); // Scheinwerfer
-        f.setzen(-3, 1, 1, Blocks.REDSTONE_LAMP.defaultBlockState());
-        f.kiste(1, 0, 1, "militaer", r, true);
-        f.kiste(2, 0, 1, r.nextInt(3) == 0 ? "waffenkammer" : "apotheke", r, false);
+        krater(f, r, 10);
+        panzer(f, r, -11, 0, false, r.nextInt(3) == 0 ? 1 : 0);
+        lastwagen(f, r, 0);
+        panzer(f, r, 10, 1, false, r.nextBoolean() ? 1 : 2);
         // Sandsäcke
         for (int i = 0; i < 6; i++) {
             BlockPos p = f.pos(-4 + r.nextInt(9), r.nextBoolean() ? 4 : -4, 0);

@@ -69,7 +69,7 @@ public class Feuerwehr implements Gebaeude {
             }
         }
         // Löschfahrzeug in der ersten Box
-        loeschfahrzeug(b.teil(t1, z1 + 2, t1 + 2, z1 + 8, 1, V, b.saat ^ 99), r);
+        de.deadzonemc.welt.bau.Fahrzeuge.loeschfahrzeug(b.teil(t1, z1 + 2, t1 + 2, z1 + 8, 1, V, b.saat ^ 99), b.saat ^ 98);
         // Spinde mit Ausrüstung an der rechten Wand
         for (int z = z1 + 2; z < z2 - 1; z += 2) {
             b.fass(x2 - 1, 1, z, L, "feuerwehr");
@@ -107,29 +107,5 @@ public class Feuerwehr implements Gebaeude {
             b.setze(tx1 + 1, 12, tz1 + 2, LUFT);
         }
         Hausbau.verwildern(b, 0, 0, B - 1, T - 1);
-    }
-
-    /** Rotes Löschfahrzeug: 7 lang, 3 breit, Leiter auf dem Dach. */
-    private void loeschfahrzeug(Baukasten b, Random r) {
-        for (int lz = 0; lz < 7; lz++) {
-            for (int lx = 0; lx < 3; lx++) {
-                boolean rad = (lz == 1 || lz == 5) && lx != 1;
-                b.setze(lx, 0, lz, rad ? Blocks.BLACK_CONCRETE : Blocks.RED_CONCRETE);
-                if (lz == 0) {
-                    b.setze(lx, 1, lz, Hausbau.stufe(Blocks.RED_NETHER_BRICK_SLAB, false));
-                } else if (lz <= 2) {
-                    b.setze(lx, 1, lz, lx == 1 ? Blocks.AIR : (lz == 1 ? Blocks.GRAY_STAINED_GLASS : Blocks.RED_CONCRETE));
-                    b.setze(lx, 2, lz, Blocks.RED_CONCRETE);
-                } else {
-                    b.setze(lx, 1, lz, lx == 1 && lz == 4 ? Blocks.WHITE_CONCRETE : Blocks.RED_CONCRETE);
-                    if (lx == 1) {
-                        b.setze(lx, 2, lz, Blocks.LADDER.defaultBlockState()
-                                .setValue(net.minecraft.world.level.block.LadderBlock.FACING, V));
-                    }
-                }
-            }
-        }
-        b.setze(1, 3, 1, Blocks.BLUE_STAINED_GLASS); // Blaulicht
-        b.fass(0, 1, 6, H, "feuerwehr");
     }
 }
