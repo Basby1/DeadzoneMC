@@ -41,6 +41,9 @@ public final class Fahrzeugschau {
             {115, 2, 35, -16, 14, -20, "flugzeug"},
             {108, 2, 35, -4, 3, -5, "flugzeug_innen"},
             {60, 4, -40, -18, 14, -18, "frachter"},
+            {10, 3, -30, -13, 9, -12, "hubschrauber"},
+            {10, 3, -30, 9, 6, 10, "hubschrauber_heck"},
+            {10, 2, -28, -5, 4, 7, "hubschrauber_tuer"},
     };
 
     public static int anzahlBlicke() {
@@ -116,5 +119,6 @@ public final class Fahrzeugschau {
         AbsturzFeature.testBauen(w, w.random, o.offset(60, 0, 35), AbsturzFeature.Art.KONVOI, Direction.EAST);
         AbsturzFeature.testBauen(w, w.random, o.offset(115, 0, 35), AbsturzFeature.Art.FLUGZEUG, Direction.EAST);
         AbsturzFeature.testBauen(w, w.random, o.offset(60, 0, -40), AbsturzFeature.Art.FRACHTER, Direction.EAST);
+        AbsturzFeature.testBauen(w, w.random, o.offset(10, 0, -30), AbsturzFeature.Art.HUBSCHRAUBER, Direction.EAST);
     }
 }
