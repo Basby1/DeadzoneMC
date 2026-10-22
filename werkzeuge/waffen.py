@@ -219,13 +219,10 @@ def rauschen(n, rng):
 
 
 def tiefpass(x, f):
+    """Einpoliger Tiefpass (gleiches Ergebnis wie die frühere Schleife, nur schnell)."""
+    from scipy.signal import lfilter
     a = math.exp(-2 * math.pi * f / RATE)
-    y = np.zeros_like(x)
-    acc = 0.0
-    for i in range(len(x)):
-        acc = (1 - a) * x[i] + a * acc
-        y[i] = acc
-    return y
+    return lfilter([1 - a], [1, -a], x)
 
 
 def huelle(n, anschlag, abklang):
@@ -233,22 +230,90 @@ def huelle(n, anschlag, abklang):
     return np.minimum(1, t / max(anschlag, 1e-4)) * np.exp(-t / abklang)
 
 
-def schuss(dauer, knall_f, abklang, druck, hall, rng, scharf=0.6):
+def _bp(x, a, b):
+    """Bandpass aus zwei einfachen Filtern (schnell genug für kurze Klänge)."""
+    return tiefpass(x, b) - tiefpass(x, a)
+
+
+def _verzerren(x, staerke):
+    return np.tanh(x * staerke) / np.tanh(staerke)
+
+
+def _echo(x, rng, laenge, hell, dichte=6):
+    """Echo über Gelände: einige verzögerte, dumpfere Kopien und ein langes, rollendes Nachgrollen."""
+    n = len(x)
+    y = x.copy()
+    for i in range(dichte):
+        v = int(RATE * rng.uniform(0.09, 0.45) * (1 + i * 0.35))
+        if v >= n:
+            break
+        kopie = tiefpass(x, hell * (0.8 - i * 0.08)) * (0.45 * 0.72 ** i)
+        y[v:] += kopie[:n - v]
+    t = np.arange(n) / RATE
+    rollen = tiefpass(rauschen(n, rng), hell * 0.35) * np.exp(-t / (laenge * 0.45)) * np.minimum(1, t / 0.05)
+    rollen *= 0.9 + 0.1 * np.sin(2 * math.pi * 3.1 * t)
+    return y + rollen * 0.28
+
+
+def _mechanik(art, rng):
+    """Geräusch des Verschlusses direkt nach dem Schuss."""
+    if art == "schlitten":  # Pistole: Schlitten fährt zurück und vor
+        return folge([(0.0, klick(rng, False, 0.03), 0.5), (0.025, klick(rng, True, 0.04), 0.4)], 0.1)
+    if art == "verschluss":  # Gewehr: Verschluss schlägt
+        return folge([(0.0, klick(rng, True, 0.05), 0.6), (0.03, klick(rng, False, 0.04), 0.35)], 0.12)
+    if art == "pumpe":  # Pumpgun: rack-rack
+        return folge([(0.0, ratsche(rng, 0.12), 0.9), (0.18, ratsche(rng, 0.1), 1.0), (0.2, klick(rng, True, 0.06), 0.7)], 0.38)
+    if art == "trommel":  # Revolver: Trommel dreht weiter
+        return folge([(0.0, klick(rng, False, 0.03), 0.4)], 0.06)
+    return np.zeros(int(0.05 * RATE))
+
+
+def ratsche(rng, laenge):
+    """Metall gleitet über Metall (Pumpe, Verschluss)."""
+    n = int(laenge * RATE)
+    t = np.arange(n) / RATE
+    x = _bp(rauschen(n, rng), 1500, 6000) * (0.6 + 0.4 * np.sin(2 * math.pi * 180 * t) ** 2)
+    return x * np.minimum(1, t / 0.005) * np.exp(-t / (laenge * 0.5))
+
+
+def schuss(p, rng):
+    """Ein Schuss in Schichten: Knall, Druckwelle, Körper, Mechanik, Echo.
+
+    p: groesse (0 Pistole … 1 schweres Gewehr/Schrot), knall (Höhe des Knalls), boom (Grundton der Druckwelle),
+    hall (Länge des Echos), mech (Verschluss-Art), scharf (Anteil des harten Überschallknalls)."""
+    dauer = 0.55 + p["hall"] * 1.1
     n = int(dauer * RATE)
     t = np.arange(n) / RATE
-    k = rauschen(n, rng) * huelle(n, 0.0005, abklang * 0.25)
-    k = tiefpass(k, knall_f) * (1 - scharf) + k * scharf * huelle(n, 0.0003, abklang * 0.08)
-    wumm = np.sin(2 * math.pi * (druck * (1 + 2 * np.exp(-t * 40))) * t) * huelle(n, 0.001, abklang * 0.6)
-    schweif = tiefpass(rauschen(n, rng), 900) * huelle(n, 0.01, hall) * 0.35
-    x = k * 1.0 + wumm * 0.8 + schweif
-    return x / (np.max(np.abs(x)) + 1e-6) * 0.95
+    g = p["groesse"]
+    # 1) Mündungsknall: extrem kurzer, breitbandiger Schlag (wenige Millisekunden)
+    knall = rauschen(n, rng) * np.exp(-t / (0.0025 + 0.003 * g))
+    knall = _bp(knall, 300, p["knall"] * 2.2) * 1.4 + rauschen(n, rng) * np.exp(-t / 0.0012) * p["scharf"]
+    # 2) Druckwelle: tiefer Ton, der schnell nach unten gleitet
+    f = p["boom"] * (1 + 1.8 * np.exp(-t * 55))
+    druck = np.sin(2 * math.pi * np.cumsum(f) / RATE) * np.exp(-t / (0.035 + 0.06 * g)) * (0.9 + 0.6 * g)
+    # 3) Körper: mittleres Rauschband, gibt dem Schuss das „Fleisch“
+    koerper = _bp(rauschen(n, rng), 180, 1400 + 1800 * (1 - g)) * np.exp(-t / (0.03 + 0.07 * g)) * np.minimum(1, t / 0.001)
+    x = knall + druck * 1.1 + koerper * (0.9 + 0.5 * g)
+    x = _verzerren(x, 2.2 + 1.5 * g)
+    # 4) Echo vom Gelände
+    x = _echo(x, rng, p["hall"], 2200 - 900 * g)
+    # 5) Mechanik direkt danach
+    m = _mechanik(p["mech"], rng)
+    start = int((0.07 + 0.05 * g) * RATE) if p["mech"] != "pumpe" else int(0.38 * RATE)
+    e = min(n, start + len(m))
+    x[start:e] += m[:e - start] * (0.18 if p["mech"] != "pumpe" else 0.32)
+    # Ein- und Ausblenden, normieren
+    x *= np.minimum(1, (dauer - t) / 0.08)
+    return x / (np.max(np.abs(x)) + 1e-6) * 0.97
 
 
 def klick(rng, tief=False, laenge=0.08):
+    """Metallklick mit kurzem Nachklingen (Magazin, Verschluss, Abzug)."""
     n = int(laenge * RATE)
-    x = rauschen(n, rng) * huelle(n, 0.0002, 0.006)
     t = np.arange(n) / RATE
-    x += np.sin(2 * math.pi * (1800 if not tief else 700) * t) * huelle(n, 0.0002, 0.012) * 0.5
+    x = _bp(rauschen(n, rng), 800, 9000) * np.exp(-t / 0.0025)
+    for f, a in ((1900 if not tief else 760, 0.5), (3100 if not tief else 1240, 0.3), (5200 if not tief else 2100, 0.15)):
+        x += np.sin(2 * math.pi * f * t) * np.exp(-t / (0.01 + 0.01 * tief)) * a
     return x
 
 
@@ -272,58 +337,89 @@ def speichern_ogg(name, x):
             w.setsampwidth(2)
             w.setframerate(RATE)
             w.writeframes((np.clip(x, -1, 1) * 32000).astype(np.int16).tobytes())
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-c:a", "libvorbis", "-q:a", "4",
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-c:a", "libvorbis", "-q:a", "5",
                         os.path.join(p, name + ".ogg")], check=True)
 
 
+def P(groesse, knall, boom, hall, mech, scharf):
+    return {"groesse": groesse, "knall": knall, "boom": boom, "hall": hall, "mech": mech, "scharf": scharf}
+
+
 SCHUSSKLANG = {
-    #                  Dauer Knall  Abklang Druck Hall  Schärfe
-    "p9": (0.7, 3200, 0.05, 90, 0.35, 0.65),
-    "revolver": (1.0, 2400, 0.08, 70, 0.6, 0.55),
-    "mp9": (0.5, 3400, 0.035, 95, 0.25, 0.7),
-    "pumpgun": (1.3, 1500, 0.12, 55, 0.8, 0.45),
-    "doppelflinte": (1.4, 1300, 0.14, 50, 0.9, 0.45),
-    "sturmgewehr": (0.9, 4200, 0.05, 80, 0.55, 0.75),
-    "kalaschnikow": (1.0, 3600, 0.06, 70, 0.6, 0.7),
-    "jagdgewehr": (1.6, 3800, 0.08, 60, 1.1, 0.75),
-    "praezisionsgewehr": (1.8, 4400, 0.08, 55, 1.3, 0.8),
-    "mg": (0.8, 3800, 0.05, 75, 0.5, 0.72),
-    "rohrpistole": (0.9, 1800, 0.07, 65, 0.4, 0.5),
-    "rohrgewehr": (1.1, 1600, 0.09, 55, 0.6, 0.5),
-    "karabiner": (1.0, 4000, 0.055, 75, 0.7, 0.75),
-    "nagelpistole": (0.25, 5200, 0.012, 160, 0.08, 0.9),
-    "betaeubungspistole": (0.3, 1200, 0.02, 120, 0.1, 0.25),
+    #                         Größe Knall Boom  Hall  Mechanik      Überschall
+    "p9": P(0.15, 3400, 95, 0.35, "schlitten", 0.5),
+    "revolver": P(0.45, 2600, 72, 0.6, "trommel", 0.6),
+    "mp9": P(0.1, 3600, 100, 0.28, "schlitten", 0.45),
+    "pumpgun": P(0.85, 1600, 52, 0.75, "pumpe", 0.3),
+    "doppelflinte": P(0.95, 1400, 48, 0.85, "keine", 0.3),
+    "sturmgewehr": P(0.55, 4400, 80, 0.6, "verschluss", 0.9),
+    "kalaschnikow": P(0.65, 3800, 70, 0.65, "verschluss", 0.85),
+    "jagdgewehr": P(0.85, 4000, 58, 1.1, "verschluss", 1.0),
+    "praezisionsgewehr": P(1.0, 4600, 52, 1.35, "verschluss", 1.0),
+    "mg": P(0.7, 4000, 72, 0.55, "verschluss", 0.85),
+    "rohrpistole": P(0.35, 1900, 68, 0.45, "keine", 0.25),
+    "rohrgewehr": P(0.6, 1700, 58, 0.65, "keine", 0.3),
+    "karabiner": P(0.6, 4200, 76, 0.75, "verschluss", 0.9),
 }
+
+
+def druckluft(rng, laenge, tief, zisch):
+    """Nagel- und Betäubungspistole: Druckluftstoß statt Explosion."""
+    n = int(laenge * RATE)
+    t = np.arange(n) / RATE
+    stoss = np.sin(2 * math.pi * np.cumsum(tief * (1 + np.exp(-t * 80))) / RATE) * np.exp(-t / 0.02)
+    luft = _bp(rauschen(n, rng), 1500, 7000) * np.exp(-t / zisch) * np.minimum(1, t / 0.002)
+    x = stoss * 0.9 + luft * 0.7 + klick(rng, True, laenge)[:n] * 0.4
+    return x / (np.max(np.abs(x)) + 1e-6) * 0.9
 
 
 def klaenge():
     rng = np.random.default_rng(11)
     eintraege = {}
-    for name, (dauer, knall, abkl, druck, hall, scharf) in SCHUSSKLANG.items():
+    for name, p in SCHUSSKLANG.items():
         for v in range(3):
-            x = schuss(dauer, knall * (0.92 + 0.08 * v), abkl, druck * (0.95 + 0.05 * v), hall, rng, scharf)
-            speichern_ogg(f"{name}_{v + 1}", x)
-        eintraege[f"waffe.{name}.schuss"] = [{"name": f"deadzonemc:waffe/{name}_{v + 1}", "attenuation_distance": 96}
+            q = dict(p)
+            q["knall"] *= 0.93 + 0.07 * v
+            q["boom"] *= 0.96 + 0.04 * v
+            speichern_ogg(f"{name}_{v + 1}", schuss(q, rng))
+        eintraege[f"waffe.{name}.schuss"] = [{"name": f"deadzonemc:waffe/{name}_{v + 1}", "attenuation_distance": 112}
                                             for v in range(3)]
-    # Armbrust: Sehne schnalzt
-    n = int(0.4 * RATE)
+    for name, tief, zisch in (("nagelpistole", 150, 0.03), ("betaeubungspistole", 110, 0.08)):
+        for v in range(3):
+            speichern_ogg(f"{name}_{v + 1}", druckluft(rng, 0.3, tief * (0.95 + 0.05 * v), zisch))
+        eintraege[f"waffe.{name}.schuss"] = [{"name": f"deadzonemc:waffe/{name}_{v + 1}", "attenuation_distance": 32}
+                                            for v in range(3)]
+    # Armbrust: Sehne schnalzt, Wurfarm schwingt nach
+    n = int(0.45 * RATE)
     t = np.arange(n) / RATE
-    x = np.sin(2 * math.pi * 140 * t * (1 + np.exp(-t * 30))) * huelle(n, 0.001, 0.06) + rauschen(n, rng) * huelle(n, 0.0005, 0.02) * 0.5
-    speichern_ogg("armbrust_1", x / np.max(np.abs(x)) * 0.8)
+    x = (np.sin(2 * math.pi * 130 * t * (1 + np.exp(-t * 30))) * np.exp(-t / 0.07)
+         + _bp(rauschen(n, rng), 600, 4000) * np.exp(-t / 0.015) * 0.8
+         + np.sin(2 * math.pi * 62 * t) * np.exp(-t / 0.12) * 0.4)
+    speichern_ogg("armbrust_1", x / np.max(np.abs(x)) * 0.85)
     eintraege["waffe.armbrust.schuss"] = [{"name": "deadzonemc:waffe/armbrust_1"}]
-    # gedämpft
+    # Schalldämpfer: dumpfes „Plopp“ plus deutlich hörbare Mechanik
     for v in range(2):
-        n = int(0.35 * RATE)
-        x = tiefpass(rauschen(n, rng), 1100 + 300 * v) * huelle(n, 0.001, 0.03)
-        speichern_ogg(f"gedaempft_{v + 1}", x / np.max(np.abs(x)) * 0.8)
+        n = int(0.4 * RATE)
+        t = np.arange(n) / RATE
+        plopp = (np.sin(2 * math.pi * np.cumsum(180 * (1 + np.exp(-t * 90))) / RATE) * np.exp(-t / 0.018)
+                 + tiefpass(rauschen(n, rng), 1300 + 300 * v) * np.exp(-t / 0.025) * 0.8)
+        m = _mechanik("schlitten" if v == 0 else "verschluss", rng)
+        plopp[int(0.04 * RATE):int(0.04 * RATE) + len(m)] += m[:n - int(0.04 * RATE)] * 0.45
+        speichern_ogg(f"gedaempft_{v + 1}", plopp / np.max(np.abs(plopp)) * 0.8)
     eintraege["waffe.gedaempft"] = [{"name": f"deadzonemc:waffe/gedaempft_{v + 1}"} for v in range(2)]
-    speichern_ogg("laden", folge([(0.0, klick(rng, True), 0.8), (0.18, klick(rng), 0.6), (0.42, klick(rng, True, 0.12), 0.9)], 0.7))
-    speichern_ogg("laden_fertig", folge([(0.0, klick(rng), 0.7), (0.09, klick(rng, True, 0.15), 1.0)], 0.4))
-    speichern_ogg("patrone", folge([(0.0, klick(rng, True, 0.1), 0.9), (0.06, klick(rng), 0.4)], 0.25))
-    speichern_ogg("leer", folge([(0.0, klick(rng, False, 0.05), 1.0)], 0.15))
-    n = int(0.5 * RATE)
+    # Nachladen: Magazin raus (gleitet, fällt), neues rein (einrasten), Verschluss
+    speichern_ogg("laden", folge([(0.0, klick(rng, True, 0.08), 0.8), (0.03, ratsche(rng, 0.09), 0.5),
+                                  (0.32, ratsche(rng, 0.07), 0.45), (0.4, klick(rng, True, 0.12), 1.0),
+                                  (0.44, klick(rng, False, 0.05), 0.5)], 0.75))
+    speichern_ogg("laden_fertig", folge([(0.0, ratsche(rng, 0.1), 0.8), (0.1, klick(rng, True, 0.15), 1.0),
+                                         (0.12, klick(rng, False, 0.06), 0.6)], 0.45))
+    speichern_ogg("patrone", folge([(0.0, klick(rng, True, 0.1), 0.9), (0.05, klick(rng, False, 0.05), 0.4)], 0.25))
+    speichern_ogg("leer", folge([(0.0, klick(rng, False, 0.04), 1.0), (0.02, klick(rng, True, 0.03), 0.3)], 0.12))
+    # Einschlag: Querschläger, der an Metall/Stein abprallt
+    n = int(0.55 * RATE)
     t = np.arange(n) / RATE
-    x = np.sin(2 * math.pi * (2600 - 1800 * t / 0.5) * t) * huelle(n, 0.001, 0.12) * 0.4 + rauschen(n, rng) * huelle(n, 0.0005, 0.015)
+    x = (np.sin(2 * math.pi * np.cumsum(3200 - 2100 * t / 0.55) / RATE) * np.exp(-t / 0.13) * 0.45
+         + _bp(rauschen(n, rng), 1200, 8000) * np.exp(-t / 0.008))
     speichern_ogg("einschlag", x / np.max(np.abs(x)) * 0.7)
     for k in ("laden", "laden_fertig", "patrone", "leer", "einschlag"):
         eintraege[f"waffe.{k}"] = [{"name": f"deadzonemc:waffe/{k}"}]
