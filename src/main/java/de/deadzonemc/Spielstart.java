@@ -41,7 +41,7 @@ public final class Spielstart {
             int wx = ziel.getX() + 7;
             int wz = ziel.getZ();
             de.deadzonemc.welt.feature.AbsturzFeature.startWrack(oberwelt, spieler.getRandom(),
-                    new BlockPos(wx, oberwelt.getHeight(Heightmap.Types.WORLD_SURFACE, wx, wz), wz));
+                    new BlockPos(wx, oberwelt.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, wx, wz), wz));
             spieler.teleportTo(oberwelt, ziel.getX() + 0.5, oberwelt.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     ziel.getX(), ziel.getZ()), ziel.getZ() + 0.5, -90F, 0F);
         }

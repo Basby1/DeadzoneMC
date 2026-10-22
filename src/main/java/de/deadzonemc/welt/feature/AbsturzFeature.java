@@ -81,7 +81,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                 || de.deadzonemc.welt.Staedte.stadtImUmkreis(cx, cz, 40)) {
             return false;
         }
-        int y = w.getHeight(Heightmap.Types.WORLD_SURFACE_WG, cx, cz);
+        int y = bodenHoehe(w, cx, cz);
         int meer = w.getSeaLevel();
         // Flach genug? (Frachter: Küste – Boden nahe Meereshöhe)
         int min = Integer.MAX_VALUE;
@@ -618,6 +618,34 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
      * (so erscheint am Start nicht gleich der Pilot). Das Triebwerk raucht noch – man sieht, wo man herkommt.
      */
     public static void startWrack(WorldGenLevel w, RandomSource r, BlockPos boden) {
+        // Der Absturz hat die Bäume ringsum umgerissen: Laub und Stämme weg, ein paar Stämme liegen am Boden
+        for (BlockPos q : BlockPos.betweenClosed(boden.offset(-12, -1, -12), boden.offset(12, 28, 12))) {
+            int dx = q.getX() - boden.getX();
+            int dz = q.getZ() - boden.getZ();
+            if (dx * dx + dz * dz > 144) {
+                continue;
+            }
+            BlockState b = w.getBlockState(q);
+            if (b.is(net.minecraft.tags.BlockTags.LEAVES) || b.is(net.minecraft.tags.BlockTags.LOGS)
+                    || b.is(Blocks.VINE) || b.is(Blocks.BEE_NEST)) {
+                w.setBlock(q, Bau.LUFT, Block.UPDATE_CLIENTS);
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            int x0 = boden.getX() + r.nextInt(19) - 9;
+            int z0 = boden.getZ() + r.nextInt(19) - 9;
+            boolean entlangX = r.nextBoolean();
+            for (int k = 0; k < 4 + r.nextInt(3); k++) {
+                int x = x0 + (entlangX ? k : 0);
+                int z = z0 + (entlangX ? 0 : k);
+                int y = w.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                w.setBlock(new BlockPos(x, y, z), Blocks.OAK_LOG.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS,
+                                entlangX ? Direction.Axis.X : Direction.Axis.Z), Block.UPDATE_CLIENTS);
+            }
+        }
+        boden = new BlockPos(boden.getX(), w.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, boden.getX(), boden.getZ()),
+                boden.getZ());
         ohneGegner = true;
         try {
             testBauen(w, r, boden, Art.HUBSCHRAUBER);
@@ -631,8 +659,24 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
+    /** Nach der Weltgenerierung (Startwrack, Selbsttest) gibt es die _WG-Höhenkarten nicht mehr. */
+    private static boolean nachWeltgen;
+
+    private static int bodenHoehe(WorldGenLevel w, int x, int z) {
+        return w.getHeight(nachWeltgen ? Heightmap.Types.MOTION_BLOCKING_NO_LEAVES : Heightmap.Types.WORLD_SURFACE_WG, x, z);
+    }
+
     /** Für den Selbsttest: ohne Ortsprüfung an {@code boden} bauen. */
     public static void testBauen(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
+        nachWeltgen = true;
+        try {
+            testBauenIntern(w, r, boden, art);
+        } finally {
+            nachWeltgen = false;
+        }
+    }
+
+    private static void testBauenIntern(WorldGenLevel w, RandomSource r, BlockPos boden, Art art) {
         Direction lang = Direction.Plane.HORIZONTAL.getRandomDirection(r);
         Rahmen f = new Rahmen(w, boden, lang, lang.getClockWise());
         switch (art) {
@@ -788,14 +832,14 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
             int b0 = r.nextBoolean() ? 5 + r.nextInt(5) : -6 - r.nextInt(5);
             for (int k = 0; k < 6; k++) {
                 BlockPos p = f.pos(l0 + (i % 2 == 0 ? k : 0), b0 + (i % 2 == 0 ? 0 : k), 0);
-                int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+                int y = bodenHoehe(f.w(), p.getX(), p.getZ());
                 f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), blatt, Block.UPDATE_CLIENTS);
             }
         }
         // Splitter und Blechteile im Krater
         for (int i = 0; i < 8; i++) {
             BlockPos p = f.pos(-8 + r.nextInt(17), -7 + r.nextInt(15), 0);
-            int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+            int y = bodenHoehe(f.w(), p.getX(), p.getZ());
             BlockPos q = new BlockPos(p.getX(), y, p.getZ());
             if (f.w().getBlockState(q).isAir()) {
                 f.w().setBlock(q, r.nextBoolean() ? platte : fenster, Block.UPDATE_CLIENTS);
@@ -890,7 +934,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         for (int l = 4; l <= 8; l++) {
             for (int b = 7; b <= 9; b++) {
                 BlockPos p = f.pos(l, b, 0);
-                int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+                int y = bodenHoehe(f.w(), p.getX(), p.getZ());
                 f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), Blocks.SMOOTH_STONE_SLAB.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
         }
@@ -1100,7 +1144,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         // Sandsäcke
         for (int i = 0; i < 6; i++) {
             BlockPos p = f.pos(-4 + r.nextInt(9), r.nextBoolean() ? 4 : -4, 0);
-            int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+            int y = bodenHoehe(f.w(), p.getX(), p.getZ());
             f.w().setBlock(new BlockPos(p.getX(), y, p.getZ()), Blocks.MUD_BRICK_SLAB.defaultBlockState(), Block.UPDATE_CLIENTS);
         }
         spawnen(f, de.deadzonemc.monster.MonsterTypen.GEFALLENER_SOLDAT::get, 2 + r.nextInt(2), r);
@@ -1120,7 +1164,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
         for (int l = -R; l <= R; l++) {
             for (int b = -R; b <= R; b++) {
                 BlockPos p = f.pos(l, b, 0);
-                int y = f.w().getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ()) - 1;
+                int y = bodenHoehe(f.w(), p.getX(), p.getZ()) - 1;
                 BlockPos u = new BlockPos(p.getX(), y, p.getZ());
                 if (f.w().getBlockState(u).is(Blocks.GRASS_BLOCK) && r.nextInt(3) > 0) {
                     f.w().setBlock(u, r.nextInt(3) == 0 ? Blocks.GRAVEL.defaultBlockState() : Blocks.COARSE_DIRT.defaultBlockState(),
@@ -1246,7 +1290,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 int x = f.o().getX() + dx;
                 int z = f.o().getZ() + dz;
-                int y = w.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
+                int y = bodenHoehe(w, x, z) - 1;
                 BlockPos p = new BlockPos(x, y, z);
                 BlockState alt = w.getBlockState(p);
                 if (alt.is(Blocks.GRASS_BLOCK) || alt.is(Blocks.DIRT) || alt.is(Blocks.PODZOL) || alt.is(Blocks.SAND)
@@ -1274,7 +1318,7 @@ public class AbsturzFeature extends Feature<NoneFeatureConfiguration> {
                 return;
             }
             BlockPos p = f.pos(-6 + r.nextInt(12), r.nextBoolean() ? 3 + r.nextInt(3) : -3 - r.nextInt(3), 0);
-            int y = w.getHeight(Heightmap.Types.WORLD_SURFACE_WG, p.getX(), p.getZ());
+            int y = bodenHoehe(w, p.getX(), p.getZ());
             m.moveTo(p.getX() + 0.5, y, p.getZ() + 0.5, r.nextFloat() * 360, 0);
             m.setPersistenceRequired();
             m.finalizeSpawn(w, w.getCurrentDifficultyAt(m.blockPosition()), MobSpawnType.STRUCTURE, null);
