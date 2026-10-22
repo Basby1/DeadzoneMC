@@ -1,0 +1,52 @@
+[21:13:11] [Render thread/ERROR] [minecraft/SoundManager]: Missing subtitle translation{key='subtitles.deadzonemc.waffe.nagelpistole.schuss', args=[]} for sound event: deadzonemc:waffe.nagelpistole.schuss
+[21:13:11] [Render thread/ERROR] [minecraft/SoundManager]: Missing subtitle translation{key='subtitles.deadzonemc.waffe.betaeubungspistole.schuss', args=[]} for sound event: deadzonemc:waffe.betaeubungspistole.schuss
+[21:13:11] [Render thread/ERROR] [minecraft/SoundManager]: Missing subtitle translation{key='subtitles.deadzonemc.waffe.karabiner.schuss', args=[]} for sound event: deadzonemc:waffe.karabiner.schuss
+[21:13:11] [Render thread/ERROR] [minecraft/SoundEngine]: Error starting SoundSystem. Turning off sounds & music
+java.lang.IllegalStateException: Failed to open OpenAL device
+[21:13:15] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 01_titel.png
+[21:13:26] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Phase 1
+[21:13:40] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Phase 2
+[21:13:44] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 02_editor_kopf.png
+[21:13:45] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 03_editor_kleidung.png
+[21:13:47] [IO-Worker-6/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 04_editor_ausruestung.png
+[21:13:48] [IO-Worker-7/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 05_editor_zufall.png
+[21:13:49] [IO-Worker-7/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 06_editor_zufall2.png
+[21:13:50] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Phase 3
+[21:13:51] [IO-Worker-6/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 07_warten.png
+[21:14:26] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] KINO_START 1792703666038
+[21:14:26] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] KINO_ART boot
+[21:14:28] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 08_kino_02.0.png
+[21:14:32] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 09_kino_06.0.png
+[21:14:36] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 10_kino_10.0.png
+[21:14:40] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 11_kino_14.0.png
+[21:14:43] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 12_kino_17.0.png
+[21:14:46] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 13_kino_20.0.png
+[21:14:50] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 14_kino_24.0.png
+[21:14:53] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 15_kino_27.0.png
+[21:14:55] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 16_kino_29.2.png
+[21:14:56] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 17_kino_30.8.png
+[21:14:58] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 18_kino_32.4.png
+[21:15:00] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 19_kino_34.0.png
+[21:15:01] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 20_kino_35.6.png
+[21:15:03] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 21_kino_37.0.png
+[21:15:05] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 22_kino_39.0.png
+[21:15:07] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 23_kino_41.0.png
+[21:15:09] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 24_kino_43.0.png
+[21:15:14] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 25_kino_48.0.png
+[21:15:17] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Phase 4
+[21:15:18] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 26_erwachen_12.png
+[21:15:19] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 27_erwachen_30.png
+[21:15:21] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 28_erwachen_60.png
+[21:15:24] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 29_erwachen_120.png
+[21:15:28] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 30_erwachen_200.png
+[21:15:31] [IO-Worker-5/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 31_erwachen_270.png
+[21:15:33] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] INTRO_ENDE 1792703733973
+[21:15:33] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Phase 5
+[21:15:34] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 32_klassenwahl.png
+[21:15:38] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 33_skin_vorne.png
+[21:15:40] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 34_skin_hinten.png
+[21:15:45] [IO-Worker-1/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 35_wrack_1.png
+[21:15:49] [IO-Worker-9/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 36_wrack_2.png
+[21:15:53] [IO-Worker-4/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Bild 37_wrack_3.png
+[21:15:53] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] Phase 6
+[21:15:53] [Render thread/INFO] [de.de.cl.ClientSelbsttest/]: [Clienttest] fertig
