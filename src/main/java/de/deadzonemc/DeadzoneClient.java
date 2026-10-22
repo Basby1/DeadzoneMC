@@ -36,6 +36,7 @@ public class DeadzoneClient {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::klick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientWaffen::fov);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientKlasse::tick);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientTasten::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.charakter.ClientCharakter::abmelden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientSchreck::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.client.ClientAtmosphaere::tick);

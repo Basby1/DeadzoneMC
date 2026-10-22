@@ -128,6 +128,15 @@ acceptable-game-versions = ["1.21"]
     with zipfile.ZipFile(AUSGABE, "a") as z:
         for j in jars:
             z.write(j, "overrides/mods/" + os.path.basename(j))
+    # Empfohlener Arbeitsspeicher (CurseForge stellt ihn beim Import ein): mit ~100 Mods ruckeln 4 GB spürbar
+    with zipfile.ZipFile(AUSGABE) as z:
+        inhalt = {n: z.read(n) for n in z.namelist()}
+    m = json.loads(inhalt["manifest.json"])
+    m["minecraft"]["recommendedRam"] = 8192
+    inhalt["manifest.json"] = json.dumps(m, indent=2).encode()
+    with zipfile.ZipFile(AUSGABE, "w", zipfile.ZIP_DEFLATED) as z:
+        for n, d in inhalt.items():
+            z.writestr(n, d)
 
     with zipfile.ZipFile(AUSGABE) as z:
         manifest = json.loads(z.read("manifest.json"))
@@ -160,8 +169,10 @@ def voreinstellungen():
             f.write(f"shaderPack={shader[0]}\nenableShaders=true\n")
     with open(os.path.join(PACK, "options.txt"), "w") as f:
         liste_ = ",".join(['"vanilla"'] + [f'"file/{p}"' for p in pakete])
-        f.write(f"lang:de_de\nresourcePacks:[{liste_}]\nrenderDistance:12\nsimulationDistance:8\n"
-                "gamma:0.0\nsoundCategory_ambient:1.0\ndarkMojangStudiosBackground:true\n")
+        f.write(f"lang:de_de\nresourcePacks:[{liste_}]\nrenderDistance:10\nsimulationDistance:8\n"
+                "entityDistanceScaling:0.75\ngamma:0.0\nsoundCategory_ambient:1.0\ndarkMojangStudiosBackground:true\n"
+                "key_iris.keybind.reload:key.keyboard.unknown\nkey_iris.keybind.toggleShaders:key.keyboard.unknown\n"
+                "key_iris.keybind.shaderPackSelection:key.keyboard.unknown\n")
     melden("notice", "Voreinstellungen", f"Shader: {shader}\nRessourcenpakete: {pakete}")
 
 
