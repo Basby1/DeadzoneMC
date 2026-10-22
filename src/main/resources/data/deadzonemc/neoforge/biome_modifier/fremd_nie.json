@@ -1,0 +1,23 @@
+{
+ "neoforge:conditions": [
+  {
+   "type": "neoforge:mod_loaded",
+   "modid": "born_in_chaos_v1"
+  }
+ ],
+ "type": "neoforge:remove_spawns",
+ "biomes": {
+  "type": "neoforge:any"
+ },
+ "entity_types": [
+  "born_in_chaos_v1:mr_pumpkin",
+  "born_in_chaos_v1:mrs_pumpkin",
+  "born_in_chaos_v1:senor_pumpkin",
+  "born_in_chaos_v1:sir_pumpkinhead",
+  "born_in_chaos_v1:pumpkin_bruiser",
+  "born_in_chaos_v1:pumpkin_dunce",
+  "born_in_chaos_v1:krampus",
+  "born_in_chaos_v1:krampus_henchman",
+  "born_in_chaos_v1:zombie_clown"
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "neoforge:conditions": [
+  {
+   "type": "neoforge:mod_loaded",
+   "modid": "born_in_chaos_v1"
+  }
+ ],
+ "type": "neoforge:remove_spawns",
+ "biomes": {
+  "type": "neoforge:not",
+  "value": {
+   "type": "neoforge:or",
+   "values": [
+    "#deadzonemc:totwald",
+    "#deadzonemc:sumpf",
+    "minecraft:dark_forest"
+   ]
+  }
+ },
+ "entity_types": [
+  "born_in_chaos_v1:restless_spirit",
+  "born_in_chaos_v1:spirit_guide",
+  "born_in_chaos_v1:spirit_guide_assistant",
+  "born_in_chaos_v1:spiritof_chaos",
+  "born_in_chaos_v1:lifestealer",
+  "born_in_chaos_v1:nightmare_stalker",
+  "born_in_chaos_v1:phantom_creeper"
+ ]
+}

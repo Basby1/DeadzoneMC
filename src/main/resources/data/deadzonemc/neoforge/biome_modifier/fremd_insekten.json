@@ -1,0 +1,24 @@
+{
+ "neoforge:conditions": [
+  {
+   "type": "neoforge:mod_loaded",
+   "modid": "born_in_chaos_v1"
+  }
+ ],
+ "type": "neoforge:remove_spawns",
+ "biomes": {
+  "type": "neoforge:not",
+  "value": {
+   "type": "neoforge:or",
+   "values": [
+    "#deadzonemc:sumpf",
+    "#deadzonemc:totwald"
+   ]
+  }
+ },
+ "entity_types": [
+  "born_in_chaos_v1:bloody_gadfly",
+  "born_in_chaos_v1:corpse_fly",
+  "born_in_chaos_v1:swarmer"
+ ]
+}

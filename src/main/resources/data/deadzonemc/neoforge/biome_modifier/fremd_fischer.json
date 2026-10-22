@@ -1,0 +1,21 @@
+{
+ "neoforge:conditions": [
+  {
+   "type": "neoforge:mod_loaded",
+   "modid": "born_in_chaos_v1"
+  }
+ ],
+ "type": "neoforge:remove_spawns",
+ "biomes": {
+  "type": "neoforge:not",
+  "value": {
+   "type": "neoforge:or",
+   "values": [
+    "#deadzonemc:wasser"
+   ]
+  }
+ },
+ "entity_types": [
+  "born_in_chaos_v1:zombie_fisherman"
+ ]
+}

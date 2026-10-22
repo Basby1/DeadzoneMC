@@ -1,0 +1,22 @@
+{
+ "neoforge:conditions": [
+  {
+   "type": "neoforge:mod_loaded",
+   "modid": "mutantmonsters"
+  }
+ ],
+ "type": "neoforge:remove_spawns",
+ "biomes": {
+  "type": "neoforge:not",
+  "value": {
+   "type": "neoforge:or",
+   "values": [
+    "#deadzonemc:verseucht",
+    "#minecraft:is_end"
+   ]
+  }
+ },
+ "entity_types": [
+  "mutantmonsters:mutant_enderman"
+ ]
+}

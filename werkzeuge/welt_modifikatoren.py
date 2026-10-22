@@ -132,6 +132,59 @@ MODIFIKATOREN = {
 }
 
 
+# ---- Monster anderer Mods ordentlich verteilen (Rückmeldung 22.10.: „überall spawnen einfach alle Mobs“) ----
+# Born in Chaos und Mutant Monsters setzen ihre Gegner in jedes Biom, sogar Kürbiswesen und Krampus. Hier bleibt
+# jede Gruppe nur dort, wo sie hinpasst: Aus allen anderen Biomen werden ihre Spawns entfernt. (Entfernen läuft
+# nach dem Hinzufügen; deshalb wird gezielt nur außerhalb der erlaubten Biome entfernt – "neoforge:not".)
+BIC = "born_in_chaos_v1:"
+FREMD = {
+    # Feiertagswesen passen nicht in die Sperrzone: nirgends von selbst
+    "fremd_nie": (None, [BIC + x for x in ("mr_pumpkin", "mrs_pumpkin", "senor_pumpkin", "sir_pumpkinhead", "pumpkin_bruiser",
+                                           "pumpkin_dunce", "krampus", "krampus_henchman", "zombie_clown")]),
+    # Skelette, Ritter, Kultisten: tote Wälder und verseuchtes Land
+    "fremd_totwald": (["#deadzonemc:totwald", "#deadzonemc:verseucht"],
+                      [BIC + x for x in ("baby_skeleton", "decrepit_skeleton", "siamese_skeletons", "skeleton_thrasher",
+                                         "skeleton_demoman", "bonescaller", "supreme_bonescaller", "door_knight",
+                                         "fallen_chaos_knight", "missioner", "dark_vortex")]),
+    # Geister und Nachtgestalten: tote Wälder, Sümpfe, finstere Wälder
+    "fremd_geister": (["#deadzonemc:totwald", "#deadzonemc:sumpf", "minecraft:dark_forest"],
+                      [BIC + x for x in ("restless_spirit", "spirit_guide", "spirit_guide_assistant", "spiritof_chaos",
+                                         "lifestealer", "nightmare_stalker", "phantom_creeper")]),
+    # Infizierte vom Land
+    "fremd_land": (["#deadzonemc:land"], [BIC + x for x in ("decaying_zombie", "barrel_zombie", "zombie_bruiser")]),
+    "fremd_holzfaeller": (["#minecraft:is_forest", "#minecraft:is_taiga"], [BIC + "zombie_lumberjack"]),
+    "fremd_fischer": (["#deadzonemc:wasser"], [BIC + "zombie_fisherman"]),
+    # Höllenhunde: Taiga und Schnee
+    "fremd_hunde": (["#minecraft:is_taiga", "#deadzonemc:schnee"], [BIC + "dread_hound", BIC + "dire_hound_leader"]),
+    # Spinnen: Dschungel, finstere Wälder, Sümpfe
+    "fremd_spinnen": (["#minecraft:is_jungle", "minecraft:dark_forest", "#deadzonemc:sumpf"], [BIC + "mother_spider", BIC + "baby_spider"]),
+    # Fliegen und Bremsen: Sümpfe und Aas im toten Wald
+    "fremd_insekten": (["#deadzonemc:sumpf", "#deadzonemc:totwald"], [BIC + "bloody_gadfly", BIC + "corpse_fly", BIC + "swarmer"]),
+    # Mutanten: nur im verseuchten Land (die Strahlung hat sie gemacht); der Mutant-Enderman bleibt im End
+    "fremd_mutanten": (["#deadzonemc:verseucht"], ["mutantmonsters:mutant_zombie", "mutantmonsters:mutant_skeleton",
+                                                   "mutantmonsters:mutant_creeper"]),
+    "fremd_mutant_enderman": (["#deadzonemc:verseucht", "#minecraft:is_end"], ["mutantmonsters:mutant_enderman"]),
+}
+
+
+def fremd_modifikatoren():
+    aus = {}
+    for name, (erlaubt, arten) in FREMD.items():
+        if erlaubt is None:
+            biome = {"type": "neoforge:any"}
+        else:
+            werte = list(erlaubt)
+            biome = {"type": "neoforge:not", "value": {"type": "neoforge:or", "values": werte}}
+        mod = arten[0].split(":")[0]
+        # Nur wenn die Mod da ist (sonst wären die Namen unbekannt und die Welt ließe sich nicht laden)
+        aus[name] = {"neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": mod}],
+                     "type": "neoforge:remove_spawns", "biomes": biome, "entity_types": arten}
+    return aus
+
+
+MODIFIKATOREN.update(fremd_modifikatoren())
+
+
 def main():
     t = os.path.join(D, "tags", "worldgen", "biome")
     os.makedirs(t, exist_ok=True)

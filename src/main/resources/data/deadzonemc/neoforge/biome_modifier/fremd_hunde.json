@@ -1,0 +1,23 @@
+{
+ "neoforge:conditions": [
+  {
+   "type": "neoforge:mod_loaded",
+   "modid": "born_in_chaos_v1"
+  }
+ ],
+ "type": "neoforge:remove_spawns",
+ "biomes": {
+  "type": "neoforge:not",
+  "value": {
+   "type": "neoforge:or",
+   "values": [
+    "#minecraft:is_taiga",
+    "#deadzonemc:schnee"
+   ]
+  }
+ },
+ "entity_types": [
+  "born_in_chaos_v1:dread_hound",
+  "born_in_chaos_v1:dire_hound_leader"
+ ]
+}
