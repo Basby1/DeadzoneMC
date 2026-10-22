@@ -118,8 +118,8 @@ public final class ClientKino {
         tick = 0;
         float gier = mc.player.getYRot();
         richtung = new Vec3(-Mth.sin(gier * Mth.DEG_TO_RAD), 0, Mth.cos(gier * Mth.DEG_TO_RAD)).normalize();
-        // Modell-+x (Seite mit der Schiebetür) liegt in GeckoLib links vom Blick – so zeigt "rechts" zur Tür
-        rechts = new Vec3(richtung.z, 0, -richtung.x);
+        // Modell-+x (Seite mit der Schiebetür) liegt rechts vom Blick (der Renderer dreht den Hubschrauber selbst)
+        rechts = new Vec3(-richtung.z, 0, richtung.x);
         heliGier = gier;
         boden = mc.player.getY();
         double hoehe = Math.min(boden + 58, level.getMaxBuildHeight() - 20);
