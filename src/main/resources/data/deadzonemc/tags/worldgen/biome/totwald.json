@@ -19,6 +19,10 @@
   {
    "id": "biomesoplenty:wasteland_steppe",
    "required": false
+  },
+  {
+   "id": "regions_unexplored:ashen_woodland",
+   "required": false
   }
  ]
 }

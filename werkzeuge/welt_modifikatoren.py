@@ -15,13 +15,14 @@ TAGS = {
     # Verseuchtes Land: Strahlung in der Luft, strahlende Fässer
     "verseucht": optional("minecraft:badlands", "minecraft:eroded_badlands", "minecraft:wooded_badlands",
                           "biomesoplenty:wasteland", "biomesoplenty:wasteland_steppe", "biomesoplenty:volcanic_plains",
-                          "biomesoplenty:dead_forest", "biomesoplenty:scrubland", "biomesoplenty:dryland"),
+                          "biomesoplenty:dead_forest", "biomesoplenty:scrubland", "biomesoplenty:dryland",
+                          "regions_unexplored:ashen_woodland", "regions_unexplored:outback"),
     # Giftgas: ohne Gasmaske mit Filter vergiftet man sich
     "giftgas": optional("minecraft:swamp", "biomesoplenty:bog", "biomesoplenty:marsh", "biomesoplenty:wetland",
                         "biomesoplenty:fungal_jungle"),
     # Abgestorbene Wälder
     "totwald": optional("biomesoplenty:dead_forest", "biomesoplenty:wasteland", "biomesoplenty:bog",
-                        "biomesoplenty:muskeg", "biomesoplenty:wasteland_steppe"),
+                        "biomesoplenty:muskeg", "biomesoplenty:wasteland_steppe", "regions_unexplored:ashen_woodland"),
     # Lebensräume für Herden und Spawns
     # Verseucht oder Totwald – jeder Biom nur einmal, sonst entsteht ein Zyklus in der Feature-Reihenfolge
     "schreinland": ["#deadzonemc:verseucht", "#deadzonemc:totwald"],
@@ -29,9 +30,11 @@ TAGS = {
                      "#c:is_snowy", "minecraft:plains", "minecraft:meadow"),
     "wasser": optional("#minecraft:is_river", "#minecraft:is_beach", "#c:is_swamp", "minecraft:swamp",
                        "minecraft:mangrove_swamp"),
-    "wueste": optional("#c:is_desert", "#minecraft:is_badlands", "minecraft:desert"),
+    "wueste": optional("#c:is_desert", "#minecraft:is_badlands", "minecraft:desert", "regions_unexplored:joshua_desert",
+                       "regions_unexplored:saguaro_desert", "regions_unexplored:salt_flats", "regions_unexplored:outback"),
     "schnee": optional("#c:is_snowy", "minecraft:snowy_plains", "minecraft:snowy_taiga", "minecraft:ice_spikes",
-                       "minecraft:frozen_peaks", "minecraft:snowy_slopes", "minecraft:grove"),
+                       "minecraft:frozen_peaks", "minecraft:snowy_slopes", "minecraft:grove",
+                       "regions_unexplored:frozen_tundra", "regions_unexplored:icy_heights", "regions_unexplored:frozen_pine_taiga"),
     "sumpfwald": optional("#c:is_swamp", "minecraft:swamp", "minecraft:mangrove_swamp", "minecraft:dark_forest",
                           "biomesoplenty:bog", "biomesoplenty:marsh", "biomesoplenty:wetland",
                           "biomesoplenty:fungal_jungle", "biomesoplenty:mystic_grove", "biomesoplenty:ominous_woods"),

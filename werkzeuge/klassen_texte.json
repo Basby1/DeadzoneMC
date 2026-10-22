@@ -1,7 +1,7 @@
 {
  "klasse.deadzonemc.waehlen": "Auswahl übernehmen",
  "klasse.deadzonemc.plaetze": "Gerade wirken bis zu %s Klassen gleichzeitig (gewählt: %s). Allein 3, zu zweit 2, ab drei Spielern 1.",
- "klasse.deadzonemc.gewaehlt": "Deine Klassen: %s. Fähigkeit mit V, Schleichen + V wechselt die Fähigkeit, Klassenwahl mit K.",
+ "klasse.deadzonemc.gewaehlt": "Deine Klassen: %s. Fähigkeit mit V, Schleichen + V wechselt die Fähigkeit, Klassenwahl mit O.",
  "klasse.deadzonemc.zu_viele": "Gerade kannst du höchstens %s Klassen gleichzeitig spielen.",
  "klasse.deadzonemc.faehigkeit_gewechselt": "Fähigkeit auf V: %s",
  "klasse.deadzonemc.feld.kombi": "Kombinationen",
@@ -30,5 +30,6 @@
  "kombi.deadzonemc.sanitaeter_spaeher": "Überlebenskünstler",
  "kombi.deadzonemc.sanitaeter_spaeher.text": "Unter 40 % Leben bist du schneller auf den Beinen.",
  "kombi.deadzonemc.techniker_spaeher": "Saboteur",
- "kombi.deadzonemc.techniker_spaeher.text": "Arbeitet lautlos: Waffen 30 % leiser."
+ "kombi.deadzonemc.techniker_spaeher.text": "Arbeitet lautlos: Waffen 30 % leiser.",
+ "klasse.deadzonemc.hinweis_basis": "Wechseln geht nur im Bereich eurer Basis (Taste O)."
 }

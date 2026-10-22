@@ -5,6 +5,7 @@
 mc-mods/the-lost-cities                 both
 mc-mods/structory                       both
 mc-mods/biomes-o-plenty                 both
+mc-mods/regions-unexplored              both
 # mc-mods/lootr  (entfernt: Truhen blieben im Pack leer)
 
 # --- Waffen & Kampf ---
@@ -61,6 +62,7 @@ mc-mods/macaws-doors                    both
 mc-mods/macaws-bridges                  both
 mc-mods/macaws-stairs                   both
 mc-mods/another-furniture               both
+mc-mods/framedblocks                    both
 mc-mods/chipped                         both
 mc-mods/every-compat                    both
 mc-mods/storage-drawers                 both
@@ -88,6 +90,9 @@ shaders/complementary-reimagined        client
 # --- Hilfen & Leistung ---
 mc-mods/jei                             both
 mc-mods/jade                            both
+mc-mods/noisium                         both
+mc-mods/fastsuite                       both
+mc-mods/all-the-leaks                   both
 mc-mods/modernfix                       both
 mc-mods/ferritecore                     both
 mc-mods/immediatelyfast                 client

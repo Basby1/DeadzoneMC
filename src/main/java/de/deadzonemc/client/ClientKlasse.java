@@ -28,7 +28,7 @@ public final class ClientKlasse {
     public static final KeyMapping FAEHIGKEIT = new KeyMapping("key.deadzonemc.faehigkeit",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, "key.categories.deadzonemc");
     public static final KeyMapping KLASSENWAHL = new KeyMapping("key.deadzonemc.klassenwahl",
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, "key.categories.deadzonemc");
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, "key.categories.deadzonemc");
 
     /** Hauptklasse (erste gewählte) oder "". */
     public static String klasse() {

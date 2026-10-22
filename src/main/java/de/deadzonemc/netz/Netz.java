@@ -37,6 +37,10 @@ public final class Netz {
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.IntroScreen.starten(n.namen())));
         registrar.playToClient(ArchivPayload.TYPE, ArchivPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientGeschichte.archiv = n.notizen()));
+        registrar.playBidirectional(de.deadzonemc.geschichte.TutorialPayload.TYPE, de.deadzonemc.geschichte.TutorialPayload.STREAM_CODEC,
+                new net.neoforged.neoforge.network.handling.DirectionalPayloadHandler<>(
+                        (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientTutorial.empfangen(n)),
+                        de.deadzonemc.geschichte.Tutorial::empfangen));
         registrar.playToClient(LaermPayload.TYPE, LaermPayload.STREAM_CODEC,
                 (n, ctx) -> ctx.enqueueWork(() -> de.deadzonemc.client.ClientLaerm.empfangen(n.radius())));
         registrar.playToClient(EntdecktPayload.TYPE, EntdecktPayload.STREAM_CODEC,

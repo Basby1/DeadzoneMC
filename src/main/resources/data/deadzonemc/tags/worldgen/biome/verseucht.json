@@ -35,6 +35,14 @@
   {
    "id": "biomesoplenty:dryland",
    "required": false
+  },
+  {
+   "id": "regions_unexplored:ashen_woodland",
+   "required": false
+  },
+  {
+   "id": "regions_unexplored:outback",
+   "required": false
   }
  ]
 }

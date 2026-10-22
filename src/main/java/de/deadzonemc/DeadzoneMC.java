@@ -88,6 +88,7 @@ public class DeadzoneMC {
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.mensch.Gebiete::tick);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.geschichte.Entscheidung::befehl);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.geschichte.Entscheidung::anmelden);
+        NeoForge.EVENT_BUS.addListener(de.deadzonemc.geschichte.Tutorial::anmelden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Klassen::schaden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::schaden);
         NeoForge.EVENT_BUS.addListener(de.deadzonemc.klasse.Talente::effekt);

@@ -1,0 +1,11 @@
+{
+ "tutorial.deadzonemc.titel": "ERSTE SCHRITTE (%s/%s)",
+ "tutorial.deadzonemc.wrack": "Durchsuch die Kisten im Wrack neben dir. Rechtsklick öffnet sie.",
+ "tutorial.deadzonemc.tagebuch": "Drück J: Dein Tagebuch zeigt, was als Nächstes zu tun ist.",
+ "tutorial.deadzonemc.klasse": "Drück O und wähle deine Klasse. Allein darfst du drei nehmen.",
+ "tutorial.deadzonemc.handbuch": "Nimm das Handbuch in die Hand und lies die ersten Seiten (Rechtsklick).",
+ "tutorial.deadzonemc.folgen": "Folge der Leiste oben am Bildschirm. Sie führt dich zur Zuflucht. Bleib leise – Sprinten lockt Infizierte an.",
+ "tutorial.deadzonemc.zuflucht": "Erreiche die Zuflucht und sprich mit dem Verwalter.",
+ "tutorial.deadzonemc.fertig.titel": "ERSTE SCHRITTE ✔",
+ "tutorial.deadzonemc.fertig": "Du bist angekommen. Ab jetzt zeigen dir Tagebuch (J) und Leiste den Weg. Viel Glück."
+}
